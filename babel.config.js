@@ -1,11 +1,8 @@
 module.exports = {
   presets: [
-    ['babel-preset-expo', { jsxImportSource: 'nativewind' }],
-    'nativewind/babel',
+    ['babel-preset-expo'],
   ],
   plugins: [
-    // Required for expo-router
-    'expo-router/babel',
-    'react-native-reanimated/plugin',
+    ["@babel/plugin-transform-typescript", { "isTSX": true }],
   ],
 };
