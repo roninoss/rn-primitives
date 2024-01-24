@@ -34,6 +34,7 @@
     "url": "https://github.com/roninoss/rn-primitives/issues"
   },
   "dependencies": {
+    "@babel/runtime": "^7.23.9",
     "@rn-primitives/internal-types": "workspace:*"
   },
   "peerDependencies": {

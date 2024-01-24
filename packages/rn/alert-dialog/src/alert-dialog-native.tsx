@@ -6,8 +6,8 @@ import {
   View,
   type GestureResponderEvent,
 } from 'react-native';
-import { Portal as RNPPortal } from '../portal';
-import * as Slot from '../slot';
+import { Portal as RNPPortal } from '@rn-primitives/portal';
+import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
   SlottablePressableProps,
@@ -15,7 +15,7 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type {
   AlertDialogContentProps,
   AlertDialogOverlayProps,

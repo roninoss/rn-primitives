@@ -1,5 +1,5 @@
 {
-  "name": "@rn-primitives/cn",
+  "name": "@rn-primitives/radio-group",
   "version": "1.0.0",
   "license": "MIT",
   "exports": {
@@ -34,7 +34,20 @@
     "url": "https://github.com/roninoss/rn-primitives/issues"
   },
   "dependencies": {
-
+    "@babel/runtime": "^7.23.9",
+    "@radix-ui/react-radio-group": "^1.1.3",
+    "@rn-primitives/internal-types": "workspace:*",
+    "@rn-primitives/portal": "workspace:*",
+    "@rn-primitives/slot": "workspace:*"
+  },
+  "peerDependencies": {
+    "@types/react": "*",
+    "react": "^18.2.0",
+    "react-native": "^0.72.6"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
   }
-}
 }

@@ -1,8 +1,9 @@
 import * as ContextMenu from '@radix-ui/react-context-menu';
 import React from 'react';
 import { GestureResponderEvent, Pressable, Text, View } from 'react-native';
-import * as Slot from '~/lib/rn-primitives/slot/slot-native';
-import { useAugmentedRef } from '../hooks/useAugmentedRef';
+// TODO: previously imported @rn-primitives/slot/slot-native
+import * as Slot from '@rn-primitives/slot';
+import { useAugmentedRef } from '@rn-primitives/use-augmented-ref';
 import type {
   ForceMountable,
   PositionedContentProps,
@@ -12,7 +13,7 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type {
   ContextMenuCheckboxItemProps,
   ContextMenuItemProps,
@@ -25,7 +26,7 @@ import type {
   ContextMenuSubProps,
   ContextMenuSubTriggerProps,
 } from './types';
-import { EmptyGestureResponderEvent } from '../utils';
+import { EmptyGestureResponderEvent } from '@rn-primitives/empty-gesture-recognizer-event';
 
 const ContextMenuContext = React.createContext<ContextMenuRootProps | null>(
   null

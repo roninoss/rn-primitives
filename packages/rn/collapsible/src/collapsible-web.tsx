@@ -1,14 +1,14 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import { useAugmentedRef } from '../hooks/useAugmentedRef';
-import * as Slot from '../slot';
+import { useAugmentedRef } from '@rn-primitives/use-augmented-ref';
+import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type { CollapsibleContentProps, CollapsibleRootProps } from './types';
 
 const CollapsibleContext = React.createContext<CollapsibleRootProps | null>(

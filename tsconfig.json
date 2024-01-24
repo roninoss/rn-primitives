@@ -37,7 +37,8 @@
       "@rn-primitives/toggle-group": ["./packages/rn/toggle-group/src"],
       "@rn-primitives/toolbar": ["./packages/rn/toolbar/src"],
       "@rn-primitives/tooltip": ["./packages/rn/tooltip/src"],
-      "@rn-primitives/use-augmented-ref": ["./packages/rn/use-augmented-ref/src"]
+      "@rn-primitives/use-augmented-ref": ["./packages/rn/use-augmented-ref/src"],
+      "@rn-primitives/use-relative-position": ["./packages/rn/use-relative-position/src"]
     }
   }
 }

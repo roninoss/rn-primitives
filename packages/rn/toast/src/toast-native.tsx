@@ -5,7 +5,7 @@ import {
   View,
   type GestureResponderEvent,
 } from 'react-native';
-import * as Slot from '../slot';
+import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
   SlottablePressableProps,
@@ -13,7 +13,7 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type { ToastRootProps } from './types';
 
 interface RootContext extends ToastRootProps {

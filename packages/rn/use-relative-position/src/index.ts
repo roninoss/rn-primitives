@@ -1,1 +1,1 @@
-export { useRelativePosition } from './use-relative-position';
+export { type LayoutPosition, useRelativePosition } from './use-relative-position';

@@ -11,16 +11,16 @@ import { createStore, useStore, type StoreApi } from 'zustand';
 import {
   useRelativePosition,
   type LayoutPosition,
-} from '../hooks/useRelativePosition';
-import { Portal as RNPPortal } from '../portal';
-import * as Slot from '../slot';
+} from '@rn-primitives/use-relative-position';
+import { Portal as RNPPortal } from '@rn-primitives/portal';
+import * as Slot from '@rn-primitives/slot';
 import type {
   PositionedContentProps,
   PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type {
   PopoverOverlayProps,
   PopoverPortalProps,

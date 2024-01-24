@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 
 import * as ToggleGroupNative from './toggle-group-native';
 import * as ToggleGroupWeb from './toggle-group-web';
-import { ToggleGroupUtils } from '../utils';
+import * as ToggleGroupUtils from '@rn-primitives/toggle-group-utils';
 
 export const Root = Platform.select({
   web: ToggleGroupWeb.Root,

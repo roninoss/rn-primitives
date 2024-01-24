@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, type GestureResponderEvent } from 'react-native';
-import * as Slot from '../slot';
-import type { PressableRef, SlottablePressableProps } from '../types';
+import * as Slot from '@rn-primitives/slot';
+import type { PressableRef, SlottablePressableProps } from '@rn-primitives/internal-types';
 import type { ToggleRootProps } from './types';
 
 const Root = React.forwardRef<

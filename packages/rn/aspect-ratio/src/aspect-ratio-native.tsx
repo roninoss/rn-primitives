@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import * as Slot from '../slot';
-import type { SlottableViewProps } from '../types';
+import * as Slot from '@rn-primitives/slot';
+import type { SlottableViewProps } from '@rn-primitives/internal-types';
 import type { AspectRatioRootProps } from './types';
 
 const Root = React.forwardRef<

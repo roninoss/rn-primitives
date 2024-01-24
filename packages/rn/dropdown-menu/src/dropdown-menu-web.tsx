@@ -1,8 +1,9 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import React from 'react';
 import { GestureResponderEvent, Pressable, Text, View } from 'react-native';
-import * as Slot from '~/lib/rn-primitives/slot/slot-native';
-import { useAugmentedRef } from '../hooks/useAugmentedRef';
+// TODO: this imported @rn-primitives/slot/slot-native
+import * as Slot from '@rn-primitives/slot';
+import { useAugmentedRef } from '@rn-primitives/use-augmented-ref';
 import type {
   ForceMountable,
   PositionedContentProps,
@@ -12,8 +13,8 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from '../types';
-import { EmptyGestureResponderEvent } from '../utils';
+} from '@rn-primitives/internal-types';
+import { EmptyGestureResponderEvent } from '@rn-primitives/empty-gesture-recognizer-event';
 import type {
   DropdownMenuCheckboxItemProps,
   DropdownMenuItemProps,
@@ -240,6 +241,7 @@ const Item = React.forwardRef<
       >
         <Component
           ref={ref}
+          // TODO: error TS2322: Property 'onKeyDown' does not exist on type 'IntrinsicAttributes & PressableProps & RefAttributes<View>'.
           // @ts-expect-error web only
           onKeyDown={onKeyDown}
           onPress={onPress}
@@ -328,6 +330,7 @@ const CheckboxItem = React.forwardRef<
       >
         <Component
           ref={ref}
+          // TODO: ibid.
           // @ts-expect-error web only
           onKeyDown={onKeyDown}
           onPress={onPress}
@@ -424,6 +427,7 @@ const RadioItem = React.forwardRef<
       >
         <Component
           ref={ref}
+          // TODO: ibid.
           // @ts-expect-error web only
           onKeyDown={onKeyDown}
           onPress={onPress}

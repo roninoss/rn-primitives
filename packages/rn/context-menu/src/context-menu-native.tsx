@@ -10,12 +10,14 @@ import {
   type LayoutRectangle,
 } from 'react-native';
 import { createStore, useStore, type StoreApi } from 'zustand';
-import { Portal as RNPPortal } from '~/lib/rn-primitives/portal/portal-native';
-import * as Slot from '~/lib/rn-primitives/slot/slot-native';
+// TODO: used @rn-primitives/protal/portal-native
+import { Portal as RNPPortal } from '@rn-primitives/portal';
+// TODO: used @rn-primitives/slot/slot-native
+import * as Slot from '@rn-primitives/slot';
 import {
   useRelativePosition,
   type LayoutPosition,
-} from '../hooks/useRelativePosition';
+} from '@rn-primitives/use-relative-position';
 import type {
   ForceMountable,
   PositionedContentProps,
@@ -25,7 +27,7 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type {
   ContextMenuCheckboxItemProps,
   ContextMenuItemProps,

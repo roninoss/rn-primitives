@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import * as Slot from '../slot';
-import type { SlottableViewProps, ViewRef } from '../types';
+import * as Slot from '@rn-primitives/slot';
+import type { SlottableViewProps, ViewRef } from '@rn-primitives/internal-types';
 import type { ProgressRootProps } from './types';
 
 // This project uses code from WorkOS/Radix Primitives.

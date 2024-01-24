@@ -7,12 +7,13 @@ import {
   View,
 } from 'react-native';
 import { StoreApi, createStore, useStore } from 'zustand';
-import * as Slot from '~/lib/rn-primitives/slot/slot-native';
+// TODO: used to import */slot-native, necessary? How to fix? update tsconfig.json?
+import * as Slot from '@rn-primitives/slot';
 import {
   ComponentPropsWithAsChild,
   SlottableViewProps,
   ViewRef,
-} from '~/lib/rn-primitives/types';
+} from '@rn-primitives/internal-types';
 import { AvatarImageProps, AvatarRootProps } from './types';
 
 type AvatarState = 'loading' | 'error' | 'loaded';

@@ -1,22 +1,22 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
-import { useAugmentedRef } from '../hooks/useAugmentedRef';
-import * as Slot from '../slot';
+import { useAugmentedRef } from '@rn-primitives/use-augmented-ref';
+import * as Slot from '@rn-primitives/slot';
 import type {
   PositionedContentProps,
   PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type {
   NavigationMenuItemProps,
   NavigationMenuLinkProps,
   NavigationMenuPortalProps,
   NavigationMenuRootProps,
 } from './types';
-import { EmptyGestureResponderEvent } from '../utils';
+import { EmptyGestureResponderEvent } from '@rn-primitives/empty-gesture-recognizer-event';
 
 const NavigationMenuContext =
   React.createContext<NavigationMenuRootProps | null>(null);

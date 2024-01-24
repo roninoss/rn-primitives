@@ -6,8 +6,9 @@ import {
   Text,
   View,
 } from 'react-native';
-import * as Slot from '~/lib/rn-primitives/slot/slot-native';
-import { Portal as RNPPortal } from '../portal';
+// TODO: imported @rn-primitives/slot/slot-native
+import * as Slot from '@rn-primitives/slot';
+import { Portal as RNPPortal } from '@rn-primitives/portal';
 import type {
   PressableRef,
   SlottablePressableProps,
@@ -15,7 +16,7 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type {
   DialogContentProps,
   DialogOverlayProps,

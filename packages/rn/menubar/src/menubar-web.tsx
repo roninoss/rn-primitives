@@ -1,8 +1,9 @@
 import * as Menubar from '@radix-ui/react-menubar';
 import React from 'react';
 import { GestureResponderEvent, Pressable, Text, View } from 'react-native';
-import * as Slot from '~/lib/rn-primitives/slot/slot-native';
-import { useAugmentedRef } from '../hooks/useAugmentedRef';
+// TODO: was @rn-primitives/slot/slot-value
+import * as Slot from '@rn-primitives/slot';
+import { useAugmentedRef } from '@rn-primitives/use-augmented-ref';
 import type {
   ForceMountable,
   PositionedContentProps,
@@ -12,7 +13,7 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type {
   MenubarCheckboxItemProps,
   MenubarItemProps,
@@ -26,7 +27,7 @@ import type {
   MenubarSubProps,
   MenubarSubTriggerProps,
 } from './types';
-import { EmptyGestureResponderEvent } from '../utils';
+import { EmptyGestureResponderEvent } from '@rn-primitives/empty-gesture-recognizer-event';
 
 const MenubarContext = React.createContext<MenubarRootProps | null>(null);
 

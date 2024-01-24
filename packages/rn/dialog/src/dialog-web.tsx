@@ -1,14 +1,16 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import React from 'react';
 import {
+  // TODO: error TS6133: 'Modal' is declared but its value is never read.
+  // @ts-expect-error
   Modal,
   Pressable,
   Text,
   View,
   type GestureResponderEvent,
 } from 'react-native';
-import { useAugmentedRef } from '../hooks/useAugmentedRef';
-import * as Slot from '../slot';
+import { useAugmentedRef } from '@rn-primitives/use-augmented-ref';
+import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
   SlottablePressableProps,
@@ -16,7 +18,7 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type {
   DialogContentProps,
   DialogOverlayProps,

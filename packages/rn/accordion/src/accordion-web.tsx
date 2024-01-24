@@ -1,19 +1,19 @@
 import * as Accordion from '@radix-ui/react-accordion';
 import React from 'react';
 import { View } from 'react-native';
-import * as Slot from '../slot';
+import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type {
   AccordionContentProps,
   AccordionItemProps,
   AccordionRootProps,
 } from './types';
-import { useAugmentedRef } from '../useAugmentedRef';
+import { useAugmentedRef } from '@rn-primitives/use-augmented-ref';
 
 const AccordionContext = React.createContext<AccordionRootProps | null>(null);
 

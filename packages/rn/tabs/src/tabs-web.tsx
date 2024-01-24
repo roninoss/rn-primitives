@@ -1,12 +1,12 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import React from 'react';
 import { Pressable, View } from 'react-native';
-import * as Slot from '../slot';
+import * as Slot from '@rn-primitives/slot';
 import type {
   ComponentPropsWithAsChild,
   SlottableViewProps,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type { TabsContentProps, TabsRootProps } from './types';
 
 const TabsContext = React.createContext<TabsRootProps | null>(null);

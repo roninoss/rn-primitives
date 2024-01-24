@@ -1,11 +1,11 @@
 import React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import * as Slot from '../slot';
+import * as Slot from '@rn-primitives/slot';
 import type {
   ComponentPropsWithAsChild,
   SlottableViewProps,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type { TabsContentProps, TabsRootProps } from './types';
 
 interface RootContext extends TabsRootProps {

@@ -1,4 +1,4 @@
-import { ForceMountable } from '../types';
+import { ForceMountable } from '@rn-primitives/internal-types';
 
 type SingleRootProps = {
   type: 'single';
@@ -28,12 +28,11 @@ type AccordionRootProps = AccordionContext & {
   orientation?: 'vertical' | 'horizontal';
 };
 
-interface ItemProps {
+interface AccordionItemProps {
   value: string;
   disabled?: boolean;
 }
 
-type AccordionItemProps = ItemProps;
 type AccordionContentProps = ForceMountable;
 
 export type {

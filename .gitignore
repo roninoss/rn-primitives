@@ -3,10 +3,9 @@
 # dependencies
 node_modules/
 
-# Expo
-.expo/
+# general install/build artifacts
+.parcel-cache/
 dist/
-web-build/
 
 # Native
 *.orig.*

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import * as Slot from '../slot';
+import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
   ViewRef,
-} from '../types';
-import { ToggleGroupUtils } from '../utils';
+} from '@rn-primitives/internal-types';
+import * as ToggleGroupUtils from '@rn-primitives/toggle-group-utils';
 import type { ToggleGroupItemProps, ToggleGroupRootProps } from './types';
 
 const ToggleGroupContext = React.createContext<ToggleGroupRootProps | null>(

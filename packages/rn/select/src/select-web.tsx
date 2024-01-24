@@ -1,8 +1,8 @@
 import * as Select from '@radix-ui/react-select';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { useAugmentedRef } from '../hooks/useAugmentedRef';
-import * as Slot from '../slot';
+import { useAugmentedRef } from '@rn-primitives/use-augmented-ref';
+import * as Slot from '@rn-primitives/slot';
 import type {
   ForceMountable,
   PositionedContentProps,
@@ -12,7 +12,7 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type {
   SelectContentProps,
   SelectItemProps,

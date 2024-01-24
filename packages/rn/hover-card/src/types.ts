@@ -1,4 +1,4 @@
-import { ForceMountable } from '../types';
+import { ForceMountable } from '@rn-primitives/internal-types';
 
 interface HoverCardRootProps {
   open: boolean;

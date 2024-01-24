@@ -1,5 +1,5 @@
 {
-  "name": "@rn-primitives/cn",
+  "name": "@rn-primitives/hover-card",
   "version": "1.0.0",
   "license": "MIT",
   "exports": {
@@ -34,7 +34,22 @@
     "url": "https://github.com/roninoss/rn-primitives/issues"
   },
   "dependencies": {
-
+    "@babel/runtime": "^7.23.9",
+    "@radix-ui/react-hover-card": "^1.0.7",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@rn-primitives/internal-types": "workspace:*",
+    "@rn-primitives/popover": "workspace:*",
+    "@rn-primitives/slot": "workspace:*",
+    "zustand": "^4.4.7"
+  },
+  "peerDependencies": {
+    "@types/react": "*",
+    "react": "^18.2.0",
+    "react-native": "^0.72.6"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
   }
-}
 }

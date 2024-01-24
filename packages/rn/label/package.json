@@ -1,5 +1,5 @@
 {
-  "name": "@rn-primitives/cn",
+  "name": "@rn-primitives/label",
   "version": "1.0.0",
   "license": "MIT",
   "exports": {
@@ -34,7 +34,19 @@
     "url": "https://github.com/roninoss/rn-primitives/issues"
   },
   "dependencies": {
-
+    "@babel/runtime": "^7.23.9",
+    "@radix-ui/react-label": "^2.0.2",
+    "@rn-primitives/internal-types": "workspace:*",
+    "@rn-primitives/slot": "workspace:*"
+  },
+  "peerDependencies": {
+    "@types/react": "*",
+    "react": "^18.2.0",
+    "react-native": "^0.72.6"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
   }
-}
 }

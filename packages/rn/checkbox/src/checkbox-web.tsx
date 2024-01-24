@@ -1,13 +1,13 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
 import React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
-import { useAugmentedRef } from '../hooks/useAugmentedRef';
-import * as Slot from '../slot';
+import { useAugmentedRef } from '@rn-primitives/use-augmented-ref';
+import * as Slot from '@rn-primitives/slot';
 import type {
   ComponentPropsWithAsChild,
   PressableRef,
   SlottablePressableProps,
-} from '../types';
+} from '@rn-primitives/internal-types';
 import type { CheckboxIndicator, CheckboxRootProps } from './types';
 
 const CheckboxContext = React.createContext<CheckboxRootProps | null>(null);
