@@ -1,6 +1,6 @@
 import React from 'react';
 import type { GestureResponderEvent } from 'react-native';
-import { SlottablePressableProps } from '../types';
+import { SlottablePressableProps } from '@rn-primitives/internal-types';
 
 /**
  * To be avoided if possible.

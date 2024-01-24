@@ -5,7 +5,7 @@ import {
   ViewStyle,
   useWindowDimensions,
 } from 'react-native';
-import type { Insets } from '../types';
+import type { Insets } from '@rn-primitives/internal-types';
 
 const POSITION_ABSOLUTE: ViewStyle = {
   position: 'absolute',

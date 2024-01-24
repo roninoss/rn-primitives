@@ -1,0 +1,49 @@
+{
+  "name": "@rn-primitives/use-trigger",
+  "version": "1.0.0",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mjs",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "source": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist"
+  },
+  "homepage": "https://github.com/roninoss/rn-primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roninoss/rn-primitives.git"
+  },
+  "bugs": {
+    "url": "https://github.com/roninoss/rn-primitives/issues"
+  },
+  "dependencies": {
+    "@rn-primitives/internal-types": "workspace:*"
+  },
+  "peerDependencies": {
+    "@types/react": "*",
+    "react": "^18.2.0",
+    "react-native": "^0.72.6"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
+  }
+}

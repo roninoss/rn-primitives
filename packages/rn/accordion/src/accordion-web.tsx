@@ -13,7 +13,7 @@ import type {
   AccordionItemProps,
   AccordionRootProps,
 } from './types';
-import { useAugmentedRef } from '../hooks/useAugmentedRef';
+import { useAugmentedRef } from '../useAugmentedRef';
 
 const AccordionContext = React.createContext<AccordionRootProps | null>(null);
 
