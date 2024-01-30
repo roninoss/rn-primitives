@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native';
 import { StoreApi, createStore, useStore } from 'zustand';
-// TODO: used to import */slot-native, necessary? How to fix? update tsconfig.json?
 import * as Slot from '@rn-primitives/slot';
 import {
   ComponentPropsWithAsChild,

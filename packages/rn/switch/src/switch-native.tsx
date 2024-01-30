@@ -1,6 +1,5 @@
 import React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-// TODO: previously @rn-primitives/slot/slot-native
 import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,

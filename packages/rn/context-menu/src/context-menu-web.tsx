@@ -1,7 +1,6 @@
 import * as ContextMenu from '@radix-ui/react-context-menu';
 import React from 'react';
 import { GestureResponderEvent, Pressable, Text, View } from 'react-native';
-// TODO: previously imported @rn-primitives/slot/slot-native
 import * as Slot from '@rn-primitives/slot';
 import { useAugmentedRef } from '@rn-primitives/use-augmented-ref';
 import type {

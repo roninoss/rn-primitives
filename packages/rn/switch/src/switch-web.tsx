@@ -1,7 +1,6 @@
 import * as Switch from '@radix-ui/react-switch';
 import React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
-// TODO: previously slot-native
 import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
