@@ -1606,7 +1606,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.20.0, @babel/runtime@npm:^7.23.7, @babel/runtime@npm:^7.23.9, @babel/runtime@npm:^7.8.4":
+"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.20.0, @babel/runtime@npm:^7.23.9, @babel/runtime@npm:^7.8.4":
   version: 7.23.9
   resolution: "@babel/runtime@npm:7.23.9"
   dependencies:
@@ -4816,15 +4816,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rn-primitives/cn@workspace:packages/core/cn":
-  version: 0.0.0-use.local
-  resolution: "@rn-primitives/cn@workspace:packages/core/cn"
-  dependencies:
-    clsx: "npm:^2.0.0"
-    tailwind-merge: "npm:^2.1.0"
-  languageName: unknown
-  linkType: soft
-
 "@rn-primitives/collapsible@workspace:packages/rn/collapsible":
   version: 0.0.0-use.local
   resolution: "@rn-primitives/collapsible@workspace:packages/rn/collapsible"
@@ -5339,22 +5330,6 @@ __metadata:
 "@rn-primitives/use-relative-position@workspace:*, @rn-primitives/use-relative-position@workspace:packages/rn/use-relative-position":
   version: 0.0.0-use.local
   resolution: "@rn-primitives/use-relative-position@workspace:packages/rn/use-relative-position"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.9"
-    "@rn-primitives/internal-types": "workspace:*"
-  peerDependencies:
-    "@types/react": "*"
-    react: ^18.2.0
-    react-native: ^0.72.6
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-  languageName: unknown
-  linkType: soft
-
-"@rn-primitives/use-trigger@workspace:packages/rn/use-trigger":
-  version: 0.0.0-use.local
-  resolution: "@rn-primitives/use-trigger@workspace:packages/rn/use-trigger"
   dependencies:
     "@babel/runtime": "npm:^7.23.9"
     "@rn-primitives/internal-types": "workspace:*"
@@ -6591,13 +6566,6 @@ __metadata:
   version: 2.1.2
   resolution: "clone@npm:2.1.2"
   checksum: ed0601cd0b1606bc7d82ee7175b97e68d1dd9b91fd1250a3617b38d34a095f8ee0431d40a1a611122dcccb4f93295b4fdb94942aa763392b5fe44effa50c2d5e
-  languageName: node
-  linkType: hard
-
-"clsx@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "clsx@npm:2.1.0"
-  checksum: c09c00ad14f638366ca814097e6cab533dfa1972a358da5b557be487168acbb25b4c1395e89ffa842a8a61ba87a462d2b4885bc9d4f8410b598f3cb339599cdb
   languageName: node
   linkType: hard
 
@@ -12161,15 +12129,6 @@ __metadata:
   bin:
     svgo: bin/svgo
   checksum: 0741f5d5cad63111a90a0ce7a1a5a9013f6d293e871b75efe39addb57f29a263e45294e485a4d2ff9cc260a5d142c8b5937b2234b4ef05efdd2706fb2d360ecc
-  languageName: node
-  linkType: hard
-
-"tailwind-merge@npm:^2.1.0":
-  version: 2.2.1
-  resolution: "tailwind-merge@npm:2.2.1"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.7"
-  checksum: 14ab965ec897e9377484b7593f7a700dde09b8035b762ad42652622a3ed1f202b203f48c0f235c0b1b38e9390470d94458f6f9010d33a5a18d71b15f38b986a6
   languageName: node
   linkType: hard
 
