@@ -1,7 +1,6 @@
 import * as Menubar from '@radix-ui/react-menubar';
 import React from 'react';
 import { GestureResponderEvent, Pressable, Text, View } from 'react-native';
-// TODO: was @rn-primitives/slot/slot-value
 import * as Slot from '@rn-primitives/slot';
 import { useAugmentedRef } from '@rn-primitives/use-augmented-ref';
 import type {

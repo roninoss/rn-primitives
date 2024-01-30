@@ -6,7 +6,6 @@ import {
   Text,
   View,
 } from 'react-native';
-// TODO: imported @rn-primitives/slot/slot-native
 import * as Slot from '@rn-primitives/slot';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import type {

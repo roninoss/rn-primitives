@@ -10,9 +10,7 @@ import {
   type LayoutRectangle,
 } from 'react-native';
 import { createStore, useStore, type StoreApi } from 'zustand';
-// TODO: used @rn-primitives/protal/portal-native
 import { Portal as RNPPortal } from '@rn-primitives/portal';
-// TODO: used @rn-primitives/slot/slot-native
 import * as Slot from '@rn-primitives/slot';
 import {
   useRelativePosition,
