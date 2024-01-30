@@ -10,7 +10,8 @@
     "build": "yarn build:config && yarn build:packages; yarn build:cleanup",
     "build:cleanup": "mv tsconfig.json tsconfig.production.json && mv tsconfig.tmp.json tsconfig.json",
     "build:config": "mv tsconfig.json tsconfig.tmp.json && mv tsconfig.production.json tsconfig.json",
-    "build:packages": "parcel build 'packages/*/*' --no-cache",
+    "build:fix-type-defs": "node ./scripts/fix-type-defs-imports",
+    "build:packages": "parcel build 'packages/*/*' --no-cache && yarn build:fix-type-defs",
     "types:check": "tsc --skipLibCheck --noEmit"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.72.6",
+    "replace-in-files": "^3.0.0",
     "typescript": "^5.1.3"
   },
   "packageManager": "yarn@4.0.2"
