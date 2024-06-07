@@ -1,7 +1,6 @@
 {
-  "private": true,
   "name": "@rn-primitives/label",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Primitive label",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -9,7 +8,10 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "pub:beta": "pnpm publish --no-git-checks --access public --tag beta",
+    "pub:next": "pnpm publish --no-git-checks --access public --tag next",
+    "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.0.2",
