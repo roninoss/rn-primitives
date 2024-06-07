@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@rn-primitives/dropdown-menu",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Primitive dropdown menu",
   "license": "MIT",
   "type": "module",
@@ -10,7 +10,10 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "pub:beta": "pnpm publish --no-git-checks --access public --tag beta",
+    "pub:next": "pnpm publish --no-git-checks --access public --tag next",
+    "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.0.6",
