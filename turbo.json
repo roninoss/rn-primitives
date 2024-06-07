@@ -18,6 +18,9 @@
     },
     "clean": {
       "cache": false
+    },
+    "pub:release": {
+      "cache": false
     }
   }
 }

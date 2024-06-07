@@ -8,6 +8,7 @@
     "lint": "turbo lint",
     "test": "turbo test",
     "build": "turbo build --filter=./packages/*",
+    "publish-all:primitives": "turbo pub:release --filter=./packages/* --concurrency=33",
     "clean": "rm -rf .turbo node_modules && turbo clean"
   },
   "devDependencies": {

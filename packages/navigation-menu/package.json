@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/navigation-menu",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Primitive navigation menu",
   "license": "MIT",
   "main": "./dist/index.js",

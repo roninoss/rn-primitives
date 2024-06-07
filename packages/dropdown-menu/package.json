@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/dropdown-menu",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Primitive dropdown menu",
   "license": "MIT",
   "type": "module",

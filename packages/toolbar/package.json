@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/toolbar",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Primitive toolbar",
   "license": "MIT",
   "main": "./dist/index.js",
