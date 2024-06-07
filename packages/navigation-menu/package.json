@@ -1,0 +1,43 @@
+{
+  "private": true,
+  "name": "@rn-primitives/navigation-menu",
+  "version": "0.0.0",
+  "description": "Primitive navigation menu",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@radix-ui/react-navigation-menu": "^1.1.4",
+    "@rn-primitives/hooks": "workspace:*",
+    "@rn-primitives/utils": "workspace:*",
+    "@rn-primitives/slot": "workspace:*",
+    "@rn-primitives/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@rn-primitives/portal": "workspace:*",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/react": "~18.2.79",
+    "react": "18.2.0",
+    "react-native": "0.74.1",
+    "tsup": "^8.1.0"
+  },
+  "peerDependencies": {
+    "@rn-primitives/portal": "*",
+    "react": "*",
+    "react-native": "*",
+    "react-native-web": "*"
+  },
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    },
+    "react-native-web": {
+      "optional": true
+    }
+  }
+}
