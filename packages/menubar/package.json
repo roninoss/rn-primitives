@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@rn-primitives/menubar",
   "version": "0.0.1",
   "description": "Primitive menubar",

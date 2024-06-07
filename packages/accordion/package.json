@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@rn-primitives/accordion",
   "version": "0.0.1",
   "description": "Primitive accordion",

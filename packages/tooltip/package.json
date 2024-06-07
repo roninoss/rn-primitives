@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@rn-primitives/tooltip",
   "version": "0.0.1",
   "description": "Primitive tooltip",
