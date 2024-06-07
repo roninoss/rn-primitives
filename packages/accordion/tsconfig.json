@@ -1,0 +1,15 @@
+{
+  "extends": "@tsconfig/recommended/tsconfig.json",
+  "include": [
+    "."
+  ],
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react"
+  },
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules"
+  ],
+}
