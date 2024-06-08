@@ -1,9 +1,7 @@
 import { defineConfig, Options } from 'tsup';
 
 export default defineConfig((options: Options) => ({
-  entry: {
-    index: 'src/index.ts',
-  },
+  entry: ['src/collapsible.tsx', 'src/collapsible.web.tsx'],
   banner: {
     js: "'use client'",
   },

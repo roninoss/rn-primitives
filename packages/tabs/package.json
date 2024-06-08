@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive tabs",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/tabs.js",
+  "module": "dist/tabs.mjs",
+  "types": "dist/tabs.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/tabs.mjs",
+      "require": "./dist/tabs.js",
+      "types": "./dist/tabs.d.ts",
+      "default": "./dist/tabs.js"
+    },
+    "./dist/tabs": {
+      "import": "./dist/tabs.mjs",
+      "require": "./dist/tabs.js",
+      "types": "./dist/tabs.d.ts",
+      "default": "./dist/tabs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

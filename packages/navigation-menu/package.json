@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive navigation menu",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/navigation-menu.js",
+  "module": "dist/navigation-menu.mjs",
+  "types": "dist/navigation-menu.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/navigation-menu.mjs",
+      "require": "./dist/navigation-menu.js",
+      "types": "./dist/navigation-menu.d.ts",
+      "default": "./dist/navigation-menu.js"
+    },
+    "./dist/navigation-menu": {
+      "import": "./dist/navigation-menu.mjs",
+      "require": "./dist/navigation-menu.js",
+      "types": "./dist/navigation-menu.d.ts",
+      "default": "./dist/navigation-menu.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

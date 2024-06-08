@@ -1,6 +1,6 @@
 import * as Switch from '@radix-ui/react-switch';
 import * as React from 'react';
-import { Pressable, View, type GestureResponderEvent } from 'react-native';
+import { Pressable, StyleSheet, View, type GestureResponderEvent } from 'react-native';
 import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
@@ -19,6 +19,7 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & SwitchRoot
       disabled,
       onPress: onPressProp,
       onKeyDown: onKeyDownProp,
+      style,
       ...props
     },
     ref
@@ -44,6 +45,7 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & SwitchRoot
           onPress={onPress}
           // @ts-expect-error Web only
           onKeyDown={onKeyDown}
+          style={StyleSheet.flatten(style)}
           {...props}
         />
       </Switch.Root>
@@ -53,11 +55,11 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & SwitchRoot
 
 Root.displayName = 'RootWebSwitch';
 
-const Thumb = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Thumb = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, style, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Switch.Thumb asChild>
-      <Component ref={ref} {...props} />
+      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
     </Switch.Thumb>
   );
 });

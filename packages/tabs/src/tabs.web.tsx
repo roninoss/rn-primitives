@@ -1,13 +1,16 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import * as React from 'react';
-import { Pressable, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import * as Slot from '@rn-primitives/slot';
 import type { ComponentPropsWithAsChild, SlottableViewProps, ViewRef } from '@rn-primitives/types';
 import type { TabsContentProps, TabsRootProps } from './types';
 
 const TabsContext = React.createContext<TabsRootProps | null>(null);
 const Root = React.forwardRef<ViewRef, SlottableViewProps & TabsRootProps>(
-  ({ asChild, value, onValueChange, orientation, dir, activationMode, ...viewProps }, ref) => {
+  (
+    { asChild, value, onValueChange, orientation, dir, activationMode, style, ...viewProps },
+    ref
+  ) => {
     const Component = asChild ? Slot.View : View;
     return (
       <TabsContext.Provider
@@ -24,7 +27,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & TabsRootProps>(
           activationMode={activationMode}
           asChild
         >
-          <Component ref={ref} {...viewProps} />
+          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
         </Tabs.Root>
       </TabsContext.Provider>
     );
@@ -41,11 +44,11 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const List = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, style, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Tabs.List asChild>
-      <Component ref={ref} {...props} />
+      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
     </Tabs.List>
   );
 });
@@ -58,12 +61,12 @@ const Trigger = React.forwardRef<
   ComponentPropsWithAsChild<typeof Pressable> & {
     value: string;
   }
->(({ asChild, value: tabValue, ...props }, ref) => {
+>(({ asChild, value: tabValue, style, ...props }, ref) => {
   const Component = asChild ? Slot.Pressable : Pressable;
   return (
     <TriggerContext.Provider value={{ value: tabValue }}>
       <Tabs.Trigger value={tabValue} asChild>
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </Tabs.Trigger>
     </TriggerContext.Provider>
   );
@@ -82,11 +85,11 @@ function useTriggerContext() {
 }
 
 const Content = React.forwardRef<ViewRef, SlottableViewProps & TabsContentProps>(
-  ({ asChild, forceMount, value, ...props }, ref) => {
+  ({ asChild, forceMount, value, style, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <Tabs.Content value={value} asChild>
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </Tabs.Content>
     );
   }

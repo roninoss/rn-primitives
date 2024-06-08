@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive slider",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/slider.js",
+  "module": "dist/slider.mjs",
+  "types": "dist/slider.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/slider.mjs",
+      "require": "./dist/slider.js",
+      "types": "./dist/slider.d.ts",
+      "default": "./dist/slider.js"
+    },
+    "./dist/slider": {
+      "import": "./dist/slider.mjs",
+      "require": "./dist/slider.js",
+      "types": "./dist/slider.d.ts",
+      "default": "./dist/slider.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

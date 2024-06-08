@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive collapsible",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/collapsible.js",
+  "module": "dist/collapsible.mjs",
+  "types": "dist/collapsible.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/collapsible.mjs",
+      "require": "./dist/collapsible.js",
+      "types": "./dist/collapsible.d.ts",
+      "default": "./dist/collapsible.js"
+    },
+    "./dist/collapsible": {
+      "import": "./dist/collapsible.mjs",
+      "require": "./dist/collapsible.js",
+      "types": "./dist/collapsible.d.ts",
+      "default": "./dist/collapsible.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

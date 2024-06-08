@@ -4,8 +4,26 @@
   "description": "Primitive dropdown menu",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/dropdown-menu.js",
+  "module": "dist/dropdown-menu.mjs",
+  "types": "dist/dropdown-menu.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/dropdown-menu.mjs",
+      "require": "./dist/dropdown-menu.js",
+      "types": "./dist/dropdown-menu.d.ts",
+      "default": "./dist/dropdown-menu.js"
+    },
+    "./dist/dropdown-menu": {
+      "import": "./dist/dropdown-menu.mjs",
+      "require": "./dist/dropdown-menu.js",
+      "types": "./dist/dropdown-menu.d.ts",
+      "default": "./dist/dropdown-menu.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

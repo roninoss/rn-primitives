@@ -1,6 +1,6 @@
 import * as Toolbar from '@radix-ui/react-toolbar';
 import * as React from 'react';
-import { Pressable, View, type GestureResponderEvent } from 'react-native';
+import { Pressable, StyleSheet, View, type GestureResponderEvent } from 'react-native';
 import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
@@ -12,11 +12,11 @@ import { ToggleGroupUtils } from '@rn-primitives/utils';
 import type { ToolbarRootProps, ToolbarToggleGroupProps, ToolbarToggleItem } from './types';
 
 const Root = React.forwardRef<ViewRef, SlottableViewProps & ToolbarRootProps>(
-  ({ asChild, orientation, dir, loop, ...props }, ref) => {
+  ({ asChild, orientation, dir, loop, style, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <Toolbar.Root orientation={orientation} dir={dir} loop={loop} asChild>
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </Toolbar.Root>
     );
   }
@@ -27,7 +27,7 @@ Root.displayName = 'RootWebToolbar';
 const ToggleGroupContext = React.createContext<ToolbarToggleGroupProps | null>(null);
 
 const ToggleGroup = React.forwardRef<ViewRef, SlottableViewProps & ToolbarToggleGroupProps>(
-  ({ asChild, type, value, onValueChange, disabled = false, ...viewProps }, ref) => {
+  ({ asChild, type, value, onValueChange, disabled = false, style, ...viewProps }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <ToggleGroupContext.Provider
@@ -47,7 +47,7 @@ const ToggleGroup = React.forwardRef<ViewRef, SlottableViewProps & ToolbarToggle
           disabled={disabled}
           asChild
         >
-          <Component ref={ref} {...viewProps} />
+          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
         </Toolbar.ToggleGroup>
       </ToggleGroupContext.Provider>
     );
@@ -68,7 +68,14 @@ function useToggleGroupContext() {
 
 const ToggleItem = React.forwardRef<PressableRef, SlottablePressableProps & ToolbarToggleItem>(
   (
-    { asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props },
+    {
+      asChild,
+      value: itemValue,
+      disabled: disabledProp = false,
+      onPress: onPressProp,
+      style,
+      ...props
+    },
     ref
   ) => {
     const { type, disabled, value, onValueChange } = useToggleGroupContext();
@@ -87,7 +94,13 @@ const ToggleItem = React.forwardRef<PressableRef, SlottablePressableProps & Tool
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Toolbar.ToggleItem value={itemValue} asChild>
-        <Component ref={ref} onPress={onPress} role='button' {...props} />
+        <Component
+          ref={ref}
+          onPress={onPress}
+          role='button'
+          style={StyleSheet.flatten(style)}
+          {...props}
+        />
       </Toolbar.ToggleItem>
     );
   }
@@ -95,19 +108,21 @@ const ToggleItem = React.forwardRef<PressableRef, SlottablePressableProps & Tool
 
 ToggleItem.displayName = 'ToggleItemWebToolbar';
 
-const Separator = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
-  return <Component ref={ref} {...props} />;
-});
+const Separator = React.forwardRef<ViewRef, SlottableViewProps>(
+  ({ asChild, style, ...props }, ref) => {
+    const Component = asChild ? Slot.View : View;
+    return <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />;
+  }
+);
 
 Separator.displayName = 'SeparatorWebToolbar';
 
 const Link = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, ...props }, ref) => {
+  ({ asChild, style, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Toolbar.Link asChild>
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </Toolbar.Link>
     );
   }
@@ -116,11 +131,11 @@ const Link = React.forwardRef<PressableRef, SlottablePressableProps>(
 Link.displayName = 'LinkWebToolbar';
 
 const Button = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, ...props }, ref) => {
+  ({ asChild, style, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Toolbar.Button asChild>
-        <Component ref={ref} role='button' {...props} />
+        <Component ref={ref} role='button' style={StyleSheet.flatten(style)} {...props} />
       </Toolbar.Button>
     );
   }

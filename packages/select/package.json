@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive select",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/select.js",
+  "module": "dist/select.mjs",
+  "types": "dist/select.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/select.mjs",
+      "require": "./dist/select.js",
+      "types": "./dist/select.d.ts",
+      "default": "./dist/select.js"
+    },
+    "./dist/select": {
+      "import": "./dist/select.mjs",
+      "require": "./dist/select.js",
+      "types": "./dist/select.d.ts",
+      "default": "./dist/select.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

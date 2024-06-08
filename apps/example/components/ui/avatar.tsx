@@ -1,4 +1,4 @@
-import * as AvatarPrimitive from '@rn-primitives/avatar';
+import * as AvatarPrimitive from '@rn-primitives/avatar/dist/avatar';
 import * as React from 'react';
 import { addCn } from '~/lib/addCn';
 import { cn } from '~/lib/utils';

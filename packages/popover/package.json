@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive popover",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/popover.js",
+  "module": "dist/popover.mjs",
+  "types": "dist/popover.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/popover.mjs",
+      "require": "./dist/popover.js",
+      "types": "./dist/popover.d.ts",
+      "default": "./dist/popover.js"
+    },
+    "./dist/popover": {
+      "import": "./dist/popover.mjs",
+      "require": "./dist/popover.js",
+      "types": "./dist/popover.d.ts",
+      "default": "./dist/popover.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

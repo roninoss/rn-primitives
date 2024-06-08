@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive aspect ratio",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/aspect-ratio.js",
+  "module": "dist/aspect-ratio.mjs",
+  "types": "dist/aspect-ratio.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/aspect-ratio.mjs",
+      "require": "./dist/aspect-ratio.js",
+      "types": "./dist/aspect-ratio.d.ts",
+      "default": "./dist/aspect-ratio.js"
+    },
+    "./dist/aspect-ratio": {
+      "import": "./dist/aspect-ratio.mjs",
+      "require": "./dist/aspect-ratio.js",
+      "types": "./dist/aspect-ratio.d.ts",
+      "default": "./dist/aspect-ratio.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

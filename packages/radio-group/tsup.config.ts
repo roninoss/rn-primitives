@@ -1,9 +1,7 @@
 import { defineConfig, Options } from 'tsup';
 
 export default defineConfig((options: Options) => ({
-  entry: {
-    index: 'src/index.ts',
-  },
+  entry: ['src/radio-group.tsx', 'src/radio-group.web.tsx'],
   banner: {
     js: "'use client'",
   },

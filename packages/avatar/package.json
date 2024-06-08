@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive avatar",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/avatar.js",
+  "module": "dist/avatar.mjs",
+  "types": "dist/avatar.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/avatar.mjs",
+      "require": "./dist/avatar.js",
+      "types": "./dist/avatar.d.ts",
+      "default": "./dist/avatar.js"
+    },
+    "./dist/avatar": {
+      "import": "./dist/avatar.mjs",
+      "require": "./dist/avatar.js",
+      "types": "./dist/avatar.d.ts",
+      "default": "./dist/avatar.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

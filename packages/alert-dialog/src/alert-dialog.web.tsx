@@ -1,6 +1,6 @@
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import * as React from 'react';
-import { Pressable, Text, View, type GestureResponderEvent } from 'react-native';
+import { Pressable, Text, View, type GestureResponderEvent, StyleSheet } from 'react-native';
 import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
@@ -22,7 +22,10 @@ import type {
 const AlertDialogContext = React.createContext<RootContext | null>(null);
 
 const Root = React.forwardRef<ViewRef, SlottableViewProps & AlertDialogRootProps>(
-  ({ asChild, open: openProp, defaultOpen, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
+  (
+    { asChild, open: openProp, defaultOpen, onOpenChange: onOpenChangeProp, style, ...viewProps },
+    ref
+  ) => {
     const [open = false, onOpenChange] = useControllableState({
       prop: openProp,
       defaultProp: defaultOpen,
@@ -32,7 +35,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & AlertDialogRootProps
     return (
       <AlertDialogContext.Provider value={{ open, onOpenChange }}>
         <AlertDialog.Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-          <Component ref={ref} {...viewProps} />
+          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
         </AlertDialog.Root>
       </AlertDialogContext.Provider>
     );
@@ -52,7 +55,7 @@ function useRootContext() {
 }
 
 const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, onPress: onPressProp, role: _role, disabled, ...props }, ref) => {
+  ({ asChild, onPress: onPressProp, role: _role, disabled, style, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { onOpenChange, open } = useRootContext();
     function onPress(ev: GestureResponderEvent) {
@@ -78,6 +81,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
           onPress={onPress}
           role='button'
           disabled={disabled}
+          style={StyleSheet.flatten(style)}
           {...props}
         />
       </AlertDialog.Trigger>
@@ -92,11 +96,11 @@ function Portal({ forceMount, container, children }: AlertDialogPortalProps) {
 }
 
 const Overlay = React.forwardRef<ViewRef, SlottableViewProps & AlertDialogOverlayProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+  ({ asChild, forceMount, style, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <AlertDialog.Overlay forceMount={forceMount}>
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </AlertDialog.Overlay>
     );
   }
@@ -106,15 +110,7 @@ Overlay.displayName = 'OverlayAlertWebDialog';
 
 const Content = React.forwardRef<ViewRef, SlottableViewProps & AlertDialogContentProps>(
   (
-    {
-      asChild,
-      forceMount,
-
-      onOpenAutoFocus,
-      onCloseAutoFocus,
-      onEscapeKeyDown,
-      ...props
-    },
+    { asChild, forceMount, onOpenAutoFocus, onCloseAutoFocus, onEscapeKeyDown, style, ...props },
     ref
   ) => {
     const augmentedRef = useAugmentedRef({ ref });
@@ -136,7 +132,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & AlertDialogConten
         forceMount={forceMount}
         asChild
       >
-        <Component ref={augmentedRef} {...props} />
+        <Component ref={augmentedRef} style={StyleSheet.flatten(style)} {...props} />
       </AlertDialog.Content>
     );
   }
@@ -145,7 +141,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & AlertDialogConten
 Content.displayName = 'ContentAlertWebDialog';
 
 const Cancel = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, onPress: onPressProp, disabled, ...props }, ref) => {
+  ({ asChild, onPress: onPressProp, disabled, style, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { onOpenChange, open } = useRootContext();
 
@@ -172,6 +168,7 @@ const Cancel = React.forwardRef<PressableRef, SlottablePressableProps>(
             onPress={onPress}
             role='button'
             disabled={disabled}
+            style={StyleSheet.flatten(style)}
             {...props}
           />
         </AlertDialog.Cancel>
@@ -183,7 +180,7 @@ const Cancel = React.forwardRef<PressableRef, SlottablePressableProps>(
 Cancel.displayName = 'CancelAlertWebDialog';
 
 const Action = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, onPress: onPressProp, disabled, ...props }, ref) => {
+  ({ asChild, onPress: onPressProp, disabled, style, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { onOpenChange, open } = useRootContext();
 
@@ -210,6 +207,7 @@ const Action = React.forwardRef<PressableRef, SlottablePressableProps>(
             onPress={onPress}
             role='button'
             disabled={disabled}
+            style={StyleSheet.flatten(style)}
             {...props}
           />
         </AlertDialog.Action>
@@ -220,25 +218,27 @@ const Action = React.forwardRef<PressableRef, SlottablePressableProps>(
 
 Action.displayName = 'ActionAlertWebDialog';
 
-const Title = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props }, ref) => {
+const Title = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, style, ...props }, ref) => {
   const Component = asChild ? Slot.Text : Text;
   return (
     <AlertDialog.Title asChild>
-      <Component ref={ref} {...props} />
+      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
     </AlertDialog.Title>
   );
 });
 
 Title.displayName = 'TitleAlertWebDialog';
 
-const Description = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.Text : Text;
-  return (
-    <AlertDialog.Description asChild>
-      <Component ref={ref} {...props} />
-    </AlertDialog.Description>
-  );
-});
+const Description = React.forwardRef<TextRef, SlottableTextProps>(
+  ({ asChild, style, ...props }, ref) => {
+    const Component = asChild ? Slot.Text : Text;
+    return (
+      <AlertDialog.Description asChild>
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+      </AlertDialog.Description>
+    );
+  }
+);
 
 Description.displayName = 'DescriptionAlertWebDialog';
 

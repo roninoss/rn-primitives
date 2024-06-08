@@ -12,7 +12,7 @@ import type {
   ViewRef,
 } from '@rn-primitives/types';
 import * as React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type {
   SelectRootContext,
   SelectContentProps,
@@ -44,6 +44,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & SelectRootProps>(
       defaultValue,
       onValueChange: onValueChangeProp,
       onOpenChange: onOpenChangeProp,
+      style,
       ...viewProps
     },
     ref
@@ -81,7 +82,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & SelectRootProps>(
           open={open}
           onOpenChange={onOpenChange}
         >
-          <Component ref={ref} {...viewProps} />
+          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
         </Select.Root>
       </SelectContext.Provider>
     );
@@ -99,7 +100,7 @@ function useRootContext() {
 }
 
 const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, role: _role, disabled, ...props }, ref) => {
+  ({ asChild, role: _role, disabled, style, ...props }, ref) => {
     const { open, onOpenChange } = useRootContext();
     const augmentedRef = useAugmentedRef({
       ref,
@@ -124,7 +125,13 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Select.Trigger disabled={disabled ?? undefined} asChild>
-        <Component ref={augmentedRef} role='button' disabled={disabled} {...props} />
+        <Component
+          ref={augmentedRef}
+          role='button'
+          disabled={disabled}
+          style={StyleSheet.flatten(style)}
+          {...props}
+        />
       </Select.Trigger>
     );
   }
@@ -133,9 +140,9 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
 Trigger.displayName = 'TriggerWebSelect';
 
 const Value = React.forwardRef<TextRef, SlottableTextProps & SelectValueProps>(
-  ({ asChild, placeholder, children, ...props }, ref) => {
+  ({ asChild, placeholder, children, style, ...props }, ref) => {
     return (
-      <Slot.Text ref={ref} {...props}>
+      <Slot.Text ref={ref} style={StyleSheet.flatten(style)} {...props}>
         <Select.Value placeholder={placeholder}>{children}</Select.Value>
       </Slot.Text>
     );
@@ -149,9 +156,9 @@ function Portal({ container, children }: SelectPortalProps) {
 }
 
 const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & SelectOverlayProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+  ({ asChild, forceMount, style, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} {...props} />;
+    return <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />;
   }
 );
 
@@ -176,6 +183,7 @@ const Content = React.forwardRef<
       onEscapeKeyDown,
       onInteractOutside: _onInteractOutside,
       onPointerDownOutside,
+      style,
       ...props
     },
     ref
@@ -193,7 +201,7 @@ const Content = React.forwardRef<
         avoidCollisions={avoidCollisions}
         position={position}
       >
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </Select.Content>
     );
   }
@@ -207,14 +215,14 @@ const ItemContext = React.createContext<{
 } | null>(null);
 
 const Item = React.forwardRef<PressableRef, SlottablePressableProps & SelectItemProps>(
-  ({ asChild, closeOnPress = true, label, value, children, ...props }, ref) => {
+  ({ asChild, closeOnPress = true, label, value, children, style, ...props }, ref) => {
     return (
       <ItemContext.Provider value={{ itemValue: value, label: label }}>
-        <Slot.Pressable ref={ref} {...props}>
-          <Select.Item textValue={label} value={value} disabled={props.disabled ?? undefined}>
-            <>{children}</>
-          </Select.Item>
-        </Slot.Pressable>
+        <Select.Item textValue={label} value={value} disabled={props.disabled ?? undefined}>
+          <Pressable ref={ref} style={StyleSheet.flatten(style)} {...props}>
+            {children}
+          </Pressable>
+        </Select.Item>
       </ItemContext.Provider>
     );
   }
@@ -231,13 +239,13 @@ function useItemContext() {
 }
 
 const ItemText = React.forwardRef<TextRef, Omit<SlottableTextProps, 'children'>>(
-  ({ asChild, ...props }, ref) => {
+  ({ asChild, style, ...props }, ref) => {
     const { label } = useItemContext();
 
     const Component = asChild ? Slot.Text : Text;
     return (
       <Select.ItemText asChild>
-        <Component ref={ref} {...props}>
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props}>
           {label}
         </Component>
       </Select.ItemText>
@@ -248,11 +256,11 @@ const ItemText = React.forwardRef<TextRef, Omit<SlottableTextProps, 'children'>>
 ItemText.displayName = 'ItemTextWebSelect';
 
 const ItemIndicator = React.forwardRef<ViewRef, SlottableViewProps & ForceMountable>(
-  ({ asChild, forceMount: _forceMount, ...props }, ref) => {
+  ({ asChild, forceMount: _forceMount, style, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <Select.ItemIndicator asChild>
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </Select.ItemIndicator>
     );
   }
@@ -260,22 +268,22 @@ const ItemIndicator = React.forwardRef<ViewRef, SlottableViewProps & ForceMounta
 
 ItemIndicator.displayName = 'ItemIndicatorWebSelect';
 
-const Group = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Group = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, style, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Select.Group asChild>
-      <Component ref={ref} {...props} />
+      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
     </Select.Group>
   );
 });
 
 Group.displayName = 'GroupWebSelect';
 
-const Label = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props }, ref) => {
+const Label = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, style, ...props }, ref) => {
   const Component = asChild ? Slot.Text : Text;
   return (
     <Select.Label asChild>
-      <Component ref={ref} {...props} />
+      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
     </Select.Label>
   );
 });
@@ -283,11 +291,11 @@ const Label = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props
 Label.displayName = 'LabelWebSelect';
 
 const Separator = React.forwardRef<ViewRef, SlottableViewProps & SelectSeparatorProps>(
-  ({ asChild, decorative, ...props }, ref) => {
+  ({ asChild, decorative, style, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <Select.Separator asChild>
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </Select.Separator>
     );
   }
@@ -295,18 +303,22 @@ const Separator = React.forwardRef<ViewRef, SlottableViewProps & SelectSeparator
 
 Separator.displayName = 'SeparatorWebSelect';
 
-const ScrollUpButton = (props: React.ComponentPropsWithoutRef<typeof Select.ScrollUpButton>) => {
-  return <Select.ScrollUpButton {...props} />;
+const ScrollUpButton = ({
+  style,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof Select.ScrollUpButton>) => {
+  return <Select.ScrollUpButton style={StyleSheet.flatten(style)} {...props} />;
 };
 
-const ScrollDownButton = (
-  props: React.ComponentPropsWithoutRef<typeof Select.ScrollDownButton>
-) => {
-  return <Select.ScrollDownButton {...props} />;
+const ScrollDownButton = ({
+  style,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof Select.ScrollDownButton>) => {
+  return <Select.ScrollDownButton style={StyleSheet.flatten(style)} {...props} />;
 };
 
-const Viewport = (props: React.ComponentPropsWithoutRef<typeof Select.Viewport>) => {
-  return <Select.Viewport {...props} />;
+const Viewport = ({ style, ...props }: React.ComponentPropsWithoutRef<typeof Select.Viewport>) => {
+  return <Select.Viewport style={StyleSheet.flatten(style)} {...props} />;
 };
 
 export {

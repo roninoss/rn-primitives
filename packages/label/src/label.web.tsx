@@ -7,25 +7,25 @@ import type {
   TextRef,
 } from '@rn-primitives/types';
 import * as React from 'react';
-import { Text as RNText } from 'react-native';
+import { Text as RNText, StyleSheet } from 'react-native';
 import type { LabelRootProps, LabelTextProps } from './types';
 
 const Root = React.forwardRef<
   PressableRef,
   Omit<SlottablePressableProps, 'children' | 'hitSlop' | 'style'> & LabelRootProps
->(({ asChild, ...props }, ref) => {
+>(({ asChild, style, ...props }, ref) => {
   const Component = asChild ? Slot.View : Slot.View;
-  return <Component ref={ref} {...props} />;
+  return <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />;
 });
 
 Root.displayName = 'RootWebLabel';
 
 const Text = React.forwardRef<TextRef, SlottableTextProps & LabelTextProps>(
-  ({ asChild, nativeID, ...props }, ref) => {
+  ({ asChild, nativeID, style, ...props }, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Label.Root asChild id={nativeID}>
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </Label.Root>
     );
   }

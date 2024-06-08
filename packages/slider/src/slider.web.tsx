@@ -1,13 +1,13 @@
 import * as Slider from '@radix-ui/react-slider';
 import * as React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as Slot from '@rn-primitives/slot';
 import type { SlottableViewProps, ViewRef } from '@rn-primitives/types';
 import type { SliderRootProps } from './types';
 
 const Root = React.forwardRef<ViewRef, SlottableViewProps & SliderRootProps>(
   (
-    { asChild, value, disabled, min, max, dir, inverted, step = 1, onValueChange, ...props },
+    { asChild, value, disabled, min, max, dir, inverted, step = 1, onValueChange, style, ...props },
     ref
   ) => {
     const Component = asChild ? Slot.View : View;
@@ -23,7 +23,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & SliderRootProps>(
         onValueChange={onValueChange}
         asChild
       >
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </Slider.Root>
     );
   }
@@ -31,33 +31,33 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & SliderRootProps>(
 
 Root.displayName = 'RootWebSlider';
 
-const Track = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Track = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, style, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Slider.Track asChild>
-      <Component ref={ref} {...props} />
+      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
     </Slider.Track>
   );
 });
 
 Track.displayName = 'TrackWebSlider';
 
-const Range = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Range = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, style, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Slider.Range asChild>
-      <Component ref={ref} {...props} />
+      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
     </Slider.Range>
   );
 });
 
 Range.displayName = 'RangeWebSlider';
 
-const Thumb = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Thumb = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, style, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Slider.Thumb asChild>
-      <Component ref={ref} {...props} />
+      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
     </Slider.Thumb>
   );
 });

@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive label",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/label.js",
+  "module": "dist/label.mjs",
+  "types": "dist/label.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/label.mjs",
+      "require": "./dist/label.js",
+      "types": "./dist/label.d.ts",
+      "default": "./dist/label.js"
+    },
+    "./dist/label": {
+      "import": "./dist/label.mjs",
+      "require": "./dist/label.js",
+      "types": "./dist/label.d.ts",
+      "default": "./dist/label.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

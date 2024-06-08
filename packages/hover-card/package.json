@@ -4,8 +4,26 @@
   "description": "Primitive hover card",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/hover-card.js",
+  "module": "dist/hover-card.mjs",
+  "types": "dist/hover-card.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/hover-card.mjs",
+      "require": "./dist/hover-card.js",
+      "types": "./dist/hover-card.d.ts",
+      "default": "./dist/hover-card.js"
+    },
+    "./dist/hover-card": {
+      "import": "./dist/hover-card.mjs",
+      "require": "./dist/hover-card.js",
+      "types": "./dist/hover-card.d.ts",
+      "default": "./dist/hover-card.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

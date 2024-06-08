@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive switch",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/switch.js",
+  "module": "dist/switch.mjs",
+  "types": "dist/switch.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/switch.mjs",
+      "require": "./dist/switch.js",
+      "types": "./dist/switch.d.ts",
+      "default": "./dist/switch.js"
+    },
+    "./dist/switch": {
+      "import": "./dist/switch.mjs",
+      "require": "./dist/switch.js",
+      "types": "./dist/switch.d.ts",
+      "default": "./dist/switch.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

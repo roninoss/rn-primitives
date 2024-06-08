@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive checkbox",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/checkbox.js",
+  "module": "dist/checkbox.mjs",
+  "types": "dist/checkbox.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/checkbox.mjs",
+      "require": "./dist/checkbox.js",
+      "types": "./dist/checkbox.d.ts",
+      "default": "./dist/checkbox.js"
+    },
+    "./dist/checkbox": {
+      "import": "./dist/checkbox.mjs",
+      "require": "./dist/checkbox.js",
+      "types": "./dist/checkbox.d.ts",
+      "default": "./dist/checkbox.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive alert dialog",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/alert-dialog.js",
+  "module": "dist/alert-dialog.mjs",
+  "types": "dist/alert-dialog.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/alert-dialog.mjs",
+      "require": "./dist/alert-dialog.js",
+      "types": "./dist/alert-dialog.d.ts",
+      "default": "./dist/alert-dialog.js"
+    },
+    "./dist/alert-dialog": {
+      "import": "./dist/alert-dialog.mjs",
+      "require": "./dist/alert-dialog.js",
+      "types": "./dist/alert-dialog.d.ts",
+      "default": "./dist/alert-dialog.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

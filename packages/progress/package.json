@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive progress",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/progress.js",
+  "module": "dist/progress.mjs",
+  "types": "dist/progress.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/progress.mjs",
+      "require": "./dist/progress.js",
+      "types": "./dist/progress.d.ts",
+      "default": "./dist/progress.js"
+    },
+    "./dist/progress": {
+      "import": "./dist/progress.mjs",
+      "require": "./dist/progress.js",
+      "types": "./dist/progress.d.ts",
+      "default": "./dist/progress.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

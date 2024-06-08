@@ -10,6 +10,7 @@ import { NAV_THEME } from '~/lib/constants';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { PortalHost } from '@rn-primitives/portal';
 import { ThemeToggle } from '~/components/ThemeToggle';
+import { Text } from '~/components/ui/text';
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -64,11 +65,17 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
       <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-      <Stack>
+      <Stack
+        screenOptions={{
+          headerTitle(props) {
+            return <Text className='text-xl font-semibold'>{toOptions(props.children)}</Text>;
+          },
+        }}
+      >
         <Stack.Screen
           name='index'
           options={{
-            title: 'Starter Base',
+            title: 'Examples',
             headerRight: () => <ThemeToggle />,
           }}
         />
@@ -76,4 +83,17 @@ export default function RootLayout() {
       <PortalHost />
     </ThemeProvider>
   );
+}
+
+function toOptions(name: string) {
+  const title = name
+    .replace('(components)/', '')
+    .split('-')
+    .map(function (str: string) {
+      return str.replace(/\b\w/g, function (char) {
+        return char.toUpperCase();
+      });
+    })
+    .join(' ');
+  return title;
 }

@@ -3,8 +3,26 @@
   "version": "1.0.0",
   "description": "Primitive context menu",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/context-menu.js",
+  "module": "dist/context-menu.mjs",
+  "types": "dist/context-menu.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/context-menu.mjs",
+      "require": "./dist/context-menu.js",
+      "types": "./dist/context-menu.d.ts",
+      "default": "./dist/context-menu.js"
+    },
+    "./dist/context-menu": {
+      "import": "./dist/context-menu.mjs",
+      "require": "./dist/context-menu.js",
+      "types": "./dist/context-menu.d.ts",
+      "default": "./dist/context-menu.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
