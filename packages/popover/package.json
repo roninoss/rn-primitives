@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/popover",
-  "version": "1.0.0",
+  "version": "1.0.0-rc.2",
   "description": "Primitive popover",
   "license": "MIT",
   "main": "dist/popover.js",

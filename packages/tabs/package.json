@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/tabs",
-  "version": "1.0.0",
+  "version": "1.0.0-rc.2",
   "description": "Primitive tabs",
   "license": "MIT",
   "main": "dist/tabs.js",

@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/alert-dialog",
-  "version": "1.0.0",
+  "version": "1.0.0-rc.2",
   "description": "Primitive alert dialog",
   "license": "MIT",
   "main": "dist/alert-dialog.js",

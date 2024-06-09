@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/menubar",
-  "version": "1.0.0",
+  "version": "1.0.0-rc.2",
   "description": "Primitive menubar",
   "license": "MIT",
   "main": "dist/menubar.js",

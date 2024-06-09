@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/toggle-group",
-  "version": "1.0.0",
+  "version": "1.0.0-rc.2",
   "description": "Primitive toggle group",
   "license": "MIT",
   "main": "dist/toggle-group.js",
