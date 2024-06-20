@@ -1,6 +1,6 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
 import * as React from 'react';
-import { GestureResponderEvent, Pressable, View } from 'react-native';
+import { GestureResponderEvent, Pressable, StyleSheet, View } from 'react-native';
 import { useAugmentedRef } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
@@ -14,7 +14,16 @@ const CheckboxContext = React.createContext<CheckboxRootProps | null>(null);
 
 const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRootProps>(
   (
-    { asChild, disabled, checked, onCheckedChange, onPress: onPressProp, role: _role, ...props },
+    {
+      asChild,
+      disabled,
+      checked,
+      onCheckedChange,
+      onPress: onPressProp,
+      role: _role,
+      style,
+      ...props
+    },
     ref
   ) => {
     const augmentedRef = useAugmentedRef({ ref });
@@ -60,6 +69,7 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRo
             role='button'
             onPress={onPress}
             disabled={disabled}
+            style={StyleSheet.flatten(style)}
             {...props}
           />
         </Checkbox.Root>
@@ -83,7 +93,7 @@ function useCheckboxContext() {
 const Indicator = React.forwardRef<
   React.ElementRef<typeof View>,
   ComponentPropsWithAsChild<typeof View> & CheckboxIndicator
->(({ asChild, forceMount, ...props }, ref) => {
+>(({ asChild, forceMount, style, ...props }, ref) => {
   const { checked, disabled } = useCheckboxContext();
   const augmentedRef = useAugmentedRef({ ref });
 
@@ -108,7 +118,7 @@ const Indicator = React.forwardRef<
   const Component = asChild ? Slot.View : View;
   return (
     <Checkbox.Indicator forceMount={forceMount} asChild>
-      <Component ref={ref} {...props} />
+      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
     </Checkbox.Indicator>
   );
 });

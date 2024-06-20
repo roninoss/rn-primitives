@@ -1,6 +1,6 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import * as React from 'react';
-import { GestureResponderEvent, Pressable, View } from 'react-native';
+import { GestureResponderEvent, Pressable, StyleSheet, View } from 'react-native';
 import { useAugmentedRef } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
@@ -30,6 +30,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & NavigationMenuRootPr
       skipDelayDuration,
       dir,
       orientation,
+      style,
       ...viewProps
     },
     ref
@@ -45,7 +46,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & NavigationMenuRootPr
           dir={dir}
           orientation={orientation}
         >
-          <Component ref={ref} {...viewProps} />
+          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
         </NavigationMenu.Root>
       </NavigationMenuContext.Provider>
     );
@@ -64,36 +65,38 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...viewProps }, ref) => {
-  const augmentedRef = useAugmentedRef({ ref });
-  const { orientation } = useRootContext();
+const List = React.forwardRef<ViewRef, SlottableViewProps>(
+  ({ asChild, style, ...viewProps }, ref) => {
+    const augmentedRef = useAugmentedRef({ ref });
+    const { orientation } = useRootContext();
 
-  React.useLayoutEffect(() => {
-    if (augmentedRef.current) {
-      const augRef = augmentedRef.current as unknown as HTMLDivElement;
-      augRef.dataset.orientation = orientation;
-    }
-  }, [orientation]);
+    React.useLayoutEffect(() => {
+      if (augmentedRef.current) {
+        const augRef = augmentedRef.current as unknown as HTMLDivElement;
+        augRef.dataset.orientation = orientation;
+      }
+    }, [orientation]);
 
-  const Component = asChild ? Slot.View : View;
-  return (
-    <NavigationMenu.List asChild>
-      <Component ref={ref} {...viewProps} />
-    </NavigationMenu.List>
-  );
-});
+    const Component = asChild ? Slot.View : View;
+    return (
+      <NavigationMenu.List asChild>
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
+      </NavigationMenu.List>
+    );
+  }
+);
 
 List.displayName = 'ListWebNavigationMenu';
 
 const ItemContext = React.createContext<NavigationMenuItemProps | null>(null);
 
 const Item = React.forwardRef<ViewRef, SlottableViewProps & NavigationMenuItemProps>(
-  ({ asChild, value, ...props }, ref) => {
+  ({ asChild, value, style, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <ItemContext.Provider value={{ value }}>
         <NavigationMenu.Item value={value} asChild>
-          <Component ref={ref} {...props} />
+          <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
         </NavigationMenu.Item>
       </ItemContext.Provider>
     );
@@ -114,7 +117,7 @@ function useItemContext() {
 
 const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
   (
-    { asChild, onPress: onPressProp, disabled = false, onKeyDown: onKeyDownProp, ...props },
+    { asChild, onPress: onPressProp, disabled = false, onKeyDown: onKeyDownProp, style, ...props },
     ref
   ) => {
     const { value: rootValue, onValueChange } = useRootContext();
@@ -140,6 +143,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
           // @ts-expect-error web only
           onKeyDown={onKeyDown}
           onPress={onPress}
+          style={StyleSheet.flatten(style)}
           {...props}
         />
       </NavigationMenu.Trigger>
@@ -170,6 +174,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
       onPointerDownOutside,
       onFocusOutside,
       onInteractOutside,
+      style,
       ...props
     },
     ref
@@ -183,7 +188,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
         onFocusOutside={onFocusOutside}
         onInteractOutside={onInteractOutside}
       >
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </NavigationMenu.Content>
     );
   }
@@ -192,7 +197,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
 Content.displayName = 'ContentWebNavigationMenu';
 
 const Link = React.forwardRef<PressableRef, SlottablePressableProps & NavigationMenuLinkProps>(
-  ({ asChild, active, onPress: onPressProp, onKeyDown: onKeyDownProp, ...props }, ref) => {
+  ({ asChild, active, onPress: onPressProp, onKeyDown: onKeyDownProp, style, ...props }, ref) => {
     const { onValueChange } = useRootContext();
     function onKeyDown(ev: React.KeyboardEvent) {
       onKeyDownProp?.(ev);
@@ -216,6 +221,7 @@ const Link = React.forwardRef<PressableRef, SlottablePressableProps & Navigation
           // @ts-expect-error web only
           onKeyDown={onKeyDown}
           onPress={onPress}
+          style={StyleSheet.flatten(style)}
           {...props}
         />
       </NavigationMenu.Link>
@@ -228,9 +234,9 @@ Link.displayName = 'LinkWebNavigationMenu';
 const Viewport = React.forwardRef<
   ViewRef,
   Omit<React.ComponentPropsWithoutRef<typeof View>, 'children'>
->((props, ref) => {
+>(({ style, ...props }, ref) => {
   return (
-    <Slot.View ref={ref} {...props}>
+    <Slot.View ref={ref} style={StyleSheet.flatten(style)} {...props}>
       <NavigationMenu.Viewport />
     </Slot.View>
   );
@@ -238,14 +244,16 @@ const Viewport = React.forwardRef<
 
 Viewport.displayName = 'ViewportWebNavigationMenu';
 
-const Indicator = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
-  return (
-    <NavigationMenu.Indicator asChild>
-      <Component ref={ref} {...props} />
-    </NavigationMenu.Indicator>
-  );
-});
+const Indicator = React.forwardRef<ViewRef, SlottableViewProps>(
+  ({ asChild, style, ...props }, ref) => {
+    const Component = asChild ? Slot.View : View;
+    return (
+      <NavigationMenu.Indicator asChild>
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+      </NavigationMenu.Indicator>
+    );
+  }
+);
 
 Indicator.displayName = 'IndicatorWebNavigationMenu';
 

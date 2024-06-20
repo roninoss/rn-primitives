@@ -8,7 +8,7 @@ import type {
   ViewRef,
 } from '@rn-primitives/types';
 import * as React from 'react';
-import { Pressable, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import type { AccordionContentProps, AccordionItemProps, AccordionRootProps } from './types';
 
 function useIsomorphicLayoutEffect(
@@ -36,6 +36,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & AccordionRootProps>(
       dir,
       orientation = 'vertical',
       collapsible,
+      style,
       ...props
     },
     ref
@@ -72,7 +73,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & AccordionRootProps>(
           orientation={orientation}
           collapsible={collapsible}
         >
-          <Component ref={ref} {...props} />
+          <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
         </Accordion.Root>
       </AccordionContext.Provider>
     );
@@ -96,7 +97,7 @@ const AccordionItemContext = React.createContext<
 >(null);
 
 const Item = React.forwardRef<ViewRef, AccordionItemProps & SlottableViewProps>(
-  ({ asChild, value: itemValue, disabled, ...props }, ref) => {
+  ({ asChild, value: itemValue, disabled, style, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { value, orientation, disabled: disabledRoot } = useRootContext();
 
@@ -130,7 +131,7 @@ const Item = React.forwardRef<ViewRef, AccordionItemProps & SlottableViewProps>(
         }}
       >
         <Accordion.Item value={itemValue} disabled={disabled} asChild>
-          <Component ref={augmentedRef} {...props} />
+          <Component ref={augmentedRef} style={StyleSheet.flatten(style)} {...props} />
         </Accordion.Item>
       </AccordionItemContext.Provider>
     );
@@ -149,37 +150,39 @@ function useItemContext() {
   return context;
 }
 
-const Header = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
-  const augmentedRef = useAugmentedRef({ ref });
-  const { disabled, isExpanded } = useItemContext();
-  const { orientation, disabled: disabledRoot } = useRootContext();
+const Header = React.forwardRef<ViewRef, SlottableViewProps>(
+  ({ asChild, style, ...props }, ref) => {
+    const augmentedRef = useAugmentedRef({ ref });
+    const { disabled, isExpanded } = useItemContext();
+    const { orientation, disabled: disabledRoot } = useRootContext();
 
-  useIsomorphicLayoutEffect(() => {
-    if (augmentedRef.current) {
-      const augRef = augmentedRef.current as unknown as HTMLDivElement;
-      augRef.dataset.state = isExpanded ? 'open' : 'closed';
-    }
-  }, [isExpanded]);
-
-  useIsomorphicLayoutEffect(() => {
-    if (augmentedRef.current) {
-      const augRef = augmentedRef.current as unknown as HTMLDivElement;
-      augRef.dataset.orientation = orientation;
-      if (disabled || disabledRoot) {
-        augRef.dataset.disabled = 'true';
-      } else {
-        augRef.dataset.disabled = undefined;
+    useIsomorphicLayoutEffect(() => {
+      if (augmentedRef.current) {
+        const augRef = augmentedRef.current as unknown as HTMLDivElement;
+        augRef.dataset.state = isExpanded ? 'open' : 'closed';
       }
-    }
-  }, [orientation, disabled, disabledRoot]);
+    }, [isExpanded]);
 
-  const Component = asChild ? Slot.View : View;
-  return (
-    <Accordion.Header asChild>
-      <Component ref={augmentedRef} {...props} />
-    </Accordion.Header>
-  );
-});
+    useIsomorphicLayoutEffect(() => {
+      if (augmentedRef.current) {
+        const augRef = augmentedRef.current as unknown as HTMLDivElement;
+        augRef.dataset.orientation = orientation;
+        if (disabled || disabledRoot) {
+          augRef.dataset.disabled = 'true';
+        } else {
+          augRef.dataset.disabled = undefined;
+        }
+      }
+    }, [orientation, disabled, disabledRoot]);
+
+    const Component = asChild ? Slot.View : View;
+    return (
+      <Accordion.Header asChild>
+        <Component ref={augmentedRef} style={StyleSheet.flatten(style)} {...props} />
+      </Accordion.Header>
+    );
+  }
+);
 
 Header.displayName = 'HeaderWebAccordion';
 
@@ -192,7 +195,7 @@ const HIDDEN_STYLE: React.CSSProperties = {
 };
 
 const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, disabled: disabledProp, ...props }, ref) => {
+  ({ asChild, disabled: disabledProp, style, ...props }, ref) => {
     const { disabled: disabledRoot } = useRootContext();
     const { disabled, isExpanded } = useItemContext();
     const triggerRef = React.useRef<HTMLButtonElement>(null);
@@ -234,13 +237,15 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
             ref={augmentedRef}
             role='button'
             disabled={isDisabled}
+            style={StyleSheet.flatten(style)}
             {...props}
-            onPress={() => {
+            onPress={(ev) => {
               if (triggerRef.current && !isDisabled) {
                 triggerRef.current.disabled = false;
                 triggerRef.current.click();
                 triggerRef.current.disabled = true;
               }
+              props.onPress?.(ev);
             }}
           />
         </Accordion.Trigger>
@@ -252,7 +257,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
 Trigger.displayName = 'TriggerWebAccordion';
 
 const Content = React.forwardRef<ViewRef, AccordionContentProps & SlottableViewProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+  ({ asChild, forceMount, style, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
 
     const { orientation, disabled: disabledRoot } = useRootContext();
@@ -280,7 +285,7 @@ const Content = React.forwardRef<ViewRef, AccordionContentProps & SlottableViewP
     const Component = asChild ? Slot.View : View;
     return (
       <Accordion.Content forceMount={forceMount} asChild>
-        <Component ref={augmentedRef} {...props} />
+        <Component ref={augmentedRef} style={StyleSheet.flatten(style)} {...props} />
       </Accordion.Content>
     );
   }

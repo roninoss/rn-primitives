@@ -1,10 +1,28 @@
 {
   "name": "@rn-primitives/switch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Primitive switch",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./dist/switch": {
+      "import": "./dist/switch.mjs",
+      "require": "./dist/switch.js",
+      "types": "./dist/switch.d.ts",
+      "default": "./dist/switch.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -22,7 +40,7 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/react": "~18.2.79",
     "react": "18.2.0",
-    "react-native": "0.74.1",
+    "react-native": "0.74.2",
     "tsup": "^8.1.0"
   },
   "peerDependencies": {

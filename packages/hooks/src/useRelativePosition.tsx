@@ -1,11 +1,6 @@
-import * as React from 'react';
-import {
-  useWindowDimensions,
-  type LayoutRectangle,
-  type ScaledSize,
-  type ViewStyle,
-} from 'react-native';
 import type { Insets } from '@rn-primitives/types';
+import * as React from 'react';
+import { Dimensions, type LayoutRectangle, type ScaledSize, type ViewStyle } from 'react-native';
 
 const POSITION_ABSOLUTE: ViewStyle = {
   position: 'absolute',
@@ -37,7 +32,8 @@ export function useRelativePosition({
   side,
   disablePositioningStyle,
 }: UseRelativePositionArgs) {
-  const dimensions = useWindowDimensions();
+  const dimensions = Dimensions.get('screen');
+
   return React.useMemo(() => {
     if (disablePositioningStyle) {
       return {};
@@ -56,7 +52,17 @@ export function useRelativePosition({
       sideOffset,
       dimensions,
     });
-  }, [triggerPosition, contentLayout, dimensions.width, dimensions.height]);
+  }, [
+    align,
+    avoidCollisions,
+    side,
+    alignOffset,
+    insets,
+    triggerPosition,
+    contentLayout,
+    dimensions.width,
+    dimensions.height,
+  ]);
 }
 
 export interface LayoutPosition {
@@ -101,7 +107,10 @@ function getSidePosition({
 
   if (side === 'top') {
     return {
-      top: Math.max(insetTop, positionTop),
+      top: Math.min(
+        Math.max(insetTop, positionTop),
+        dimensions.height - insetBottom - contentLayout.height
+      ),
     };
   }
 

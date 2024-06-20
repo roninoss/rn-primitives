@@ -1,15 +1,13 @@
 import { defineConfig, Options } from 'tsup';
 
 export default defineConfig((options: Options) => ({
-  entry: {
-    index: 'src/index.ts',
-  },
+  entry: ['src/index.ts', 'src/radio-group.tsx', 'src/radio-group.web.tsx'],
   banner: {
     js: "'use client'",
   },
   clean: true,
   format: ['cjs', 'esm'],
-  external: ['react'],
+  external: ['react', './radio-group'],
   dts: true,
   ...options,
 }));

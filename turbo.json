@@ -19,6 +19,9 @@
     "clean": {
       "cache": false
     },
+    "pub:next": {
+      "cache": false
+    },
     "pub:release": {
       "cache": false
     }

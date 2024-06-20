@@ -1,6 +1,6 @@
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import * as React from 'react';
-import { GestureResponderEvent, Pressable, View } from 'react-native';
+import { GestureResponderEvent, Pressable, StyleSheet, View } from 'react-native';
 import * as Slot from '@rn-primitives/slot';
 import type {
   ForceMountable,
@@ -12,7 +12,7 @@ import type {
 import type { RadioGroupItemProps, RadioGroupRootProps } from './types';
 const RadioGroupContext = React.createContext<RadioGroupRootProps | null>(null);
 const Root = React.forwardRef<ViewRef, SlottableViewProps & RadioGroupRootProps>(
-  ({ asChild, value, onValueChange, disabled = false, ...viewProps }, ref) => {
+  ({ asChild, value, onValueChange, disabled = false, style, ...viewProps }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <RadioGroupContext.Provider
@@ -23,7 +23,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & RadioGroupRootProps>
         }}
       >
         <RadioGroup.Root value={value} onValueChange={onValueChange} disabled={disabled} asChild>
-          <Component ref={ref} {...viewProps} />
+          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
         </RadioGroup.Root>
       </RadioGroupContext.Provider>
     );
@@ -41,7 +41,7 @@ function useRadioGroupContext() {
   return context;
 }
 const Item = React.forwardRef<PressableRef, SlottablePressableProps & RadioGroupItemProps>(
-  ({ asChild, value, onPress: onPressProps, ...props }, ref) => {
+  ({ asChild, value, onPress: onPressProps, style, ...props }, ref) => {
     const { onValueChange } = useRadioGroupContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -54,7 +54,7 @@ const Item = React.forwardRef<PressableRef, SlottablePressableProps & RadioGroup
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <RadioGroup.Item value={value} asChild>
-        <Component ref={ref} onPress={onPress} {...props} />
+        <Component ref={ref} onPress={onPress} style={StyleSheet.flatten(style)} {...props} />
       </RadioGroup.Item>
     );
   }
@@ -63,11 +63,11 @@ const Item = React.forwardRef<PressableRef, SlottablePressableProps & RadioGroup
 Item.displayName = 'ItemRadioGroup';
 
 const Indicator = React.forwardRef<ViewRef, SlottableViewProps & ForceMountable>(
-  ({ asChild, forceMount, ...props }, ref) => {
+  ({ asChild, forceMount, style, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <RadioGroup.Indicator asChild>
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
       </RadioGroup.Indicator>
     );
   }

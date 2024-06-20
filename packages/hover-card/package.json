@@ -1,11 +1,28 @@
 {
   "name": "@rn-primitives/hover-card",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Primitive hover card",
   "license": "MIT",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./dist/hover-card": {
+      "import": "./dist/hover-card.mjs",
+      "require": "./dist/hover-card.js",
+      "types": "./dist/hover-card.d.ts",
+      "default": "./dist/hover-card.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -26,7 +43,7 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/react": "~18.2.79",
     "react": "18.2.0",
-    "react-native": "0.74.1",
+    "react-native": "0.74.2",
     "tsup": "^8.1.0"
   },
   "peerDependencies": {
