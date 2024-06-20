@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/utils",
-  "version": "1.0.0-rc.3",
+  "version": "1.0.1",
   "description": "Primitive types",
   "license": "MIT",
   "main": "dist/index.js",

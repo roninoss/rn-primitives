@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/portal",
-  "version": "1.0.0-rc.3",
+  "version": "1.0.1",
   "description": "Primitive portal",
   "license": "MIT",
   "main": "dist/index.js",
