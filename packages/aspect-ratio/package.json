@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive aspect ratio",
   "license": "MIT",
-  "main": "dist/aspect-ratio.js",
-  "module": "dist/aspect-ratio.mjs",
-  "types": "dist/aspect-ratio.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/aspect-ratio.mjs",
-      "require": "./dist/aspect-ratio.js",
-      "types": "./dist/aspect-ratio.d.ts",
-      "default": "./dist/aspect-ratio.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/aspect-ratio": {
       "import": "./dist/aspect-ratio.mjs",

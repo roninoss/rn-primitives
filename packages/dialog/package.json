@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive dialog",
   "license": "MIT",
-  "main": "dist/dialog.js",
-  "module": "dist/dialog.mjs",
-  "types": "dist/dialog.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/dialog.mjs",
-      "require": "./dist/dialog.js",
-      "types": "./dist/dialog.d.ts",
-      "default": "./dist/dialog.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/dialog": {
       "import": "./dist/dialog.mjs",

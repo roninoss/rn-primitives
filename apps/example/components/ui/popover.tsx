@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { TextClassContext } from '~/components/ui/text';
-import * as PopoverPrimitive from '@rn-primitives/popover/dist/popover';
+import * as PopoverPrimitive from '@rn-primitives/popover';
 import { cn } from '~/lib/utils';
 import { addCn } from '~/lib/addCn';
 

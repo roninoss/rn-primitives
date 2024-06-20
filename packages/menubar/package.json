@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive menubar",
   "license": "MIT",
-  "main": "dist/menubar.js",
-  "module": "dist/menubar.mjs",
-  "types": "dist/menubar.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/menubar.mjs",
-      "require": "./dist/menubar.js",
-      "types": "./dist/menubar.d.ts",
-      "default": "./dist/menubar.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/menubar": {
       "import": "./dist/menubar.mjs",

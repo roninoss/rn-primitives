@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive tooltip",
   "license": "MIT",
-  "main": "dist/tooltip.js",
-  "module": "dist/tooltip.mjs",
-  "types": "dist/tooltip.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/tooltip.mjs",
-      "require": "./dist/tooltip.js",
-      "types": "./dist/tooltip.d.ts",
-      "default": "./dist/tooltip.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/tooltip": {
       "import": "./dist/tooltip.mjs",

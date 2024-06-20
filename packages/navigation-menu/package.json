@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive navigation menu",
   "license": "MIT",
-  "main": "dist/navigation-menu.js",
-  "module": "dist/navigation-menu.mjs",
-  "types": "dist/navigation-menu.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/navigation-menu.mjs",
-      "require": "./dist/navigation-menu.js",
-      "types": "./dist/navigation-menu.d.ts",
-      "default": "./dist/navigation-menu.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/navigation-menu": {
       "import": "./dist/navigation-menu.mjs",

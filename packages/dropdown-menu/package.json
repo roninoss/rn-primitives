@@ -3,16 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive dropdown menu",
   "license": "MIT",
-  "type": "module",
-  "main": "dist/dropdown-menu.js",
-  "module": "dist/dropdown-menu.mjs",
-  "types": "dist/dropdown-menu.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/dropdown-menu.mjs",
-      "require": "./dist/dropdown-menu.js",
-      "types": "./dist/dropdown-menu.d.ts",
-      "default": "./dist/dropdown-menu.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/dropdown-menu": {
       "import": "./dist/dropdown-menu.mjs",

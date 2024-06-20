@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive toolbar",
   "license": "MIT",
-  "main": "dist/toolbar.js",
-  "module": "dist/toolbar.mjs",
-  "types": "dist/toolbar.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/toolbar.mjs",
-      "require": "./dist/toolbar.js",
-      "types": "./dist/toolbar.d.ts",
-      "default": "./dist/toolbar.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/toolbar": {
       "import": "./dist/toolbar.mjs",

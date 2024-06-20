@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive toggle",
   "license": "MIT",
-  "main": "dist/toggle.js",
-  "module": "dist/toggle.mjs",
-  "types": "dist/toggle.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/toggle.mjs",
-      "require": "./dist/toggle.js",
-      "types": "./dist/toggle.d.ts",
-      "default": "./dist/toggle.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/toggle": {
       "import": "./dist/toggle.mjs",

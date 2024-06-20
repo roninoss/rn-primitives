@@ -1,4 +1,4 @@
-import * as CollapsiblePrimitive from '@rn-primitives/collapsible/dist/collapsible';
+import * as CollapsiblePrimitive from '@rn-primitives/collapsible';
 import { addCn } from '~/lib/addCn';
 
 addCn([CollapsiblePrimitive.Root, CollapsiblePrimitive.Trigger, CollapsiblePrimitive.Content]);

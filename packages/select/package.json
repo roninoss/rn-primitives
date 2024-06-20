@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive select",
   "license": "MIT",
-  "main": "dist/select.js",
-  "module": "dist/select.mjs",
-  "types": "dist/select.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/select.mjs",
-      "require": "./dist/select.js",
-      "types": "./dist/select.d.ts",
-      "default": "./dist/select.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/select": {
       "import": "./dist/select.mjs",

@@ -1,4 +1,4 @@
-import * as AspectRatioPrimitive from '@rn-primitives/aspect-ratio/dist/aspect-ratio';
+import * as AspectRatioPrimitive from '@rn-primitives/aspect-ratio';
 import { addCn } from '~/lib/addCn';
 
 addCn([AspectRatioPrimitive.Root]);

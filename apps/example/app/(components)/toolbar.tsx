@@ -1,4 +1,4 @@
-import * as Toolbar from '@rn-primitives/toolbar/dist/toolbar';
+import * as Toolbar from '@rn-primitives/toolbar';
 import * as React from 'react';
 import { Text, View } from 'react-native';
 import { addCn } from '~/lib/addCn';

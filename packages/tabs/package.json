@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive tabs",
   "license": "MIT",
-  "main": "dist/tabs.js",
-  "module": "dist/tabs.mjs",
-  "types": "dist/tabs.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/tabs.mjs",
-      "require": "./dist/tabs.js",
-      "types": "./dist/tabs.d.ts",
-      "default": "./dist/tabs.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/tabs": {
       "import": "./dist/tabs.mjs",

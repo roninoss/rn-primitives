@@ -1,4 +1,4 @@
-import * as SelectPrimitive from '@rn-primitives/select/dist/select';
+import * as SelectPrimitive from '@rn-primitives/select';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';

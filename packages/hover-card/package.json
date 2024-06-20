@@ -3,16 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive hover card",
   "license": "MIT",
-  "type": "module",
-  "main": "dist/hover-card.js",
-  "module": "dist/hover-card.mjs",
-  "types": "dist/hover-card.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/hover-card.mjs",
-      "require": "./dist/hover-card.js",
-      "types": "./dist/hover-card.d.ts",
-      "default": "./dist/hover-card.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/hover-card": {
       "import": "./dist/hover-card.mjs",

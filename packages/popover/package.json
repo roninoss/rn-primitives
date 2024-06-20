@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive popover",
   "license": "MIT",
-  "main": "dist/popover.js",
-  "module": "dist/popover.mjs",
-  "types": "dist/popover.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/popover.mjs",
-      "require": "./dist/popover.js",
-      "types": "./dist/popover.d.ts",
-      "default": "./dist/popover.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/popover": {
       "import": "./dist/popover.mjs",

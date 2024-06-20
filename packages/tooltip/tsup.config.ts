@@ -1,13 +1,13 @@
 import { defineConfig, Options } from 'tsup';
 
 export default defineConfig((options: Options) => ({
-  entry: ['src/tooltip.tsx', 'src/tooltip.web.tsx'],
+  entry: ['src/index.ts', 'src/tooltip.tsx', 'src/tooltip.web.tsx'],
   banner: {
     js: "'use client'",
   },
   clean: true,
   format: ['cjs', 'esm'],
-  external: ['react'],
+  external: ['react', './tooltip'],
   dts: true,
   ...options,
 }));

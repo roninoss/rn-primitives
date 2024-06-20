@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive context menu",
   "license": "MIT",
-  "main": "dist/context-menu.js",
-  "module": "dist/context-menu.mjs",
-  "types": "dist/context-menu.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/context-menu.mjs",
-      "require": "./dist/context-menu.js",
-      "types": "./dist/context-menu.d.ts",
-      "default": "./dist/context-menu.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/context-menu": {
       "import": "./dist/context-menu.mjs",

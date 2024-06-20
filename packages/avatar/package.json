@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive avatar",
   "license": "MIT",
-  "main": "dist/avatar.js",
-  "module": "dist/avatar.mjs",
-  "types": "dist/avatar.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/avatar.mjs",
-      "require": "./dist/avatar.js",
-      "types": "./dist/avatar.d.ts",
-      "default": "./dist/avatar.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/avatar": {
       "import": "./dist/avatar.mjs",

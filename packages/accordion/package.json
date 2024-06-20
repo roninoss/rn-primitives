@@ -3,15 +3,15 @@
   "version": "1.0.0-rc.2",
   "description": "Primitive accordion",
   "license": "MIT",
-  "main": "dist/accordion.js",
-  "module": "dist/accordion.mjs",
-  "types": "dist/accordion.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/accordion.mjs",
-      "require": "./dist/accordion.js",
-      "types": "./dist/accordion.d.ts",
-      "default": "./dist/accordion.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./dist/accordion": {
       "import": "./dist/accordion.mjs",

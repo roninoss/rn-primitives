@@ -1,4 +1,4 @@
-import * as CheckboxPrimitive from '@rn-primitives/checkbox/dist/checkbox';
+import * as CheckboxPrimitive from '@rn-primitives/checkbox';
 import * as React from 'react';
 import { Platform } from 'react-native';
 import { addCn } from '~/lib/addCn';
