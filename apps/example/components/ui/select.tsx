@@ -6,24 +6,6 @@ import { Check } from '~/lib/icons/Check';
 import { ChevronDown } from '~/lib/icons/ChevronDown';
 import { ChevronUp } from '~/lib/icons/ChevronUp';
 import { cn } from '~/lib/utils';
-import { addCn } from '~/lib/addCn';
-
-addCn([
-  SelectPrimitive.Content,
-  SelectPrimitive.Group,
-  SelectPrimitive.Item,
-  SelectPrimitive.ItemIndicator,
-  SelectPrimitive.ItemText,
-  SelectPrimitive.Label,
-  SelectPrimitive.Overlay,
-  SelectPrimitive.Root,
-  SelectPrimitive.ScrollDownButton,
-  SelectPrimitive.ScrollUpButton,
-  SelectPrimitive.Separator,
-  SelectPrimitive.Trigger,
-  SelectPrimitive.Value,
-  SelectPrimitive.Viewport,
-]);
 
 type Option = SelectPrimitive.Option;
 

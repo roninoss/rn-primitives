@@ -13,18 +13,6 @@ import Animated, {
 } from 'react-native-reanimated';
 import { ChevronDown } from '~/lib/icons/ChevronDown';
 import { cn } from '~/lib/utils';
-import { addCn } from '~/lib/addCn';
-
-addCn([
-  NavigationMenuPrimitive.Content,
-  NavigationMenuPrimitive.Indicator,
-  NavigationMenuPrimitive.Item,
-  NavigationMenuPrimitive.Link,
-  NavigationMenuPrimitive.List,
-  NavigationMenuPrimitive.Root,
-  NavigationMenuPrimitive.Trigger,
-  NavigationMenuPrimitive.Viewport,
-]);
 
 const NavigationMenu = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Root>,

@@ -5,18 +5,6 @@ import { buttonTextVariants, buttonVariants } from '~/components/ui/button';
 import * as AlertDialogPrimitive from '@rn-primitives/alert-dialog';
 import { cn } from '~/lib/utils';
 import { TextClassContext } from '~/components/ui/text';
-import { addCn } from '~/lib/addCn';
-
-addCn([
-  AlertDialogPrimitive.Action,
-  AlertDialogPrimitive.Cancel,
-  AlertDialogPrimitive.Content,
-  AlertDialogPrimitive.Description,
-  AlertDialogPrimitive.Overlay,
-  AlertDialogPrimitive.Root,
-  AlertDialogPrimitive.Title,
-  AlertDialogPrimitive.Trigger,
-]);
 
 const AlertDialog = AlertDialogPrimitive.Root;
 

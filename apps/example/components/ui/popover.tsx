@@ -4,15 +4,6 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { TextClassContext } from '~/components/ui/text';
 import * as PopoverPrimitive from '@rn-primitives/popover';
 import { cn } from '~/lib/utils';
-import { addCn } from '~/lib/addCn';
-
-addCn([
-  PopoverPrimitive.Root,
-  PopoverPrimitive.Trigger,
-  PopoverPrimitive.Content,
-  PopoverPrimitive.Close,
-  PopoverPrimitive.Overlay,
-]);
 
 const Popover = PopoverPrimitive.Root;
 

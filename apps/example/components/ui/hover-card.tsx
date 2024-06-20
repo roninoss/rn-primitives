@@ -4,14 +4,6 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { TextClassContext } from '~/components/ui/text';
 import * as HoverCardPrimitive from '@rn-primitives/hover-card';
 import { cn } from '~/lib/utils';
-import { addCn } from '~/lib/addCn';
-
-addCn([
-  HoverCardPrimitive.Root,
-  HoverCardPrimitive.Trigger,
-  HoverCardPrimitive.Content,
-  HoverCardPrimitive.Overlay,
-]);
 
 const HoverCard = HoverCardPrimitive.Root;
 

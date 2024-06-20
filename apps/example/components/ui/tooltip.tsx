@@ -3,10 +3,7 @@ import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { TextClassContext } from '~/components/ui/text';
-import { addCn } from '~/lib/addCn';
 import { cn } from '~/lib/utils';
-
-addCn([TooltipPrimitive.Root, TooltipPrimitive.Trigger, TooltipPrimitive.Content]);
 
 const Tooltip = TooltipPrimitive.Root;
 const TooltipTrigger = TooltipPrimitive.Trigger;

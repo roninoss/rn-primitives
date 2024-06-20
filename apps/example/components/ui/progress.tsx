@@ -8,10 +8,7 @@ import Animated, {
   useDerivedValue,
   withSpring,
 } from 'react-native-reanimated';
-import { addCn } from '~/lib/addCn';
 import { cn } from '~/lib/utils';
-
-addCn([ProgressPrimitive.Root, ProgressPrimitive.Indicator]);
 
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,

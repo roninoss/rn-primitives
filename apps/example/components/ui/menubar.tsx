@@ -7,26 +7,6 @@ import { ChevronRight } from '~/lib/icons/ChevronRight';
 import { ChevronUp } from '~/lib/icons/ChevronUp';
 import { cn } from '~/lib/utils';
 import { TextClassContext } from '~/components/ui/text';
-import { addCn } from '~/lib/addCn';
-
-addCn([
-  MenubarPrimitive.CheckboxItem,
-  MenubarPrimitive.Content,
-  MenubarPrimitive.Group,
-  MenubarPrimitive.Item,
-  MenubarPrimitive.ItemIndicator,
-  MenubarPrimitive.Label,
-  MenubarPrimitive.Menu,
-  MenubarPrimitive.Overlay,
-  MenubarPrimitive.RadioGroup,
-  MenubarPrimitive.RadioItem,
-  MenubarPrimitive.Root,
-  MenubarPrimitive.Separator,
-  MenubarPrimitive.Sub,
-  MenubarPrimitive.SubContent,
-  MenubarPrimitive.SubTrigger,
-  MenubarPrimitive.Trigger,
-]);
 
 const MenubarMenu = MenubarPrimitive.Menu;
 

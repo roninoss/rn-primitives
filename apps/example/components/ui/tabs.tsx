@@ -2,9 +2,6 @@ import * as React from 'react';
 import { TextClassContext } from '~/components/ui/text';
 import * as TabsPrimitive from '@rn-primitives/tabs';
 import { cn } from '~/lib/utils';
-import { addCn } from '~/lib/addCn';
-
-addCn([TabsPrimitive.Root, TabsPrimitive.List, TabsPrimitive.Trigger, TabsPrimitive.Content]);
 
 const Tabs = TabsPrimitive.Root;
 

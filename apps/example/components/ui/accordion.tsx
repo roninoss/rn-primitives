@@ -15,15 +15,6 @@ import Animated, {
 import { ChevronDown } from '~/lib/icons/ChevronDown';
 import { cn } from '~/lib/utils';
 import { TextClassContext } from '~/components/ui/text';
-import { addCn } from '~/lib/addCn';
-
-addCn([
-  AccordionPrimitive.Root,
-  AccordionPrimitive.Item,
-  AccordionPrimitive.Trigger,
-  AccordionPrimitive.Content,
-  AccordionPrimitive.Header,
-]);
 
 const Accordion = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
