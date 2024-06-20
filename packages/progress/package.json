@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/progress",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "Primitive progress",
   "license": "MIT",
   "main": "dist/index.js",
