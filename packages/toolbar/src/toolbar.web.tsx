@@ -1,6 +1,4 @@
 import * as Toolbar from '@radix-ui/react-toolbar';
-import * as React from 'react';
-import { Pressable, StyleSheet, View, type GestureResponderEvent } from 'react-native';
 import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
@@ -9,6 +7,8 @@ import type {
   ViewRef,
 } from '@rn-primitives/types';
 import { ToggleGroupUtils } from '@rn-primitives/utils';
+import * as React from 'react';
+import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type { ToolbarRootProps, ToolbarToggleGroupProps, ToolbarToggleItem } from './types';
 
 const Root = React.forwardRef<ViewRef, SlottableViewProps & ToolbarRootProps>(
@@ -16,7 +16,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & ToolbarRootProps>(
     const Component = asChild ? Slot.View : View;
     return (
       <Toolbar.Root orientation={orientation} dir={dir} loop={loop} asChild>
-        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+        <Component ref={ref} {...props} />
       </Toolbar.Root>
     );
   }
@@ -47,7 +47,7 @@ const ToggleGroup = React.forwardRef<ViewRef, SlottableViewProps & ToolbarToggle
           disabled={disabled}
           asChild
         >
-          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
+          <Component ref={ref} {...viewProps} />
         </Toolbar.ToggleGroup>
       </ToggleGroupContext.Provider>
     );
@@ -94,13 +94,7 @@ const ToggleItem = React.forwardRef<PressableRef, SlottablePressableProps & Tool
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Toolbar.ToggleItem value={itemValue} asChild>
-        <Component
-          ref={ref}
-          onPress={onPress}
-          role='button'
-          style={StyleSheet.flatten(style)}
-          {...props}
-        />
+        <Component ref={ref} onPress={onPress} role='button' {...props} />
       </Toolbar.ToggleItem>
     );
   }
@@ -111,7 +105,7 @@ ToggleItem.displayName = 'ToggleItemWebToolbar';
 const Separator = React.forwardRef<ViewRef, SlottableViewProps>(
   ({ asChild, style, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
-    return <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />;
+    return <Component ref={ref} {...props} />;
   }
 );
 
@@ -122,7 +116,7 @@ const Link = React.forwardRef<PressableRef, SlottablePressableProps>(
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Toolbar.Link asChild>
-        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+        <Component ref={ref} {...props} />
       </Toolbar.Link>
     );
   }
@@ -135,7 +129,7 @@ const Button = React.forwardRef<PressableRef, SlottablePressableProps>(
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Toolbar.Button asChild>
-        <Component ref={ref} role='button' style={StyleSheet.flatten(style)} {...props} />
+        <Component ref={ref} role='button' {...props} />
       </Toolbar.Button>
     );
   }

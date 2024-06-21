@@ -9,7 +9,7 @@ import type {
   ViewRef,
 } from '@rn-primitives/types';
 import * as React from 'react';
-import { Pressable, StyleSheet, View, type GestureResponderEvent } from 'react-native';
+import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type {
   TooltipOverlayProps,
   TooltipPortalProps,
@@ -30,7 +30,6 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & TooltipRootProps>(
       skipDelayDuration,
       disableHoverableContent,
       onOpenChange: onOpenChangeProp,
-      style,
       ...viewProps
     },
     ref
@@ -56,7 +55,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & TooltipRootProps>(
             delayDuration={delayDuration}
             disableHoverableContent={disableHoverableContent}
           >
-            <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
+            <Component ref={ref} {...viewProps} />
           </Tooltip.Root>
         </Tooltip.Provider>
       </RootContext.Provider>
@@ -75,7 +74,7 @@ function useTooltipContext() {
 }
 
 const Trigger = React.forwardRef<TooltipTriggerRef, SlottablePressableProps>(
-  ({ asChild, onPress: onPressProp, role: _role, disabled, style, ...props }, ref) => {
+  ({ asChild, onPress: onPressProp, role: _role, disabled, ...props }, ref) => {
     const { onOpenChange, open } = useTooltipContext();
     const augmentedRef = useAugmentedRef({
       ref,
@@ -111,7 +110,6 @@ const Trigger = React.forwardRef<TooltipTriggerRef, SlottablePressableProps>(
           onPress={onPress}
           role='button'
           disabled={disabled}
-          style={StyleSheet.flatten(style)}
           {...props}
         />
       </Tooltip.Trigger>
@@ -126,9 +124,9 @@ function Portal({ forceMount, container, children }: TooltipPortalProps) {
 }
 
 const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & TooltipOverlayProps>(
-  ({ asChild, forceMount, style, ...props }, ref) => {
+  ({ asChild, forceMount, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref}  style={StyleSheet.flatten(style)} {...props} />;
+    return <Component ref={ref} {...props} />;
   }
 );
 
@@ -152,7 +150,6 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
       onPointerDownOutside,
       sticky,
       hideWhenDetached,
-      style,
       ...props
     },
     ref
@@ -170,9 +167,8 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
         avoidCollisions={avoidCollisions}
         sticky={sticky}
         hideWhenDetached={hideWhenDetached}
-        
       >
-        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+        <Component ref={ref} {...props} />
       </Tooltip.Content>
     );
   }

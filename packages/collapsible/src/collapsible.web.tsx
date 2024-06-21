@@ -8,7 +8,7 @@ import type {
   ViewRef,
 } from '@rn-primitives/types';
 import * as React from 'react';
-import { Pressable, StyleSheet, View, type GestureResponderEvent } from 'react-native';
+import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type { CollapsibleContentProps, CollapsibleRootProps, RootContext } from './types';
 
 const CollapsibleContext = React.createContext<RootContext | null>(null);
@@ -21,7 +21,6 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & CollapsibleRootProps
       open: openProp,
       defaultOpen,
       onOpenChange: onOpenChangeProp,
-      style,
       ...viewProps
     },
     ref
@@ -66,7 +65,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & CollapsibleRootProps
           onOpenChange={onOpenChange}
           disabled={disabled}
         >
-          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
+          <Component ref={ref} {...viewProps} />
         </Collapsible.Root>
       </CollapsibleContext.Provider>
     );
@@ -86,7 +85,7 @@ function useCollapsibleContext() {
 }
 
 const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, onPress: onPressProp, disabled: disabledProp = false, style, ...props }, ref) => {
+  ({ asChild, onPress: onPressProp, disabled: disabledProp = false, ...props }, ref) => {
     const { disabled, open, onOpenChange } = useCollapsibleContext();
     const augmentedRef = useAugmentedRef({ ref });
 
@@ -123,7 +122,6 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
           role='button'
           onPress={onPress}
           disabled={disabled}
-          style={StyleSheet.flatten(style)}
           {...props}
         />
       </Collapsible.Trigger>
@@ -134,7 +132,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
 Trigger.displayName = 'TriggerWebCollapsible';
 
 const Content = React.forwardRef<ViewRef, SlottableViewProps & CollapsibleContentProps>(
-  ({ asChild, forceMount, style, ...props }, ref) => {
+  ({ asChild, forceMount, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { open } = useCollapsibleContext();
 
@@ -148,7 +146,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & CollapsibleConten
     const Component = asChild ? Slot.View : View;
     return (
       <Collapsible.Content forceMount={forceMount} asChild>
-        <Component ref={augmentedRef} style={StyleSheet.flatten(style)} {...props} />
+        <Component ref={augmentedRef} {...props} />
       </Collapsible.Content>
     );
   }

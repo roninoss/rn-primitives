@@ -1,6 +1,4 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
-import * as React from 'react';
-import { GestureResponderEvent, Pressable, StyleSheet, View } from 'react-native';
 import { useAugmentedRef } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
@@ -8,22 +6,15 @@ import type {
   PressableRef,
   SlottablePressableProps,
 } from '@rn-primitives/types';
+import * as React from 'react';
+import { GestureResponderEvent, Pressable, View } from 'react-native';
 import type { CheckboxIndicator, CheckboxRootProps } from './types';
 
 const CheckboxContext = React.createContext<CheckboxRootProps | null>(null);
 
 const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRootProps>(
   (
-    {
-      asChild,
-      disabled,
-      checked,
-      onCheckedChange,
-      onPress: onPressProp,
-      role: _role,
-      style,
-      ...props
-    },
+    { asChild, disabled, checked, onCheckedChange, onPress: onPressProp, role: _role, ...props },
     ref
   ) => {
     const augmentedRef = useAugmentedRef({ ref });
@@ -69,7 +60,6 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRo
             role='button'
             onPress={onPress}
             disabled={disabled}
-            style={StyleSheet.flatten(style)}
             {...props}
           />
         </Checkbox.Root>
@@ -93,7 +83,7 @@ function useCheckboxContext() {
 const Indicator = React.forwardRef<
   React.ElementRef<typeof View>,
   ComponentPropsWithAsChild<typeof View> & CheckboxIndicator
->(({ asChild, forceMount, style, ...props }, ref) => {
+>(({ asChild, forceMount, ...props }, ref) => {
   const { checked, disabled } = useCheckboxContext();
   const augmentedRef = useAugmentedRef({ ref });
 
@@ -118,7 +108,7 @@ const Indicator = React.forwardRef<
   const Component = asChild ? Slot.View : View;
   return (
     <Checkbox.Indicator forceMount={forceMount} asChild>
-      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+      <Component ref={ref} {...props} />
     </Checkbox.Indicator>
   );
 });

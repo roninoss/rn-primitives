@@ -13,7 +13,7 @@ import type {
 } from '@rn-primitives/types';
 import { EmptyGestureResponderEvent } from '@rn-primitives/utils';
 import * as React from 'react';
-import { GestureResponderEvent, Pressable, StyleSheet, Text, View } from 'react-native';
+import { GestureResponderEvent, Pressable, Text, View } from 'react-native';
 import type {
   MenubarCheckboxItemProps,
   MenubarItemProps,
@@ -31,12 +31,12 @@ import type {
 const RootContext = React.createContext<MenubarRootProps | null>(null);
 
 const Root = React.forwardRef<ViewRef, SlottableViewProps & MenubarRootProps>(
-  ({ asChild, value, onValueChange, style, ...viewProps }, ref) => {
+  ({ asChild, value, onValueChange, ...viewProps }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <RootContext.Provider value={{ value, onValueChange }}>
         <Menubar.Root value={value} onValueChange={onValueChange}>
-          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
+          <Component ref={ref} {...viewProps} />
         </Menubar.Root>
       </RootContext.Provider>
     );
@@ -56,12 +56,12 @@ function useRootContext() {
 const MenuContext = React.createContext<MenubarMenuProps | null>(null);
 
 const Menu = React.forwardRef<ViewRef, SlottableViewProps & MenubarMenuProps>(
-  ({ asChild, value, style, ...viewProps }, ref) => {
+  ({ asChild, value, ...viewProps }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <MenuContext.Provider value={{ value }}>
         <Menubar.Menu value={value}>
-          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
+          <Component ref={ref} {...viewProps} />
         </Menubar.Menu>
       </MenuContext.Provider>
     );
@@ -79,7 +79,7 @@ function useMenuContext() {
 }
 
 const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, disabled = false, style, ...props }, ref) => {
+  ({ asChild, disabled = false, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { value: menuValue } = useMenuContext();
     const { value } = useRootContext();
@@ -105,12 +105,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Menubar.Trigger disabled={disabled ?? undefined} asChild>
-        <Component
-          ref={augmentedRef}
-          disabled={disabled}
-          style={StyleSheet.flatten(style)}
-          {...props}
-        />
+        <Component ref={augmentedRef} disabled={disabled} {...props} />
       </Menubar.Trigger>
     );
   }
@@ -123,9 +118,9 @@ function Portal({ forceMount, container, children }: MenubarPortalProps) {
 }
 
 const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & MenubarOverlayProps>(
-  ({ asChild, style, ...props }, ref) => {
+  ({ asChild, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />;
+    return <Component ref={ref} {...props} />;
   }
 );
 
@@ -155,7 +150,6 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
       collisionBoundary,
       sticky,
       hideWhenDetached,
-      style,
       ...props
     },
     ref
@@ -187,7 +181,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
           side={side}
           sideOffset={sideOffset}
         >
-          <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+          <Component ref={ref} {...props} />
           <Menubar.Item
             ref={itemRef}
             aria-hidden
@@ -222,7 +216,6 @@ const Item = React.forwardRef<PressableRef, SlottablePressableProps & MenubarIte
       closeOnPress = true,
       onPress: onPressProp,
       onKeyDown: onKeyDownProp,
-      style,
       ...props
     },
     ref
@@ -259,7 +252,6 @@ const Item = React.forwardRef<PressableRef, SlottablePressableProps & MenubarIte
           // @ts-expect-error web only
           onKeyDown={onKeyDown}
           onPress={onPress}
-          style={StyleSheet.flatten(style)}
           {...props}
         />
       </Menubar.Item>
@@ -269,22 +261,22 @@ const Item = React.forwardRef<PressableRef, SlottablePressableProps & MenubarIte
 
 Item.displayName = 'ItemWebMenubar';
 
-const Group = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, style, ...props }, ref) => {
+const Group = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Menubar.Group asChild>
-      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+      <Component ref={ref} {...props} />
     </Menubar.Group>
   );
 });
 
 Group.displayName = 'GroupWebMenubar';
 
-const Label = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, style, ...props }, ref) => {
+const Label = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.Text : Text;
   return (
     <Menubar.Label asChild>
-      <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+      <Component ref={ref} {...props} />
     </Menubar.Label>
   );
 });
@@ -305,7 +297,6 @@ const CheckboxItem = React.forwardRef<
       closeOnPress = true,
       onPress: onPressProp,
       onKeyDown: onKeyDownProp,
-      style,
       ...props
     },
     ref
@@ -344,7 +335,6 @@ const CheckboxItem = React.forwardRef<
           onKeyDown={onKeyDown}
           onPress={onPress}
           role='button'
-          style={StyleSheet.flatten(style)}
           {...props}
         />
       </Menubar.CheckboxItem>
@@ -360,12 +350,12 @@ const MenubarRadioGroupContext = React.createContext<{
 } | null>(null);
 
 const RadioGroup = React.forwardRef<ViewRef, SlottableViewProps & MenubarRadioGroupProps>(
-  ({ asChild, value, onValueChange, style, ...props }, ref) => {
+  ({ asChild, value, onValueChange, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <MenubarRadioGroupContext.Provider value={{ value, onValueChange }}>
         <Menubar.RadioGroup value={value} onValueChange={onValueChange} asChild>
-          <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+          <Component ref={ref} {...props} />
         </Menubar.RadioGroup>
       </MenubarRadioGroupContext.Provider>
     );
@@ -393,7 +383,6 @@ const RadioItem = React.forwardRef<PressableRef, SlottablePressableProps & Menub
       closeOnPress = true,
       onPress: onPressProp,
       onKeyDown: onKeyDownProp,
-      style,
       ...props
     },
     ref
@@ -433,7 +422,6 @@ const RadioItem = React.forwardRef<PressableRef, SlottablePressableProps & Menub
           // @ts-expect-error web only
           onKeyDown={onKeyDown}
           onPress={onPress}
-          style={StyleSheet.flatten(style)}
           {...props}
         />
       </Menubar.RadioItem>
@@ -444,11 +432,11 @@ const RadioItem = React.forwardRef<PressableRef, SlottablePressableProps & Menub
 RadioItem.displayName = 'RadioItemWebMenubar';
 
 const ItemIndicator = React.forwardRef<ViewRef, SlottableViewProps & ForceMountable>(
-  ({ asChild, forceMount, style, ...props }, ref) => {
+  ({ asChild, forceMount, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <Menubar.ItemIndicator forceMount={forceMount} asChild>
-        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+        <Component ref={ref} {...props} />
       </Menubar.ItemIndicator>
     );
   }
@@ -457,11 +445,11 @@ const ItemIndicator = React.forwardRef<ViewRef, SlottableViewProps & ForceMounta
 ItemIndicator.displayName = 'ItemIndicatorWebMenubar';
 
 const Separator = React.forwardRef<ViewRef, SlottableViewProps & MenubarSeparatorProps>(
-  ({ asChild, decorative, style, ...props }, ref) => {
+  ({ asChild, decorative, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <Menubar.Separator asChild>
-        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+        <Component ref={ref} {...props} />
       </Menubar.Separator>
     );
   }
@@ -475,10 +463,7 @@ const MenubarSubContext = React.createContext<{
 } | null>(null);
 
 const Sub = React.forwardRef<ViewRef, SlottableViewProps & MenubarSubProps>(
-  (
-    { asChild, defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, style, ...props },
-    ref
-  ) => {
+  ({ asChild, defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, ...props }, ref) => {
     const [open = false, onOpenChange] = useControllableState({
       prop: openProp,
       defaultProp: defaultOpen,
@@ -488,7 +473,7 @@ const Sub = React.forwardRef<ViewRef, SlottableViewProps & MenubarSubProps>(
     return (
       <MenubarSubContext.Provider value={{ open, onOpenChange }}>
         <Menubar.Sub open={open} onOpenChange={onOpenChange}>
-          <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+          <Component ref={ref} {...props} />
         </Menubar.Sub>
       </MenubarSubContext.Provider>
     );
@@ -508,11 +493,11 @@ function useSubContext() {
 }
 
 const SubTrigger = React.forwardRef<PressableRef, SlottablePressableProps & MenubarSubTriggerProps>(
-  ({ asChild, textValue, disabled = false, style, ...props }, ref) => {
+  ({ asChild, textValue, disabled = false, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Menubar.SubTrigger disabled={disabled ?? undefined} textValue={textValue} asChild>
-        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+        <Component ref={ref} {...props} />
       </Menubar.SubTrigger>
     );
   }
@@ -521,12 +506,12 @@ const SubTrigger = React.forwardRef<PressableRef, SlottablePressableProps & Menu
 SubTrigger.displayName = 'SubTriggerWebMenubar';
 
 const SubContent = React.forwardRef<ViewRef, SlottableViewProps & ForceMountable>(
-  ({ asChild = false, forceMount, style, ...props }, ref) => {
+  ({ asChild = false, forceMount, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <Menubar.Portal>
         <Menubar.SubContent forceMount={forceMount}>
-          <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+          <Component ref={ref} {...props} />
         </Menubar.SubContent>
       </Menubar.Portal>
     );

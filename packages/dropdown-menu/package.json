@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/dropdown-menu",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Primitive dropdown menu",
   "license": "MIT",
   "main": "dist/index.js",

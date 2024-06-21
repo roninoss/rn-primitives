@@ -9,22 +9,19 @@ import type {
   ViewRef,
 } from '@rn-primitives/types';
 import * as React from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import type {
   HoverCardOverlayProps,
   HoverCardPortalProps,
+  HoverCardRootContext,
   HoverCardRootProps,
   HoverCardTriggerRef,
-  HoverCardRootContext,
 } from './types';
 
 const HoverCardContext = React.createContext<HoverCardRootContext | null>(null);
 
 const Root = React.forwardRef<ViewRef, SlottableViewProps & HoverCardRootProps>(
-  (
-    { asChild, openDelay, closeDelay, onOpenChange: onOpenChangeProp, style, ...viewProps },
-    ref
-  ) => {
+  ({ asChild, openDelay, closeDelay, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
     const [open, setOpen] = React.useState(false);
 
     function onOpenChange(value: boolean) {
@@ -41,7 +38,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & HoverCardRootProps>(
           openDelay={openDelay}
           closeDelay={closeDelay}
         >
-          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
+          <Component ref={ref} {...viewProps} />
         </HoverCard.Root>
       </HoverCardContext.Provider>
     );
@@ -61,7 +58,7 @@ function useRootContext() {
 }
 
 const Trigger = React.forwardRef<HoverCardTriggerRef, SlottablePressableProps>(
-  ({ asChild, style, ...props }, ref) => {
+  ({ asChild, ...props }, ref) => {
     const { onOpenChange } = useRootContext();
     const augmentedRef = useAugmentedRef({
       ref,
@@ -78,7 +75,7 @@ const Trigger = React.forwardRef<HoverCardTriggerRef, SlottablePressableProps>(
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <HoverCard.Trigger asChild>
-        <Component ref={augmentedRef} style={StyleSheet.flatten(style)} {...props} />
+        <Component ref={augmentedRef} {...props} />
       </HoverCard.Trigger>
     );
   }
@@ -91,9 +88,9 @@ function Portal({ forceMount, container, children }: HoverCardPortalProps) {
 }
 
 const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & HoverCardOverlayProps>(
-  ({ asChild, style, ...props }, ref) => {
+  ({ asChild, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />;
+    return <Component ref={ref} {...props} />;
   }
 );
 
@@ -119,7 +116,6 @@ const Content = React.forwardRef<PressableRef, SlottablePressableProps & Positio
       collisionBoundary,
       sticky,
       hideWhenDetached,
-      style,
       ...props
     },
     ref
@@ -142,7 +138,7 @@ const Content = React.forwardRef<PressableRef, SlottablePressableProps & Positio
         side={side}
         sideOffset={sideOffset}
       >
-        <Component ref={ref} style={StyleSheet.flatten(style)} {...props} />
+        <Component ref={ref} {...props} />
       </HoverCard.Content>
     );
   }
