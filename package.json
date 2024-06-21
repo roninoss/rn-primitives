@@ -10,7 +10,7 @@
     "build": "turbo build --filter=./packages/*",
     "publish-all:primitives:next": "turbo pub:next --filter=./packages/* --concurrency=33",
     "publish-all:primitives": "turbo pub:release --filter=./packages/* --concurrency=33",
-    "clean": "rm -rf .turbo node_modules && turbo clean"
+    "clean": "turbo clean && rm -rf .turbo node_modules"
   },
   "devDependencies": {
     "turbo": "^2.0.1",

@@ -1,6 +1,4 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
-import * as React from 'react';
-import { Pressable, StyleSheet, View, type GestureResponderEvent } from 'react-native';
 import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
@@ -9,6 +7,8 @@ import type {
   ViewRef,
 } from '@rn-primitives/types';
 import { ToggleGroupUtils } from '@rn-primitives/utils';
+import * as React from 'react';
+import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type { ToggleGroupItemProps, ToggleGroupRootProps } from './types';
 
 const ToggleGroupContext = React.createContext<ToggleGroupRootProps | null>(null);
@@ -25,7 +25,6 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & ToggleGroupRootProps
       orientation,
       dir,
       loop,
-      style,
       ...viewProps
     },
     ref
@@ -53,7 +52,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & ToggleGroupRootProps
           loop={loop}
           asChild
         >
-          <Component ref={ref} style={StyleSheet.flatten(style)} {...viewProps} />
+          <Component ref={ref} {...viewProps} />
         </ToggleGroup.Root>
       </ToggleGroupContext.Provider>
     );
@@ -76,14 +75,7 @@ const ItemContext = React.createContext<ToggleGroupItemProps | null>(null);
 
 const Item = React.forwardRef<PressableRef, SlottablePressableProps & ToggleGroupItemProps>(
   (
-    {
-      asChild,
-      value: itemValue,
-      disabled: disabledProp = false,
-      onPress: onPressProp,
-      style,
-      ...props
-    },
+    { asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props },
     ref
   ) => {
     const { type, disabled, value, onValueChange } = useRootContext();
@@ -107,7 +99,6 @@ const Item = React.forwardRef<PressableRef, SlottablePressableProps & ToggleGrou
             onPress={onPress}
             disabled={disabled || disabledProp}
             role='button'
-            style={StyleSheet.flatten(style)}
             {...props}
           />
         </ToggleGroup.Item>

@@ -1,12 +1,12 @@
 import * as Toggle from '@radix-ui/react-toggle';
-import * as React from 'react';
-import { Pressable, StyleSheet, type GestureResponderEvent } from 'react-native';
 import * as Slot from '@rn-primitives/slot';
 import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
+import * as React from 'react';
+import { Pressable, type GestureResponderEvent } from 'react-native';
 import type { ToggleRootProps } from './types';
 
 const Root = React.forwardRef<PressableRef, SlottablePressableProps & ToggleRootProps>(
-  ({ asChild, pressed, onPressedChange, disabled, onPress: onPressProp, style, ...props }, ref) => {
+  ({ asChild, pressed, onPressedChange, disabled, onPress: onPressProp, ...props }, ref) => {
     function onPress(ev: GestureResponderEvent) {
       onPressProp?.(ev);
       onPressedChange(!pressed);
@@ -15,14 +15,7 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & ToggleRoot
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Toggle.Root pressed={pressed} onPressedChange={onPressedChange} disabled={disabled} asChild>
-        <Component
-          ref={ref}
-          onPress={onPress}
-          disabled={disabled}
-          role='button'
-          style={StyleSheet.flatten(style)}
-          {...props}
-        />
+        <Component ref={ref} onPress={onPress} disabled={disabled} role='button' {...props} />
       </Toggle.Root>
     );
   }
