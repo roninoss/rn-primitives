@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/dialog",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Primitive dialog",
   "license": "MIT",
   "main": "dist/index.js",

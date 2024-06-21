@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/aspect-ratio",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Primitive aspect ratio",
   "license": "MIT",
   "main": "dist/index.js",
