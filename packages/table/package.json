@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/table",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Primitive table",
   "license": "MIT",
   "main": "dist/index.js",
@@ -12,6 +12,12 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./dist/table": {
+      "import": "./dist/table.mjs",
+      "require": "./dist/table.js",
+      "types": "./dist/table.d.ts",
+      "default": "./dist/table.js"
     }
   },
   "files": [
