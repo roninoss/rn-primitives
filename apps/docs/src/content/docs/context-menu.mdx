@@ -23,54 +23,77 @@ import importedIndexCode from '@/../node_modules/@rn-primitives/context-menu/src
   @radix-ui/react-context-menu
 </LinkButton>
 
-<br />
 
 Shows a menu activated by either a right-click or a long-press.
 
 ## Installation
 
-<Aside title="Uses shared primitives">
-  If you do not already have these primitives in your project, you will need to add them.
-
-  - [Hooks Primitive](/primitives/hooks)
-  - [Portal Primitive](/primitives/portal)
-  - [Slot Primitive](/primitives/slot)
-  - [Types Primitive](/primitives/types)
-  - [Utils Primitive](/primitives/utils)
-</Aside>
-
 <Tabs>
-  <TabItem label="Universal">
-    **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/context-menu">@radix-ui/react-context-menu</a>**
+  <TabItem label="NPM">
+
+  Install the component via your command line.
 
     ```bash
-    npx expo install @radix-ui/react-context-menu
+    npx expo install @rn-primitives/context-menu
     ```
 
-    **Copy/paste the following code for web to  `~/components/primitives/context-menu/context-menu.web.tsx`**
 
-    <Code code={importedWebCode} lang="tsx" title="~/components/primitives/context-menu/context-menu.web.tsx" />
+    <Aside title="Peer dependency">
+      If you do not have the portal primitive in your project, you will need to add it as well.
 
-    **Copy/paste the following code for native to  `~/components/primitives/context-menu/context-menu.tsx`**
+       ```bash
+      npx expo install @rn-primitives/portal
+      ```
+    </Aside>
 
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/context-menu/context-menu.tsx" />
-
-    **Copy/paste the following code for types to  `~/components/primitives/context-menu/types.ts`**
-
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/context-menu/types.ts" />
-
-    **Copy/paste the following code for exporting to  `~/components/primitives/context-menu/index.ts`**
-
-    <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/context-menu/index.ts" />
   </TabItem>
-  <TabItem label="Native Only">
-    **Copy/paste the following code for native to  `~/components/primitives/context-menu/index.tsx`**
+  <TabItem label="Manual">
 
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/context-menu/index.tsx" />
+    <Aside title="Uses shared primitives">
+      If you do not already have these primitives in your project, you will need to add them.
 
-    **Copy/paste the following code for types to  `~/components/primitives/context-menu/types.ts`**
+      - [Hooks Primitive](/primitives/hooks)
+      - [Portal Primitive](/primitives/portal)
+      - [Slot Primitive](/primitives/slot)
+      - [Types Primitive](/primitives/types)
+      - [Utils Primitive](/primitives/utils)
+    </Aside>
 
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/context-menu/types.ts" />
+    <br />
+    <Tabs>
+      <TabItem label="Universal">
+        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/context-menu">@radix-ui/react-context-menu</a>**
+
+        ```bash
+        npx expo install @radix-ui/react-context-menu
+        ```
+
+        **Copy/paste the following code for web to  `~/components/primitives/context-menu/context-menu.web.tsx`**
+
+        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/context-menu/context-menu.web.tsx" />
+
+        **Copy/paste the following code for native to  `~/components/primitives/context-menu/context-menu.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/context-menu/context-menu.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/context-menu/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/context-menu/types.ts" />
+
+        **Copy/paste the following code for exporting to  `~/components/primitives/context-menu/index.ts`**
+
+        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/context-menu/index.ts" />
+      </TabItem>
+      <TabItem label="Native Only">
+        **Copy/paste the following code for native to  `~/components/primitives/context-menu/index.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/context-menu/index.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/context-menu/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/context-menu/types.ts" />
+      </TabItem>
+    </Tabs>
   </TabItem>
 </Tabs>
 
