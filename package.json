@@ -5,9 +5,11 @@
     "dev": "turbo dev --concurrency=34",
     "dev:primitives": "turbo dev --filter=./packages/* --concurrency=33",
     "dev:example": "turbo dev --filter=./apps/example",
+    "dev:docs": "turbo dev --filter=./apps/docs",
     "lint": "turbo lint",
     "test": "turbo test",
     "build": "turbo build --filter=./packages/*",
+    "build:docs": "turbo build --filter=./apps/docs",
     "publish-all:primitives:next": "turbo pub:next --filter=./packages/* --concurrency=33",
     "publish-all:primitives": "turbo pub:release --filter=./packages/* --concurrency=33",
     "clean": "turbo clean && rm -rf .turbo node_modules"
