@@ -8,33 +8,41 @@ description: Presents content within a chosen aspect ratio.
 
 import Code from '@/components/Code.astro';
 import { LinkButton } from '@/components/react/LinkButton';
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedCode from '@/../node_modules/@rn-primitives/aspect-ratio/src/aspect-ratio.tsx?raw';
 
-<LinkButton href="/primitives/types">
-  Types Primitives
-</LinkButton>
-<LinkButton href="/primitives/slot">
-  Slot Primitives
-</LinkButton>
-
-<br />
 
 Presents content within a chosen aspect ratio.
 
 ## Installation
-<Aside title="Uses shared primitives">
-    If you do not already have these primitives in your project, you will need to add them.
 
-    - [Types Primitive](/primitives/types)
-    - [Slot Primitive](/primitives/slot)
+<Tabs>
+  <TabItem label="NPM">
 
-</Aside>
+  Install the component via your command line.
 
+    ```bash
+    npx expo install @rn-primitives/aspect-ratio
+    ```
 
-**Copy/paste the following code to `~/components/primitives/aspect-ratio.tsx`**
+  </TabItem>
+  <TabItem label="Manual">
+  <Aside title="Uses shared primitives">
+      If you do not already have these primitives in your project, you will need to add them.
 
-<Code code={importedCode} lang="tsx" title="~/components/primitives/aspect-ratio.tsx" />
+      - [Types Primitive](/primitives/types)
+      - [Slot Primitive](/primitives/slot)
+
+  </Aside>
+
+  <br />
+
+  **Copy/paste the following code to `~/components/primitives/aspect-ratio.tsx`**
+
+  <Code code={importedCode} lang="tsx" title="~/components/primitives/aspect-ratio.tsx" />
+
+  </TabItem>
+</Tabs>
 
 ## Usage
 

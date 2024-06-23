@@ -14,63 +14,73 @@ import importedWebCode from '@/../node_modules/@rn-primitives/dropdown-menu/src/
 import importedTypesCode from '@/../node_modules/@rn-primitives/dropdown-menu/src/types.ts?raw';
 import importedIndexCode from '@/../node_modules/@rn-primitives/dropdown-menu/src/index.ts?raw';
 
-<LinkButton href='/primitives/hooks'>Hooks Primitives</LinkButton>
-<LinkButton href='/primitives/portal'>Portal Primitives</LinkButton>
-<LinkButton href='/primitives/slot'>Slot Primitives</LinkButton>
-<LinkButton href='/primitives/types'>Types Primitives</LinkButton>
-<LinkButton href='/primitives/utils'>Utils Primitives</LinkButton>
-<LinkButton target='_blank' href='https://www.radix-ui.com/primitives/docs/components/dropdown-menu'>
-  @radix-ui/react-dropdown-menu
-</LinkButton>
-
-<br />
-
 Shows a menu with options or actions when a user clicks the trigger button.
 
 ## Installation
 
-<Aside title="Uses shared primitives">
-  If you do not already have these primitives in your project, you will need to add them.
-
-  - [Hooks Primitive](/primitives/hooks)
-  - [Portal Primitive](/primitives/portal)
-  - [Slot Primitive](/primitives/slot)
-  - [Types Primitive](/primitives/types)
-  - [Utils Primitive](/primitives/utils)
-</Aside>
-
 <Tabs>
-  <TabItem label="Universal">
-    **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/dropdown-menu">@radix-ui/react-dropdown-menu</a>**
+  <TabItem label="NPM">
+
+  Install the component via your command line.
 
     ```bash
-    npx expo install @radix-ui/react-dropdown-menu
+    npx expo install @rn-primitives/dropdown-menu
     ```
 
-    **Copy/paste the following code for web to  `~/components/primitives/dropdown-menu/dropdown-menu.web.tsx`**
+    <Aside title="Peer dependency">
+      If you do not have the portal primitive in your project, you will need to add it as well.
 
-    <Code code={importedWebCode} lang="tsx" title="~/components/primitives/dropdown-menu/dropdown-menu.web.tsx" />
+       ```bash
+      npx expo install @rn-primitives/portal
+      ```
+    </Aside>
 
-    **Copy/paste the following code for native to  `~/components/primitives/dropdown-menu/dropdown-menu.tsx`**
-
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/dropdown-menu/dropdown-menu.tsx" />
-
-    **Copy/paste the following code for types to  `~/components/primitives/dropdown-menu/types.ts`**
-
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/dropdown-menu/types.ts" />
-
-    **Copy/paste the following code for exporting to  `~/components/primitives/dropdown-menu/index.ts`**
-
-    <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/dropdown-menu/index.ts" />
   </TabItem>
-  <TabItem label="Native Only">
-    **Copy/paste the following code for native to  `~/components/primitives/dropdown-menu/index.tsx`**
+  <TabItem label="Manual">
+    <Aside title="Uses shared primitives">
+      If you do not already have these primitives in your project, you will need to add them.
 
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/dropdown-menu/index.tsx" />
+      - [Hooks Primitive](/primitives/hooks)
+      - [Portal Primitive](/primitives/portal)
+      - [Slot Primitive](/primitives/slot)
+      - [Types Primitive](/primitives/types)
+      - [Utils Primitive](/primitives/utils)
+    </Aside>
+    <br />
+    <Tabs>
+      <TabItem label="Universal">
+        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/dropdown-menu">@radix-ui/react-dropdown-menu</a>**
 
-    **Copy/paste the following code for types to  `~/components/primitives/dropdown-menu/types.ts`**
+        ```bash
+        npx expo install @radix-ui/react-dropdown-menu
+        ```
 
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/dropdown-menu/types.ts" />
+        **Copy/paste the following code for web to  `~/components/primitives/dropdown-menu/dropdown-menu.web.tsx`**
+
+        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/dropdown-menu/dropdown-menu.web.tsx" />
+
+        **Copy/paste the following code for native to  `~/components/primitives/dropdown-menu/dropdown-menu.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/dropdown-menu/dropdown-menu.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/dropdown-menu/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/dropdown-menu/types.ts" />
+
+        **Copy/paste the following code for exporting to  `~/components/primitives/dropdown-menu/index.ts`**
+
+        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/dropdown-menu/index.ts" />
+      </TabItem>
+      <TabItem label="Native Only">
+        **Copy/paste the following code for native to  `~/components/primitives/dropdown-menu/index.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/dropdown-menu/index.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/dropdown-menu/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/dropdown-menu/types.ts" />
+      </TabItem>
+    </Tabs>
   </TabItem>
 </Tabs>
 

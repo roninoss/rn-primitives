@@ -8,7 +8,7 @@ description: A collection of hooks for core primitives.
 
 import Code from '@/components/Code.astro';
 import { LinkButton } from '@/components/react/LinkButton';
-import { Aside, Card } from '@astrojs/starlight/components';
+import { Aside, Card, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedIndexCode from '@/../node_modules/@rn-primitives/hooks/src/index.ts?raw';
 import importedUseAugmentedRefCode from '@/../node_modules/@rn-primitives/hooks/src/useAugmentedRef.tsx?raw';
 import importedUseControllableStateCode from '@/../node_modules/@rn-primitives/hooks/src/useControllableState.tsx?raw';
@@ -24,45 +24,55 @@ A collection of hooks for core primitives.
 
 <Card title="Hooks">
 
-- [useAugmentedRef](#useaugmentedref): Allows using a forwarded ref as a value of useRef and allows adding properties to the ref.
-- [useControllableState](#usecontrollablestate): Allows defaulting to an uncontrolled state and allows controlling the state from the parent.
-- [useRelativePosition](#userelativeposition): Returns a style for an element relative to another element.
+- `useAugmentedRef` Allows using a forwarded ref as a value of useRef and allows adding properties to the ref.
+- `useControllableState` Allows defaulting to an uncontrolled state and allows controlling the state from the parent.
+- `useRelativePosition` Returns a style for an element relative to another element.
 
 </Card>
 
 ## Installation
 
-### useAugmentedRef
+<Tabs>
+  <TabItem label="NPM">
 
-<Aside>
-    Only used for web primitives. You can use it for your own components as you please.
-</Aside>
+  Install the component via your command line.
 
-**Copy/paste the following code to  `~/components/primitives/hooks/useAugmentedRef.tsx`**
+    ```bash
+    npx expo install @rn-primitives/hooks
+    ```
 
-<Code code={importedUseAugmentedRefCode} lang="tsx" title="~/components/primitives/hooks/useAugmentedRef.tsx" />
+  </TabItem>
+  <TabItem label="Manual">
+    ### useAugmentedRef
+    **Copy/paste the following code to  `~/components/primitives/hooks/useAugmentedRef.tsx`**
 
-### useControllableState
+    <Code code={importedUseAugmentedRefCode} lang="tsx" title="~/components/primitives/hooks/useAugmentedRef.tsx" />
 
-**Copy/paste the following code to  `~/components/primitives/hooks/useControllableState.tsx`**
 
-<Code code={importedUseControllableStateCode} lang="tsx" title="~/components/primitives/hooks/useControllableState.tsx" />
+    ### useControllableState
 
-### useRelativePosition
+    **Copy/paste the following code to  `~/components/primitives/hooks/useControllableState.tsx`**
 
-<Aside>
-    Only used for native primitives.
-</Aside>
+    <Code code={importedUseControllableStateCode} lang="tsx" title="~/components/primitives/hooks/useControllableState.tsx" />
 
-**Copy/paste the following code to  `~/components/primitives/hooks/useRelativePosition.tsx`**
+    ### useRelativePosition
 
-<Code code={importedUseRelativePositionCode} lang="tsx" title="~/components/primitives/hooks/useRelativePosition.tsx" />
+    <Aside>
+        Only used for native primitives.
+    </Aside>
 
-### Index
+    **Copy/paste the following code to  `~/components/primitives/hooks/useRelativePosition.tsx`**
 
-**Copy/paste the following code to  `~/components/primitives/hooks/index.ts`**
+    <Code code={importedUseRelativePositionCode} lang="tsx" title="~/components/primitives/hooks/useRelativePosition.tsx" />
 
-<Code code={importedIndexCode} lang="ts" title="~/components/primitives/hooks/index.ts" />
+    ### Index
+
+    **Copy/paste the following code to  `~/components/primitives/hooks/index.ts`**
+
+    <Code code={importedIndexCode} lang="ts" title="~/components/primitives/hooks/index.ts" />
+
+  </TabItem>
+</Tabs>
 
 ## Usage
 
@@ -179,7 +189,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
 );
 ```
 
-## Props
+## Parameters
 
 ### useAugmentedRef
 

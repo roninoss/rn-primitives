@@ -14,64 +14,74 @@ import importedWebCode from '@/../node_modules/@rn-primitives/dialog/src/dialog.
 import importedTypesCode from '@/../node_modules/@rn-primitives/dialog/src/types.ts?raw';
 import importedIndexCode from '@/../node_modules/@rn-primitives/dialog/src/index.ts?raw';
 
-<LinkButton href='/primitives/types'>Types Primitives</LinkButton>
-<LinkButton href='/primitives/hooks'>Hooks Primitives</LinkButton>
-<LinkButton href='/primitives/slot'>Slot Primitives</LinkButton>
-<LinkButton href='/primitives/portal'>Portal Primitives</LinkButton>
-<LinkButton target='_blank' href='https://www.radix-ui.com/primitives/docs/components/dialog'>
-  @radix-ui/react-dialog
-</LinkButton>
-
-<br />
-
 A modal dialog that interrupts the user with important content and expects a response.
 
 ## Installation
 
-<Aside title="Uses shared primitives">
-  If you do not already have these primitives in your project, you will need to add them.
-
-  - [Types Primitive](/primitives/types)
-  - [Hooks Primitive](/primitives/hooks)
-  - [Slot Primitive](/primitives/slot)
-  - [Portal Primitive](/primitives/portal)
-</Aside>
-
 <Tabs>
-  <TabItem label="Universal">
-    **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/dialog">@radix-ui/react-dialog</a>**
+  <TabItem label="NPM">
+
+  Install the component via your command line.
 
     ```bash
-    npx expo install @radix-ui/react-dialog
+    npx expo install @rn-primitives/dialog
     ```
 
-    **Copy/paste the following code for web to  `~/components/primitives/dialog/dialog.web.tsx`**
+    <Aside title="Peer dependency">
+      If you do not have the portal primitive in your project, you will need to add it as well.
 
-    <Code code={importedWebCode} lang="tsx" title="~/components/primitives/dialog/dialog.web.tsx" />
+       ```bash
+      npx expo install @rn-primitives/portal
+      ```
+    </Aside>
 
-    **Copy/paste the following code for native to  `~/components/primitives/dialog/dialog.tsx`**
-
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/dialog/dialog.tsx" />
-
-    **Copy/paste the following code for types to  `~/components/primitives/dialog/types.ts`**
-
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/dialog/types.ts" />
-
-    **Copy/paste the following code for exporting to  `~/components/primitives/dialog/index.ts`**
-
-    <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/dialog/index.ts" />
   </TabItem>
-  <TabItem label="Native Only">
-    **Copy/paste the following code for native to  `~/components/primitives/dialog/index.tsx`**
+  <TabItem label="Manual">
+    <Aside title="Uses shared primitives">
+      If you do not already have these primitives in your project, you will need to add them.
 
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/dialog/index.tsx" />
+      - [Types Primitive](/primitives/types)
+      - [Hooks Primitive](/primitives/hooks)
+      - [Slot Primitive](/primitives/slot)
+      - [Portal Primitive](/primitives/portal)
+    </Aside>
+    <br />
+    <Tabs>
+      <TabItem label="Universal">
+        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/dialog">@radix-ui/react-dialog</a>**
 
-    **Copy/paste the following code for types to  `~/components/primitives/dialog/types.ts`**
+        ```bash
+        npx expo install @radix-ui/react-dialog
+        ```
 
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/dialog/types.ts" />
+        **Copy/paste the following code for web to  `~/components/primitives/dialog/dialog.web.tsx`**
+
+        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/dialog/dialog.web.tsx" />
+
+        **Copy/paste the following code for native to  `~/components/primitives/dialog/dialog.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/dialog/dialog.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/dialog/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/dialog/types.ts" />
+
+        **Copy/paste the following code for exporting to  `~/components/primitives/dialog/index.ts`**
+
+        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/dialog/index.ts" />
+      </TabItem>
+      <TabItem label="Native Only">
+        **Copy/paste the following code for native to  `~/components/primitives/dialog/index.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/dialog/index.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/dialog/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/dialog/types.ts" />
+      </TabItem>
+    </Tabs>
   </TabItem>
 </Tabs>
-
 ## Usage
 
 <Aside type="caution">

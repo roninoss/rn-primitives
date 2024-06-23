@@ -14,61 +14,72 @@ import importedWebCode from '@/../node_modules/@rn-primitives/hover-card/src/hov
 import importedTypesCode from '@/../node_modules/@rn-primitives/hover-card/src/types.ts?raw';
 import importedIndexCode from '@/../node_modules/@rn-primitives/hover-card/src/index.ts?raw';
 
-<LinkButton href='/primitives/hooks'>Hooks Primitives</LinkButton>
-<LinkButton href='/primitives/portal'>Portal Primitives</LinkButton>
-<LinkButton href='/primitives/slot'>Slot Primitives</LinkButton>
-<LinkButton href='/primitives/types'>Types Primitives</LinkButton>
-<LinkButton target='_blank' href='https://www.radix-ui.com/primitives/docs/components/hover-card'>
-  @radix-ui/react-hover-card
-</LinkButton>
-
-<br />
-
 Allows users with vision to preview the content hidden behind an element before hovering or pressing.
 
 ## Installation
 
-<Aside title="Uses shared primitives">
-  If you do not already have these primitives in your project, you will need to add them.
-
-  - [Hooks Primitive](/primitives/hooks)
-  - [Portal Primitive](/primitives/portal)
-  - [Slot Primitive](/primitives/slot)
-  - [Types Primitive](/primitives/types)
-</Aside>
-
 <Tabs>
-  <TabItem label="Universal">
-    **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/hover-card">@radix-ui/react-hover-card</a>**
+  <TabItem label="NPM">
+
+  Install the component via your command line.
 
     ```bash
-    npx expo install @radix-ui/react-hover-card
+    npx expo install @rn-primitives/hover-card
     ```
 
-    **Copy/paste the following code for web to  `~/components/primitives/hover-card/hover-card.web.tsx`**
+    <Aside title="Peer dependency">
+      If you do not have the portal primitive in your project, you will need to add it as well.
 
-    <Code code={importedWebCode} lang="tsx" title="~/components/primitives/hover-card/hover-card.web.tsx" />
+       ```bash
+      npx expo install @rn-primitives/portal
+      ```
+    </Aside>
 
-    **Copy/paste the following code for native to  `~/components/primitives/hover-card/hover-card.tsx`**
-
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/hover-card/hover-card.tsx" />
-
-    **Copy/paste the following code for types to  `~/components/primitives/hover-card/types.ts`**
-
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/hover-card/types.ts" />
-
-    **Copy/paste the following code for exporting to  `~/components/primitives/hover-card/index.ts`**
-
-    <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/hover-card/index.ts" />
   </TabItem>
-  <TabItem label="Native Only">
-    **Copy/paste the following code for native to  `~/components/primitives/hover-card/index.tsx`**
+  <TabItem label="Manual">
+    <Aside title="Uses shared primitives">
+      If you do not already have these primitives in your project, you will need to add them.
 
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/hover-card/index.tsx" />
+      - [Hooks Primitive](/primitives/hooks)
+      - [Portal Primitive](/primitives/portal)
+      - [Slot Primitive](/primitives/slot)
+      - [Types Primitive](/primitives/types)
+    </Aside>
+    <br />
+    <Tabs>
+      <TabItem label="Universal">
+        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/hover-card">@radix-ui/react-hover-card</a>**
 
-    **Copy/paste the following code for types to  `~/components/primitives/hover-card/types.ts`**
+        ```bash
+        npx expo install @radix-ui/react-hover-card
+        ```
 
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/hover-card/types.ts" />
+        **Copy/paste the following code for web to  `~/components/primitives/hover-card/hover-card.web.tsx`**
+
+        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/hover-card/hover-card.web.tsx" />
+
+        **Copy/paste the following code for native to  `~/components/primitives/hover-card/hover-card.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/hover-card/hover-card.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/hover-card/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/hover-card/types.ts" />
+
+        **Copy/paste the following code for exporting to  `~/components/primitives/hover-card/index.ts`**
+
+        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/hover-card/index.ts" />
+      </TabItem>
+      <TabItem label="Native Only">
+        **Copy/paste the following code for native to  `~/components/primitives/hover-card/index.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/hover-card/index.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/hover-card/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/hover-card/types.ts" />
+      </TabItem>
+    </Tabs>
   </TabItem>
 </Tabs>
 
