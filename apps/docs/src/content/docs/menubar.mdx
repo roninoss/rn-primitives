@@ -6,7 +6,7 @@ description: A menu that stays visible on the screen, often seen in desktop apps
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedNativeCode from '@/../node_modules/@rn-primitives/menubar/src/menubar.tsx?raw';
@@ -14,63 +14,74 @@ import importedWebCode from '@/../node_modules/@rn-primitives/menubar/src/menuba
 import importedTypesCode from '@/../node_modules/@rn-primitives/menubar/src/types.ts?raw';
 import importedIndexCode from '@/../node_modules/@rn-primitives/menubar/src/index.ts?raw';
 
-<LinkButton href='/primitives/hooks'>Hooks Primitives</LinkButton>
-<LinkButton href='/primitives/portal'>Portal Primitives</LinkButton>
-<LinkButton href='/primitives/slot'>Slot Primitives</LinkButton>
-<LinkButton href='/primitives/types'>Types Primitives</LinkButton>
-<LinkButton href='/primitives/utils'>Utils Primitives</LinkButton>
-<LinkButton target='_blank' href='https://www.radix-ui.com/primitives/docs/components/menubar'>
-  @radix-ui/react-menubar
-</LinkButton>
-
-<br />
-
 A menu that stays visible on the screen, often seen in desktop apps, offering easy access to a standard set of commands.
 
 ## Installation
 
-<Aside title="Uses shared primitives">
-  If you do not already have these primitives in your project, you will need to add them.
-
-  - [Hooks Primitive](/primitives/hooks)
-  - [Portal Primitive](/primitives/portal)
-  - [Slot Primitive](/primitives/slot)
-  - [Types Primitive](/primitives/types)
-  - [Utils Primitive](/primitives/utils)
-</Aside>
-
 <Tabs>
-  <TabItem label="Universal">
-    **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/menubar">@radix-ui/react-menubar</a>**
+  <TabItem label="NPM">
+
+  Install the component via your command line.
 
     ```bash
-    npx expo install @radix-ui/react-menubar
+    npx expo install @rn-primitives/menubar
     ```
 
-    **Copy/paste the following code for web to  `~/components/primitives/menubar/menubar.web.tsx`**
+    <Aside title="Peer dependency">
+      If you do not have the portal primitive in your project, you will need to add it as well.
 
-    <Code code={importedWebCode} lang="tsx" title="~/components/primitives/menubar/menubar.web.tsx" />
+       ```bash
+      npx expo install @rn-primitives/portal
+      ```
+    </Aside>
 
-    **Copy/paste the following code for native to  `~/components/primitives/menubar/menubar.tsx`**
-
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/menubar/menubar.tsx" />
-
-    **Copy/paste the following code for types to  `~/components/primitives/menubar/types.ts`**
-
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/menubar/types.ts" />
-
-    **Copy/paste the following code for exporting to  `~/components/primitives/menubar/index.ts`**
-
-    <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/menubar/index.ts" />
   </TabItem>
-  <TabItem label="Native Only">
-    **Copy/paste the following code for native to  `~/components/primitives/menubar/index.tsx`**
+  <TabItem label="Manual">
 
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/menubar/index.tsx" />
+    <Aside title="Uses shared primitives">
+      If you do not already have these primitives in your project, you will need to add them.
 
-    **Copy/paste the following code for types to  `~/components/primitives/menubar/types.ts`**
+      - [Hooks Primitive](/hooks)
+      - [Portal Primitive](/portal)
+      - [Slot Primitive](/slot)
+      - [Types Primitive](/types)
+      - [Utils Primitive](/utils)
+    </Aside>
+    <br/>
+    <Tabs>
+      <TabItem label="Universal">
+        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/menubar">@radix-ui/react-menubar</a>**
 
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/menubar/types.ts" />
+        ```bash
+        npx expo install @radix-ui/react-menubar
+        ```
+
+        **Copy/paste the following code for web to  `~/components/primitives/menubar/menubar.web.tsx`**
+
+        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/menubar/menubar.web.tsx" />
+
+        **Copy/paste the following code for native to  `~/components/primitives/menubar/menubar.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/menubar/menubar.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/menubar/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/menubar/types.ts" />
+
+        **Copy/paste the following code for exporting to  `~/components/primitives/menubar/index.ts`**
+
+        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/menubar/index.ts" />
+      </TabItem>
+      <TabItem label="Native Only">
+        **Copy/paste the following code for native to  `~/components/primitives/menubar/index.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/menubar/index.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/menubar/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/menubar/types.ts" />
+      </TabItem>
+    </Tabs>
   </TabItem>
 </Tabs>
 
@@ -81,7 +92,7 @@ A menu that stays visible on the screen, often seen in desktop apps, offering ea
   Requires a `<PortalHost />` as the last child of your `<Root/>` (`app/_layout.tsx`) component
 
   ```tsx
-  import { PortalHost } from '~/components/primitives/portal';
+  import { PortalHost } from '@rn-primitives/portal';
 
   function Root() {
     return (
@@ -100,7 +111,7 @@ A menu that stays visible on the screen, often seen in desktop apps, offering ea
 import * as React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
-import * as MenubarPrimitive from '~/components/primitives/menubar';
+import * as MenubarPrimitive from '@rn-primitives/menubar';
 
 function Example() {
   const [value, setValue] = React.useState<string | undefined>();

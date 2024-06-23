@@ -6,37 +6,54 @@ description: A concise message that appears briefly.
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, TabItem, Tabs } from '@astrojs/starlight/components';
 import importedCode from '@/../node_modules/@rn-primitives/toast/src/toast.tsx?raw';
 import importedTypesCode from '@/../node_modules/@rn-primitives/toast/src/types.ts?raw';
-
-<LinkButton href='/primitives/slot'>Slot Primitives</LinkButton>
-<LinkButton href='/primitives/types'>Types Primitives</LinkButton>
-
-<br />
 
 A concise message that appears briefly.
 
 ## Installation
 
-<Aside title="Uses shared primitives">
-  If you do not already have these primitives in your project, you will need to add them.
+<Tabs>
+  <TabItem label="NPM">
 
-  - [Slot Primitive](/primitives/slot)
-  - [Types Primitive](/primitives/types)
-  
-</Aside>
+  Install the component via your command line.
 
+    ```bash
+    npx expo install @rn-primitives/toast
+    ```
 
-**Copy/paste the following code to `~/components/primitives/toast/index.tsx`**
+    <Aside title="Peer dependency">
+      If you do not have the portal primitive in your project, you will need to add it as well.
 
-<Code code={importedCode} lang="tsx" title="~/components/primitives/toast/index.tsx" />
+       ```bash
+      npx expo install @rn-primitives/portal
+      ```
+    </Aside>
 
-**Copy/paste the following code to `~/components/primitives/toast/types.ts`**
+  </TabItem>
+  <TabItem label="Manual">
+    <Aside title="Uses shared primitives">
+      If you do not already have these primitives in your project, you will need to add them.
 
-<Code code={importedTypesCode} lang="tsx" title="~/components/primitives/toast/types.ts" />
+      - [Slot Primitive](/slot)
+      - [Types Primitive](/types)
+      
+    </Aside>
+
+    <br />
+
+    **Copy/paste the following code to `~/components/primitives/toast/index.tsx`**
+
+    <Code code={importedCode} lang="tsx" title="~/components/primitives/toast/index.tsx" />
+
+    **Copy/paste the following code to `~/components/primitives/toast/types.ts`**
+
+    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/toast/types.ts" />
+  </TabItem>
+</Tabs>
 
 ## Usage
 
@@ -45,7 +62,7 @@ A concise message that appears briefly.
   Requires a `<PortalHost />` as the last child of your `<Root/>` (`app/_layout.tsx`) component
 
   ```tsx
-  import { PortalHost } from '~/components/primitives/portal';
+  import { PortalHost } from '@rn-primitives/portal';
 
   function Root() {
     return (
@@ -64,8 +81,8 @@ A concise message that appears briefly.
 import * React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Portal } from '~/components/primitives/portal';
-import * as ToastPrimitive from '~/components/primitives/toast';
+import { Portal } from '@rn-primitives/portal';
+import * as ToastPrimitive from '@rn-primitives/toast';
 
 function Example() {
   const [open, setOpen] = React.useState(false);

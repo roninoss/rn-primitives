@@ -6,22 +6,13 @@ description: Shows a menu activated by either a right-click or a long-press.
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedNativeCode from '@/../node_modules/@rn-primitives/context-menu/src/context-menu.tsx?raw';
 import importedWebCode from '@/../node_modules/@rn-primitives/context-menu/src/context-menu.web.tsx?raw';
 import importedTypesCode from '@/../node_modules/@rn-primitives/context-menu/src/types.ts?raw';
 import importedIndexCode from '@/../node_modules/@rn-primitives/context-menu/src/index.ts?raw';
-
-<LinkButton href='/primitives/hooks'>Hooks Primitives</LinkButton>
-<LinkButton href='/primitives/portal'>Portal Primitives</LinkButton>
-<LinkButton href='/primitives/slot'>Slot Primitives</LinkButton>
-<LinkButton href='/primitives/types'>Types Primitives</LinkButton>
-<LinkButton href='/primitives/utils'>Utils Primitives</LinkButton>
-<LinkButton target='_blank' href='https://www.radix-ui.com/primitives/docs/components/context-menu'>
-  @radix-ui/react-context-menu
-</LinkButton>
 
 
 Shows a menu activated by either a right-click or a long-press.
@@ -52,11 +43,11 @@ Shows a menu activated by either a right-click or a long-press.
     <Aside title="Uses shared primitives">
       If you do not already have these primitives in your project, you will need to add them.
 
-      - [Hooks Primitive](/primitives/hooks)
-      - [Portal Primitive](/primitives/portal)
-      - [Slot Primitive](/primitives/slot)
-      - [Types Primitive](/primitives/types)
-      - [Utils Primitive](/primitives/utils)
+      - [Hooks Primitive](/hooks)
+      - [Portal Primitive](/portal)
+      - [Slot Primitive](/slot)
+      - [Types Primitive](/types)
+      - [Utils Primitive](/utils)
     </Aside>
 
     <br />
@@ -104,7 +95,7 @@ Shows a menu activated by either a right-click or a long-press.
   Requires a `<PortalHost />` as the last child of your `<Root/>` (`app/_layout.tsx`) component
 
   ```tsx
-  import { PortalHost } from '~/components/primitives/portal';
+  import { PortalHost } from '@rn-primitives/portal';
 
   function Root() {
     return (
@@ -121,7 +112,7 @@ Shows a menu activated by either a right-click or a long-press.
 
 ```tsx
 import * as React from 'react';
-import * as ContextMenuPrimitive from '~/components/primitives/context-menu';
+import * as ContextMenuPrimitive from '@rn-primitives/context-menu';
 import { Text } from 'react-native';
 
 function Example() {

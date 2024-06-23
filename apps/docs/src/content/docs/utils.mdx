@@ -6,24 +6,36 @@ description: A collection of utilities for the core primitives.
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
-import { Aside, Card } from '@astrojs/starlight/components';
+import Code from '@/components/ManualCode.astro';
+import { Aside, Card, TabItem, Tabs } from '@astrojs/starlight/components';
 import importedCode from '@/../node_modules/@rn-primitives/utils/src/index.ts?raw';
 
 A collection of utilities for core primitives.
 
 <Card title="Utilities">
 
-- [ToggleGroupUtils](#togglegrouputils): Utilities related to primitives with a toggle group.
-- [EmptyGestureResponderEvent](#emptygestureresponderevent): Used for calling `onPress` and `onLongPress` without any arguments for accessibility purposes.
+- `ToggleGroupUtils`: Utilities related to primitives with a toggle group.
+- `EmptyGestureResponderEvent`: Used for calling `onPress` and `onLongPress` without any arguments for accessibility purposes.
 
 </Card>
 
 ## Installation
 
-**Copy/paste the following code to  `~/components/primitives/utils.tsx`**
+<Tabs>
+  <TabItem label="NPM">
 
-<Code code={importedCode} lang="tsx" title="~/components/primitives/utils.tsx" />
+  Install the component via your command line.
+
+    ```bash
+    npx expo install @rn-primitives/utils
+    ```
+  </TabItem>
+  <TabItem label="Manual">
+    **Copy/paste the following code to  `~/components/primitives/utils.tsx`**
+
+    <Code code={importedCode} lang="tsx" title="~/components/primitives/utils.tsx" />
+  </TabItem>
+</Tabs>
 
 ## Usage
 
@@ -34,8 +46,8 @@ A collection of utilities for core primitives.
 - `getNewMultipleValue`: Returns the new value for a multiple toggle group.
 
 ```tsx
-import { ToggleGroupUtils } from '~/components/primitives/hooks';
-import type { PressableRef, SlottablePressableProps } from '~/components/primitives/types';
+import { ToggleGroupUtils } from '@rn-primitives/hooks';
+import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
 
 const Item = React.forwardRef<PressableRef, SlottablePressableProps>(
   (
@@ -81,8 +93,8 @@ const Item = React.forwardRef<PressableRef, SlottablePressableProps>(
 ### EmptyGestureResponderEvent
 
 ```tsx
-import { EmptyGestureResponderEvent } from '~/components/primitives/hooks';
-import type { PressableRef, SlottablePressableProps } from '~/components/primitives/types';
+import { EmptyGestureResponderEvent } from '@rn-primitives/hooks';
+import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
 
 const Item = React.forwardRef<PressableRef, SlottablePressableProps>(
   ({  onPress: onPressProp, onKeyDown: onKeyDownProp, ...props }, ref) => {

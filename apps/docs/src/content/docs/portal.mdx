@@ -6,16 +6,10 @@ description: Portals let you render its children into a different part of your a
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
-import { Aside, Card } from '@astrojs/starlight/components';
+import { Aside, Card, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedPortalCode from '@/../node_modules/@rn-primitives/portal/src/portal.tsx?raw';
-
-<LinkButton target="_blank" href="https://github.com/pmndrs/zustand">
-  Zustand
-</LinkButton>
-
-<br />
 
 Portals let you render its children into a different part of your app.
 
@@ -29,18 +23,31 @@ Portals let you render its children into a different part of your app.
 
 ## Installation
 
-**Install <a target="_blank" href="https://github.com/pmndrs/zustand">zustand</a>**
+<Tabs>
+  <TabItem label="NPM">
 
-```bash
-npx expo install zustand
-```
+  Install the component via your command line.
 
-**Copy/paste the following code to  `~/components/primitives/portal.tsx`**
+    ```bash
+    npx expo install @rn-primitives/portal
+    ```
 
-<Code code={importedPortalCode} lang="tsx" title="~/components/primitives/portal.tsx" />
+  </TabItem>
+  <TabItem label="Manual">
+    **Install <a target="_blank" href="https://github.com/pmndrs/zustand">zustand</a>**
+
+    ```bash
+    npx expo install zustand
+    ```
+
+    **Copy/paste the following code to  `~/components/primitives/portal.tsx`**
+
+    <Code code={importedPortalCode} lang="tsx" title="~/components/primitives/portal.tsx" />
+  </TabItem>
+</Tabs>
 
 <Aside>
-  On the web, it is recommended to use [createPortal](https://react.dev/reference/react-dom/createPortal) from `react-dom` instead.
+  On the web, it is recommended to use [createPortal](https://react.dev/reference/react-dom/createPortal) from `react-dom` instead. RN Primitives use this portal primitive for native only. On the web, RN Primitves use radix-ui primitives which uses `createPortal`.
 </Aside>
 
 ## Usage
@@ -50,7 +57,7 @@ npx expo install zustand
 Add the `<PortalHost />` as the last child of your `<Root/>` component (for expo-router, the default export in the root `_layout.tsx`)
 
 ```tsx
-import { PortalHost } from '~/components/primitives/portal';
+import { PortalHost } from '@rn-primitives/portal';
 
 function Root() {
   return (
@@ -66,7 +73,7 @@ function Root() {
 Then, from any component, add a `<Portal />` and its content will be rendered as a child of `<PortalHost />`
 
 ```tsx
-import { Portal } from '~/components/primitives/portal';
+import { Portal } from '@rn-primitives/portal';
 
 function Card() {
   return (
@@ -102,7 +109,7 @@ function Card() {
 Add the `<PortalHost name="unique-host-name"/>` with a unique name where you want the contents of `<Portal />` to render. Then, from any component, add a `<Portal />` and its content will be rendered as a child of `<PortalHost />`
 
 ```tsx
-import { Portal, PortalHost } from '~/components/primitives/portal';
+import { Portal, PortalHost } from '@rn-primitives/portal';
 
 function Example() {
   return (

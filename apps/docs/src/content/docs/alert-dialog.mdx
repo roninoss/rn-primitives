@@ -6,7 +6,7 @@ description: A modal dialog that interrupts the user with important content and 
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedNativeCode from '@/../node_modules/@rn-primitives/alert-dialog/src/alert-dialog.tsx?raw';
@@ -41,10 +41,10 @@ A modal dialog that interrupts the user with important content and expects a res
   <Aside title="Uses shared primitives">
   If you do not already have these primitives in your project, you will need to add them.
 
-  - [Types Primitive](/primitives/types)
-  - [Hooks Primitive](/primitives/hooks)
-  - [Slot Primitive](/primitives/slot)
-  - [Portal Primitive](/primitives/portal)
+  - [Types Primitive](/types)
+  - [Hooks Primitive](/hooks)
+  - [Slot Primitive](/slot)
+  - [Portal Primitive](/portal)
   </Aside>
   <br />
   <Tabs>
@@ -93,7 +93,7 @@ A modal dialog that interrupts the user with important content and expects a res
   Requires a `<PortalHost />` as the last child of your `<Root/>` (`app/_layout.tsx`) component
 
   ```tsx
-  import { PortalHost } from '~/components/primitives/portal';
+  import { PortalHost } from '@rn-primitives/portal';
 
   function Root() {
     return (
@@ -109,7 +109,7 @@ A modal dialog that interrupts the user with important content and expects a res
 </Aside>
 
 ```tsx
-import * as AlertDialogPrimitive from '~/components/primitives/alert-dialog';
+import * as AlertDialogPrimitive from '@rn-primitives/alert-dialog';
 import { Text } from 'react-native';
 
 function Example() {
