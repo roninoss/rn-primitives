@@ -6,7 +6,7 @@ description: Presents content within a chosen aspect ratio.
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedCode from '@/../node_modules/@rn-primitives/aspect-ratio/src/aspect-ratio.tsx?raw';
@@ -30,8 +30,8 @@ Presents content within a chosen aspect ratio.
   <Aside title="Uses shared primitives">
       If you do not already have these primitives in your project, you will need to add them.
 
-      - [Types Primitive](/primitives/types)
-      - [Slot Primitive](/primitives/slot)
+      - [Types Primitive](/types)
+      - [Slot Primitive](/slot)
 
   </Aside>
 
@@ -47,7 +47,7 @@ Presents content within a chosen aspect ratio.
 ## Usage
 
 ```tsx
-import * as AspectRatio from '~/components/primitives/aspect-ratio';
+import * as AspectRatio from '@rn-primitives/aspect-ratio';
 
 function Example() {
   return (

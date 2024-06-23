@@ -6,7 +6,7 @@ description: A user-friendly label linked to controls for improved accessibility
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedNativeCode from '@/../node_modules/@rn-primitives/label/src/label.tsx?raw';
@@ -40,8 +40,8 @@ A user-friendly label linked to controls for improved accessibility.
     <Aside title="Uses shared primitives">
         If you do not already have these primitives in your project, you will need to add them.
 
-        - [Types Primitive](/primitives/types)
-        - [Slot Primitive](/primitives/slot)
+        - [Types Primitive](/types)
+        - [Slot Primitive](/slot)
 
     </Aside>
     <br />
@@ -84,7 +84,7 @@ A user-friendly label linked to controls for improved accessibility.
 ## Usage
 
 ```tsx
-import * as LabelPrimitive from '~/components/primitives/label';
+import * as LabelPrimitive from '@rn-primitives/label';
 
 function Example() {
   const [checked, setChecked] = React.useState(false);

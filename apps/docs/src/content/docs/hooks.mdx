@@ -6,7 +6,7 @@ description: A collection of hooks for core primitives.
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Card, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedIndexCode from '@/../node_modules/@rn-primitives/hooks/src/index.ts?raw';
@@ -79,8 +79,8 @@ A collection of hooks for core primitives.
 ### useAugmentedRef
 
 ```tsx
-import { useAugmentedRef } from '~/components/primitives/hooks';
-import type { PressableRef, SlottablePressableProps } from '~/components/primitives/types';
+import { useAugmentedRef } from '@rn-primitives/hooks';
+import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
 
 const Thing = React.forwardRef<PressableRef, SlottablePressableProps>(
   (props, ref) => {
@@ -105,8 +105,8 @@ const Thing = React.forwardRef<PressableRef, SlottablePressableProps>(
 ### useControllableState
 
 ```tsx
-import { useControllableState } from '~/components/primitives/hooks';
-import type { PressableRef, SlottablePressableProps } from '~/components/primitives/types';
+import { useControllableState } from '@rn-primitives/hooks';
+import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
 
 const Thing = React.forwardRef<PressableRef, SlottablePressableProps & { defaultOpen?: boolean, open?: boolean, onOpenChange?: (open: boolean) => void }>(
   ({ defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, onPress: onPressProp, ...props}, ref) => {
@@ -135,8 +135,8 @@ const Thing = React.forwardRef<PressableRef, SlottablePressableProps & { default
 ### useRelativePosition
 
 ```tsx
-import { useRelativePosition } from '~/components/primitives/hooks';
-import type { PositionedContentProps, SlottablePressableProps, ViewRef } from '~/components/primitives/types';
+import { useRelativePosition } from '@rn-primitives/hooks';
+import type { PositionedContentProps, SlottablePressableProps, ViewRef } from '@rn-primitives/types';
 
 const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContentProps>(
   (

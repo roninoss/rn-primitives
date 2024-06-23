@@ -6,7 +6,7 @@ description: A group of selectable buttons, commonly referred to as radio button
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedNativeCode from '@/../node_modules/@rn-primitives/radio-group/src/radio-group.tsx?raw';
@@ -14,57 +14,63 @@ import importedWebCode from '@/../node_modules/@rn-primitives/radio-group/src/ra
 import importedTypesCode from '@/../node_modules/@rn-primitives/radio-group/src/types.ts?raw';
 import importedIndexCode from '@/../node_modules/@rn-primitives/radio-group/src/index.ts?raw';
 
-<LinkButton href='/primitives/types'>Types Primitives</LinkButton>
-<LinkButton href='/primitives/slot'>Slot Primitives</LinkButton>
-<LinkButton target='_blank' href='https://www.radix-ui.com/primitives/docs/components/radio-group'>
-  @radix-ui/react-radio-group
-</LinkButton>
-
-<br />
 
 A group of selectable buttons, commonly referred to as radio buttons, wherein only one button can be checked simultaneously.
 
 ## Installation
 
-<Aside title="Uses shared primitives">
-  If you do not already have these primitives in your project, you will need to add them.
-
-  - [Types Primitive](/primitives/types)
-  - [Slot Primitive](/primitives/slot)
-</Aside>
-
 <Tabs>
-  <TabItem label="Universal">
-    **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/radio-group">@radix-ui/react-radio-group</a>**
+  <TabItem label="NPM">
+
+  Install the component via your command line.
 
     ```bash
-    npx expo install @radix-ui/react-radio-group
+    npx expo install @rn-primitives/radio-group
     ```
 
-    **Copy/paste the following code for web to  `~/components/primitives/radio-group/radio-group.web.tsx`**
-
-    <Code code={importedWebCode} lang="tsx" title="~/components/primitives/radio-group/radio-group.web.tsx" />
-
-    **Copy/paste the following code for native to  `~/components/primitives/radio-group/radio-group.tsx`**
-
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/radio-group/radio-group.tsx" />
-
-    **Copy/paste the following code for types to  `~/components/primitives/radio-group/types.ts`**
-
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/radio-group/types.ts" />
-
-    **Copy/paste the following code for exporting to  `~/components/primitives/radio-group/index.ts`**
-
-    <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/radio-group/index.ts" />
   </TabItem>
-  <TabItem label="Native Only">
-    **Copy/paste the following code for native to  `~/components/primitives/radio-group/index.tsx`**
+  <TabItem label="Manual">
+    <Aside title="Uses shared primitives">
+      If you do not already have these primitives in your project, you will need to add them.
 
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/radio-group/index.tsx" />
+      - [Types Primitive](/types)
+      - [Slot Primitive](/slot)
+    </Aside>
+    <br/>
+    <Tabs>
+      <TabItem label="Universal">
+        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/radio-group">@radix-ui/react-radio-group</a>**
 
-    **Copy/paste the following code for types to  `~/components/primitives/radio-group/types.ts`**
+        ```bash
+        npx expo install @radix-ui/react-radio-group
+        ```
 
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/radio-group/types.ts" />
+        **Copy/paste the following code for web to  `~/components/primitives/radio-group/radio-group.web.tsx`**
+
+        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/radio-group/radio-group.web.tsx" />
+
+        **Copy/paste the following code for native to  `~/components/primitives/radio-group/radio-group.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/radio-group/radio-group.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/radio-group/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/radio-group/types.ts" />
+
+        **Copy/paste the following code for exporting to  `~/components/primitives/radio-group/index.ts`**
+
+        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/radio-group/index.ts" />
+      </TabItem>
+      <TabItem label="Native Only">
+        **Copy/paste the following code for native to  `~/components/primitives/radio-group/index.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/radio-group/index.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/radio-group/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/radio-group/types.ts" />
+      </TabItem>
+    </Tabs>
   </TabItem>
 </Tabs>
 
@@ -72,7 +78,7 @@ A group of selectable buttons, commonly referred to as radio buttons, wherein on
 
 ```tsx
 import * as React from 'react';
-import * as RadioGroupPrimitive from '~/components/primitives/radio-group';
+import * as RadioGroupPrimitive from '@rn-primitives/radio-group';
 import { Text, View } from 'react-native';
 
 function Example() {

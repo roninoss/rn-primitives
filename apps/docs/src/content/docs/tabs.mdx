@@ -6,7 +6,7 @@ description: A collection of layered content sections, referred to as tab panels
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedNativeCode from '@/../node_modules/@rn-primitives/tabs/src/tabs.tsx?raw';
@@ -14,57 +14,64 @@ import importedWebCode from '@/../node_modules/@rn-primitives/tabs/src/tabs.web.
 import importedTypesCode from '@/../node_modules/@rn-primitives/tabs/src/types.ts?raw';
 import importedIndexCode from '@/../node_modules/@rn-primitives/tabs/src/index.ts?raw';
 
-<LinkButton href='/primitives/types'>Types Primitives</LinkButton>
-<LinkButton href='/primitives/slot'>Slot Primitives</LinkButton>
-<LinkButton target='_blank' href='https://www.radix-ui.com/primitives/docs/components/tabs'>
-  @radix-ui/react-tabs
-</LinkButton>
-
-<br />
-
 A collection of layered content sections, referred to as tab panels, displayed individually.
 
 ## Installation
 
-<Aside title="Uses shared primitives">
-  If you do not already have these primitives in your project, you will need to add them.
-
-  - [Types Primitive](/primitives/types)
-  - [Slot Primitive](/primitives/slot)
-</Aside>
-
 <Tabs>
-  <TabItem label="Universal">
-    **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/tabs">@radix-ui/react-tabs</a>**
+  <TabItem label="NPM">
+
+  Install the component via your command line.
 
     ```bash
-    npx expo install @radix-ui/react-tabs
+    npx expo install @rn-primitives/tabs
     ```
 
-    **Copy/paste the following code for web to  `~/components/primitives/tabs/tabs.web.tsx`**
-
-    <Code code={importedWebCode} lang="tsx" title="~/components/primitives/tabs/tabs.web.tsx" />
-
-    **Copy/paste the following code for native to  `~/components/primitives/tabs/tabs.tsx`**
-
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/tabs/tabs.tsx" />
-
-    **Copy/paste the following code for types to  `~/components/primitives/tabs/types.ts`**
-
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/tabs/types.ts" />
-
-    **Copy/paste the following code for exporting to  `~/components/primitives/tabs/index.ts`**
-
-    <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/tabs/index.ts" />
   </TabItem>
-  <TabItem label="Native Only">
-    **Copy/paste the following code for native to  `~/components/primitives/tabs/index.tsx`**
+  <TabItem label="Manual">
+    <Aside title="Uses shared primitives">
+      If you do not already have these primitives in your project, you will need to add them.
 
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/tabs/index.tsx" />
+      - [Types Primitive](/types)
+      - [Slot Primitive](/slot)
+    </Aside>
 
-    **Copy/paste the following code for types to  `~/components/primitives/tabs/types.ts`**
+    <br />
 
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/tabs/types.ts" />
+    <Tabs>
+      <TabItem label="Universal">
+        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/tabs">@radix-ui/react-tabs</a>**
+
+        ```bash
+        npx expo install @radix-ui/react-tabs
+        ```
+
+        **Copy/paste the following code for web to  `~/components/primitives/tabs/tabs.web.tsx`**
+
+        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/tabs/tabs.web.tsx" />
+
+        **Copy/paste the following code for native to  `~/components/primitives/tabs/tabs.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/tabs/tabs.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/tabs/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/tabs/types.ts" />
+
+        **Copy/paste the following code for exporting to  `~/components/primitives/tabs/index.ts`**
+
+        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/tabs/index.ts" />
+      </TabItem>
+      <TabItem label="Native Only">
+        **Copy/paste the following code for native to  `~/components/primitives/tabs/index.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/tabs/index.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/tabs/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/tabs/types.ts" />
+      </TabItem>
+    </Tabs>
   </TabItem>
 </Tabs>
 
@@ -72,7 +79,7 @@ A collection of layered content sections, referred to as tab panels, displayed i
 
 ```tsx
 import * as React from 'react';
-import * as TabsPrimitive from '~/components/primitives/tabs';
+import * as TabsPrimitive from '@rn-primitives/tabs';
 import { Text } from 'react-native';
 
 function Example() {

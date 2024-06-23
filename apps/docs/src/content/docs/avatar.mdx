@@ -6,7 +6,7 @@ description: An image component featuring an alternative representation for depi
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedNativeCode from '@/../node_modules/@rn-primitives/avatar/src/avatar.tsx?raw';
@@ -31,8 +31,8 @@ An image component featuring an alternative representation for depicting the use
   <Aside title="Uses shared primitives">
       If you do not already have these primitives in your project, you will need to add them.
 
-      - [Types Primitive](/primitives/types)
-      - [Slot Primitive](/primitives/slot)
+      - [Types Primitive](/types)
+      - [Slot Primitive](/slot)
 
   </Aside>
 
@@ -52,7 +52,7 @@ An image component featuring an alternative representation for depicting the use
 ## Usage
 
 ```tsx
-import * as AvatarPrimitive from '~/components/primitives/avatar';
+import * as AvatarPrimitive from '@rn-primitives/avatar';
 
 const GITHUB_AVATAR_URI = 'https://github.com/mrzachnugent.png';
 

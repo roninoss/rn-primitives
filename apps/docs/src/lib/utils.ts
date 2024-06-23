@@ -5,8 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function fixImports(rawfile: string) {
-  return rawfile
-    .replace('./typography', '~/components/ui/typography')
-    .replace('./text', '~/components/ui/text');
+export function fixManualImports(rawfile: string) {
+  return rawfile.replaceAll('@rn-primitives/', '~/components/primitives/');
 }

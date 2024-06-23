@@ -6,7 +6,7 @@ description: A dynamic element that facilitates the expansion or collapse of a p
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedNativeCode from '@/../node_modules/@rn-primitives/collapsible/src/collapsible.tsx?raw';
@@ -33,9 +33,9 @@ A dynamic element that facilitates the expansion or collapse of a panel.
     <Aside title="Uses shared primitives">
         If you do not already have these primitives in your project, you will need to add them.
 
-        - [Hooks Primitive](/primitives/hooks)
-        - [Slot Primitive](/primitives/slot)
-        - [Types Primitive](/primitives/types)
+        - [Hooks Primitive](/hooks)
+        - [Slot Primitive](/slot)
+        - [Types Primitive](/types)
 
     </Aside>
     <br />
@@ -78,7 +78,7 @@ A dynamic element that facilitates the expansion or collapse of a panel.
 ## Usage
 
 ```tsx
-import * as CollapsiblePrimitive from '~/components/primitives/collapsible';
+import * as CollapsiblePrimitive from '@rn-primitives/collapsible';
 
 function Example() {
   return (

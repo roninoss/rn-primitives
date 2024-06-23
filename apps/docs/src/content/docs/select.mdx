@@ -6,7 +6,7 @@ description: Presents a selection of options for the user to choose from, activa
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedNativeCode from '@/../node_modules/@rn-primitives/select/src/select.tsx?raw';
@@ -14,61 +14,73 @@ import importedWebCode from '@/../node_modules/@rn-primitives/select/src/select.
 import importedTypesCode from '@/../node_modules/@rn-primitives/select/src/types.ts?raw';
 import importedIndexCode from '@/../node_modules/@rn-primitives/select/src/index.ts?raw';
 
-<LinkButton href='/primitives/types'>Types Primitives</LinkButton>
-<LinkButton href='/primitives/hooks'>Hooks Primitives</LinkButton>
-<LinkButton href='/primitives/slot'>Slot Primitives</LinkButton>
-<LinkButton href='/primitives/portal'>Portal Primitives</LinkButton>
-<LinkButton target='_blank' href='https://www.radix-ui.com/primitives/docs/components/select'>
-  @radix-ui/react-select
-</LinkButton>
-
-<br />
-
 Presents a selection of options for the user to choose from, activated by a button.
 
 ## Installation
 
-<Aside title="Uses shared primitives">
-  If you do not already have these primitives in your project, you will need to add them.
-
-  - [Types Primitive](/primitives/types)
-  - [Hooks Primitive](/primitives/hooks)
-  - [Slot Primitive](/primitives/slot)
-  - [Portal Primitive](/primitives/portal)
-</Aside>
 
 <Tabs>
-  <TabItem label="Universal">
-    **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/select">@radix-ui/react-select</a>**
+  <TabItem label="NPM">
+
+  Install the component via your command line.
 
     ```bash
-    npx expo install @radix-ui/react-select
+    npx expo install @rn-primitives/select
     ```
 
-    **Copy/paste the following code for web to  `~/components/primitives/select/select.web.tsx`**
+    <Aside title="Peer dependency">
+      If you do not have the portal primitive in your project, you will need to add it as well.
 
-    <Code code={importedWebCode} lang="tsx" title="~/components/primitives/select/select.web.tsx" />
+       ```bash
+      npx expo install @rn-primitives/portal
+      ```
+    </Aside>
 
-    **Copy/paste the following code for native to  `~/components/primitives/select/select.tsx`**
-
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/select/select.tsx" />
-
-    **Copy/paste the following code for types to  `~/components/primitives/select/types.ts`**
-
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/select/types.ts" />
-
-    **Copy/paste the following code for exporting to  `~/components/primitives/select/index.ts`**
-
-    <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/select/index.ts" />
   </TabItem>
-  <TabItem label="Native Only">
-    **Copy/paste the following code for native to  `~/components/primitives/select/index.tsx`**
+  <TabItem label="Manual">
+      <Aside title="Uses shared primitives">
+      If you do not already have these primitives in your project, you will need to add them.
 
-    <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/select/index.tsx" />
+      - [Types Primitive](/types)
+      - [Hooks Primitive](/hooks)
+      - [Slot Primitive](/slot)
+      - [Portal Primitive](/portal)
+    </Aside>
+    <br />
+    <Tabs>
+      <TabItem label="Universal">
+        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/select">@radix-ui/react-select</a>**
 
-    **Copy/paste the following code for types to  `~/components/primitives/select/types.ts`**
+        ```bash
+        npx expo install @radix-ui/react-select
+        ```
 
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/select/types.ts" />
+        **Copy/paste the following code for web to  `~/components/primitives/select/select.web.tsx`**
+
+        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/select/select.web.tsx" />
+
+        **Copy/paste the following code for native to  `~/components/primitives/select/select.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/select/select.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/select/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/select/types.ts" />
+
+        **Copy/paste the following code for exporting to  `~/components/primitives/select/index.ts`**
+
+        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/select/index.ts" />
+      </TabItem>
+      <TabItem label="Native Only">
+        **Copy/paste the following code for native to  `~/components/primitives/select/index.tsx`**
+
+        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/select/index.tsx" />
+
+        **Copy/paste the following code for types to  `~/components/primitives/select/types.ts`**
+
+        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/select/types.ts" />
+      </TabItem>
+    </Tabs>
   </TabItem>
 </Tabs>
 
@@ -79,7 +91,7 @@ Presents a selection of options for the user to choose from, activated by a butt
   Requires a `<PortalHost />` as the last child of your `<Root/>` (`app/_layout.tsx`) component
 
   ```tsx
-  import { PortalHost } from '~/components/primitives/portal';
+  import { PortalHost } from '@rn-primitives/portal';
 
   function Root() {
     return (
@@ -95,7 +107,7 @@ Presents a selection of options for the user to choose from, activated by a butt
 </Aside>
 
 ```tsx
-import * as SelectPrimitive from '~/components/primitives/select';
+import * as SelectPrimitive from '@rn-primitives/select';
 import { View } from 'react-native';
 
 function Example() {

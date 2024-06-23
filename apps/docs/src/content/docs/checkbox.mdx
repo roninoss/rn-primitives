@@ -6,7 +6,7 @@ description: A box that is a checked (ticked) indicator when activated.
 {/* prettier-ignore-start */}
 {/* prettier-ignore-end */}
 
-import Code from '@/components/Code.astro';
+import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedNativeCode from '@/../node_modules/@rn-primitives/checkbox/src/checkbox.tsx?raw';
@@ -33,9 +33,9 @@ A box that is a checked (ticked) indicator when activated.
     <Aside title="Uses shared primitives">
         If you do not already have these primitives in your project, you will need to add them.
 
-        - [Types Primitive](/primitives/types)
-        - [Hooks Primitive](/primitives/hooks)
-        - [Slot Primitive](/primitives/slot)
+        - [Types Primitive](/types)
+        - [Hooks Primitive](/hooks)
+        - [Slot Primitive](/slot)
 
     </Aside>
 
@@ -80,7 +80,7 @@ A box that is a checked (ticked) indicator when activated.
 ## Usage
 
 ```tsx
-import * as CheckboxPrimitive from '~/components/primitives/checkbox';
+import * as CheckboxPrimitive from '@rn-primitives/checkbox';
 
 function Example() {
   const [checked, setChecked] = React.useState(false);
