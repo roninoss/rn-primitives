@@ -7,11 +7,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  adapters: [
-    vercel({
-      webAnalytics: { enabled: true },
-    }),
-  ],
+  adapters: [vercel()],
   integrations: [
     starlight({
       favicon: '/favicon.png',
