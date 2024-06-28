@@ -9,3 +9,7 @@ import Default from '@astrojs/starlight/components/Head.astro'
 <!-- Render the <meta/> tags for the Open Graph images. -->
 <meta property="og:image" content="https://rn-primitives.vercel.app/rn-primitives-og.png" />
 <meta name="twitter:image" content="https://rn-primitives.vercel.app/rn-primitives-og.png" />
+<script>
+    import { inject } from '@vercel/analytics';
+    inject();
+</script>
