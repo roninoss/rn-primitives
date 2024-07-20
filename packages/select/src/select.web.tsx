@@ -149,9 +149,16 @@ function Portal({ container, children }: SelectPortalProps) {
 }
 
 const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & SelectOverlayProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+  ({ asChild, forceMount, children, ...props }, ref) => {
+    const { open } = useRootContext();
+
     const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} {...props} />;
+    return (
+      <>
+        {open && <Component ref={ref} {...props} />}
+        {children}
+      </>
+    );
   }
 );
 
