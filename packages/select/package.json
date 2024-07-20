@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/select",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Primitive select",
   "license": "MIT",
   "main": "dist/index.js",
