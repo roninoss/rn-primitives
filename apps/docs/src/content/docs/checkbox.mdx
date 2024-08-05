@@ -85,8 +85,8 @@ import * as CheckboxPrimitive from '@rn-primitives/checkbox';
 function Example() {
   const [checked, setChecked] = React.useState(false);
   return (
-      <CheckboxPrimitive.Root checked={checked} onCheckedChange={setChecked}>
-        <CheckboxPrimitive.Indicator style={{ height: 4, width: 4, backgroundColor: 'red'}} />
+      <CheckboxPrimitive.Root checked={checked} onCheckedChange={setChecked} style={{ height: 16, width: 16, backgroundColor: 'red'}}>
+        <CheckboxPrimitive.Indicator style={{ height: 16, width: 16, backgroundColor: 'blue'}} />
       </CheckboxPrimitive.Root>
   );
 }
