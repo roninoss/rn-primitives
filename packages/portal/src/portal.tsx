@@ -58,20 +58,42 @@ export function Portal({
   return null;
 }
 
+interface PortalState {
+  portalOffsets: Record<string, number>;
+  savePortalOffset: (portalHost: string, offset: number) => void;
+}
+
+const usePortalStore = create<PortalState>((set) => ({
+  portalOffsets: {},
+  savePortalOffset: (portalHost: string, offset: number) =>
+    set((state) => {
+      const currentOffsetMap = state.portalOffsets;
+      if (Object.keys(currentOffsetMap).includes(portalHost) && currentOffsetMap[portalHost] > 0) {
+        return state;
+      }
+      return { portalOffsets: { ...state.portalOffsets, [portalHost]: offset } };
+    }),
+}));
+
 const ROOT: ViewStyle = {
   flex: 1,
 };
 
-export function useModalPortalRoot() {
+export function useModalPortalRoot(hostName: string) {
   const ref = React.useRef<View>(null);
-  const [sideOffset, setSideOffSet] = React.useState(0);
+  const [sideOffset, setSideOffset] = React.useState(0);
+  const { portalOffsets, savePortalOffset } = usePortalStore();
 
   const onLayout = React.useCallback(() => {
     if (Platform.OS === 'web') return;
     ref.current?.measure((_x, _y, _width, _height, _pageX, pageY) => {
-      setSideOffSet(-pageY);
+      savePortalOffset(hostName, -pageY);
     });
-  }, []);
+  }, [savePortalOffset, hostName]);
+
+  React.useEffect(() => {
+    setSideOffset(portalOffsets[hostName] ?? 0);
+  }, [portalOffsets, hostName]);
 
   return {
     ref,
