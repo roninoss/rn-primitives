@@ -1,13 +1,15 @@
+import * as Slot from '@rn-primitives/slot';
+import { ComponentPropsWithAsChild, SlottableViewProps, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import {
-  ImageErrorEventData,
-  ImageLoadEventData,
-  NativeSyntheticEvent,
+  type ImageErrorEventData,
+  type ImageLoadEventData,
+  type ImageSourcePropType,
+  type NativeSyntheticEvent,
   Image as RNImage,
   View,
 } from 'react-native';
-import * as Slot from '@rn-primitives/slot';
-import { ComponentPropsWithAsChild, SlottableViewProps, ViewRef } from '@rn-primitives/types';
+
 import { AvatarImageProps, AvatarRootProps } from './types';
 
 type AvatarState = 'loading' | 'error' | 'loaded';
@@ -21,7 +23,7 @@ const RootContext = React.createContext<IRootContext | null>(null);
 
 const Root = React.forwardRef<ViewRef, SlottableViewProps & AvatarRootProps>(
   ({ asChild, alt, ...viewProps }, ref) => {
-    const [status, setStatus] = React.useState<AvatarState>('loading');
+    const [status, setStatus] = React.useState<AvatarState>('error');
     const Component = asChild ? Slot.View : View;
     return (
       <RootContext.Provider value={{ alt, status, setStatus }}>
@@ -50,6 +52,16 @@ const Image = React.forwardRef<
     ref
   ) => {
     const { alt, setStatus, status } = useRootContext();
+
+    React.useLayoutEffect(() => {
+      if (isValidSource(props?.source)) {
+        setStatus('loading');
+      }
+
+      return () => {
+        setStatus('error');
+      };
+    }, [props?.source]);
 
     const onLoad = React.useCallback(
       (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -93,3 +105,17 @@ const Fallback = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...pr
 Fallback.displayName = 'FallbackAvatar';
 
 export { Fallback, Image, Root };
+
+function isValidSource(source?: ImageSourcePropType) {
+  if (!source) {
+    return false;
+  }
+  // Using require() for the source returns a number
+  if (typeof source === 'number') {
+    return true;
+  }
+  if (Array.isArray(source)) {
+    return source.some((source) => !!source.uri);
+  }
+  return !!source.uri;
+}
