@@ -170,7 +170,16 @@ Overlay.displayName = 'OverlayNativePopover';
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContentProps>(
+const Content = React.forwardRef<
+  ViewRef,
+  SlottableViewProps &
+    PositionedContentProps & {
+      /**
+       * Platform: WEB ONLY
+       */
+      onOpenAutoFocus?: (event: Event) => void;
+    }
+>(
   (
     {
       asChild = false,
@@ -184,6 +193,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
       insets,
       style,
       disablePositioningStyle,
+      onOpenAutoFocus: _onOpenAutoFocus,
       ...props
     },
     ref

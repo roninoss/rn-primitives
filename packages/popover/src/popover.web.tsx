@@ -106,7 +106,16 @@ const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & Popover
 
 Overlay.displayName = 'OverlayWebPopover';
 
-const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContentProps>(
+const Content = React.forwardRef<
+  ViewRef,
+  SlottableViewProps &
+    PositionedContentProps & {
+      /**
+       * Platform: WEB ONLY
+       */
+      onOpenAutoFocus?: (event: Event) => void;
+    }
+>(
   (
     {
       asChild = false,
@@ -122,6 +131,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
       onEscapeKeyDown,
       onInteractOutside,
       onPointerDownOutside,
+      onOpenAutoFocus,
       ...props
     },
     ref
@@ -139,6 +149,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
         sideOffset={sideOffset}
         alignOffset={alignOffset}
         avoidCollisions={avoidCollisions}
+        onOpenAutoFocus={onOpenAutoFocus}
       >
         <Component ref={ref} {...props} />
       </Popover.Content>
