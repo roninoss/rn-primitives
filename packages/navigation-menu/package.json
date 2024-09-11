@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/navigation-menu",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Primitive navigation menu",
   "license": "MIT",
   "main": "dist/index.js",
@@ -32,7 +32,7 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-navigation-menu": "^1.1.4",
+    "@radix-ui/react-navigation-menu": "^1.2.0",
     "@rn-primitives/hooks": "workspace:*",
     "@rn-primitives/utils": "workspace:*",
     "@rn-primitives/slot": "workspace:*",

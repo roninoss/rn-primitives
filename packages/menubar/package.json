@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/menubar",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Primitive menubar",
   "license": "MIT",
   "main": "dist/index.js",
@@ -32,7 +32,7 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-menubar": "^1.0.4",
+    "@radix-ui/react-menubar": "^1.1.1",
     "@rn-primitives/hooks": "workspace:*",
     "@rn-primitives/utils": "workspace:*",
     "@rn-primitives/slot": "workspace:*",

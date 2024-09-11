@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/table",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Primitive table",
   "license": "MIT",
   "main": "dist/index.js",

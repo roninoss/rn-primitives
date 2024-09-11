@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/slot",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Primitive slot",
   "license": "MIT",
   "main": "dist/index.js",

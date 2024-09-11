@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/label",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Primitive label",
   "license": "MIT",
   "main": "dist/index.js",
@@ -32,7 +32,7 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-label": "^2.1.0",
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*"
   },
