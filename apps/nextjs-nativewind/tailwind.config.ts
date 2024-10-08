@@ -4,7 +4,11 @@ const config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@rn-primitives/avatar/dist/**/*.{mjs,js,ts,jsx,tsx}',
+    '../../packages/avatar/dist/**/*.{mjs,js,ts,jsx,tsx}',
   ],
+  presets: [require('nativewind/preset')],
+  important: 'html',
   theme: {
     extend: {
       colors: {
