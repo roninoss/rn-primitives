@@ -69,13 +69,13 @@ pnpm dev:primitives
 3. Start the app of your choice:
 
 ```bash
-# Start the Example app
-pnpm dev:example
+# Start the Expo NativeWind app
+pnpm dev:expo-nativewind
 # Or the Documentation app
 pnpm dev:docs
 ```
 
-### Trying out the example app
+### Trying out the Expo NativeWind app
 
 1. Clone, and install the dependencies with `pnpm`
 
@@ -89,8 +89,8 @@ pnpm i
 pnpm build
 ```
 
-3. Start the example app
+3. Start the expo-nativewind app
 
 ```bash
-pnpm dev:example
+pnpm dev:expo-nativewind
 ```

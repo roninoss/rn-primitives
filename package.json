@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "turbo dev --concurrency=34",
     "dev:primitives": "turbo dev --filter=./packages/* --concurrency=33",
-    "dev:example": "turbo dev --filter=./apps/example",
+    "dev:expo-nativewind": "turbo dev --filter=./apps/expo-nativewind",
     "dev:docs": "turbo dev --filter=./apps/docs",
     "lint": "turbo lint",
     "test": "turbo test",
