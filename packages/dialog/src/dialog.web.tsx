@@ -1,5 +1,9 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
+import {
+  useAugmentedRef,
+  useControllableState,
+  useIsomorphicLayoutEffect,
+} from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
@@ -60,7 +64,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
       onOpenChange(!open);
     }
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLButtonElement;
         augRef.dataset.state = open ? 'open' : 'closed';
@@ -146,7 +150,7 @@ const Close = React.forwardRef<PressableRef, SlottablePressableProps>(
       onOpenChange(!open);
     }
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLButtonElement;
         augRef.type = 'button';

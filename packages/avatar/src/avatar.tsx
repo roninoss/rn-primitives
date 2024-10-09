@@ -1,3 +1,4 @@
+import { useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import { ComponentPropsWithAsChild, SlottableViewProps, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
@@ -53,7 +54,7 @@ const Image = React.forwardRef<
   ) => {
     const { alt, setStatus, status } = useRootContext();
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (isValidSource(props?.source)) {
         setStatus('loading');
       }

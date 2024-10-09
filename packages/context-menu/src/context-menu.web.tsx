@@ -1,5 +1,9 @@
 import * as ContextMenu from '@radix-ui/react-context-menu';
-import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
+import {
+  useAugmentedRef,
+  useControllableState,
+  useIsomorphicLayoutEffect,
+} from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
   ForceMountable,
@@ -80,14 +84,14 @@ const Trigger = React.forwardRef<ContextMenuTriggerRef, SlottablePressableProps>
       },
     });
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLDivElement;
         augRef.dataset.state = open ? 'open' : 'closed';
       }
     }, [open]);
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLDivElement;
         if (disabled) {

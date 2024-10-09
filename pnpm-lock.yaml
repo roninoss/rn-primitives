@@ -604,6 +604,9 @@ importers:
 
   packages/avatar:
     dependencies:
+      '@rn-primitives/hooks':
+        specifier: workspace:*
+        version: link:../hooks
       '@rn-primitives/slot':
         specifier: workspace:*
         version: link:../slot

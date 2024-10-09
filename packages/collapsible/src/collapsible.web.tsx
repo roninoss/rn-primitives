@@ -1,5 +1,9 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
-import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
+import {
+  useAugmentedRef,
+  useControllableState,
+  useIsomorphicLayoutEffect,
+} from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
@@ -32,14 +36,14 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & CollapsibleRootProps
     });
     const augmentedRef = useAugmentedRef({ ref });
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLDivElement;
         augRef.dataset.state = open ? 'open' : 'closed';
       }
     }, [open]);
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLDivElement;
         if (disabled) {
@@ -89,14 +93,14 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
     const { disabled, open, onOpenChange } = useCollapsibleContext();
     const augmentedRef = useAugmentedRef({ ref });
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLButtonElement;
         augRef.dataset.state = open ? 'open' : 'closed';
       }
     }, [open]);
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLButtonElement;
         augRef.type = 'button';
@@ -136,7 +140,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & CollapsibleConten
     const augmentedRef = useAugmentedRef({ ref });
     const { open } = useCollapsibleContext();
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLDivElement;
         augRef.dataset.state = open ? 'open' : 'closed';

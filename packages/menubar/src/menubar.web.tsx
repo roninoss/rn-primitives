@@ -1,5 +1,9 @@
 import * as Menubar from '@radix-ui/react-menubar';
-import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
+import {
+  useAugmentedRef,
+  useControllableState,
+  useIsomorphicLayoutEffect,
+} from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
   ForceMountable,
@@ -84,14 +88,14 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
     const { value: menuValue } = useMenuContext();
     const { value } = useRootContext();
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLDivElement;
         augRef.dataset.state = value && menuValue === value ? 'open' : 'closed';
       }
-    }, [open]);
+    }, [value && menuValue]);
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLDivElement;
         if (disabled) {

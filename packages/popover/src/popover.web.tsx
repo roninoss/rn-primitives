@@ -1,5 +1,5 @@
 import * as Popover from '@radix-ui/react-popover';
-import { useAugmentedRef } from '@rn-primitives/hooks';
+import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
   PositionedContentProps,
@@ -68,7 +68,7 @@ const Trigger = React.forwardRef<PopoverTriggerRef, SlottablePressableProps>(
       onOpenChange(!open);
     }
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLButtonElement;
         augRef.dataset.state = open ? 'open' : 'closed';
@@ -171,7 +171,7 @@ const Close = React.forwardRef<PressableRef, SlottablePressableProps>(
       onOpenChange(!open);
     }
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLButtonElement;
         augRef.type = 'button';

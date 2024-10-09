@@ -1,5 +1,5 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { useAugmentedRef } from '@rn-primitives/hooks';
+import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
   PositionedContentProps,
@@ -68,7 +68,7 @@ const List = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...viewPr
   const augmentedRef = useAugmentedRef({ ref });
   const { orientation } = useRootContext();
 
-  React.useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (augmentedRef.current) {
       const augRef = augmentedRef.current as unknown as HTMLDivElement;
       augRef.dataset.orientation = orientation;
@@ -258,7 +258,7 @@ export {
   Portal,
   Root,
   Trigger,
-  Viewport,
   useItemContext,
   useRootContext,
+  Viewport,
 };
