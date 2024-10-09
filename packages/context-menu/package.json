@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/context-menu",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Primitive context menu",
   "license": "MIT",
   "main": "dist/index.js",
