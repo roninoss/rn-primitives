@@ -363,12 +363,93 @@ importers:
 
   apps/nextjs-nativewind:
     dependencies:
+      '@rn-primitives/accordion':
+        specifier: workspace:*
+        version: link:../../packages/accordion
+      '@rn-primitives/alert-dialog':
+        specifier: workspace:*
+        version: link:../../packages/alert-dialog
+      '@rn-primitives/aspect-ratio':
+        specifier: workspace:*
+        version: link:../../packages/aspect-ratio
       '@rn-primitives/avatar':
         specifier: workspace:*
         version: link:../../packages/avatar
+      '@rn-primitives/checkbox':
+        specifier: workspace:*
+        version: link:../../packages/checkbox
+      '@rn-primitives/collapsible':
+        specifier: workspace:*
+        version: link:../../packages/collapsible
+      '@rn-primitives/context-menu':
+        specifier: workspace:*
+        version: link:../../packages/context-menu
+      '@rn-primitives/dialog':
+        specifier: workspace:*
+        version: link:../../packages/dialog
+      '@rn-primitives/dropdown-menu':
+        specifier: workspace:*
+        version: link:../../packages/dropdown-menu
+      '@rn-primitives/hover-card':
+        specifier: workspace:*
+        version: link:../../packages/hover-card
+      '@rn-primitives/label':
+        specifier: workspace:*
+        version: link:../../packages/label
+      '@rn-primitives/menubar':
+        specifier: workspace:*
+        version: link:../../packages/menubar
+      '@rn-primitives/navigation-menu':
+        specifier: workspace:*
+        version: link:../../packages/navigation-menu
+      '@rn-primitives/popover':
+        specifier: workspace:*
+        version: link:../../packages/popover
+      '@rn-primitives/portal':
+        specifier: workspace:*
+        version: link:../../packages/portal
+      '@rn-primitives/progress':
+        specifier: workspace:*
+        version: link:../../packages/progress
+      '@rn-primitives/radio-group':
+        specifier: workspace:*
+        version: link:../../packages/radio-group
+      '@rn-primitives/select':
+        specifier: workspace:*
+        version: link:../../packages/select
+      '@rn-primitives/separator':
+        specifier: workspace:*
+        version: link:../../packages/separator
+      '@rn-primitives/slider':
+        specifier: workspace:*
+        version: link:../../packages/slider
       '@rn-primitives/slot':
         specifier: workspace:*
         version: link:../../packages/slot
+      '@rn-primitives/switch':
+        specifier: workspace:*
+        version: link:../../packages/switch
+      '@rn-primitives/table':
+        specifier: workspace:*
+        version: link:../../packages/table
+      '@rn-primitives/tabs':
+        specifier: workspace:*
+        version: link:../../packages/tabs
+      '@rn-primitives/toast':
+        specifier: workspace:*
+        version: link:../../packages/toast
+      '@rn-primitives/toggle':
+        specifier: workspace:*
+        version: link:../../packages/toggle
+      '@rn-primitives/toggle-group':
+        specifier: workspace:*
+        version: link:../../packages/toggle-group
+      '@rn-primitives/toolbar':
+        specifier: workspace:*
+        version: link:../../packages/toolbar
+      '@rn-primitives/tooltip':
+        specifier: workspace:*
+        version: link:../../packages/tooltip
       '@rn-primitives/types':
         specifier: workspace:*
         version: link:../../packages/types
