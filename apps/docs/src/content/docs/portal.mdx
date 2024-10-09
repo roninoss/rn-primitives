@@ -126,6 +126,57 @@ function Example() {
 }
 ```
 
+### Portal Usage in Modal Screens
+
+When using a `Stack.Screen` with `presentation` set to `'modal'`, `'formSheet'`, or similar values, you may need to use a separate `PortalHost` along with the `useModalPortalRoot()` hook to ensure correct positioning of portal content.
+
+First, add a `PortalHost` as the last child of the modal screen component:
+
+```tsx
+import { PortalHost } from '@rn-primitives/portal';
+
+const ModalComponent = () => (
+  <View style={{ flex: 1 }}>
+    {/* Modal content */}
+    <PortalHost name='my-modal-portal-host' />
+  </View>
+);
+```
+
+In the same component or within a nested container, apply the hook's `rootProps` once:
+
+```tsx
+import { useModalPortalRoot } from '@rn-primitives/useModalPortalRoot';
+
+const ModalContent = () => {
+  const { sideOffset, ...rootProps } = useModalPortalRoot('my-custom-host');
+  return (
+    <View {...rootProps}>
+      {/* Portal content will be positioned relative to the top of this View */}
+    </View>
+  );
+};
+```
+
+Then, you can render `Portal`s inside any sub-component by calling the hook and passing its `sideOffset`:
+
+```tsx
+const SubComponent = () => {
+  const { sideOffset } = useModalPortalRoot('my-custom-host');
+
+  return (
+    <DropdownMenu>
+      <DropdownTrigger>
+        <Text>Toggle Dropdown</Text>
+      </DropdownTrigger>
+      <DropdownMenuContent portalHost='my-custom-host' sideOffset={sideOffset}>
+        {/* Dropdown content */}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+```
+
 ## Props
 
 ### PortalHost
