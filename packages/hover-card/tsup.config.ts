@@ -10,4 +10,7 @@ export default defineConfig((options: Options) => ({
   external: ['react', './hover-card'],
   dts: true,
   ...options,
+  esbuildOptions(options) {
+    options.jsx = 'preserve';
+  },
 }));

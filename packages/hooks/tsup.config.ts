@@ -12,4 +12,7 @@ export default defineConfig((options: Options) => ({
   external: ['react'],
   dts: true,
   ...options,
+  esbuildOptions(options) {
+    options.jsx = 'preserve';
+  },
 }));
