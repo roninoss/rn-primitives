@@ -1,5 +1,5 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
-import { useAugmentedRef } from '@rn-primitives/hooks';
+import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
   ComponentPropsWithAsChild,
@@ -24,7 +24,7 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRo
       onCheckedChange(!checked);
     }
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLButtonElement;
         augRef.dataset.state = checked ? 'checked' : 'unchecked';
@@ -32,7 +32,7 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRo
       }
     }, [checked]);
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLButtonElement;
         augRef.type = 'button';
@@ -87,14 +87,14 @@ const Indicator = React.forwardRef<
   const { checked, disabled } = useCheckboxContext();
   const augmentedRef = useAugmentedRef({ ref });
 
-  React.useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (augmentedRef.current) {
       const augRef = augmentedRef.current as unknown as HTMLDivElement;
       augRef.dataset.state = checked ? 'checked' : 'unchecked';
     }
   }, [checked]);
 
-  React.useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (augmentedRef.current) {
       const augRef = augmentedRef.current as unknown as HTMLDivElement;
       if (disabled) {

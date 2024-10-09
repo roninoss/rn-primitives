@@ -1,3 +1,3 @@
-# Example
+# Expo NativeWind
 
 - With NativeWind

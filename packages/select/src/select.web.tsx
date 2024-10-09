@@ -1,5 +1,9 @@
 import * as Select from '@radix-ui/react-select';
-import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
+import {
+  useAugmentedRef,
+  useControllableState,
+  useIsomorphicLayoutEffect,
+} from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
   ForceMountable,
@@ -14,11 +18,11 @@ import type {
 import * as React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import type {
-  SelectRootContext,
   SelectContentProps,
   SelectItemProps,
   SelectOverlayProps,
   SelectPortalProps,
+  SelectRootContext,
   SelectRootProps,
   SelectSeparatorProps,
   SelectValueProps,
@@ -113,7 +117,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
       },
     });
 
-    React.useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLButtonElement;
         augRef.dataset.state = open ? 'open' : 'closed';
@@ -330,10 +334,10 @@ export {
   ScrollUpButton,
   Separator,
   Trigger,
-  Value,
-  Viewport,
   useItemContext,
   useRootContext,
+  Value,
+  Viewport,
 };
 
 export type { Option, SelectTriggerRef } from './types';

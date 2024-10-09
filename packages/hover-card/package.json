@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/hover-card",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Primitive hover card",
   "license": "MIT",
   "main": "dist/index.js",
@@ -40,10 +40,10 @@
   },
   "devDependencies": {
     "@rn-primitives/portal": "workspace:*",
-    "@tsconfig/recommended": "^1.0.1",
+    "@tsconfig/react-native": "^1.0.1",
     "@types/react": "~18.2.79",
     "react": "18.2.0",
-    "react-native": "0.74.2",
+    "react-native": "0.74.5",
     "tsup": "^8.1.0"
   },
   "peerDependencies": {

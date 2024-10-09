@@ -10,4 +10,7 @@ export default defineConfig((options: Options) => ({
   external: ['react', './toolbar'],
   dts: true,
   ...options,
+  esbuildOptions(options) {
+    options.jsx = 'preserve';
+  },
 }));

@@ -10,4 +10,7 @@ export default defineConfig((options: Options) => ({
   external: ['react', './tabs'],
   dts: true,
   ...options,
+  esbuildOptions(options) {
+    options.jsx = 'preserve';
+  },
 }));

@@ -82,11 +82,11 @@ function useTriggerContext() {
 }
 
 const Content = React.forwardRef<ViewRef, SlottableViewProps & TabsContentProps>(
-  ({ asChild, forceMount, value, ...props }, ref) => {
+  ({ asChild, forceMount, value, tabIndex = -1, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <Tabs.Content value={value} asChild>
-        <Component ref={ref} {...props} />
+        <Component ref={ref} {...props} tabIndex={tabIndex} />
       </Tabs.Content>
     );
   }
