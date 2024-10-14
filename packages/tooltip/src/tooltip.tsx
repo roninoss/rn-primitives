@@ -2,7 +2,6 @@ import { useAugmentedRef, useRelativePosition, type LayoutPosition } from '@rn-p
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import * as Slot from '@rn-primitives/slot';
 import type {
-  PositionedContentProps,
   PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
@@ -18,6 +17,7 @@ import {
   type LayoutRectangle,
 } from 'react-native';
 import type {
+  TooltipContentProps,
   TooltipOverlayProps,
   TooltipPortalProps,
   TooltipRootProps,
@@ -185,7 +185,7 @@ Overlay.displayName = 'OverlayNativeTooltip';
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior on native by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContentProps>(
+const Content = React.forwardRef<ViewRef, TooltipContentProps>(
   (
     {
       asChild = false,

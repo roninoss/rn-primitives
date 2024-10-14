@@ -2,7 +2,6 @@ import * as Tooltip from '@radix-ui/react-tooltip';
 import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
-  PositionedContentProps,
   PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
@@ -11,6 +10,7 @@ import type {
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type {
+  TooltipContentProps,
   TooltipOverlayProps,
   TooltipPortalProps,
   TooltipRootProps,
@@ -132,7 +132,7 @@ const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & Tooltip
 
 Overlay.displayName = 'OverlayWebTooltip';
 
-const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContentProps>(
+const Content = React.forwardRef<ViewRef, TooltipContentProps>(
   (
     {
       asChild = false,
