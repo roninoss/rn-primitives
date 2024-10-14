@@ -1,4 +1,4 @@
-import type { ForceMountable, PositionedContentProps, PressableRef, SlottableViewProps } from '@rn-primitives/types';
+import type { ForceMountable, PositionedContentProps, PressableRef } from '@rn-primitives/types';
 
 interface TooltipRootProps {
   onOpenChange?: (open: boolean) => void;
@@ -39,11 +39,17 @@ interface TooltipTriggerRef extends PressableRef {
   close: () => void;
 }
 
-interface TooltipContentProps extends SlottableViewProps, Omit<PositionedContentProps, 'side'> {
+interface TooltipContentProps extends Omit<PositionedContentProps, 'side'> {
   /**
    * Left and right are only supported on web.
    */
   side?: 'top' | 'right' | 'bottom' | 'left';
 }
 
-export type { TooltipContentProps, TooltipOverlayProps, TooltipPortalProps, TooltipRootProps, TooltipTriggerRef };
+export type {
+  TooltipContentProps,
+  TooltipOverlayProps,
+  TooltipPortalProps,
+  TooltipRootProps,
+  TooltipTriggerRef,
+};

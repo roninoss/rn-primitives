@@ -132,7 +132,7 @@ const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & Tooltip
 
 Overlay.displayName = 'OverlayWebTooltip';
 
-const Content = React.forwardRef<ViewRef, TooltipContentProps>(
+const Content = React.forwardRef<ViewRef, SlottableViewProps & TooltipContentProps>(
   (
     {
       asChild = false,

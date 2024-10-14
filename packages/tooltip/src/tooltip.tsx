@@ -185,7 +185,7 @@ Overlay.displayName = 'OverlayNativeTooltip';
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior on native by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ViewRef, TooltipContentProps>(
+const Content = React.forwardRef<ViewRef, SlottableViewProps & TooltipContentProps>(
   (
     {
       asChild = false,
