@@ -1,10 +1,15 @@
-import type { ForceMountable } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  SlottablePressableProps,
+  SlottableTextProps,
+  SlottableViewProps,
+} from '@rn-primitives/types';
 
 type AlertDialogRootProps = {
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
   defaultOpen?: boolean;
-};
+} & SlottableViewProps;
 
 interface RootContext {
   open: boolean;
@@ -22,27 +27,39 @@ interface AlertDialogPortalProps extends ForceMountable {
    */
   container?: HTMLElement | null | undefined;
 }
-type AlertDialogOverlayProps = ForceMountable;
+type AlertDialogOverlayProps = ForceMountable & SlottableViewProps;
 
-type AlertDialogContentProps = ForceMountable & {
-  /**
-   * Platform: WEB ONLY
-   */
-  onOpenAutoFocus?: (ev: Event) => void;
-  /**
-   * Platform: WEB ONLY
-   */
-  onCloseAutoFocus?: (ev: Event) => void;
-  /**
-   * Platform: WEB ONLY
-   */
-  onEscapeKeyDown?: (ev: Event) => void;
-};
+type AlertDialogContentProps = ForceMountable &
+  SlottableViewProps & {
+    /**
+     * Platform: WEB ONLY
+     */
+    onOpenAutoFocus?: (ev: Event) => void;
+    /**
+     * Platform: WEB ONLY
+     */
+    onCloseAutoFocus?: (ev: Event) => void;
+    /**
+     * Platform: WEB ONLY
+     */
+    onEscapeKeyDown?: (ev: Event) => void;
+  };
+
+type AlertDialogTriggerProps = SlottablePressableProps;
+type AlertDialogCancelProps = SlottablePressableProps;
+type AlertDialogActionProps = SlottablePressableProps;
+type AlertDialogTitleProps = SlottableTextProps;
+type AlertDialogDescriptionProps = SlottableTextProps;
 
 export type {
-  AlertDialogRootProps,
-  AlertDialogPortalProps,
-  AlertDialogOverlayProps,
+  AlertDialogActionProps,
+  AlertDialogCancelProps,
   AlertDialogContentProps,
+  AlertDialogDescriptionProps,
+  AlertDialogOverlayProps,
+  AlertDialogPortalProps,
+  AlertDialogRootProps,
+  AlertDialogTitleProps,
+  AlertDialogTriggerProps,
   RootContext,
 };
