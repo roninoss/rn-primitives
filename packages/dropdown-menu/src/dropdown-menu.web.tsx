@@ -500,11 +500,18 @@ function useSubContext() {
 const SubTrigger = React.forwardRef<
   PressableRef,
   SlottablePressableProps & DropdownMenuSubTriggerProps
->(({ asChild, textValue, disabled = false, ...props }, ref) => {
+>(({ asChild, textValue, disabled = false, onPress: onPressProp, ...props }, ref) => {
+  const { onOpenChange } = useSubContext();
+
+  function onPress(ev: GestureResponderEvent) {
+    onOpenChange(true);
+    onPressProp?.(ev);
+  }
+
   const Component = asChild ? Slot.Pressable : Pressable;
   return (
     <DropdownMenu.SubTrigger disabled={disabled ?? undefined} textValue={textValue} asChild>
-      <Component ref={ref} {...props} />
+      <Component ref={ref} onPress={onPress} {...props} />
     </DropdownMenu.SubTrigger>
   );
 });
