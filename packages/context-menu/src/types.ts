@@ -1,12 +1,19 @@
-import { ForceMountable, PressableRef } from '@rn-primitives/types';
+import {
+  ForceMountable,
+  PositionedContentProps,
+  PressableRef,
+  SlottablePressableProps,
+  SlottableTextProps,
+  SlottableViewProps,
+} from '@rn-primitives/types';
 
-interface ContextMenuRootProps {
+type ContextMenuRootProps = SlottableViewProps & {
   onOpenChange?: (open: boolean) => void;
   /**
    * Platform: NATIVE ONLY
    */
   relativeTo?: 'longPress' | 'trigger';
-}
+};
 
 interface ContextMenuPortalProps extends ForceMountable {
   children: React.ReactNode;
@@ -20,49 +27,50 @@ interface ContextMenuPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-interface ContextMenuOverlayProps extends ForceMountable {
-  /**
-   * Platform: NATIVE ONLY
-   */
-  closeOnPress?: boolean;
-}
+type ContextMenuOverlayProps = ForceMountable &
+  SlottablePressableProps & {
+    /**
+     * Platform: NATIVE ONLY
+     */
+    closeOnPress?: boolean;
+  };
 
-interface ContextMenuItemProps {
+type ContextMenuItemProps = SlottablePressableProps & {
   textValue?: string;
   closeOnPress?: boolean;
-}
+};
 
-interface ContextMenuCheckboxItemProps {
+type ContextMenuCheckboxItemProps = SlottablePressableProps & {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
   closeOnPress?: boolean;
   textValue?: string;
-}
+};
 
-interface ContextMenuRadioGroupProps {
+type ContextMenuRadioGroupProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string) => void;
-}
+};
 
-interface ContextMenuRadioItemProps {
+type ContextMenuRadioItemProps = SlottablePressableProps & {
   value: string;
   textValue?: string;
   closeOnPress?: boolean;
-}
+};
 
-interface ContextMenuSeparatorProps {
+type ContextMenuSeparatorProps = SlottableViewProps & {
   decorative?: boolean;
-}
+};
 
-interface ContextMenuSubProps {
+type ContextMenuSubProps = SlottableViewProps & {
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
-}
+};
 
-interface ContextMenuSubTriggerProps {
+type ContextMenuSubTriggerProps = SlottablePressableProps & {
   textValue?: string;
-}
+};
 
 interface ContextMenuTriggerRef extends PressableRef {
   /**
@@ -75,16 +83,29 @@ interface ContextMenuTriggerRef extends PressableRef {
   close: () => void;
 }
 
+type ContextMenuTriggerProps = SlottablePressableProps;
+type ContextMenuContentProps = SlottableViewProps & PositionedContentProps;
+type ContextMenuSubContentProps = SlottablePressableProps & ForceMountable;
+type ContextMenuItemIndicatorProps = SlottableViewProps & ForceMountable;
+type ContextMenuGroupProps = SlottableViewProps;
+type ContextMenuLabelProps = SlottableTextProps;
+
 export type {
   ContextMenuCheckboxItemProps,
+  ContextMenuContentProps,
+  ContextMenuGroupProps,
+  ContextMenuItemIndicatorProps,
   ContextMenuItemProps,
+  ContextMenuLabelProps,
   ContextMenuOverlayProps,
   ContextMenuPortalProps,
   ContextMenuRadioGroupProps,
   ContextMenuRadioItemProps,
   ContextMenuRootProps,
   ContextMenuSeparatorProps,
+  ContextMenuSubContentProps,
   ContextMenuSubProps,
   ContextMenuSubTriggerProps,
+  ContextMenuTriggerProps,
   ContextMenuTriggerRef,
 };
