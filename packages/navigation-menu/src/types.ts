@@ -1,6 +1,11 @@
-import type { ForceMountable } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  PositionedContentProps,
+  SlottablePressableProps,
+  SlottableViewProps,
+} from '@rn-primitives/types';
 
-interface NavigationMenuRootProps {
+type NavigationMenuRootProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string | undefined) => void;
   /**
@@ -19,11 +24,11 @@ interface NavigationMenuRootProps {
    * Platform: WEB ONLY
    */
   orientation?: 'horizontal' | 'vertical';
-}
+};
 
-interface NavigationMenuItemProps {
+type NavigationMenuItemProps = SlottableViewProps & {
   value: string | undefined;
-}
+};
 
 interface NavigationMenuPortalProps extends ForceMountable {
   children: React.ReactNode;
@@ -37,13 +42,22 @@ interface NavigationMenuPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-interface NavigationMenuLinkProps {
+type NavigationMenuLinkProps = SlottablePressableProps & {
   active?: boolean;
-}
+};
+
+type NavigationMenuListProps = SlottableViewProps;
+type NavigationMenuTriggerProps = SlottablePressableProps;
+type NavigationMenuContentProps = SlottableViewProps & PositionedContentProps;
+type NavigationMenuIndicatorProps = SlottableViewProps;
 
 export type {
+  NavigationMenuContentProps,
+  NavigationMenuIndicatorProps,
   NavigationMenuItemProps,
+  NavigationMenuLinkProps,
+  NavigationMenuListProps,
   NavigationMenuPortalProps,
   NavigationMenuRootProps,
-  NavigationMenuLinkProps,
+  NavigationMenuTriggerProps,
 };

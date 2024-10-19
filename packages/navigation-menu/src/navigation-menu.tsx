@@ -10,18 +10,16 @@ import {
 import { useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import * as Slot from '@rn-primitives/slot';
+import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import type {
-  PositionedContentProps,
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
-import type {
+  NavigationMenuContentProps,
+  NavigationMenuIndicatorProps,
   NavigationMenuItemProps,
   NavigationMenuLinkProps,
+  NavigationMenuListProps,
   NavigationMenuPortalProps,
   NavigationMenuRootProps,
+  NavigationMenuTriggerProps,
 } from './types';
 
 interface INavigationMenuRootContext extends NavigationMenuRootProps {
@@ -34,7 +32,7 @@ interface INavigationMenuRootContext extends NavigationMenuRootProps {
 
 const RootContext = React.createContext<INavigationMenuRootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & NavigationMenuRootProps>(
+const Root = React.forwardRef<ViewRef, NavigationMenuRootProps>(
   ({ asChild, value, onValueChange, ...viewProps }, ref) => {
     const nativeID = React.useId();
     const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
@@ -71,10 +69,12 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...viewProps }, ref) => {
-  const Component = asChild ? Slot.View : View;
-  return <Component ref={ref} role='menubar' {...viewProps} />;
-});
+const List = React.forwardRef<ViewRef, NavigationMenuListProps>(
+  ({ asChild, ...viewProps }, ref) => {
+    const Component = asChild ? Slot.View : View;
+    return <Component ref={ref} role='menubar' {...viewProps} />;
+  }
+);
 
 List.displayName = 'ListNativeNavigationMenu';
 
@@ -82,7 +82,7 @@ const ItemContext = React.createContext<(NavigationMenuItemProps & { nativeID: s
   null
 );
 
-const Item = React.forwardRef<ViewRef, SlottableViewProps & NavigationMenuItemProps>(
+const Item = React.forwardRef<ViewRef, NavigationMenuItemProps>(
   ({ asChild, value, ...viewProps }, ref) => {
     const nativeID = React.useId();
 
@@ -112,7 +112,7 @@ function useItemContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<PressableRef, NavigationMenuTriggerProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const triggerRef = React.useRef<View>(null);
     const { value, onValueChange, setTriggerPosition } = useRootContext();
@@ -188,7 +188,7 @@ function Portal({ forceMount, hostName, children }: NavigationMenuPortalProps) {
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContentProps>(
+const Content = React.forwardRef<ViewRef, NavigationMenuContentProps>(
   (
     {
       asChild = false,
@@ -271,7 +271,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
 
 Content.displayName = 'ContentNativeNavigationMenu';
 
-const Link = React.forwardRef<PressableRef, SlottablePressableProps & NavigationMenuLinkProps>(
+const Link = React.forwardRef<PressableRef, NavigationMenuLinkProps>(
   ({ asChild, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} role='link' {...props} />;
@@ -289,10 +289,12 @@ const Viewport = React.forwardRef<
 
 Viewport.displayName = 'ViewportNativeNavigationMenu';
 
-const Indicator = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
-  return <Component ref={ref} {...props} />;
-});
+const Indicator = React.forwardRef<ViewRef, NavigationMenuIndicatorProps>(
+  ({ asChild, ...props }, ref) => {
+    const Component = asChild ? Slot.View : View;
+    return <Component ref={ref} {...props} />;
+  }
+);
 
 Indicator.displayName = 'IndicatorNativeNavigationMenu';
 
