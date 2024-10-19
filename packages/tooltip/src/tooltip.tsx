@@ -235,7 +235,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & TooltipContentPro
       alignOffset,
       insets,
       sideOffset,
-      side,
+      side: getNativeSide(side),
       disablePositioningStyle,
     });
 
@@ -274,4 +274,11 @@ export type { TooltipTriggerRef };
 
 function onStartShouldSetResponder() {
   return true;
+}
+
+function getNativeSide(side: 'left' | 'right' | 'top' | 'bottom') {
+  if (side === 'left' || side === 'right') {
+    return 'top';
+  }
+  return side;
 }
