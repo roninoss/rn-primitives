@@ -1,13 +1,19 @@
-import { ForceMountable } from '@rn-primitives/types';
+import {
+  ForceMountable,
+  PositionedContentProps,
+  SlottablePressableProps,
+  SlottableTextProps,
+  SlottableViewProps,
+} from '@rn-primitives/types';
 
-interface MenubarRootProps {
+type MenubarRootProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string | undefined) => void;
-}
+};
 
-interface MenubarMenuProps {
+type MenubarMenuProps = SlottableViewProps & {
   value: string | undefined;
-}
+};
 
 interface MenubarPortalProps extends ForceMountable {
   children: React.ReactNode;
@@ -21,50 +27,62 @@ interface MenubarPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-interface MenubarOverlayProps extends ForceMountable {
-  closeOnPress?: boolean;
-}
+type MenubarOverlayProps = ForceMountable &
+  SlottablePressableProps & {
+    closeOnPress?: boolean;
+  };
 
-interface MenubarItemProps {
+type MenubarItemProps = SlottablePressableProps & {
   textValue?: string;
   closeOnPress?: boolean;
-}
+};
 
-interface MenubarCheckboxItemProps {
+type MenubarCheckboxItemProps = SlottablePressableProps & {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
   closeOnPress?: boolean;
   textValue?: string;
-}
+};
 
-interface MenubarRadioGroupProps {
+type MenubarRadioGroupProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string) => void;
-}
+};
 
-interface MenubarRadioItemProps {
+type MenubarRadioItemProps = SlottablePressableProps & {
   value: string;
   textValue?: string;
   closeOnPress?: boolean;
-}
+};
 
-interface MenubarSeparatorProps {
+type MenubarSeparatorProps = SlottableViewProps & {
   decorative?: boolean;
-}
+};
 
-interface MenubarSubProps {
+type MenubarSubProps = SlottableViewProps & {
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
-}
+};
 
-interface MenubarSubTriggerProps {
+type MenubarSubTriggerProps = SlottablePressableProps & {
   textValue?: string;
-}
+};
+
+type MenubarTriggerProps = SlottablePressableProps;
+type MenubarContentProps = SlottableViewProps & PositionedContentProps;
+type MenubarSubContentProps = SlottableViewProps & ForceMountable;
+type MenubarItemIndicatorProps = SlottableViewProps & ForceMountable;
+type MenubarGroupProps = SlottableViewProps;
+type MenubarLabelProps = SlottableTextProps;
 
 export type {
   MenubarCheckboxItemProps,
+  MenubarContentProps,
+  MenubarGroupProps,
+  MenubarItemIndicatorProps,
   MenubarItemProps,
+  MenubarLabelProps,
   MenubarMenuProps,
   MenubarOverlayProps,
   MenubarPortalProps,
@@ -72,6 +90,8 @@ export type {
   MenubarRadioItemProps,
   MenubarRootProps,
   MenubarSeparatorProps,
+  MenubarSubContentProps,
   MenubarSubProps,
   MenubarSubTriggerProps,
+  MenubarTriggerProps,
 };
