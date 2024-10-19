@@ -26,7 +26,7 @@ export function NavigationMenuExample() {
   return (
     <View className={cn('relative', !!value && 'z-50')}>
       <NavigationMenu value={value} onValueChange={setValue}>
-        <NavigationMenuList>
+        <NavigationMenuList className='flex-wrap'>
           <NavigationMenuItem value='getting-started'>
             <NavigationMenuTrigger>
               <Text>Getting started</Text>
