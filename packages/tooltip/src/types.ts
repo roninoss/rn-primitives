@@ -41,7 +41,7 @@ interface TooltipTriggerRef extends PressableRef {
 
 interface TooltipContentProps extends Omit<PositionedContentProps, 'side'> {
   /**
-   * Left and right are only supported on web.
+   * `left` and `right` are only supported on web.
    */
   side?: 'top' | 'right' | 'bottom' | 'left';
 }
