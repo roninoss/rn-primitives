@@ -1,18 +1,14 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  ComponentPropsWithAsChild,
-  PressableRef,
-  SlottablePressableProps,
-} from '@rn-primitives/types';
+import type { PressableRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
-import type { CheckboxIndicator, CheckboxRootProps } from './types';
+import type { CheckboxIndicatorProps, CheckboxRootProps } from './types';
 
 const CheckboxContext = React.createContext<CheckboxRootProps | null>(null);
 
-const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRootProps>(
+const Root = React.forwardRef<PressableRef, CheckboxRootProps>(
   (
     { asChild, disabled, checked, onCheckedChange, onPress: onPressProp, role: _role, ...props },
     ref
@@ -80,38 +76,37 @@ function useCheckboxContext() {
   return context;
 }
 
-const Indicator = React.forwardRef<
-  React.ElementRef<typeof View>,
-  ComponentPropsWithAsChild<typeof View> & CheckboxIndicator
->(({ asChild, forceMount, ...props }, ref) => {
-  const { checked, disabled } = useCheckboxContext();
-  const augmentedRef = useAugmentedRef({ ref });
+const Indicator = React.forwardRef<React.ElementRef<typeof View>, CheckboxIndicatorProps>(
+  ({ asChild, forceMount, ...props }, ref) => {
+    const { checked, disabled } = useCheckboxContext();
+    const augmentedRef = useAugmentedRef({ ref });
 
-  useIsomorphicLayoutEffect(() => {
-    if (augmentedRef.current) {
-      const augRef = augmentedRef.current as unknown as HTMLDivElement;
-      augRef.dataset.state = checked ? 'checked' : 'unchecked';
-    }
-  }, [checked]);
-
-  useIsomorphicLayoutEffect(() => {
-    if (augmentedRef.current) {
-      const augRef = augmentedRef.current as unknown as HTMLDivElement;
-      if (disabled) {
-        augRef.dataset.disabled = 'true';
-      } else {
-        augRef.dataset.disabled = undefined;
+    useIsomorphicLayoutEffect(() => {
+      if (augmentedRef.current) {
+        const augRef = augmentedRef.current as unknown as HTMLDivElement;
+        augRef.dataset.state = checked ? 'checked' : 'unchecked';
       }
-    }
-  }, [disabled]);
+    }, [checked]);
 
-  const Component = asChild ? Slot.View : View;
-  return (
-    <Checkbox.Indicator forceMount={forceMount} asChild>
-      <Component ref={ref} {...props} />
-    </Checkbox.Indicator>
-  );
-});
+    useIsomorphicLayoutEffect(() => {
+      if (augmentedRef.current) {
+        const augRef = augmentedRef.current as unknown as HTMLDivElement;
+        if (disabled) {
+          augRef.dataset.disabled = 'true';
+        } else {
+          augRef.dataset.disabled = undefined;
+        }
+      }
+    }, [disabled]);
+
+    const Component = asChild ? Slot.View : View;
+    return (
+      <Checkbox.Indicator forceMount={forceMount} asChild>
+        <Component ref={ref} {...props} />
+      </Checkbox.Indicator>
+    );
+  }
+);
 
 Indicator.displayName = 'IndicatorWebCheckbox';
 
