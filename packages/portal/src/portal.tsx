@@ -62,6 +62,14 @@ const ROOT: ViewStyle = {
   flex: 1,
 };
 
+/**
+ * @deprecated use `FullWindowOverlay` from `react-native-screens` instead
+ * @example
+import { FullWindowOverlay } from "react-native-screens"
+const WindowOverlay = Platform.OS === "ios" ? FullWindowOverlay : Fragment
+// Wrap the `<PortalHost/>` with `<WindowOverlay/>`
+<WindowOverlay><PortalHost/></WindowOverlay>
+ */
 export function useModalPortalRoot() {
   const ref = React.useRef<View>(null);
   const [sideOffset, setSideOffSet] = React.useState(0);
