@@ -5,27 +5,24 @@ import {
   useIsomorphicLayoutEffect,
 } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PressableRef,
-  SlottablePressableProps,
-  SlottableTextProps,
-  SlottableViewProps,
-  TextRef,
-  ViewRef,
-} from '@rn-primitives/types';
+import type { PressableRef, TextRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, Text, View, type GestureResponderEvent } from 'react-native';
 import type {
+  DialogCloseProps,
   DialogContentProps,
+  DialogDescriptionProps,
   DialogOverlayProps,
   DialogPortalProps,
   DialogRootProps,
+  DialogTitleProps,
+  DialogTriggerProps,
   RootContext,
 } from './types';
 
 const DialogContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & DialogRootProps>(
+const Root = React.forwardRef<ViewRef, DialogRootProps>(
   ({ asChild, open: openProp, defaultOpen, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
     const [open = false, onOpenChange] = useControllableState({
       prop: openProp,
@@ -53,7 +50,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<PressableRef, DialogTriggerProps>(
   ({ asChild, onPress: onPressProp, role: _role, disabled, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { onOpenChange, open } = useRootContext();
@@ -93,7 +90,7 @@ function Portal({ forceMount, container, children }: DialogPortalProps) {
   return <Dialog.Portal forceMount={forceMount} children={children} container={container} />;
 }
 
-const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & DialogOverlayProps>(
+const Overlay = React.forwardRef<PressableRef, DialogOverlayProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
@@ -106,7 +103,7 @@ const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & DialogO
 
 Overlay.displayName = 'OverlayWebDialog';
 
-const Content = React.forwardRef<ViewRef, SlottableViewProps & DialogContentProps>(
+const Content = React.forwardRef<ViewRef, DialogContentProps>(
   (
     {
       asChild,
@@ -138,7 +135,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & DialogContentProp
 
 Content.displayName = 'ContentWebDialog';
 
-const Close = React.forwardRef<PressableRef, SlottablePressableProps>(
+const Close = React.forwardRef<PressableRef, DialogCloseProps>(
   ({ asChild, onPress: onPressProp, disabled, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { onOpenChange, open } = useRootContext();
@@ -176,7 +173,7 @@ const Close = React.forwardRef<PressableRef, SlottablePressableProps>(
 
 Close.displayName = 'CloseWebDialog';
 
-const Title = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props }, ref) => {
+const Title = React.forwardRef<TextRef, DialogTitleProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.Text : Text;
   return (
     <Dialog.Title asChild>
@@ -187,14 +184,16 @@ const Title = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props
 
 Title.displayName = 'TitleWebDialog';
 
-const Description = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.Text : Text;
-  return (
-    <Dialog.Description asChild>
-      <Component ref={ref} {...props} />
-    </Dialog.Description>
-  );
-});
+const Description = React.forwardRef<TextRef, DialogDescriptionProps>(
+  ({ asChild, ...props }, ref) => {
+    const Component = asChild ? Slot.Text : Text;
+    return (
+      <Dialog.Description asChild>
+        <Component ref={ref} {...props} />
+      </Dialog.Description>
+    );
+  }
+);
 
 Description.displayName = 'DescriptionWebDialog';
 
