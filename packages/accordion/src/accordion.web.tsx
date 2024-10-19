@@ -1,5 +1,9 @@
 import * as Accordion from '@radix-ui/react-accordion';
-import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
+import {
+  useAugmentedRef,
+  useControllableState,
+  useIsomorphicLayoutEffect,
+} from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
@@ -10,17 +14,6 @@ import type {
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
 import type { AccordionContentProps, AccordionItemProps, AccordionRootProps } from './types';
-
-function useIsomorphicLayoutEffect(
-  effect: React.EffectCallback,
-  dependencies?: React.DependencyList
-) {
-  if (typeof window === 'undefined') {
-    React.useEffect(effect, dependencies);
-  } else {
-    React.useLayoutEffect(effect, dependencies);
-  }
-}
 
 const AccordionContext = React.createContext<AccordionRootProps | null>(null);
 
