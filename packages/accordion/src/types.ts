@@ -1,4 +1,8 @@
-import { ForceMountable } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  SlottablePressableProps,
+  SlottableViewProps,
+} from '@rn-primitives/types';
 
 type RootContext = {
   type: 'single' | 'multiple';
@@ -34,12 +38,22 @@ type AccordionRootProps = (SingleRootProps | MultipleRootProps) & {
    * Platform: WEB ONLY
    */
   orientation?: 'vertical' | 'horizontal';
-};
+} & SlottableViewProps;
 
 type AccordionItemProps = {
   value: string;
   disabled?: boolean;
-};
-type AccordionContentProps = ForceMountable;
+} & SlottableViewProps;
 
-export type { AccordionContentProps, AccordionItemProps, AccordionRootProps, RootContext };
+type AccordionContentProps = ForceMountable & SlottableViewProps;
+type AccordionHeaderProps = SlottableViewProps;
+type AccordionTriggerProps = SlottablePressableProps;
+
+export type {
+  AccordionContentProps,
+  AccordionItemProps,
+  AccordionRootProps,
+  RootContext,
+  AccordionHeaderProps,
+  AccordionTriggerProps,
+};

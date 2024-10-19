@@ -1,23 +1,20 @@
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
+import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import type {
   AccordionContentProps,
+  AccordionHeaderProps,
   AccordionItemProps,
   AccordionRootProps,
+  AccordionTriggerProps,
   RootContext,
 } from './types';
 import { useControllableState } from '@rn-primitives/hooks';
 
 const AccordionContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & AccordionRootProps>(
+const Root = React.forwardRef<ViewRef, AccordionRootProps>(
   (
     {
       asChild,
@@ -75,7 +72,7 @@ type AccordionItemContext = AccordionItemProps & {
 
 const AccordionItemContext = React.createContext<AccordionItemContext | null>(null);
 
-const Item = React.forwardRef<ViewRef, SlottableViewProps & AccordionItemProps>(
+const Item = React.forwardRef<ViewRef, AccordionItemProps>(
   ({ asChild, value, disabled, ...viewProps }, ref) => {
     const { value: rootValue } = useRootContext();
     const nativeID = React.useId();
@@ -108,7 +105,7 @@ function useItemContext() {
   return context;
 }
 
-const Header = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Header = React.forwardRef<ViewRef, AccordionHeaderProps>(({ asChild, ...props }, ref) => {
   const { disabled: rootDisabled } = useRootContext();
   const { disabled: itemDisabled, isExpanded } = useItemContext();
 
@@ -126,7 +123,7 @@ const Header = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...prop
 
 Header.displayName = 'HeaderNativeAccordion';
 
-const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<PressableRef, AccordionTriggerProps>(
   ({ asChild, onPress: onPressProp, disabled: disabledProp, ...props }, ref) => {
     const {
       disabled: rootDisabled,
@@ -178,7 +175,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
 
 Trigger.displayName = 'TriggerNativeAccordion';
 
-const Content = React.forwardRef<ViewRef, SlottableViewProps & AccordionContentProps>(
+const Content = React.forwardRef<ViewRef, AccordionContentProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const { type } = useRootContext();
     const { nativeID, isExpanded } = useItemContext();
