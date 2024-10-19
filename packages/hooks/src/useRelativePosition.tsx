@@ -81,7 +81,7 @@ interface GetPositionArgs {
 }
 
 interface GetSidePositionArgs extends GetPositionArgs {
-  side: 'top' | 'right' | 'bottom' | 'left';
+  side: 'top' | 'bottom';
   sideOffset: number;
 }
 
