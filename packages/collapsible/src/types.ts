@@ -1,4 +1,8 @@
-import type { ForceMountable } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  SlottablePressableProps,
+  SlottableViewProps,
+} from '@rn-primitives/types';
 
 interface RootContext {
   open: boolean;
@@ -6,13 +10,14 @@ interface RootContext {
   disabled: boolean;
 }
 
-interface CollapsibleRootProps {
+type CollapsibleRootProps = SlottableViewProps & {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
   disabled?: boolean;
-}
+};
 
-type CollapsibleContentProps = ForceMountable;
+type CollapsibleTriggerProps = SlottablePressableProps;
+type CollapsibleContentProps = ForceMountable & SlottableViewProps;
 
-export type { CollapsibleContentProps, CollapsibleRootProps, RootContext };
+export type { CollapsibleContentProps, CollapsibleRootProps, CollapsibleTriggerProps, RootContext };

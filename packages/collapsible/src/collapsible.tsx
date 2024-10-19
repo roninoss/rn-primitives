@@ -1,18 +1,18 @@
 import { useControllableState } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
+import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import type { CollapsibleContentProps, CollapsibleRootProps, RootContext } from './types';
+import type {
+  CollapsibleContentProps,
+  CollapsibleRootProps,
+  CollapsibleTriggerProps,
+  RootContext,
+} from './types';
 
 const CollapsibleContext = React.createContext<(RootContext & { nativeID: string }) | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & CollapsibleRootProps>(
+const Root = React.forwardRef<ViewRef, CollapsibleRootProps>(
   (
     {
       asChild,
@@ -59,7 +59,7 @@ function useCollapsibleContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<PressableRef, CollapsibleTriggerProps>(
   ({ asChild, onPress: onPressProp, disabled: disabledProp = false, ...props }, ref) => {
     const { disabled, open, onOpenChange, nativeID } = useCollapsibleContext();
 
@@ -90,7 +90,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
 
 Trigger.displayName = 'TriggerNativeCollapsible';
 
-const Content = React.forwardRef<ViewRef, SlottableViewProps & CollapsibleContentProps>(
+const Content = React.forwardRef<ViewRef, CollapsibleContentProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const { nativeID, open } = useCollapsibleContext();
 
