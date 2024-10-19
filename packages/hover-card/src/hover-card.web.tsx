@@ -1,26 +1,22 @@
 import * as HoverCard from '@radix-ui/react-hover-card';
 import { useAugmentedRef } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PositionedContentProps,
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
+import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
 import type {
+  HoverCardContentProps,
   HoverCardOverlayProps,
   HoverCardPortalProps,
   HoverCardRootContext,
   HoverCardRootProps,
+  HoverCardTriggerProps,
   HoverCardTriggerRef,
 } from './types';
 
 const HoverCardContext = React.createContext<HoverCardRootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & HoverCardRootProps>(
+const Root = React.forwardRef<ViewRef, HoverCardRootProps>(
   ({ asChild, openDelay, closeDelay, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
     const [open, setOpen] = React.useState(false);
 
@@ -57,7 +53,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<HoverCardTriggerRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<HoverCardTriggerRef, HoverCardTriggerProps>(
   ({ asChild, ...props }, ref) => {
     const { onOpenChange } = useRootContext();
     const augmentedRef = useAugmentedRef({
@@ -87,7 +83,7 @@ function Portal({ forceMount, container, children }: HoverCardPortalProps) {
   return <HoverCard.Portal forceMount={forceMount} container={container} children={children} />;
 }
 
-const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & HoverCardOverlayProps>(
+const Overlay = React.forwardRef<PressableRef, HoverCardOverlayProps>(
   ({ asChild, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} {...props} />;
@@ -96,7 +92,7 @@ const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & HoverCa
 
 Overlay.displayName = 'OverlayWebHoverCard';
 
-const Content = React.forwardRef<PressableRef, SlottablePressableProps & PositionedContentProps>(
+const Content = React.forwardRef<PressableRef, HoverCardContentProps>(
   (
     {
       asChild = false,

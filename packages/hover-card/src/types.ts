@@ -1,4 +1,10 @@
-import type { ForceMountable, PressableRef } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  PositionedContentProps,
+  PressableRef,
+  SlottablePressableProps,
+  SlottableViewProps,
+} from '@rn-primitives/types';
 
 interface HoverCardRootContext {
   open: boolean;
@@ -7,7 +13,7 @@ interface HoverCardRootContext {
   closeDelay?: number;
 }
 
-interface HoverCardRootProps {
+type HoverCardRootProps = SlottableViewProps & {
   onOpenChange?: (open: boolean) => void;
   /**
    * Platform: WEB ONLY
@@ -19,7 +25,7 @@ interface HoverCardRootProps {
    * @default 300
    */
   closeDelay?: number;
-}
+};
 
 interface HoverCardPortalProps extends ForceMountable {
   children: React.ReactNode;
@@ -33,14 +39,18 @@ interface HoverCardPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-interface HoverCardOverlayProps extends ForceMountable {
-  closeOnPress?: boolean;
-}
+type HoverCardOverlayProps = ForceMountable &
+  SlottablePressableProps & {
+    closeOnPress?: boolean;
+  };
 
 interface HoverCardTriggerRef extends PressableRef {
   open: () => void;
   close: () => void;
 }
+
+type HoverCardTriggerProps = SlottablePressableProps;
+type HoverCardContentProps = SlottableViewProps & PositionedContentProps;
 
 export type {
   HoverCardOverlayProps,
@@ -48,4 +58,6 @@ export type {
   HoverCardRootProps,
   HoverCardTriggerRef,
   HoverCardRootContext,
+  HoverCardTriggerProps,
+  HoverCardContentProps,
 };
