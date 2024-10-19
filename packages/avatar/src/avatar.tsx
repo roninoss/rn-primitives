@@ -1,6 +1,6 @@
 import { useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import { ComponentPropsWithAsChild, SlottableViewProps, ViewRef } from '@rn-primitives/types';
+import type { ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import {
   type ImageErrorEventData,
@@ -10,8 +10,7 @@ import {
   Image as RNImage,
   View,
 } from 'react-native';
-
-import { AvatarImageProps, AvatarRootProps } from './types';
+import type { AvatarFallbackProps, AvatarImageProps, AvatarRootProps } from './types';
 
 type AvatarState = 'loading' | 'error' | 'loaded';
 
@@ -22,17 +21,15 @@ interface IRootContext extends AvatarRootProps {
 
 const RootContext = React.createContext<IRootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & AvatarRootProps>(
-  ({ asChild, alt, ...viewProps }, ref) => {
-    const [status, setStatus] = React.useState<AvatarState>('error');
-    const Component = asChild ? Slot.View : View;
-    return (
-      <RootContext.Provider value={{ alt, status, setStatus }}>
-        <Component ref={ref} {...viewProps} />
-      </RootContext.Provider>
-    );
-  }
-);
+const Root = React.forwardRef<ViewRef, AvatarRootProps>(({ asChild, alt, ...viewProps }, ref) => {
+  const [status, setStatus] = React.useState<AvatarState>('error');
+  const Component = asChild ? Slot.View : View;
+  return (
+    <RootContext.Provider value={{ alt, status, setStatus }}>
+      <Component ref={ref} {...viewProps} />
+    </RootContext.Provider>
+  );
+});
 
 Root.displayName = 'RootAvatar';
 
@@ -44,10 +41,7 @@ function useRootContext() {
   return context;
 }
 
-const Image = React.forwardRef<
-  React.ElementRef<typeof RNImage>,
-  Omit<ComponentPropsWithAsChild<typeof RNImage>, 'alt'> & AvatarImageProps
->(
+const Image = React.forwardRef<React.ElementRef<typeof RNImage>, AvatarImageProps>(
   (
     { asChild, onLoad: onLoadProps, onError: onErrorProps, onLoadingStatusChange, ...props },
     ref
@@ -93,7 +87,7 @@ const Image = React.forwardRef<
 
 Image.displayName = 'ImageAvatar';
 
-const Fallback = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Fallback = React.forwardRef<ViewRef, AvatarFallbackProps>(({ asChild, ...props }, ref) => {
   const { alt, status } = useRootContext();
 
   if (status !== 'error') {
