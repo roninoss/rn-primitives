@@ -1,6 +1,12 @@
-import type { ForceMountable, PositionedContentProps, PressableRef } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  PositionedContentProps,
+  PressableRef,
+  SlottablePressableProps,
+  SlottableViewProps,
+} from '@rn-primitives/types';
 
-interface TooltipRootProps {
+type TooltipRootProps = SlottableViewProps & {
   onOpenChange?: (open: boolean) => void;
   /**
    * Platform: WEB ONLY
@@ -16,7 +22,7 @@ interface TooltipRootProps {
    * Platform: WEB ONLY
    */
   disableHoverableContent?: boolean;
-}
+};
 
 interface TooltipPortalProps extends ForceMountable {
   children: React.ReactNode;
@@ -30,26 +36,31 @@ interface TooltipPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-interface TooltipOverlayProps extends ForceMountable {
-  closeOnPress?: boolean;
-}
+type TooltipOverlayProps = ForceMountable &
+  SlottablePressableProps & {
+    closeOnPress?: boolean;
+  };
 
 interface TooltipTriggerRef extends PressableRef {
   open: () => void;
   close: () => void;
 }
 
-interface TooltipContentProps extends Omit<PositionedContentProps, 'side'> {
-  /**
-   * `left` and `right` are only supported on web.
-   */
-  side?: 'top' | 'right' | 'bottom' | 'left';
-}
+type TooltipContentProps = SlottableViewProps &
+  Omit<PositionedContentProps, 'side'> & {
+    /**
+     * `left` and `right` are only supported on web.
+     */
+    side?: 'top' | 'right' | 'bottom' | 'left';
+  };
+
+type TooltipTriggerProps = SlottablePressableProps;
 
 export type {
   TooltipContentProps,
   TooltipOverlayProps,
   TooltipPortalProps,
   TooltipRootProps,
+  TooltipTriggerProps,
   TooltipTriggerRef,
 };
