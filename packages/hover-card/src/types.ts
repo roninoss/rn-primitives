@@ -4,16 +4,17 @@ import type {
   PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
+  ViewRef,
 } from '@rn-primitives/types';
 
-interface HoverCardRootContext {
+interface RootContext {
   open: boolean;
   onOpenChange: (value: boolean) => void;
   openDelay?: number;
   closeDelay?: number;
 }
 
-type HoverCardRootProps = SlottableViewProps & {
+type RootProps = SlottableViewProps & {
   onOpenChange?: (open: boolean) => void;
   /**
    * Platform: WEB ONLY
@@ -27,7 +28,7 @@ type HoverCardRootProps = SlottableViewProps & {
   closeDelay?: number;
 };
 
-interface HoverCardPortalProps extends ForceMountable {
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -39,25 +40,31 @@ interface HoverCardPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-type HoverCardOverlayProps = ForceMountable &
+type OverlayProps = ForceMountable &
   SlottablePressableProps & {
     closeOnPress?: boolean;
   };
 
-interface HoverCardTriggerRef extends PressableRef {
+type TriggerProps = SlottablePressableProps;
+type ContentProps = SlottableViewProps & PositionedContentProps;
+
+type OverlayRef = PressableRef;
+type RootRef = ViewRef;
+type TriggerRef = PressableRef & {
   open: () => void;
   close: () => void;
-}
-
-type HoverCardTriggerProps = SlottablePressableProps;
-type HoverCardContentProps = SlottableViewProps & PositionedContentProps;
+};
+type ContentRef = ViewRef;
 
 export type {
-  HoverCardOverlayProps,
-  HoverCardPortalProps,
-  HoverCardRootProps,
-  HoverCardTriggerRef,
-  HoverCardRootContext,
-  HoverCardTriggerProps,
-  HoverCardContentProps,
+  ContentProps,
+  ContentRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RootContext,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 };
