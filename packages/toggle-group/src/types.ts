@@ -1,3 +1,5 @@
+import { SlottablePressableProps, SlottableViewProps } from '@rn-primitives/types';
+
 type SingleRootProps = {
   type: 'single';
   value: string | undefined;
@@ -28,10 +30,10 @@ type ToggleGroupRootProps = (SingleRootProps | MultipleRootProps) & {
    * Platform: WEB ONLY
    */
   loop?: boolean;
+} & SlottableViewProps;
+
+type ToggleGroupItemProps = SlottablePressableProps & {
+  value: string;
 };
 
-interface ToggleGroupItemProps {
-  value: string;
-}
-
-export type { ToggleGroupRootProps, ToggleGroupItemProps };
+export type { ToggleGroupItemProps, ToggleGroupRootProps };

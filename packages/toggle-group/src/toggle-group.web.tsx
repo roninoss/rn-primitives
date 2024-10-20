@@ -1,11 +1,6 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
+import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import { ToggleGroupUtils } from '@rn-primitives/utils';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
@@ -13,7 +8,7 @@ import type { ToggleGroupItemProps, ToggleGroupRootProps } from './types';
 
 const ToggleGroupContext = React.createContext<ToggleGroupRootProps | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & ToggleGroupRootProps>(
+const Root = React.forwardRef<ViewRef, ToggleGroupRootProps>(
   (
     {
       asChild,
@@ -73,7 +68,7 @@ function useRootContext() {
 
 const ItemContext = React.createContext<ToggleGroupItemProps | null>(null);
 
-const Item = React.forwardRef<PressableRef, SlottablePressableProps & ToggleGroupItemProps>(
+const Item = React.forwardRef<PressableRef, ToggleGroupItemProps>(
   (
     { asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props },
     ref
