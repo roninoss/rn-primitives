@@ -1,16 +1,18 @@
 import * as Popover from '@radix-ui/react-popover';
 import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PositionedContentProps,
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
+import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import type { PopoverOverlayProps, PopoverPortalProps, PopoverTriggerRef } from './types';
+import type {
+  PopoverCloseProps,
+  PopoverContentProps,
+  PopoverOverlayProps,
+  PopoverPortalProps,
+  PopoverRootProps,
+  PopoverTriggerProps,
+  PopoverTriggerRef,
+} from './types';
 
 const RootContext = React.createContext<{
   open: boolean;
@@ -19,7 +21,7 @@ const RootContext = React.createContext<{
 
 const Root = React.forwardRef<
   ViewRef,
-  SlottableViewProps & { onOpenChange?: (open: boolean) => void }
+  PopoverRootProps & { onOpenChange?: (open: boolean) => void }
 >(({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
   const [open, setOpen] = React.useState(false);
 
@@ -47,7 +49,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PopoverTriggerRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<PopoverTriggerRef, PopoverTriggerProps>(
   ({ asChild, onPress: onPressProp, role: _role, disabled, ...props }, ref) => {
     const { onOpenChange, open } = useRootContext();
     const augmentedRef = useAugmentedRef({
@@ -97,7 +99,7 @@ function Portal({ forceMount, container, children }: PopoverPortalProps) {
   return <Popover.Portal forceMount={forceMount} children={children} container={container} />;
 }
 
-const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & PopoverOverlayProps>(
+const Overlay = React.forwardRef<PressableRef, PopoverOverlayProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} {...props} />;
@@ -106,16 +108,7 @@ const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & Popover
 
 Overlay.displayName = 'OverlayWebPopover';
 
-const Content = React.forwardRef<
-  ViewRef,
-  SlottableViewProps &
-    PositionedContentProps & {
-      /**
-       * Platform: WEB ONLY
-       */
-      onOpenAutoFocus?: (event: Event) => void;
-    }
->(
+const Content = React.forwardRef<ViewRef, PopoverContentProps>(
   (
     {
       asChild = false,
@@ -159,7 +152,7 @@ const Content = React.forwardRef<
 
 Content.displayName = 'ContentWebPopover';
 
-const Close = React.forwardRef<PressableRef, SlottablePressableProps>(
+const Close = React.forwardRef<PressableRef, PopoverCloseProps>(
   ({ asChild, onPress: onPressProp, disabled, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { onOpenChange, open } = useRootContext();
