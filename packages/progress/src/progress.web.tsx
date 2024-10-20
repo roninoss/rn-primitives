@@ -1,13 +1,12 @@
 import * as Progress from '@radix-ui/react-progress';
 import * as Slot from '@rn-primitives/slot';
-import type { ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { View } from 'react-native';
-import type { ProgressIndicatorProps, ProgressRootProps } from './types';
+import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
 
-const ProgressContext = React.createContext<ProgressRootProps | null>(null);
+const ProgressContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<ViewRef, ProgressRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, value, max, getValueLabel, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
@@ -22,16 +21,14 @@ const Root = React.forwardRef<ViewRef, ProgressRootProps>(
 
 Root.displayName = 'RootProgress';
 
-const Indicator = React.forwardRef<ViewRef, ProgressIndicatorProps>(
-  ({ asChild, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <Progress.Indicator asChild>
-        <Component ref={ref} {...props} />
-      </Progress.Indicator>
-    );
-  }
-);
+const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
+  const Component = asChild ? Slot.View : View;
+  return (
+    <Progress.Indicator asChild>
+      <Component ref={ref} {...props} />
+    </Progress.Indicator>
+  );
+});
 
 Indicator.displayName = 'IndicatorProgress';
 

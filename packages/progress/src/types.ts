@@ -1,11 +1,14 @@
-import { SlottableViewProps } from '@rn-primitives/types';
+import { SlottableViewProps, ViewRef } from '@rn-primitives/types';
 
-type ProgressRootProps = SlottableViewProps & {
+type RootProps = SlottableViewProps & {
   value?: number | null | undefined;
   max?: number;
   getValueLabel?(value: number, max: number): string;
 };
 
-type ProgressIndicatorProps = SlottableViewProps;
+type IndicatorProps = SlottableViewProps;
 
-export type { ProgressIndicatorProps, ProgressRootProps };
+type RootRef = ViewRef;
+type IndicatorRef = ViewRef;
+
+export type { IndicatorProps, IndicatorRef, RootProps, RootRef };
