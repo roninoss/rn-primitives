@@ -5,19 +5,21 @@ import {
   useIsomorphicLayoutEffect,
 } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type {
-  CollapsibleContentProps,
-  CollapsibleRootProps,
-  CollapsibleTriggerProps,
+  ContentProps,
+  ContentRef,
   RootContext,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
 const CollapsibleContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, CollapsibleRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -88,7 +90,7 @@ function useCollapsibleContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PressableRef, CollapsibleTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled: disabledProp = false, ...props }, ref) => {
     const { disabled, open, onOpenChange } = useCollapsibleContext();
     const augmentedRef = useAugmentedRef({ ref });
@@ -135,7 +137,7 @@ const Trigger = React.forwardRef<PressableRef, CollapsibleTriggerProps>(
 
 Trigger.displayName = 'TriggerWebCollapsible';
 
-const Content = React.forwardRef<ViewRef, CollapsibleContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { open } = useCollapsibleContext();
