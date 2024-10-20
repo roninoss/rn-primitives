@@ -1,4 +1,11 @@
-import type { ForceMountable, PressableRef } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  PositionedContentProps,
+  PressableRef,
+  SlottablePressableProps,
+  SlottableTextProps,
+  SlottableViewProps,
+} from '@rn-primitives/types';
 
 type Option =
   | {
@@ -13,7 +20,7 @@ interface SelectRootContext {
   disabled?: boolean;
 }
 
-interface SelectRootProps {
+type SelectRootProps = SlottableViewProps & {
   value?: Option;
   defaultValue?: Option;
   onValueChange?: (option: Option) => void;
@@ -31,11 +38,11 @@ interface SelectRootProps {
    * Platform: WEB ONLY
    */
   required?: boolean;
-}
+};
 
-interface SelectValueProps {
+type SelectValueProps = SlottableTextProps & {
   placeholder: string;
-}
+};
 
 interface SelectPortalProps extends ForceMountable {
   children: React.ReactNode;
@@ -49,41 +56,54 @@ interface SelectPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-interface SelectOverlayProps extends ForceMountable {
-  closeOnPress?: boolean;
-}
+type SelectOverlayProps = ForceMountable &
+  SlottablePressableProps & {
+    closeOnPress?: boolean;
+  };
 
-interface SelectContentProps {
-  /**
-   * Platform: WEB ONLY
-   */
-  position?: 'popper' | 'item-aligned' | undefined;
-}
+type SelectContentProps = SlottableViewProps &
+  PositionedContentProps & {
+    /**
+     * Platform: WEB ONLY
+     */
+    position?: 'popper' | 'item-aligned' | undefined;
+  };
 
-interface SelectItemProps {
+type SelectItemProps = SlottablePressableProps & {
   value: string;
   label: string;
   closeOnPress?: boolean;
-}
-
-interface SelectSeparatorProps {
-  decorative?: boolean;
-}
+};
 
 interface SelectTriggerRef extends PressableRef {
   open: () => void;
   close: () => void;
 }
 
+type SelectTriggerProps = SlottablePressableProps;
+
+type SelectItemTextProps = SlottableTextProps;
+type SelectItemIndicatorProps = SlottableViewProps & ForceMountable;
+type SelectGroupProps = SlottableViewProps;
+type SelectLabelProps = SlottableTextProps;
+type SelectSeparatorProps = SlottableViewProps & {
+  decorative?: boolean;
+};
+
 export type {
   Option,
-  SelectRootContext,
   SelectContentProps,
+  SelectGroupProps,
+  SelectItemIndicatorProps,
   SelectItemProps,
+  SelectItemTextProps,
+  SelectLabelProps,
   SelectOverlayProps,
   SelectPortalProps,
+  SelectRootContext,
   SelectRootProps,
   SelectSeparatorProps,
+  SelectTriggerProps,
   SelectTriggerRef,
   SelectValueProps,
 };
