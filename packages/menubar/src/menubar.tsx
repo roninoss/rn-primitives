@@ -6,7 +6,6 @@ import {
 } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, TextRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import {
   BackHandler,
@@ -18,26 +17,42 @@ import {
   type LayoutRectangle,
 } from 'react-native';
 import type {
-  MenubarCheckboxItemProps,
-  MenubarContentProps,
-  MenubarGroupProps,
-  MenubarItemIndicatorProps,
-  MenubarItemProps,
-  MenubarLabelProps,
-  MenubarMenuProps,
-  MenubarOverlayProps,
-  MenubarPortalProps,
-  MenubarRadioGroupProps,
-  MenubarRadioItemProps,
-  MenubarRootProps,
-  MenubarSeparatorProps,
-  MenubarSubContentProps,
-  MenubarSubProps,
-  MenubarSubTriggerProps,
-  MenubarTriggerProps,
+  CheckboxItemProps,
+  CheckboxItemRef,
+  ContentProps,
+  ContentRef,
+  GroupProps,
+  GroupRef,
+  ItemIndicatorProps,
+  ItemIndicatorRef,
+  ItemProps,
+  ItemRef,
+  LabelProps,
+  LabelRef,
+  MenuProps,
+  MenuRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RadioGroupProps,
+  RadioGroupRef,
+  RadioItemProps,
+  RadioItemRef,
+  RootProps,
+  RootRef,
+  SeparatorProps,
+  SeparatorRef,
+  SubContentProps,
+  SubContentRef,
+  SubProps,
+  SubRef,
+  SubTriggerProps,
+  SubTriggerRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
-interface IMenuContext extends MenubarRootProps {
+interface IMenuContext extends RootProps {
   triggerPosition: LayoutPosition | null;
   setTriggerPosition: (triggerPosition: LayoutPosition | null) => void;
   contentLayout: LayoutRectangle | null;
@@ -47,7 +62,7 @@ interface IMenuContext extends MenubarRootProps {
 
 const RootContext = React.createContext<IMenuContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, MenubarRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, value, onValueChange, ...viewProps }, ref) => {
     const nativeID = React.useId();
     const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
@@ -82,22 +97,20 @@ function useRootContext() {
   return context;
 }
 
-const MenuContext = React.createContext<MenubarMenuProps | null>(null);
+const MenuContext = React.createContext<MenuProps | null>(null);
 
-const Menu = React.forwardRef<ViewRef, MenubarMenuProps>(
-  ({ asChild, value, ...viewProps }, ref) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <MenuContext.Provider
-        value={{
-          value,
-        }}
-      >
-        <Component ref={ref} role='menubar' {...viewProps} />
-      </MenuContext.Provider>
-    );
-  }
-);
+const Menu = React.forwardRef<MenuRef, MenuProps>(({ asChild, value, ...viewProps }, ref) => {
+  const Component = asChild ? Slot.View : View;
+  return (
+    <MenuContext.Provider
+      value={{
+        value,
+      }}
+    >
+      <Component ref={ref} role='menubar' {...viewProps} />
+    </MenuContext.Provider>
+  );
+});
 
 Menu.displayName = 'MenuMenubar';
 
@@ -109,7 +122,7 @@ function useMenuContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PressableRef, MenubarTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const triggerRef = useAugmentedRef({ ref });
     const { value, onValueChange, setTriggerPosition } = useRootContext();
@@ -145,7 +158,7 @@ Trigger.displayName = 'TriggerMenubar';
 /**
  * @warning when using a custom `<PortalHost />`, you will have to adjust the Content's sideOffset to account for nav elements like headers.
  */
-function Portal({ forceMount, hostName, children }: MenubarPortalProps) {
+function Portal({ forceMount, hostName, children }: PortalProps) {
   const menubar = useRootContext();
   const menu = useMenuContext();
 
@@ -170,7 +183,7 @@ function Portal({ forceMount, hostName, children }: MenubarPortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<PressableRef, MenubarOverlayProps>(
+const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props }, ref) => {
     const { value, onValueChange, setContentLayout, setTriggerPosition } = useRootContext();
 
@@ -199,7 +212,7 @@ Overlay.displayName = 'OverlayMenubar';
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ViewRef, MenubarContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   (
     {
       asChild = false,
@@ -283,7 +296,7 @@ const Content = React.forwardRef<ViewRef, MenubarContentProps>(
 
 Content.displayName = 'ContentMenubar';
 
-const Item = React.forwardRef<PressableRef, MenubarItemProps>(
+const Item = React.forwardRef<ItemRef, ItemProps>(
   (
     { asChild, textValue, onPress: onPressProp, disabled = false, closeOnPress = true, ...props },
     ref
@@ -317,14 +330,14 @@ const Item = React.forwardRef<PressableRef, MenubarItemProps>(
 
 Item.displayName = 'ItemMenubar';
 
-const Group = React.forwardRef<ViewRef, MenubarGroupProps>(({ asChild, ...props }, ref) => {
+const Group = React.forwardRef<GroupRef, GroupProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='group' {...props} />;
 });
 
 Group.displayName = 'GroupMenubar';
 
-const Label = React.forwardRef<TextRef, MenubarLabelProps>(({ asChild, ...props }, ref) => {
+const Label = React.forwardRef<LabelRef, LabelProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.Text : Text;
   return <Component ref={ref} {...props} />;
 });
@@ -340,7 +353,7 @@ type FormItemContext =
 
 const FormItemContext = React.createContext<FormItemContext | null>(null);
 
-const CheckboxItem = React.forwardRef<PressableRef, MenubarCheckboxItemProps>(
+const CheckboxItem = React.forwardRef<CheckboxItemRef, CheckboxItemProps>(
   (
     {
       asChild,
@@ -397,7 +410,7 @@ function useFormItemContext() {
   return context;
 }
 
-const RadioGroup = React.forwardRef<ViewRef, MenubarRadioGroupProps>(
+const RadioGroup = React.forwardRef<RadioGroupRef, RadioGroupProps>(
   ({ asChild, value, onValueChange, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
@@ -416,7 +429,7 @@ type BothFormItemContext = Exclude<FormItemContext, { checked: boolean }> & {
 
 const RadioItemContext = React.createContext({} as { itemValue: string });
 
-const RadioItem = React.forwardRef<PressableRef, MenubarRadioItemProps>(
+const RadioItem = React.forwardRef<RadioItemRef, RadioItemProps>(
   (
     {
       asChild,
@@ -473,7 +486,7 @@ function useItemIndicatorContext() {
   return React.useContext(RadioItemContext);
 }
 
-const ItemIndicator = React.forwardRef<ViewRef, MenubarItemIndicatorProps>(
+const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const { itemValue } = useItemIndicatorContext();
     const { checked, value } = useFormItemContext() as BothFormItemContext;
@@ -493,7 +506,7 @@ const ItemIndicator = React.forwardRef<ViewRef, MenubarItemIndicatorProps>(
 
 ItemIndicator.displayName = 'ItemIndicatorMenubar';
 
-const Separator = React.forwardRef<ViewRef, MenubarSeparatorProps>(
+const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
   ({ asChild, decorative, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
@@ -508,7 +521,7 @@ const SubContext = React.createContext<{
   onOpenChange: (value: boolean) => void;
 } | null>(null);
 
-const Sub = React.forwardRef<ViewRef, MenubarSubProps>(
+const Sub = React.forwardRef<SubRef, SubProps>(
   ({ asChild, defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, ...props }, ref) => {
     const nativeID = React.useId();
     const [open = false, onOpenChange] = useControllableState({
@@ -542,7 +555,7 @@ function useSubContext() {
   return context;
 }
 
-const SubTrigger = React.forwardRef<PressableRef, MenubarSubTriggerProps>(
+const SubTrigger = React.forwardRef<SubTriggerRef, SubTriggerProps>(
   ({ asChild, textValue, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { nativeID, open, onOpenChange } = useSubContext();
 
@@ -571,7 +584,7 @@ const SubTrigger = React.forwardRef<PressableRef, MenubarSubTriggerProps>(
 
 SubTrigger.displayName = 'SubTriggerMenubar';
 
-const SubContent = React.forwardRef<ViewRef, MenubarSubContentProps>(
+const SubContent = React.forwardRef<SubContentRef, SubContentProps>(
   ({ asChild = false, forceMount, ...props }, ref) => {
     const { open, nativeID } = useSubContext();
 

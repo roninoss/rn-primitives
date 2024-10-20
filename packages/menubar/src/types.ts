@@ -1,21 +1,24 @@
 import {
   ForceMountable,
   PositionedContentProps,
+  PressableRef,
   SlottablePressableProps,
   SlottableTextProps,
   SlottableViewProps,
+  TextRef,
+  ViewRef,
 } from '@rn-primitives/types';
 
-type MenubarRootProps = SlottableViewProps & {
+type RootProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string | undefined) => void;
 };
 
-type MenubarMenuProps = SlottableViewProps & {
+type MenuProps = SlottableViewProps & {
   value: string | undefined;
 };
 
-interface MenubarPortalProps extends ForceMountable {
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -27,71 +30,104 @@ interface MenubarPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-type MenubarOverlayProps = ForceMountable &
+type OverlayProps = ForceMountable &
   SlottablePressableProps & {
     closeOnPress?: boolean;
   };
 
-type MenubarItemProps = SlottablePressableProps & {
+type ItemProps = SlottablePressableProps & {
   textValue?: string;
   closeOnPress?: boolean;
 };
 
-type MenubarCheckboxItemProps = SlottablePressableProps & {
+type CheckboxItemProps = SlottablePressableProps & {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
   closeOnPress?: boolean;
   textValue?: string;
 };
 
-type MenubarRadioGroupProps = SlottableViewProps & {
+type RadioGroupProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string) => void;
 };
 
-type MenubarRadioItemProps = SlottablePressableProps & {
+type RadioItemProps = SlottablePressableProps & {
   value: string;
   textValue?: string;
   closeOnPress?: boolean;
 };
 
-type MenubarSeparatorProps = SlottableViewProps & {
+type SeparatorProps = SlottableViewProps & {
   decorative?: boolean;
 };
 
-type MenubarSubProps = SlottableViewProps & {
+type SubProps = SlottableViewProps & {
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
 };
 
-type MenubarSubTriggerProps = SlottablePressableProps & {
+type SubTriggerProps = SlottablePressableProps & {
   textValue?: string;
 };
 
-type MenubarTriggerProps = SlottablePressableProps;
-type MenubarContentProps = SlottableViewProps & PositionedContentProps;
-type MenubarSubContentProps = SlottableViewProps & ForceMountable;
-type MenubarItemIndicatorProps = SlottableViewProps & ForceMountable;
-type MenubarGroupProps = SlottableViewProps;
-type MenubarLabelProps = SlottableTextProps;
+type TriggerProps = SlottablePressableProps;
+type ContentProps = SlottableViewProps & PositionedContentProps;
+type SubContentProps = SlottableViewProps & ForceMountable;
+type ItemIndicatorProps = SlottableViewProps & ForceMountable;
+type GroupProps = SlottableViewProps;
+type LabelProps = SlottableTextProps;
+
+type CheckboxItemRef = PressableRef;
+type ContentRef = ViewRef;
+type GroupRef = ViewRef;
+type ItemIndicatorRef = ViewRef;
+type ItemRef = PressableRef;
+type LabelRef = TextRef;
+type MenuRef = ViewRef;
+type OverlayRef = PressableRef;
+type RadioGroupRef = ViewRef;
+type RadioItemRef = PressableRef;
+type RootRef = ViewRef;
+type SeparatorRef = ViewRef;
+type SubContentRef = ViewRef;
+type SubRef = ViewRef;
+type SubTriggerRef = PressableRef;
+type TriggerRef = PressableRef;
 
 export type {
-  MenubarCheckboxItemProps,
-  MenubarContentProps,
-  MenubarGroupProps,
-  MenubarItemIndicatorProps,
-  MenubarItemProps,
-  MenubarLabelProps,
-  MenubarMenuProps,
-  MenubarOverlayProps,
-  MenubarPortalProps,
-  MenubarRadioGroupProps,
-  MenubarRadioItemProps,
-  MenubarRootProps,
-  MenubarSeparatorProps,
-  MenubarSubContentProps,
-  MenubarSubProps,
-  MenubarSubTriggerProps,
-  MenubarTriggerProps,
+  CheckboxItemProps,
+  CheckboxItemRef,
+  ContentProps,
+  ContentRef,
+  GroupProps,
+  GroupRef,
+  ItemIndicatorProps,
+  ItemIndicatorRef,
+  ItemProps,
+  ItemRef,
+  LabelProps,
+  LabelRef,
+  MenuProps,
+  MenuRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RadioGroupProps,
+  RadioGroupRef,
+  RadioItemProps,
+  RadioItemRef,
+  RootProps,
+  RootRef,
+  SeparatorProps,
+  SeparatorRef,
+  SubContentProps,
+  SubContentRef,
+  SubProps,
+  SubRef,
+  SubTriggerProps,
+  SubTriggerRef,
+  TriggerProps,
+  TriggerRef,
 };
