@@ -5,6 +5,8 @@ import type {
   SlottablePressableProps,
   SlottableTextProps,
   SlottableViewProps,
+  TextRef,
+  ViewRef,
 } from '@rn-primitives/types';
 
 type Option =
@@ -14,13 +16,13 @@ type Option =
     }
   | undefined;
 
-interface SelectRootContext {
+interface SharedRootContext {
   value: Option;
   onValueChange: (option: Option) => void;
   disabled?: boolean;
 }
 
-type SelectRootProps = SlottableViewProps & {
+type RootProps = SlottableViewProps & {
   value?: Option;
   defaultValue?: Option;
   onValueChange?: (option: Option) => void;
@@ -40,11 +42,11 @@ type SelectRootProps = SlottableViewProps & {
   required?: boolean;
 };
 
-type SelectValueProps = SlottableTextProps & {
+type ValueProps = SlottableTextProps & {
   placeholder: string;
 };
 
-interface SelectPortalProps extends ForceMountable {
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -56,12 +58,12 @@ interface SelectPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-type SelectOverlayProps = ForceMountable &
+type OverlayProps = ForceMountable &
   SlottablePressableProps & {
     closeOnPress?: boolean;
   };
 
-type SelectContentProps = SlottableViewProps &
+type ContentProps = SlottableViewProps &
   PositionedContentProps & {
     /**
      * Platform: WEB ONLY
@@ -69,57 +71,79 @@ type SelectContentProps = SlottableViewProps &
     position?: 'popper' | 'item-aligned' | undefined;
   };
 
-type SelectItemProps = SlottablePressableProps & {
+type ItemProps = SlottablePressableProps & {
   value: string;
   label: string;
   closeOnPress?: boolean;
 };
 
-interface SelectTriggerRef extends PressableRef {
-  open: () => void;
-  close: () => void;
-}
+type TriggerProps = SlottablePressableProps;
 
-type SelectTriggerProps = SlottablePressableProps;
-
-type SelectItemTextProps = SlottableTextProps;
-type SelectItemIndicatorProps = SlottableViewProps & ForceMountable;
-type SelectGroupProps = SlottableViewProps;
-type SelectLabelProps = SlottableTextProps;
-type SelectSeparatorProps = SlottableViewProps & {
+type ItemTextProps = Omit<SlottableTextProps, 'children'>;
+type ItemIndicatorProps = SlottableViewProps & ForceMountable;
+type GroupProps = SlottableViewProps;
+type LabelProps = SlottableTextProps;
+type SeparatorProps = SlottableViewProps & {
   decorative?: boolean;
 };
 
 /**
  * PLATFORM: WEB ONLY
  */
-type SelectScrollUpButtonProps = React.ComponentPropsWithoutRef<'div'>;
+type ScrollUpButtonProps = React.ComponentPropsWithoutRef<'div'>;
 /**
  * PLATFORM: WEB ONLY
  */
-type SelectScrollDownButtonProps = React.ComponentPropsWithoutRef<'div'>;
+type ScrollDownButtonProps = React.ComponentPropsWithoutRef<'div'>;
 /**
  * PLATFORM: WEB ONLY
  */
-type SelectViewportProps = React.ComponentPropsWithoutRef<'div'>;
+type ViewportProps = React.ComponentPropsWithoutRef<'div'>;
+
+type ContentRef = ViewRef;
+type GroupRef = ViewRef;
+type IndicatorRef = ViewRef;
+type ItemRef = PressableRef;
+type ItemIndicatorRef = ViewRef;
+type ItemTextRef = TextRef;
+type LabelRef = TextRef;
+type OverlayRef = PressableRef;
+type RootRef = ViewRef;
+type SeparatorRef = ViewRef;
+type TriggerRef = PressableRef & {
+  open: () => void;
+  close: () => void;
+};
+type ValueRef = TextRef;
 
 export type {
+  ContentProps,
+  ContentRef,
+  GroupProps,
+  GroupRef,
+  IndicatorRef,
+  ItemIndicatorProps,
+  ItemIndicatorRef,
+  ItemProps,
+  ItemRef,
+  ItemTextProps,
+  ItemTextRef,
+  LabelProps,
+  LabelRef,
   Option,
-  SelectContentProps,
-  SelectGroupProps,
-  SelectItemIndicatorProps,
-  SelectItemProps,
-  SelectItemTextProps,
-  SelectLabelProps,
-  SelectOverlayProps,
-  SelectPortalProps,
-  SelectRootContext,
-  SelectRootProps,
-  SelectScrollDownButtonProps,
-  SelectScrollUpButtonProps,
-  SelectSeparatorProps,
-  SelectTriggerProps,
-  SelectTriggerRef,
-  SelectValueProps,
-  SelectViewportProps,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RootProps,
+  RootRef,
+  ScrollDownButtonProps,
+  ScrollUpButtonProps,
+  SeparatorProps,
+  SeparatorRef,
+  SharedRootContext,
+  TriggerProps,
+  TriggerRef,
+  ValueProps,
+  ValueRef,
+  ViewportProps,
 };

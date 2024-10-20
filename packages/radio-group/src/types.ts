@@ -1,12 +1,18 @@
-import { ForceMountable, SlottablePressableProps, SlottableViewProps } from '@rn-primitives/types';
+import {
+  ForceMountable,
+  PressableRef,
+  SlottablePressableProps,
+  SlottableViewProps,
+  ViewRef,
+} from '@rn-primitives/types';
 
-type RadioGroupRootProps = SlottableViewProps & {
+type RootProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (val: string) => void;
   disabled?: boolean;
 };
 
-type RadioGroupItemProps = SlottablePressableProps & {
+type ItemProps = SlottablePressableProps & {
   value: string;
   /**
    * nativeID of the label element that describes this radio group item
@@ -14,6 +20,10 @@ type RadioGroupItemProps = SlottablePressableProps & {
   'aria-labelledby'?: string;
 };
 
-type RadioGroupIndicatorProps = SlottableViewProps & ForceMountable;
+type IndicatorProps = SlottableViewProps & ForceMountable;
 
-export type { RadioGroupIndicatorProps, RadioGroupItemProps, RadioGroupRootProps };
+type RootRef = ViewRef;
+type ItemRef = PressableRef;
+type IndicatorRef = ViewRef;
+
+export type { IndicatorProps, IndicatorRef, ItemProps, ItemRef, RootProps, RootRef };
