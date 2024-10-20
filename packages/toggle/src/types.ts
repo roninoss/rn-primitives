@@ -1,9 +1,11 @@
-import type { SlottablePressableProps } from '@rn-primitives/types';
+import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
 
-type ToggleRootProps = SlottablePressableProps & {
+type RootProps = SlottablePressableProps & {
   pressed: boolean;
   onPressedChange: (pressed: boolean) => void;
   disabled?: boolean;
 };
 
-export type { ToggleRootProps };
+type RootRef = PressableRef;
+
+export type { RootProps, RootRef };
