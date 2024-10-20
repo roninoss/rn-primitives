@@ -5,9 +5,11 @@ import {
   SlottablePressableProps,
   SlottableTextProps,
   SlottableViewProps,
+  TextRef,
+  ViewRef,
 } from '@rn-primitives/types';
 
-type ContextMenuRootProps = SlottableViewProps & {
+type RootProps = SlottableViewProps & {
   onOpenChange?: (open: boolean) => void;
   /**
    * Platform: NATIVE ONLY
@@ -15,7 +17,7 @@ type ContextMenuRootProps = SlottableViewProps & {
   relativeTo?: 'longPress' | 'trigger';
 };
 
-interface ContextMenuPortalProps extends ForceMountable {
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -27,7 +29,7 @@ interface ContextMenuPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-type ContextMenuOverlayProps = ForceMountable &
+type OverlayProps = ForceMountable &
   SlottablePressableProps & {
     /**
      * Platform: NATIVE ONLY
@@ -35,44 +37,66 @@ type ContextMenuOverlayProps = ForceMountable &
     closeOnPress?: boolean;
   };
 
-type ContextMenuItemProps = SlottablePressableProps & {
+type ItemProps = SlottablePressableProps & {
   textValue?: string;
   closeOnPress?: boolean;
 };
 
-type ContextMenuCheckboxItemProps = SlottablePressableProps & {
+type CheckboxItemProps = SlottablePressableProps & {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
   closeOnPress?: boolean;
   textValue?: string;
 };
 
-type ContextMenuRadioGroupProps = SlottableViewProps & {
+type RadioGroupProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string) => void;
 };
 
-type ContextMenuRadioItemProps = SlottablePressableProps & {
+type RadioItemProps = SlottablePressableProps & {
   value: string;
   textValue?: string;
   closeOnPress?: boolean;
 };
 
-type ContextMenuSeparatorProps = SlottableViewProps & {
+type SeparatorProps = SlottableViewProps & {
   decorative?: boolean;
 };
 
-type ContextMenuSubProps = SlottableViewProps & {
+type SubProps = SlottableViewProps & {
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
 };
 
-type ContextMenuSubTriggerProps = SlottablePressableProps & {
+type SubTriggerProps = SlottablePressableProps & {
   textValue?: string;
 };
 
-interface ContextMenuTriggerRef extends PressableRef {
+type TriggerProps = SlottablePressableProps;
+type ContentProps = SlottableViewProps & PositionedContentProps;
+type SubContentProps = SlottablePressableProps & ForceMountable;
+type ItemIndicatorProps = SlottableViewProps & ForceMountable;
+type GroupProps = SlottableViewProps;
+type LabelProps = SlottableTextProps;
+
+type CheckboxItemRef = PressableRef;
+type ContentRef = ViewRef;
+type GroupRef = ViewRef;
+type ItemIndicatorRef = ViewRef;
+type ItemRef = PressableRef;
+type LabelRef = TextRef;
+type OverlayRef = PressableRef;
+type PortalRef = ViewRef;
+type RadioGroupRef = ViewRef;
+type RadioItemRef = PressableRef;
+type RootRef = ViewRef;
+type SeparatorRef = ViewRef;
+type SubContentRef = PressableRef;
+type SubRef = ViewRef;
+type SubTriggerRef = PressableRef;
+type TriggerRef = PressableRef & {
   /**
    * Platform: NATIVE ONLY
    */
@@ -81,31 +105,39 @@ interface ContextMenuTriggerRef extends PressableRef {
    * Platform: NATIVE ONLY
    */
   close: () => void;
-}
-
-type ContextMenuTriggerProps = SlottablePressableProps;
-type ContextMenuContentProps = SlottableViewProps & PositionedContentProps;
-type ContextMenuSubContentProps = SlottablePressableProps & ForceMountable;
-type ContextMenuItemIndicatorProps = SlottableViewProps & ForceMountable;
-type ContextMenuGroupProps = SlottableViewProps;
-type ContextMenuLabelProps = SlottableTextProps;
+};
 
 export type {
-  ContextMenuCheckboxItemProps,
-  ContextMenuContentProps,
-  ContextMenuGroupProps,
-  ContextMenuItemIndicatorProps,
-  ContextMenuItemProps,
-  ContextMenuLabelProps,
-  ContextMenuOverlayProps,
-  ContextMenuPortalProps,
-  ContextMenuRadioGroupProps,
-  ContextMenuRadioItemProps,
-  ContextMenuRootProps,
-  ContextMenuSeparatorProps,
-  ContextMenuSubContentProps,
-  ContextMenuSubProps,
-  ContextMenuSubTriggerProps,
-  ContextMenuTriggerProps,
-  ContextMenuTriggerRef,
+  CheckboxItemProps,
+  CheckboxItemRef,
+  ContentProps,
+  ContentRef,
+  GroupProps,
+  GroupRef,
+  ItemIndicatorProps,
+  ItemIndicatorRef,
+  ItemProps,
+  ItemRef,
+  LabelProps,
+  LabelRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  PortalRef,
+  RadioGroupProps,
+  RadioGroupRef,
+  RadioItemProps,
+  RadioItemRef,
+  RootProps,
+  RootRef,
+  SeparatorProps,
+  SeparatorRef,
+  SubContentProps,
+  SubContentRef,
+  SubProps,
+  SubRef,
+  SubTriggerProps,
+  SubTriggerRef,
+  TriggerProps,
+  TriggerRef,
 };
