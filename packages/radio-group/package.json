@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/radio-group",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Primitive radio group",
   "license": "MIT",
   "main": "dist/index.js",
