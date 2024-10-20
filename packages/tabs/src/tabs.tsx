@@ -1,16 +1,24 @@
 import * as Slot from '@rn-primitives/slot';
-import type { ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import type { TabsContentProps, TabsListProps, TabsRootProps, TabsTriggerProps } from './types';
+import type {
+  ContentProps,
+  ContentRef,
+  ListProps,
+  ListRef,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+} from './types';
 
-interface RootContext extends TabsRootProps {
+interface RootContext extends RootProps {
   nativeID: string;
 }
 
 const TabsContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, TabsRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -49,7 +57,7 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ViewRef, TabsListProps>(({ asChild, ...props }, ref) => {
+const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='tablist' {...props} />;
 });
@@ -58,7 +66,7 @@ List.displayName = 'ListNativeTabs';
 
 const TriggerContext = React.createContext<{ value: string } | null>(null);
 
-const Trigger = React.forwardRef<React.ElementRef<typeof Pressable>, TabsTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled, value: tabValue, ...props }, ref) => {
     const { onValueChange, value: rootValue, nativeID } = useRootContext();
 
@@ -102,7 +110,7 @@ function useTriggerContext() {
   return context;
 }
 
-const Content = React.forwardRef<ViewRef, TabsContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   ({ asChild, forceMount, value: tabValue, ...props }, ref) => {
     const { value: rootValue, nativeID } = useRootContext();
 

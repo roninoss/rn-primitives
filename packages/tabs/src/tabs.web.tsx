@@ -1,12 +1,20 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import * as Slot from '@rn-primitives/slot';
-import type { ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
-import type { TabsContentProps, TabsListProps, TabsRootProps, TabsTriggerProps } from './types';
+import type {
+  ContentProps,
+  ContentRef,
+  ListProps,
+  ListRef,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+} from './types';
 
-const TabsContext = React.createContext<TabsRootProps | null>(null);
-const Root = React.forwardRef<ViewRef, TabsRootProps>(
+const TabsContext = React.createContext<RootProps | null>(null);
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, value, onValueChange, orientation, dir, activationMode, ...viewProps }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
@@ -41,7 +49,7 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ViewRef, TabsListProps>(({ asChild, ...props }, ref) => {
+const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Tabs.List asChild>
@@ -53,7 +61,7 @@ const List = React.forwardRef<ViewRef, TabsListProps>(({ asChild, ...props }, re
 List.displayName = 'ListWebTabs';
 
 const TriggerContext = React.createContext<{ value: string } | null>(null);
-const Trigger = React.forwardRef<React.ElementRef<typeof Pressable>, TabsTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, value: tabValue, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
@@ -78,7 +86,7 @@ function useTriggerContext() {
   return context;
 }
 
-const Content = React.forwardRef<ViewRef, TabsContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   ({ asChild, forceMount, value, tabIndex = -1, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (

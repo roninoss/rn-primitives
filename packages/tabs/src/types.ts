@@ -1,10 +1,12 @@
 import type {
   ForceMountable,
+  PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
+  ViewRef,
 } from '@rn-primitives/types';
 
-type TabsRootProps = SlottableViewProps & {
+type RootProps = SlottableViewProps & {
   value: string;
   onValueChange: (value: string) => void;
   /**
@@ -21,13 +23,27 @@ type TabsRootProps = SlottableViewProps & {
   activationMode?: 'automatic' | 'manual';
 };
 
-type TabsListProps = SlottableViewProps;
-type TabsTriggerProps = SlottablePressableProps & {
+type ListProps = SlottableViewProps;
+type TriggerProps = SlottablePressableProps & {
   value: string;
 };
-type TabsContentProps = SlottableViewProps &
+type ContentProps = SlottableViewProps &
   ForceMountable & {
     value: string;
   };
 
-export type { TabsContentProps, TabsListProps, TabsRootProps, TabsTriggerProps };
+type RootRef = ViewRef;
+type ListRef = ViewRef;
+type TriggerRef = PressableRef;
+type ContentRef = ViewRef;
+
+export type {
+  ContentProps,
+  ContentRef,
+  ListProps,
+  ListRef,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+};
