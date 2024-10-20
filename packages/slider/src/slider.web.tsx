@@ -1,16 +1,19 @@
 import * as Slider from '@radix-ui/react-slider';
 import * as Slot from '@rn-primitives/slot';
-import type { ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { View } from 'react-native';
 import type {
-  SliderRangeProps,
-  SliderRootProps,
-  SliderThumbProps,
-  SliderTrackProps,
+  RangeProps,
+  RangeRef,
+  RootProps,
+  RootRef,
+  ThumbProps,
+  ThumbRef,
+  TrackProps,
+  TrackRef,
 } from './types';
 
-const Root = React.forwardRef<ViewRef, SliderRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     { asChild, value, disabled, min, max, dir, inverted, step = 1, onValueChange, ...props },
     ref
@@ -36,7 +39,7 @@ const Root = React.forwardRef<ViewRef, SliderRootProps>(
 
 Root.displayName = 'RootWebSlider';
 
-const Track = React.forwardRef<ViewRef, SliderTrackProps>(({ asChild, ...props }, ref) => {
+const Track = React.forwardRef<TrackRef, TrackProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Slider.Track asChild>
@@ -47,7 +50,7 @@ const Track = React.forwardRef<ViewRef, SliderTrackProps>(({ asChild, ...props }
 
 Track.displayName = 'TrackWebSlider';
 
-const Range = React.forwardRef<ViewRef, SliderRangeProps>(({ asChild, ...props }, ref) => {
+const Range = React.forwardRef<RangeRef, RangeProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Slider.Range asChild>
@@ -58,7 +61,7 @@ const Range = React.forwardRef<ViewRef, SliderRangeProps>(({ asChild, ...props }
 
 Range.displayName = 'RangeWebSlider';
 
-const Thumb = React.forwardRef<ViewRef, SliderThumbProps>(({ asChild, ...props }, ref) => {
+const Thumb = React.forwardRef<ThumbRef, ThumbProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Slider.Thumb asChild>
