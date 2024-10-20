@@ -16,14 +16,14 @@ import type {
   OverlayProps,
   OverlayRef,
   PortalProps,
-  RootContext,
+  SharedRootContext,
   RootProps,
   RootRef,
   TriggerProps,
   TriggerRef,
 } from './types';
 
-interface IRootContext extends RootContext {
+interface IRootContext extends SharedRootContext {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   triggerPosition: LayoutPosition | null;

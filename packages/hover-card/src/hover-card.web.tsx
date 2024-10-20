@@ -9,14 +9,14 @@ import type {
   OverlayProps,
   OverlayRef,
   PortalProps,
-  RootContext,
+  SharedRootContext,
   RootProps,
   RootRef,
   TriggerProps,
   TriggerRef,
 } from './types';
 
-const HoverCardContext = React.createContext<RootContext | null>(null);
+const HoverCardContext = React.createContext<SharedRootContext | null>(null);
 
 const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, openDelay, closeDelay, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {

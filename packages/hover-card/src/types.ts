@@ -7,7 +7,7 @@ import type {
   ViewRef,
 } from '@rn-primitives/types';
 
-interface RootContext {
+interface SharedRootContext {
   open: boolean;
   onOpenChange: (value: boolean) => void;
   openDelay?: number;
@@ -62,7 +62,7 @@ export type {
   OverlayProps,
   OverlayRef,
   PortalProps,
-  RootContext,
+  SharedRootContext,
   RootProps,
   RootRef,
   TriggerProps,
