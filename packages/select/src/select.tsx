@@ -421,15 +421,15 @@ const Separator = React.forwardRef<ViewRef, SelectSeparatorProps>(
 Separator.displayName = 'SeparatorNativeSelect';
 
 const ScrollUpButton = ({ children }: { children?: React.ReactNode; className?: string }) => {
-  return children;
+  return <>{children}</>;
 };
 
 const ScrollDownButton = ({ children }: { children?: React.ReactNode; className?: string }) => {
-  return children;
+  return <>{children}</>;
 };
 
 const Viewport = ({ children }: { children?: React.ReactNode; className?: string }) => {
-  return children;
+  return <>{children}</>;
 };
 
 export {
