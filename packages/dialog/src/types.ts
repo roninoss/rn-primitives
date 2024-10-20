@@ -1,8 +1,11 @@
 import type {
   ForceMountable,
+  PressableRef,
   SlottablePressableProps,
   SlottableTextProps,
   SlottableViewProps,
+  TextRef,
+  ViewRef,
 } from '@rn-primitives/types';
 
 type RootContext = {
@@ -10,13 +13,13 @@ type RootContext = {
   onOpenChange: (value: boolean) => void;
 };
 
-type DialogRootProps = SlottableViewProps & {
+type RootProps = SlottableViewProps & {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (value: boolean) => void;
 };
 
-interface DialogPortalProps extends ForceMountable {
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -27,14 +30,14 @@ interface DialogPortalProps extends ForceMountable {
    */
   container?: HTMLElement | null | undefined;
 }
-type DialogOverlayProps = ForceMountable &
+type OverlayProps = ForceMountable &
   SlottablePressableProps & {
     /**
      * Platform: NATIVE ONLY - default: true
      */
     closeOnPress?: boolean;
   };
-type DialogContentProps = ForceMountable &
+type ContentProps = ForceMountable &
   SlottableViewProps & {
     /**
      * Platform: WEB ONLY
@@ -58,19 +61,36 @@ type DialogContentProps = ForceMountable &
     onPointerDownOutside?: (ev: Event) => void;
   };
 
-type DialogTriggerProps = SlottablePressableProps;
-type DialogCloseProps = SlottablePressableProps;
-type DialogTitleProps = SlottableTextProps;
-type DialogDescriptionProps = SlottableTextProps;
+type TriggerProps = SlottablePressableProps;
+type CloseProps = SlottablePressableProps;
+type TitleProps = SlottableTextProps;
+type DescriptionProps = SlottableTextProps;
+
+type CloseRef = PressableRef;
+type ContentRef = ViewRef;
+type DescriptionRef = TextRef;
+type OverlayRef = PressableRef;
+type PortalRef = ViewRef;
+type RootRef = ViewRef;
+type TitleRef = TextRef;
+type TriggerRef = PressableRef;
 
 export type {
-  DialogCloseProps,
-  DialogContentProps,
-  DialogDescriptionProps,
-  DialogOverlayProps,
-  DialogPortalProps,
-  DialogRootProps,
-  DialogTitleProps,
-  DialogTriggerProps,
+  CloseProps,
+  CloseRef,
+  ContentProps,
+  ContentRef,
+  DescriptionProps,
+  DescriptionRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  PortalRef,
   RootContext,
+  RootProps,
+  RootRef,
+  TitleProps,
+  TitleRef,
+  TriggerProps,
+  TriggerRef,
 };

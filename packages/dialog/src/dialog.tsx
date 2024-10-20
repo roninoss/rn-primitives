@@ -1,24 +1,30 @@
 import { useControllableState } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, TextRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { BackHandler, GestureResponderEvent, Pressable, Text, View } from 'react-native';
 import type {
-  DialogCloseProps,
-  DialogContentProps,
-  DialogDescriptionProps,
-  DialogOverlayProps,
-  DialogPortalProps,
-  DialogRootProps,
-  DialogTitleProps,
-  DialogTriggerProps,
+  CloseProps,
+  CloseRef,
+  ContentProps,
+  ContentRef,
+  DescriptionProps,
+  DescriptionRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
   RootContext,
+  RootProps,
+  RootRef,
+  TitleProps,
+  TitleRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
 const DialogContext = React.createContext<(RootContext & { nativeID: string }) | null>(null);
 
-const Root = React.forwardRef<ViewRef, DialogRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, open: openProp, defaultOpen, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
     const nativeID = React.useId();
     const [open = false, onOpenChange] = useControllableState({
@@ -52,7 +58,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PressableRef, DialogTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { open, onOpenChange } = useRootContext();
 
@@ -82,7 +88,7 @@ Trigger.displayName = 'TriggerNativeDialog';
 /**
  * @warning when using a custom `<PortalHost />`, you might have to adjust the Content's sideOffset to account for nav elements like headers.
  */
-function Portal({ forceMount, hostName, children }: DialogPortalProps) {
+function Portal({ forceMount, hostName, children }: PortalProps) {
   const value = useRootContext();
 
   if (!forceMount) {
@@ -98,7 +104,7 @@ function Portal({ forceMount, hostName, children }: DialogPortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<PressableRef, DialogOverlayProps>(
+const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, closeOnPress = true, onPress: OnPressProp, ...props }, ref) => {
     const { open, onOpenChange } = useRootContext();
 
@@ -122,7 +128,7 @@ const Overlay = React.forwardRef<PressableRef, DialogOverlayProps>(
 
 Overlay.displayName = 'OverlayNativeDialog';
 
-const Content = React.forwardRef<ViewRef, DialogContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const { open, nativeID, onOpenChange } = useRootContext();
 
@@ -161,7 +167,7 @@ const Content = React.forwardRef<ViewRef, DialogContentProps>(
 
 Content.displayName = 'ContentNativeDialog';
 
-const Close = React.forwardRef<PressableRef, DialogCloseProps>(
+const Close = React.forwardRef<CloseRef, CloseProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { onOpenChange } = useRootContext();
 
@@ -187,14 +193,14 @@ const Close = React.forwardRef<PressableRef, DialogCloseProps>(
 
 Close.displayName = 'CloseNativeDialog';
 
-const Title = React.forwardRef<TextRef, DialogTitleProps>((props, ref) => {
+const Title = React.forwardRef<TitleRef, TitleProps>((props, ref) => {
   const { nativeID } = useRootContext();
   return <Text ref={ref} role='heading' nativeID={`${nativeID}_label`} {...props} />;
 });
 
 Title.displayName = 'TitleNativeDialog';
 
-const Description = React.forwardRef<TextRef, DialogDescriptionProps>((props, ref) => {
+const Description = React.forwardRef<DescriptionRef, DescriptionProps>((props, ref) => {
   const { nativeID } = useRootContext();
   return <Text ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
 });
