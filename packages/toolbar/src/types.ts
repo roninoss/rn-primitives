@@ -36,7 +36,7 @@ type ToggleGroupProps = (SingleToggleGroupProps | MultipleToggleGroupProps) & {
   disabled?: boolean;
 } & SlottableViewProps;
 
-type ToggleItem = SlottablePressableProps & {
+type ToggleItemProps = SlottablePressableProps & {
   value: string;
 };
 
@@ -62,6 +62,6 @@ export type {
   SeparatorRef,
   ToggleGroupProps,
   ToggleGroupRef,
-  ToggleItem,
+  ToggleItemProps,
   ToggleItemRef,
 };

@@ -14,7 +14,7 @@ import type {
   SeparatorRef,
   ToggleGroupProps,
   ToggleGroupRef,
-  ToggleItem,
+  ToggleItemProps,
   ToggleItemRef,
 } from './types';
 
@@ -73,7 +73,7 @@ function useToggleGroupContext() {
   return context;
 }
 
-const ToggleItem = React.forwardRef<ToggleItemRef, ToggleItem>(
+const ToggleItem = React.forwardRef<ToggleItemRef, ToggleItemProps>(
   (
     {
       asChild,
