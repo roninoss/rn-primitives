@@ -5,25 +5,32 @@ import {
   useIsomorphicLayoutEffect,
 } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, TextRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, Text, View, type GestureResponderEvent } from 'react-native';
 import type {
-  AlertDialogActionProps,
-  AlertDialogCancelProps,
-  AlertDialogContentProps,
-  AlertDialogDescriptionProps,
-  AlertDialogOverlayProps,
-  AlertDialogPortalProps,
-  AlertDialogRootProps,
-  AlertDialogTitleProps,
-  AlertDialogTriggerProps,
+  ActionProps,
+  ActionRef,
+  CancelProps,
+  CancelRef,
+  ContentProps,
+  ContentRef,
+  DescriptionProps,
+  DescriptionRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
   RootContext,
+  RootProps,
+  RootRef,
+  TitleProps,
+  TitleRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
 const AlertDialogContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, AlertDialogRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, open: openProp, defaultOpen, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
     const [open = false, onOpenChange] = useControllableState({
       prop: openProp,
@@ -53,7 +60,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PressableRef, AlertDialogTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, role: _role, disabled, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { onOpenChange, open } = useRootContext();
@@ -89,11 +96,11 @@ const Trigger = React.forwardRef<PressableRef, AlertDialogTriggerProps>(
 
 Trigger.displayName = 'TriggerAlertWebDialog';
 
-function Portal({ forceMount, container, children }: AlertDialogPortalProps) {
+function Portal({ forceMount, container, children }: PortalProps) {
   return <AlertDialog.Portal forceMount={forceMount} children={children} container={container} />;
 }
 
-const Overlay = React.forwardRef<ViewRef, AlertDialogOverlayProps>(
+const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
@@ -106,7 +113,7 @@ const Overlay = React.forwardRef<ViewRef, AlertDialogOverlayProps>(
 
 Overlay.displayName = 'OverlayAlertWebDialog';
 
-const Content = React.forwardRef<ViewRef, AlertDialogContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   ({ asChild, forceMount, onOpenAutoFocus, onCloseAutoFocus, onEscapeKeyDown, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { open } = useRootContext();
@@ -135,7 +142,7 @@ const Content = React.forwardRef<ViewRef, AlertDialogContentProps>(
 
 Content.displayName = 'ContentAlertWebDialog';
 
-const Cancel = React.forwardRef<PressableRef, AlertDialogCancelProps>(
+const Cancel = React.forwardRef<CancelRef, CancelProps>(
   ({ asChild, onPress: onPressProp, disabled, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { onOpenChange, open } = useRootContext();
@@ -173,7 +180,7 @@ const Cancel = React.forwardRef<PressableRef, AlertDialogCancelProps>(
 
 Cancel.displayName = 'CancelAlertWebDialog';
 
-const Action = React.forwardRef<PressableRef, AlertDialogActionProps>(
+const Action = React.forwardRef<ActionRef, ActionProps>(
   ({ asChild, onPress: onPressProp, disabled, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { onOpenChange, open } = useRootContext();
@@ -211,7 +218,7 @@ const Action = React.forwardRef<PressableRef, AlertDialogActionProps>(
 
 Action.displayName = 'ActionAlertWebDialog';
 
-const Title = React.forwardRef<TextRef, AlertDialogTitleProps>(({ asChild, ...props }, ref) => {
+const Title = React.forwardRef<TitleRef, TitleProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.Text : Text;
   return (
     <AlertDialog.Title asChild>
@@ -222,7 +229,7 @@ const Title = React.forwardRef<TextRef, AlertDialogTitleProps>(({ asChild, ...pr
 
 Title.displayName = 'TitleAlertWebDialog';
 
-const Description = React.forwardRef<TextRef, AlertDialogDescriptionProps>(
+const Description = React.forwardRef<DescriptionRef, DescriptionProps>(
   ({ asChild, ...props }, ref) => {
     const Component = asChild ? Slot.Text : Text;
     return (

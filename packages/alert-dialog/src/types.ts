@@ -1,11 +1,14 @@
 import type {
   ForceMountable,
+  PressableRef,
   SlottablePressableProps,
   SlottableTextProps,
   SlottableViewProps,
+  TextRef,
+  ViewRef,
 } from '@rn-primitives/types';
 
-type AlertDialogRootProps = {
+type RootProps = {
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
   defaultOpen?: boolean;
@@ -16,7 +19,7 @@ interface RootContext {
   onOpenChange: (value: boolean) => void;
 }
 
-interface AlertDialogPortalProps extends ForceMountable {
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -27,9 +30,9 @@ interface AlertDialogPortalProps extends ForceMountable {
    */
   container?: HTMLElement | null | undefined;
 }
-type AlertDialogOverlayProps = ForceMountable & SlottableViewProps;
+type OverlayProps = ForceMountable & SlottableViewProps;
 
-type AlertDialogContentProps = ForceMountable &
+type ContentProps = ForceMountable &
   SlottableViewProps & {
     /**
      * Platform: WEB ONLY
@@ -45,21 +48,40 @@ type AlertDialogContentProps = ForceMountable &
     onEscapeKeyDown?: (ev: Event) => void;
   };
 
-type AlertDialogTriggerProps = SlottablePressableProps;
-type AlertDialogCancelProps = SlottablePressableProps;
-type AlertDialogActionProps = SlottablePressableProps;
-type AlertDialogTitleProps = SlottableTextProps;
-type AlertDialogDescriptionProps = SlottableTextProps;
+type TriggerProps = SlottablePressableProps;
+type CancelProps = SlottablePressableProps;
+type ActionProps = SlottablePressableProps;
+type TitleProps = SlottableTextProps;
+type DescriptionProps = SlottableTextProps;
+
+type ActionRef = PressableRef;
+type CancelRef = PressableRef;
+type ContentRef = ViewRef;
+type DescriptionRef = TextRef;
+type OverlayRef = ViewRef;
+type PortalRef = ViewRef;
+type RootRef = ViewRef;
+type TitleRef = TextRef;
+type TriggerRef = PressableRef;
 
 export type {
-  AlertDialogActionProps,
-  AlertDialogCancelProps,
-  AlertDialogContentProps,
-  AlertDialogDescriptionProps,
-  AlertDialogOverlayProps,
-  AlertDialogPortalProps,
-  AlertDialogRootProps,
-  AlertDialogTitleProps,
-  AlertDialogTriggerProps,
+  ActionProps,
+  ActionRef,
+  CancelProps,
+  CancelRef,
+  ContentProps,
+  ContentRef,
+  DescriptionProps,
+  DescriptionRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  PortalRef,
   RootContext,
+  RootProps,
+  RootRef,
+  TitleProps,
+  TitleRef,
+  TriggerProps,
+  TriggerRef,
 };
