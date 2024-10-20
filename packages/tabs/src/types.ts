@@ -1,6 +1,10 @@
-import type { ForceMountable } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  SlottablePressableProps,
+  SlottableViewProps,
+} from '@rn-primitives/types';
 
-interface TabsRootProps {
+type TabsRootProps = SlottableViewProps & {
   value: string;
   onValueChange: (value: string) => void;
   /**
@@ -15,10 +19,15 @@ interface TabsRootProps {
    * Platform: WEB ONLY
    */
   activationMode?: 'automatic' | 'manual';
-}
+};
 
-interface TabsContentProps extends ForceMountable {
+type TabsListProps = SlottableViewProps;
+type TabsTriggerProps = SlottablePressableProps & {
   value: string;
-}
+};
+type TabsContentProps = SlottableViewProps &
+  ForceMountable & {
+    value: string;
+  };
 
-export type { TabsContentProps, TabsRootProps };
+export type { TabsContentProps, TabsListProps, TabsRootProps, TabsTriggerProps };
