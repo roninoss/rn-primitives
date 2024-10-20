@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Pressable, type GestureResponderEvent } from 'react-native';
 import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
+import type { PressableRef } from '@rn-primitives/types';
 import type { ToggleRootProps } from './types';
 
-const Root = React.forwardRef<PressableRef, SlottablePressableProps & ToggleRootProps>(
+const Root = React.forwardRef<PressableRef, ToggleRootProps>(
   ({ asChild, pressed, onPressedChange, disabled, onPress: onPressProp, ...props }, ref) => {
     function onPress(ev: GestureResponderEvent) {
       if (disabled) return;
