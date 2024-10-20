@@ -1,16 +1,11 @@
 import * as Switch from '@radix-ui/react-switch';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
+import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import type { SwitchRootProps } from './types';
+import type { SwitchRootProps, SwitchThumbProps } from './types';
 
-const Root = React.forwardRef<PressableRef, SlottablePressableProps & SwitchRootProps>(
+const Root = React.forwardRef<PressableRef, SwitchRootProps>(
   (
     {
       asChild,
@@ -53,7 +48,7 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & SwitchRoot
 
 Root.displayName = 'RootWebSwitch';
 
-const Thumb = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Thumb = React.forwardRef<ViewRef, SwitchThumbProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Switch.Thumb asChild>

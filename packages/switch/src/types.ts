@@ -1,4 +1,6 @@
-interface SwitchRootProps {
+import type { SlottablePressableProps, SlottableViewProps } from '@rn-primitives/types';
+
+type SwitchRootProps = SlottablePressableProps & {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
   disabled?: boolean;
@@ -6,6 +8,8 @@ interface SwitchRootProps {
    * Platform: WEB ONLY
    */
   onKeyDown?: (ev: React.KeyboardEvent) => void;
-}
+};
 
-export type { SwitchRootProps };
+type SwitchThumbProps = SlottableViewProps;
+
+export type { SwitchRootProps, SwitchThumbProps };
