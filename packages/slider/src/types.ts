@@ -1,4 +1,6 @@
-interface SliderRootProps {
+import type { SlottableViewProps, ViewRef } from '@rn-primitives/types';
+
+type RootProps = SlottableViewProps & {
   value: number;
   disabled?: boolean;
   min?: number;
@@ -19,6 +21,24 @@ interface SliderRootProps {
    * Platform: WEB ONLY
    */
   onValueChange?: (value: number[]) => void;
-}
+};
 
-export type { SliderRootProps };
+type TrackProps = SlottableViewProps;
+type RangeProps = SlottableViewProps;
+type ThumbProps = SlottableViewProps;
+
+type RootRef = ViewRef;
+type TrackRef = ViewRef;
+type RangeRef = ViewRef;
+type ThumbRef = ViewRef;
+
+export type {
+  RangeProps,
+  RangeRef,
+  RootProps,
+  RootRef,
+  ThumbProps,
+  ThumbRef,
+  TrackProps,
+  TrackRef,
+};

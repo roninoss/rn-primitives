@@ -1,20 +1,16 @@
+import * as Slot from '@rn-primitives/slot';
+import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
-import * as Slot from '@rn-primitives/slot';
-import type {
-  ComponentPropsWithAsChild,
-  PressableRef,
-  SlottablePressableProps,
-} from '@rn-primitives/types';
-import type { CheckboxIndicator, CheckboxRootProps } from './types';
+import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
 
-interface RootContext extends CheckboxRootProps {
+interface RootContext extends RootProps {
   nativeID?: string;
 }
 
 const CheckboxContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, disabled = false, checked, onCheckedChange, nativeID, ...props }, ref) => {
     return (
       <CheckboxContext.Provider
@@ -76,29 +72,28 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
 
 Trigger.displayName = 'TriggerNativeCheckbox';
 
-const Indicator = React.forwardRef<
-  React.ElementRef<typeof View>,
-  ComponentPropsWithAsChild<typeof View> & CheckboxIndicator
->(({ asChild, forceMount, ...props }, ref) => {
-  const { checked, disabled } = useCheckboxContext();
+const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
+  ({ asChild, forceMount, ...props }, ref) => {
+    const { checked, disabled } = useCheckboxContext();
 
-  if (!forceMount) {
-    if (!checked) {
-      return null;
+    if (!forceMount) {
+      if (!checked) {
+        return null;
+      }
     }
-  }
 
-  const Component = asChild ? Slot.View : View;
-  return (
-    <Component
-      ref={ref}
-      aria-disabled={disabled}
-      aria-hidden={!(forceMount || checked)}
-      role={'presentation'}
-      {...props}
-    />
-  );
-});
+    const Component = asChild ? Slot.View : View;
+    return (
+      <Component
+        ref={ref}
+        aria-disabled={disabled}
+        aria-hidden={!(forceMount || checked)}
+        role={'presentation'}
+        {...props}
+      />
+    );
+  }
+);
 
 Indicator.displayName = 'IndicatorNativeCheckbox';
 

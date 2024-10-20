@@ -1,4 +1,10 @@
-import { ForceMountable } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  PressableRef,
+  SlottablePressableProps,
+  SlottableViewProps,
+  ViewRef,
+} from '@rn-primitives/types';
 
 type RootContext = {
   type: 'single' | 'multiple';
@@ -22,7 +28,7 @@ type MultipleRootProps = {
   onValueChange?: (value: string[]) => void;
 };
 
-type AccordionRootProps = (SingleRootProps | MultipleRootProps) & {
+type RootProps = (SingleRootProps | MultipleRootProps) & {
   defaultValue?: string | string[];
   disabled?: boolean;
   collapsible?: boolean;
@@ -34,12 +40,34 @@ type AccordionRootProps = (SingleRootProps | MultipleRootProps) & {
    * Platform: WEB ONLY
    */
   orientation?: 'vertical' | 'horizontal';
-};
+} & SlottableViewProps;
 
-type AccordionItemProps = {
+type RootRef = ViewRef;
+
+type ItemProps = {
   value: string;
   disabled?: boolean;
-};
-type AccordionContentProps = ForceMountable;
+} & SlottableViewProps;
 
-export type { AccordionContentProps, AccordionItemProps, AccordionRootProps, RootContext };
+type ItemRef = ViewRef;
+
+type ContentProps = ForceMountable & SlottableViewProps;
+type ContentRef = ViewRef;
+type HeaderProps = SlottableViewProps;
+type HeaderRef = ViewRef;
+type TriggerProps = SlottablePressableProps;
+type TriggerRef = PressableRef;
+
+export type {
+  ContentProps,
+  ContentRef,
+  HeaderProps,
+  HeaderRef,
+  ItemProps,
+  ItemRef,
+  RootContext,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+};

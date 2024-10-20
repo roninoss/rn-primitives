@@ -1,13 +1,6 @@
 import { useAugmentedRef, useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PositionedContentProps,
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
 import * as React from 'react';
 import {
   BackHandler,
@@ -18,14 +11,19 @@ import {
   type LayoutRectangle,
 } from 'react-native';
 import type {
-  HoverCardOverlayProps,
-  HoverCardPortalProps,
-  HoverCardRootProps,
-  HoverCardTriggerRef,
-  HoverCardRootContext,
+  ContentProps,
+  ContentRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  SharedRootContext,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
-interface IRootContext extends HoverCardRootContext {
+interface IRootContext extends SharedRootContext {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   triggerPosition: LayoutPosition | null;
@@ -37,7 +35,7 @@ interface IRootContext extends HoverCardRootContext {
 
 const RootContext = React.createContext<IRootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & HoverCardRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -89,7 +87,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<HoverCardTriggerRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { open, onOpenChange, setTriggerPosition } = useRootContext();
 
@@ -138,7 +136,7 @@ Trigger.displayName = 'TriggerNativeHoverCard';
 /**
  * @warning when using a custom `<PortalHost />`, you might have to adjust the Content's sideOffset to account for nav elements like headers.
  */
-function Portal({ forceMount, hostName, children }: HoverCardPortalProps) {
+function Portal({ forceMount, hostName, children }: PortalProps) {
   const value = useRootContext();
 
   if (!value.triggerPosition) {
@@ -158,7 +156,7 @@ function Portal({ forceMount, hostName, children }: HoverCardPortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & HoverCardOverlayProps>(
+const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props }, ref) => {
     const { open, onOpenChange, setTriggerPosition, setContentLayout } = useRootContext();
 
@@ -187,7 +185,7 @@ Overlay.displayName = 'OverlayNativeHoverCard';
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   (
     {
       asChild = false,
@@ -271,8 +269,6 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
 Content.displayName = 'ContentNativeHoverCard';
 
 export { Content, Overlay, Portal, Root, Trigger, useRootContext };
-
-export type { HoverCardTriggerRef };
 
 function onStartShouldSetResponder() {
   return true;

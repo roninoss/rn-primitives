@@ -1,8 +1,7 @@
+import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
 import { View } from 'react-native';
-import * as Slot from '@rn-primitives/slot';
-import type { SlottableViewProps, ViewRef } from '@rn-primitives/types';
-import type { ProgressRootProps } from './types';
+import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
 
 // This project uses code from WorkOS/Radix Primitives.
 // The code is licensed under the MIT License.
@@ -10,7 +9,7 @@ import type { ProgressRootProps } from './types';
 
 const DEFAULT_MAX = 100;
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & ProgressRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     { asChild, value: valueProp, max: maxProp, getValueLabel = defaultGetValueLabel, ...props },
     ref
@@ -41,7 +40,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & ProgressRootProps>(
 
 Root.displayName = 'RootProgress';
 
-const Indicator = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='presentation' {...props} />;
 });

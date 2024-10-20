@@ -1,6 +1,14 @@
-import type { ForceMountable } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  PositionedContentProps,
+  PressableRef,
+  SlottablePressableProps,
+  SlottableViewProps,
+  ViewRef,
+} from '@rn-primitives/types';
+import type { ViewProps } from 'react-native';
 
-interface NavigationMenuRootProps {
+type RootProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string | undefined) => void;
   /**
@@ -19,13 +27,13 @@ interface NavigationMenuRootProps {
    * Platform: WEB ONLY
    */
   orientation?: 'horizontal' | 'vertical';
-}
+};
 
-interface NavigationMenuItemProps {
+type ItemProps = SlottableViewProps & {
   value: string | undefined;
-}
+};
 
-interface NavigationMenuPortalProps extends ForceMountable {
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -37,13 +45,41 @@ interface NavigationMenuPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-interface NavigationMenuLinkProps {
+type LinkProps = SlottablePressableProps & {
   active?: boolean;
-}
+};
+
+type ListProps = SlottableViewProps;
+type TriggerProps = SlottablePressableProps;
+type ContentProps = SlottableViewProps & PositionedContentProps;
+type IndicatorProps = SlottableViewProps;
+type ViewportProps = Omit<ViewProps, 'children'>;
+
+type ContentRef = ViewRef;
+type IndicatorRef = ViewRef;
+type ItemRef = ViewRef;
+type LinkRef = PressableRef;
+type ListRef = ViewRef;
+type RootRef = ViewRef;
+type ViewportRef = ViewRef;
+type TriggerRef = PressableRef;
 
 export type {
-  NavigationMenuItemProps,
-  NavigationMenuPortalProps,
-  NavigationMenuRootProps,
-  NavigationMenuLinkProps,
+  ContentProps,
+  ContentRef,
+  IndicatorProps,
+  IndicatorRef,
+  ItemProps,
+  ItemRef,
+  LinkProps,
+  LinkRef,
+  ListProps,
+  ListRef,
+  PortalProps,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+  ViewportProps,
+  ViewportRef,
 };

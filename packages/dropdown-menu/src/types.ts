@@ -1,6 +1,17 @@
-import type { ForceMountable, PressableRef } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  PositionedContentProps,
+  PressableRef,
+  SlottablePressableProps,
+  SlottableTextProps,
+  SlottableViewProps,
+  TextRef,
+  ViewRef,
+} from '@rn-primitives/types';
 
-interface DropdownMenuPortalProps extends ForceMountable {
+type RootProps = SlottableViewProps & { onOpenChange?: (open: boolean) => void };
+
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -12,61 +23,104 @@ interface DropdownMenuPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-interface DropdownMenuOverlayProps extends ForceMountable {
-  closeOnPress?: boolean;
-}
+type OverlayProps = ForceMountable &
+  SlottablePressableProps & {
+    closeOnPress?: boolean;
+  };
 
-interface DropdownMenuItemProps {
+type ItemProps = SlottablePressableProps & {
   textValue?: string;
   closeOnPress?: boolean;
-}
+};
 
-interface DropdownMenuCheckboxItemProps {
+type CheckboxItemProps = SlottablePressableProps & {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
   closeOnPress?: boolean;
   textValue?: string;
-}
+};
 
-interface DropdownMenuRadioGroupProps {
+type RadioGroupProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string) => void;
-}
+};
 
-interface DropdownMenuRadioItemProps {
+type RadioItemProps = SlottablePressableProps & {
   value: string;
   textValue?: string;
   closeOnPress?: boolean;
-}
+};
 
-interface DropdownMenuSeparatorProps {
+type SeparatorProps = SlottableViewProps & {
   decorative?: boolean;
-}
+};
 
-interface DropdownMenuSubProps {
+type SubProps = SlottableViewProps & {
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
-}
+};
 
-interface DropdownMenuSubTriggerProps {
+type SubTriggerProps = SlottablePressableProps & {
   textValue?: string;
-}
+};
 
-interface DropdownMenuTriggerRef extends PressableRef {
+type TriggerProps = SlottablePressableProps;
+type ContentProps = SlottablePressableProps & PositionedContentProps;
+type SubContentProps = SlottablePressableProps & ForceMountable;
+type ItemIndicatorProps = SlottableViewProps & ForceMountable;
+type GroupProps = SlottableViewProps;
+type LabelProps = SlottableTextProps;
+
+type CheckboxItemRef = PressableRef;
+type ContentRef = ViewRef;
+type GroupRef = ViewRef;
+type ItemIndicatorRef = ViewRef;
+type ItemRef = PressableRef;
+type LabelRef = TextRef;
+type OverlayRef = PressableRef;
+type RadioGroupRef = ViewRef;
+type RadioItemRef = PressableRef;
+type RootRef = ViewRef;
+type SeparatorRef = ViewRef;
+type SubContentRef = PressableRef;
+type SubRef = ViewRef;
+type SubTriggerRef = PressableRef;
+type TriggerRef = PressableRef & {
   open: () => void;
   close: () => void;
-}
+};
 
 export type {
-  DropdownMenuCheckboxItemProps,
-  DropdownMenuItemProps,
-  DropdownMenuOverlayProps,
-  DropdownMenuPortalProps,
-  DropdownMenuRadioGroupProps,
-  DropdownMenuRadioItemProps,
-  DropdownMenuSeparatorProps,
-  DropdownMenuSubProps,
-  DropdownMenuSubTriggerProps,
-  DropdownMenuTriggerRef,
+  CheckboxItemProps,
+  CheckboxItemRef,
+  ContentProps,
+  ContentRef,
+  GroupProps,
+  GroupRef,
+  ItemIndicatorProps,
+  ItemIndicatorRef,
+  ItemProps,
+  ItemRef,
+  LabelProps,
+  LabelRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RadioGroupProps,
+  RadioGroupRef,
+  RadioItemProps,
+  RadioItemRef,
+  RootProps,
+  RootRef,
+  SeparatorProps,
+  SeparatorRef,
+  SubContentProps,
+  SubContentRef,
+  SubProps,
+  SubRef,
+  SubTriggerProps,
+  SubTriggerRef,
+  TriggerProps,
+  TriggerRef,
 };

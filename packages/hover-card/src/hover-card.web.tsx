@@ -1,26 +1,24 @@
 import * as HoverCard from '@radix-ui/react-hover-card';
 import { useAugmentedRef } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PositionedContentProps,
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
 import type {
-  HoverCardOverlayProps,
-  HoverCardPortalProps,
-  HoverCardRootContext,
-  HoverCardRootProps,
-  HoverCardTriggerRef,
+  ContentProps,
+  ContentRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  SharedRootContext,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
-const HoverCardContext = React.createContext<HoverCardRootContext | null>(null);
+const HoverCardContext = React.createContext<SharedRootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & HoverCardRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, openDelay, closeDelay, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
     const [open, setOpen] = React.useState(false);
 
@@ -57,46 +55,42 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<HoverCardTriggerRef, SlottablePressableProps>(
-  ({ asChild, ...props }, ref) => {
-    const { onOpenChange } = useRootContext();
-    const augmentedRef = useAugmentedRef({
-      ref,
-      methods: {
-        open() {
-          onOpenChange(true);
-        },
-        close() {
-          onOpenChange(false);
-        },
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(({ asChild, ...props }, ref) => {
+  const { onOpenChange } = useRootContext();
+  const augmentedRef = useAugmentedRef({
+    ref,
+    methods: {
+      open() {
+        onOpenChange(true);
       },
-    });
+      close() {
+        onOpenChange(false);
+      },
+    },
+  });
 
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <HoverCard.Trigger asChild>
-        <Component ref={augmentedRef} {...props} />
-      </HoverCard.Trigger>
-    );
-  }
-);
+  const Component = asChild ? Slot.Pressable : Pressable;
+  return (
+    <HoverCard.Trigger asChild>
+      <Component ref={augmentedRef} {...props} />
+    </HoverCard.Trigger>
+  );
+});
 
 Trigger.displayName = 'TriggerWebHoverCard';
 
-function Portal({ forceMount, container, children }: HoverCardPortalProps) {
+function Portal({ forceMount, container, children }: PortalProps) {
   return <HoverCard.Portal forceMount={forceMount} container={container} children={children} />;
 }
 
-const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & HoverCardOverlayProps>(
-  ({ asChild, ...props }, ref) => {
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} {...props} />;
-  }
-);
+const Overlay = React.forwardRef<OverlayRef, OverlayProps>(({ asChild, ...props }, ref) => {
+  const Component = asChild ? Slot.Pressable : Pressable;
+  return <Component ref={ref} {...props} />;
+});
 
 Overlay.displayName = 'OverlayWebHoverCard';
 
-const Content = React.forwardRef<PressableRef, SlottablePressableProps & PositionedContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   (
     {
       asChild = false,
@@ -147,5 +141,3 @@ const Content = React.forwardRef<PressableRef, SlottablePressableProps & Positio
 Content.displayName = 'ContentWebHoverCard';
 
 export { Content, Overlay, Portal, Root, Trigger, useRootContext };
-
-export type { HoverCardTriggerRef };

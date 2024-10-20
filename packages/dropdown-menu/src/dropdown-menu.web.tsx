@@ -5,30 +5,41 @@ import {
   useIsomorphicLayoutEffect,
 } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  ForceMountable,
-  PositionedContentProps,
-  PressableRef,
-  SlottablePressableProps,
-  SlottableTextProps,
-  SlottableViewProps,
-  TextRef,
-  ViewRef,
-} from '@rn-primitives/types';
 import { EmptyGestureResponderEvent } from '@rn-primitives/utils';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, Text, View } from 'react-native';
 import type {
-  DropdownMenuCheckboxItemProps,
-  DropdownMenuItemProps,
-  DropdownMenuOverlayProps,
-  DropdownMenuPortalProps,
-  DropdownMenuRadioGroupProps,
-  DropdownMenuRadioItemProps,
-  DropdownMenuSeparatorProps,
-  DropdownMenuSubProps,
-  DropdownMenuSubTriggerProps,
-  DropdownMenuTriggerRef,
+  CheckboxItemProps,
+  CheckboxItemRef,
+  ContentProps,
+  ContentRef,
+  GroupProps,
+  GroupRef,
+  ItemIndicatorProps,
+  ItemIndicatorRef,
+  ItemProps,
+  ItemRef,
+  LabelProps,
+  LabelRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RadioGroupProps,
+  RadioGroupRef,
+  RadioItemProps,
+  RadioItemRef,
+  RootProps,
+  RootRef,
+  SeparatorProps,
+  SeparatorRef,
+  SubContentProps,
+  SubContentRef,
+  SubProps,
+  SubRef,
+  SubTriggerProps,
+  SubTriggerRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
 const DropdownMenuContext = React.createContext<{
@@ -36,26 +47,25 @@ const DropdownMenuContext = React.createContext<{
   onOpenChange: (open: boolean) => void;
 } | null>(null);
 
-const Root = React.forwardRef<
-  ViewRef,
-  SlottableViewProps & { onOpenChange?: (open: boolean) => void }
->(({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
-  const [open, setOpen] = React.useState(false);
+const Root = React.forwardRef<RootRef, RootProps>(
+  ({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
+    const [open, setOpen] = React.useState(false);
 
-  function onOpenChange(open: boolean) {
-    setOpen(open);
-    onOpenChangeProp?.(open);
+    function onOpenChange(open: boolean) {
+      setOpen(open);
+      onOpenChangeProp?.(open);
+    }
+
+    const Component = asChild ? Slot.View : View;
+    return (
+      <DropdownMenuContext.Provider value={{ open, onOpenChange }}>
+        <DropdownMenu.Root open={open} onOpenChange={onOpenChange}>
+          <Component ref={ref} {...viewProps} />
+        </DropdownMenu.Root>
+      </DropdownMenuContext.Provider>
+    );
   }
-
-  const Component = asChild ? Slot.View : View;
-  return (
-    <DropdownMenuContext.Provider value={{ open, onOpenChange }}>
-      <DropdownMenu.Root open={open} onOpenChange={onOpenChange}>
-        <Component ref={ref} {...viewProps} />
-      </DropdownMenu.Root>
-    </DropdownMenuContext.Provider>
-  );
-});
+);
 
 Root.displayName = 'RootWebDropdownMenu';
 
@@ -69,7 +79,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<DropdownMenuTriggerRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, disabled = false, ...props }, ref) => {
     const { open, onOpenChange } = useRootContext();
     const augmentedRef = useAugmentedRef({
@@ -113,16 +123,14 @@ const Trigger = React.forwardRef<DropdownMenuTriggerRef, SlottablePressableProps
 
 Trigger.displayName = 'TriggerWebDropdownMenu';
 
-function Portal({ forceMount, container, children }: DropdownMenuPortalProps) {
+function Portal({ forceMount, container, children }: PortalProps) {
   return <DropdownMenu.Portal forceMount={forceMount} container={container} children={children} />;
 }
 
-const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & DropdownMenuOverlayProps>(
-  ({ asChild, ...props }, ref) => {
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} {...props} />;
-  }
-);
+const Overlay = React.forwardRef<OverlayRef, OverlayProps>(({ asChild, ...props }, ref) => {
+  const Component = asChild ? Slot.Pressable : Pressable;
+  return <Component ref={ref} {...props} />;
+});
 
 Overlay.displayName = 'OverlayWebDropdownMenu';
 
@@ -130,7 +138,7 @@ const DropdownMenuContentContext = React.createContext<{
   close: () => void;
 } | null>(null);
 
-const Content = React.forwardRef<PressableRef, SlottablePressableProps & PositionedContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   (
     {
       asChild = false,
@@ -207,7 +215,7 @@ function useDropdownMenuContentContext() {
   return context;
 }
 
-const Item = React.forwardRef<PressableRef, SlottablePressableProps & DropdownMenuItemProps>(
+const Item = React.forwardRef<ItemRef, ItemProps>(
   (
     {
       asChild,
@@ -260,7 +268,7 @@ const Item = React.forwardRef<PressableRef, SlottablePressableProps & DropdownMe
 
 Item.displayName = 'ItemWebDropdownMenu';
 
-const Group = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Group = React.forwardRef<GroupRef, GroupProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <DropdownMenu.Group asChild>
@@ -271,7 +279,7 @@ const Group = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props
 
 Group.displayName = 'GroupWebDropdownMenu';
 
-const Label = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props }, ref) => {
+const Label = React.forwardRef<LabelRef, LabelProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.Text : Text;
   return (
     <DropdownMenu.Label asChild>
@@ -282,10 +290,7 @@ const Label = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props
 
 Label.displayName = 'LabelWebDropdownMenu';
 
-const CheckboxItem = React.forwardRef<
-  PressableRef,
-  SlottablePressableProps & DropdownMenuCheckboxItemProps
->(
+const CheckboxItem = React.forwardRef<CheckboxItemRef, CheckboxItemProps>(
   (
     {
       asChild,
@@ -350,7 +355,7 @@ const DropdownMenuRadioGroupContext = React.createContext<{
   onValueChange?: (value: string) => void;
 } | null>(null);
 
-const RadioGroup = React.forwardRef<ViewRef, SlottableViewProps & DropdownMenuRadioGroupProps>(
+const RadioGroup = React.forwardRef<RadioGroupRef, RadioGroupProps>(
   ({ asChild, value, onValueChange, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
@@ -375,10 +380,7 @@ function useDropdownMenuRadioGroupContext() {
   return context;
 }
 
-const RadioItem = React.forwardRef<
-  PressableRef,
-  SlottablePressableProps & DropdownMenuRadioItemProps
->(
+const RadioItem = React.forwardRef<RadioItemRef, RadioItemProps>(
   (
     {
       asChild,
@@ -435,7 +437,7 @@ const RadioItem = React.forwardRef<
 
 RadioItem.displayName = 'RadioItemWebDropdownMenu';
 
-const ItemIndicator = React.forwardRef<ViewRef, SlottableViewProps & ForceMountable>(
+const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
@@ -448,7 +450,7 @@ const ItemIndicator = React.forwardRef<ViewRef, SlottableViewProps & ForceMounta
 
 ItemIndicator.displayName = 'ItemIndicatorWebDropdownMenu';
 
-const Separator = React.forwardRef<ViewRef, SlottableViewProps & DropdownMenuSeparatorProps>(
+const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
   ({ asChild, decorative, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
@@ -466,7 +468,7 @@ const DropdownMenuSubContext = React.createContext<{
   onOpenChange: (open: boolean) => void;
 } | null>(null);
 
-const Sub = React.forwardRef<ViewRef, SlottableViewProps & DropdownMenuSubProps>(
+const Sub = React.forwardRef<SubRef, SubProps>(
   ({ asChild, defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, ...props }, ref) => {
     const [open = false, onOpenChange] = useControllableState({
       prop: openProp,
@@ -497,21 +499,27 @@ function useSubContext() {
   return context;
 }
 
-const SubTrigger = React.forwardRef<
-  PressableRef,
-  SlottablePressableProps & DropdownMenuSubTriggerProps
->(({ asChild, textValue, disabled = false, ...props }, ref) => {
-  const Component = asChild ? Slot.Pressable : Pressable;
-  return (
-    <DropdownMenu.SubTrigger disabled={disabled ?? undefined} textValue={textValue} asChild>
-      <Component ref={ref} {...props} />
-    </DropdownMenu.SubTrigger>
-  );
-});
+const SubTrigger = React.forwardRef<SubTriggerRef, SubTriggerProps>(
+  ({ asChild, textValue, disabled = false, onPress: onPressProp, ...props }, ref) => {
+    const { onOpenChange } = useSubContext();
+
+    function onPress(ev: GestureResponderEvent) {
+      onOpenChange(true);
+      onPressProp?.(ev);
+    }
+
+    const Component = asChild ? Slot.Pressable : Pressable;
+    return (
+      <DropdownMenu.SubTrigger disabled={disabled ?? undefined} textValue={textValue} asChild>
+        <Component ref={ref} onPress={onPress} {...props} />
+      </DropdownMenu.SubTrigger>
+    );
+  }
+);
 
 SubTrigger.displayName = 'SubTriggerWebDropdownMenu';
 
-const SubContent = React.forwardRef<PressableRef, SlottablePressableProps & ForceMountable>(
+const SubContent = React.forwardRef<SubContentRef, SubContentProps>(
   ({ asChild = false, forceMount, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
@@ -546,8 +554,6 @@ export {
   useRootContext,
   useSubContext,
 };
-
-export type { DropdownMenuTriggerRef };
 
 function onSelected(ev: Event) {
   ev.preventDefault();

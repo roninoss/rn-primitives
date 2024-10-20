@@ -1,4 +1,13 @@
-import type { ForceMountable, PressableRef } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  PositionedContentProps,
+  PressableRef,
+  SlottablePressableProps,
+  SlottableTextProps,
+  SlottableViewProps,
+  TextRef,
+  ViewRef,
+} from '@rn-primitives/types';
 
 type Option =
   | {
@@ -7,13 +16,13 @@ type Option =
     }
   | undefined;
 
-interface SelectRootContext {
+interface SharedRootContext {
   value: Option;
   onValueChange: (option: Option) => void;
   disabled?: boolean;
 }
 
-interface SelectRootProps {
+type RootProps = SlottableViewProps & {
   value?: Option;
   defaultValue?: Option;
   onValueChange?: (option: Option) => void;
@@ -31,13 +40,13 @@ interface SelectRootProps {
    * Platform: WEB ONLY
    */
   required?: boolean;
-}
+};
 
-interface SelectValueProps {
+type ValueProps = SlottableTextProps & {
   placeholder: string;
-}
+};
 
-interface SelectPortalProps extends ForceMountable {
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -49,41 +58,92 @@ interface SelectPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-interface SelectOverlayProps extends ForceMountable {
-  closeOnPress?: boolean;
-}
+type OverlayProps = ForceMountable &
+  SlottablePressableProps & {
+    closeOnPress?: boolean;
+  };
 
-interface SelectContentProps {
-  /**
-   * Platform: WEB ONLY
-   */
-  position?: 'popper' | 'item-aligned' | undefined;
-}
+type ContentProps = SlottableViewProps &
+  PositionedContentProps & {
+    /**
+     * Platform: WEB ONLY
+     */
+    position?: 'popper' | 'item-aligned' | undefined;
+  };
 
-interface SelectItemProps {
+type ItemProps = SlottablePressableProps & {
   value: string;
   label: string;
   closeOnPress?: boolean;
-}
+};
 
-interface SelectSeparatorProps {
+type TriggerProps = SlottablePressableProps;
+
+type ItemTextProps = Omit<SlottableTextProps, 'children'>;
+type ItemIndicatorProps = SlottableViewProps & ForceMountable;
+type GroupProps = SlottableViewProps;
+type LabelProps = SlottableTextProps;
+type SeparatorProps = SlottableViewProps & {
   decorative?: boolean;
-}
+};
 
-interface SelectTriggerRef extends PressableRef {
+/**
+ * PLATFORM: WEB ONLY
+ */
+type ScrollUpButtonProps = React.ComponentPropsWithoutRef<'div'>;
+/**
+ * PLATFORM: WEB ONLY
+ */
+type ScrollDownButtonProps = React.ComponentPropsWithoutRef<'div'>;
+/**
+ * PLATFORM: WEB ONLY
+ */
+type ViewportProps = React.ComponentPropsWithoutRef<'div'>;
+
+type ContentRef = ViewRef;
+type GroupRef = ViewRef;
+type IndicatorRef = ViewRef;
+type ItemRef = PressableRef;
+type ItemIndicatorRef = ViewRef;
+type ItemTextRef = TextRef;
+type LabelRef = TextRef;
+type OverlayRef = PressableRef;
+type RootRef = ViewRef;
+type SeparatorRef = ViewRef;
+type TriggerRef = PressableRef & {
   open: () => void;
   close: () => void;
-}
+};
+type ValueRef = TextRef;
 
 export type {
+  ContentProps,
+  ContentRef,
+  GroupProps,
+  GroupRef,
+  IndicatorRef,
+  ItemIndicatorProps,
+  ItemIndicatorRef,
+  ItemProps,
+  ItemRef,
+  ItemTextProps,
+  ItemTextRef,
+  LabelProps,
+  LabelRef,
   Option,
-  SelectRootContext,
-  SelectContentProps,
-  SelectItemProps,
-  SelectOverlayProps,
-  SelectPortalProps,
-  SelectRootProps,
-  SelectSeparatorProps,
-  SelectTriggerRef,
-  SelectValueProps,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RootProps,
+  RootRef,
+  ScrollDownButtonProps,
+  ScrollUpButtonProps,
+  SeparatorProps,
+  SeparatorRef,
+  SharedRootContext,
+  TriggerProps,
+  TriggerRef,
+  ValueProps,
+  ValueRef,
+  ViewportProps,
 };

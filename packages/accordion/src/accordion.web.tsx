@@ -1,30 +1,28 @@
 import * as Accordion from '@radix-ui/react-accordion';
-import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
+import {
+  useAugmentedRef,
+  useControllableState,
+  useIsomorphicLayoutEffect,
+} from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
-import type { AccordionContentProps, AccordionItemProps, AccordionRootProps } from './types';
+import type {
+  ContentProps,
+  ContentRef,
+  HeaderProps,
+  HeaderRef,
+  ItemProps,
+  ItemRef,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+} from './types';
 
-function useIsomorphicLayoutEffect(
-  effect: React.EffectCallback,
-  dependencies?: React.DependencyList
-) {
-  if (typeof window === 'undefined') {
-    React.useEffect(effect, dependencies);
-  } else {
-    React.useLayoutEffect(effect, dependencies);
-  }
-}
+const AccordionContext = React.createContext<RootProps | null>(null);
 
-const AccordionContext = React.createContext<AccordionRootProps | null>(null);
-
-const Root = React.forwardRef<ViewRef, SlottableViewProps & AccordionRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -59,7 +57,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & AccordionRootProps>(
             disabled,
             dir,
             orientation,
-          } as AccordionRootProps
+          } as RootProps
         }
       >
         <Accordion.Root
@@ -91,11 +89,11 @@ function useRootContext() {
   return context;
 }
 
-const AccordionItemContext = React.createContext<
-  (AccordionItemProps & { isExpanded: boolean }) | null
->(null);
+const AccordionItemContext = React.createContext<(ItemProps & { isExpanded: boolean }) | null>(
+  null
+);
 
-const Item = React.forwardRef<ViewRef, AccordionItemProps & SlottableViewProps>(
+const Item = React.forwardRef<ItemRef, ItemProps>(
   ({ asChild, value: itemValue, disabled, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { value, orientation, disabled: disabledRoot } = useRootContext();
@@ -149,7 +147,7 @@ function useItemContext() {
   return context;
 }
 
-const Header = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Header = React.forwardRef<HeaderRef, HeaderProps>(({ asChild, ...props }, ref) => {
   const augmentedRef = useAugmentedRef({ ref });
   const { disabled, isExpanded } = useItemContext();
   const { orientation, disabled: disabledRoot } = useRootContext();
@@ -191,7 +189,7 @@ const HIDDEN_STYLE: React.CSSProperties = {
   opacity: 0,
 };
 
-const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, disabled: disabledProp, ...props }, ref) => {
     const { disabled: disabledRoot } = useRootContext();
     const { disabled, isExpanded } = useItemContext();
@@ -252,7 +250,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
 
 Trigger.displayName = 'TriggerWebAccordion';
 
-const Content = React.forwardRef<ViewRef, AccordionContentProps & SlottableViewProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
 

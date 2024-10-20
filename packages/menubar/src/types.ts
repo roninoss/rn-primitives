@@ -1,15 +1,24 @@
-import { ForceMountable } from '@rn-primitives/types';
+import {
+  ForceMountable,
+  PositionedContentProps,
+  PressableRef,
+  SlottablePressableProps,
+  SlottableTextProps,
+  SlottableViewProps,
+  TextRef,
+  ViewRef,
+} from '@rn-primitives/types';
 
-interface MenubarRootProps {
+type RootProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string | undefined) => void;
-}
+};
 
-interface MenubarMenuProps {
+type MenuProps = SlottableViewProps & {
   value: string | undefined;
-}
+};
 
-interface MenubarPortalProps extends ForceMountable {
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -21,57 +30,104 @@ interface MenubarPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-interface MenubarOverlayProps extends ForceMountable {
-  closeOnPress?: boolean;
-}
+type OverlayProps = ForceMountable &
+  SlottablePressableProps & {
+    closeOnPress?: boolean;
+  };
 
-interface MenubarItemProps {
+type ItemProps = SlottablePressableProps & {
   textValue?: string;
   closeOnPress?: boolean;
-}
+};
 
-interface MenubarCheckboxItemProps {
+type CheckboxItemProps = SlottablePressableProps & {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
   closeOnPress?: boolean;
   textValue?: string;
-}
+};
 
-interface MenubarRadioGroupProps {
+type RadioGroupProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string) => void;
-}
+};
 
-interface MenubarRadioItemProps {
+type RadioItemProps = SlottablePressableProps & {
   value: string;
   textValue?: string;
   closeOnPress?: boolean;
-}
+};
 
-interface MenubarSeparatorProps {
+type SeparatorProps = SlottableViewProps & {
   decorative?: boolean;
-}
+};
 
-interface MenubarSubProps {
+type SubProps = SlottableViewProps & {
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
-}
+};
 
-interface MenubarSubTriggerProps {
+type SubTriggerProps = SlottablePressableProps & {
   textValue?: string;
-}
+};
+
+type TriggerProps = SlottablePressableProps;
+type ContentProps = SlottableViewProps & PositionedContentProps;
+type SubContentProps = SlottableViewProps & ForceMountable;
+type ItemIndicatorProps = SlottableViewProps & ForceMountable;
+type GroupProps = SlottableViewProps;
+type LabelProps = SlottableTextProps;
+
+type CheckboxItemRef = PressableRef;
+type ContentRef = ViewRef;
+type GroupRef = ViewRef;
+type ItemIndicatorRef = ViewRef;
+type ItemRef = PressableRef;
+type LabelRef = TextRef;
+type MenuRef = ViewRef;
+type OverlayRef = PressableRef;
+type RadioGroupRef = ViewRef;
+type RadioItemRef = PressableRef;
+type RootRef = ViewRef;
+type SeparatorRef = ViewRef;
+type SubContentRef = ViewRef;
+type SubRef = ViewRef;
+type SubTriggerRef = PressableRef;
+type TriggerRef = PressableRef;
 
 export type {
-  MenubarCheckboxItemProps,
-  MenubarItemProps,
-  MenubarMenuProps,
-  MenubarOverlayProps,
-  MenubarPortalProps,
-  MenubarRadioGroupProps,
-  MenubarRadioItemProps,
-  MenubarRootProps,
-  MenubarSeparatorProps,
-  MenubarSubProps,
-  MenubarSubTriggerProps,
+  CheckboxItemProps,
+  CheckboxItemRef,
+  ContentProps,
+  ContentRef,
+  GroupProps,
+  GroupRef,
+  ItemIndicatorProps,
+  ItemIndicatorRef,
+  ItemProps,
+  ItemRef,
+  LabelProps,
+  LabelRef,
+  MenuProps,
+  MenuRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RadioGroupProps,
+  RadioGroupRef,
+  RadioItemProps,
+  RadioItemRef,
+  RootProps,
+  RootRef,
+  SeparatorProps,
+  SeparatorRef,
+  SubContentProps,
+  SubContentRef,
+  SubProps,
+  SubRef,
+  SubTriggerProps,
+  SubTriggerRef,
+  TriggerProps,
+  TriggerRef,
 };

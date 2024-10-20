@@ -1,6 +1,10 @@
-interface SeparatorRootProps {
+import type { SlottableViewProps, ViewRef } from '@rn-primitives/types';
+
+type RootProps = SlottableViewProps & {
   orientation?: 'horizontal' | 'vertical';
   decorative?: boolean;
-}
+};
 
-export type { SeparatorRootProps };
+type RootRef = ViewRef;
+
+export type { RootProps, RootRef };

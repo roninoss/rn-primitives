@@ -1,26 +1,32 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PositionedContentProps,
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
 import { EmptyGestureResponderEvent } from '@rn-primitives/utils';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
 import type {
-  NavigationMenuItemProps,
-  NavigationMenuLinkProps,
-  NavigationMenuPortalProps,
-  NavigationMenuRootProps,
+  ContentProps,
+  ContentRef,
+  IndicatorProps,
+  IndicatorRef,
+  ItemProps,
+  ItemRef,
+  LinkProps,
+  LinkRef,
+  ListProps,
+  ListRef,
+  PortalProps,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+  ViewportProps,
+  ViewportRef,
 } from './types';
 
-const NavigationMenuContext = React.createContext<NavigationMenuRootProps | null>(null);
+const NavigationMenuContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & NavigationMenuRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -64,7 +70,7 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...viewProps }, ref) => {
+const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...viewProps }, ref) => {
   const augmentedRef = useAugmentedRef({ ref });
   const { orientation } = useRootContext();
 
@@ -85,20 +91,18 @@ const List = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...viewPr
 
 List.displayName = 'ListWebNavigationMenu';
 
-const ItemContext = React.createContext<NavigationMenuItemProps | null>(null);
+const ItemContext = React.createContext<ItemProps | null>(null);
 
-const Item = React.forwardRef<ViewRef, SlottableViewProps & NavigationMenuItemProps>(
-  ({ asChild, value, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <ItemContext.Provider value={{ value }}>
-        <NavigationMenu.Item value={value} asChild>
-          <Component ref={ref} {...props} />
-        </NavigationMenu.Item>
-      </ItemContext.Provider>
-    );
-  }
-);
+const Item = React.forwardRef<ItemRef, ItemProps>(({ asChild, value, ...props }, ref) => {
+  const Component = asChild ? Slot.View : View;
+  return (
+    <ItemContext.Provider value={{ value }}>
+      <NavigationMenu.Item value={value} asChild>
+        <Component ref={ref} {...props} />
+      </NavigationMenu.Item>
+    </ItemContext.Provider>
+  );
+});
 
 Item.displayName = 'ItemWebNavigationMenu';
 
@@ -112,7 +116,7 @@ function useItemContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   (
     { asChild, onPress: onPressProp, disabled = false, onKeyDown: onKeyDownProp, ...props },
     ref
@@ -149,11 +153,11 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
 
 Trigger.displayName = 'TriggerWebNavigationMenu';
 
-function Portal({ children }: NavigationMenuPortalProps) {
+function Portal({ children }: PortalProps) {
   return <>{children}</>;
 }
 
-const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   (
     {
       asChild = false,
@@ -191,7 +195,7 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
 
 Content.displayName = 'ContentWebNavigationMenu';
 
-const Link = React.forwardRef<PressableRef, SlottablePressableProps & NavigationMenuLinkProps>(
+const Link = React.forwardRef<LinkRef, LinkProps>(
   ({ asChild, active, onPress: onPressProp, onKeyDown: onKeyDownProp, ...props }, ref) => {
     const { onValueChange } = useRootContext();
     function onKeyDown(ev: React.KeyboardEvent) {
@@ -225,10 +229,7 @@ const Link = React.forwardRef<PressableRef, SlottablePressableProps & Navigation
 
 Link.displayName = 'LinkWebNavigationMenu';
 
-const Viewport = React.forwardRef<
-  ViewRef,
-  Omit<React.ComponentPropsWithoutRef<typeof View>, 'children'>
->((props, ref) => {
+const Viewport = React.forwardRef<ViewportRef, ViewportProps>((props, ref) => {
   return (
     <Slot.View ref={ref} {...props}>
       <NavigationMenu.Viewport />
@@ -238,7 +239,7 @@ const Viewport = React.forwardRef<
 
 Viewport.displayName = 'ViewportWebNavigationMenu';
 
-const Indicator = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <NavigationMenu.Indicator asChild>

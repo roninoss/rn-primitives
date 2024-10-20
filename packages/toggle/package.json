@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/toggle",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Primitive toggle",
   "license": "MIT",
   "main": "dist/index.js",

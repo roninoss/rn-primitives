@@ -1,11 +1,20 @@
-import type { ForceMountable } from '@rn-primitives/types';
+import type {
+  ForceMountable,
+  PressableRef,
+  SlottablePressableProps,
+  SlottableViewProps,
+  ViewRef,
+} from '@rn-primitives/types';
 
-interface CheckboxRootProps {
+type RootProps = SlottablePressableProps & {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
   disabled?: boolean;
-}
+};
 
-type CheckboxIndicator = ForceMountable;
+type IndicatorProps = ForceMountable & SlottableViewProps;
 
-export type { CheckboxRootProps, CheckboxIndicator };
+type RootRef = PressableRef;
+type IndicatorRef = ViewRef;
+
+export type { IndicatorProps, IndicatorRef, RootProps, RootRef };

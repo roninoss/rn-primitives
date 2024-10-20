@@ -1,3 +1,6 @@
+import { useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
+import { Portal as RNPPortal } from '@rn-primitives/portal';
+import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
 import {
   BackHandler,
@@ -7,24 +10,27 @@ import {
   type LayoutChangeEvent,
   type LayoutRectangle,
 } from 'react-native';
-import { useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
-import { Portal as RNPPortal } from '@rn-primitives/portal';
-import * as Slot from '@rn-primitives/slot';
 import type {
-  PositionedContentProps,
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
-import type {
-  NavigationMenuItemProps,
-  NavigationMenuLinkProps,
-  NavigationMenuPortalProps,
-  NavigationMenuRootProps,
+  ContentProps,
+  ContentRef,
+  IndicatorProps,
+  IndicatorRef,
+  ItemProps,
+  ItemRef,
+  LinkProps,
+  LinkRef,
+  ListProps,
+  ListRef,
+  PortalProps,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+  ViewportProps,
+  ViewportRef,
 } from './types';
 
-interface INavigationMenuRootContext extends NavigationMenuRootProps {
+interface INavigationMenuRootContext extends RootProps {
   triggerPosition: LayoutPosition | null;
   setTriggerPosition: (triggerPosition: LayoutPosition | null) => void;
   contentLayout: LayoutRectangle | null;
@@ -34,7 +40,7 @@ interface INavigationMenuRootContext extends NavigationMenuRootProps {
 
 const RootContext = React.createContext<INavigationMenuRootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & NavigationMenuRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, value, onValueChange, ...viewProps }, ref) => {
     const nativeID = React.useId();
     const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
@@ -71,34 +77,30 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...viewProps }, ref) => {
+const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...viewProps }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='menubar' {...viewProps} />;
 });
 
 List.displayName = 'ListNativeNavigationMenu';
 
-const ItemContext = React.createContext<(NavigationMenuItemProps & { nativeID: string }) | null>(
-  null
-);
+const ItemContext = React.createContext<(ItemProps & { nativeID: string }) | null>(null);
 
-const Item = React.forwardRef<ViewRef, SlottableViewProps & NavigationMenuItemProps>(
-  ({ asChild, value, ...viewProps }, ref) => {
-    const nativeID = React.useId();
+const Item = React.forwardRef<ItemRef, ItemProps>(({ asChild, value, ...viewProps }, ref) => {
+  const nativeID = React.useId();
 
-    const Component = asChild ? Slot.View : View;
-    return (
-      <ItemContext.Provider
-        value={{
-          value,
-          nativeID,
-        }}
-      >
-        <Component ref={ref} role='menuitem' {...viewProps} />
-      </ItemContext.Provider>
-    );
-  }
-);
+  const Component = asChild ? Slot.View : View;
+  return (
+    <ItemContext.Provider
+      value={{
+        value,
+        nativeID,
+      }}
+    >
+      <Component ref={ref} role='menuitem' {...viewProps} />
+    </ItemContext.Provider>
+  );
+});
 
 Item.displayName = 'ItemNativeNavigationMenu';
 
@@ -112,7 +114,7 @@ function useItemContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const triggerRef = React.useRef<View>(null);
     const { value, onValueChange, setTriggerPosition } = useRootContext();
@@ -159,7 +161,7 @@ Trigger.displayName = 'TriggerNativeNavigationMenu';
 /**
  * @warning when using a custom `<PortalHost />`, you will have to adjust the Content's sideOffset to account for nav elements like headers.
  */
-function Portal({ forceMount, hostName, children }: NavigationMenuPortalProps) {
+function Portal({ forceMount, hostName, children }: PortalProps) {
   const navigationMenu = useRootContext();
   const item = useItemContext();
 
@@ -188,7 +190,7 @@ function Portal({ forceMount, hostName, children }: NavigationMenuPortalProps) {
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   (
     {
       asChild = false,
@@ -271,25 +273,20 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContent
 
 Content.displayName = 'ContentNativeNavigationMenu';
 
-const Link = React.forwardRef<PressableRef, SlottablePressableProps & NavigationMenuLinkProps>(
-  ({ asChild, ...props }, ref) => {
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} role='link' {...props} />;
-  }
-);
+const Link = React.forwardRef<LinkRef, LinkProps>(({ asChild, ...props }, ref) => {
+  const Component = asChild ? Slot.Pressable : Pressable;
+  return <Component ref={ref} role='link' {...props} />;
+});
 
 Link.displayName = 'LinkNativeNavigationMenu';
 
-const Viewport = React.forwardRef<
-  ViewRef,
-  Omit<React.ComponentPropsWithoutRef<typeof View>, 'children'>
->((props, ref) => {
+const Viewport = React.forwardRef<ViewportRef, ViewportProps>((props, ref) => {
   return <View ref={ref} {...props} />;
 });
 
 Viewport.displayName = 'ViewportNativeNavigationMenu';
 
-const Indicator = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} {...props} />;
 });
@@ -305,9 +302,9 @@ export {
   Portal,
   Root,
   Trigger,
-  Viewport,
   useItemContext,
   useRootContext,
+  Viewport,
 };
 
 function onStartShouldSetResponder() {

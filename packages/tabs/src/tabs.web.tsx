@@ -1,12 +1,20 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import * as Slot from '@rn-primitives/slot';
-import type { ComponentPropsWithAsChild, SlottableViewProps, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
-import type { TabsContentProps, TabsRootProps } from './types';
+import type {
+  ContentProps,
+  ContentRef,
+  ListProps,
+  ListRef,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+} from './types';
 
-const TabsContext = React.createContext<TabsRootProps | null>(null);
-const Root = React.forwardRef<ViewRef, SlottableViewProps & TabsRootProps>(
+const TabsContext = React.createContext<RootProps | null>(null);
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, value, onValueChange, orientation, dir, activationMode, ...viewProps }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
@@ -41,7 +49,7 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Tabs.List asChild>
@@ -53,21 +61,18 @@ const List = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props 
 List.displayName = 'ListWebTabs';
 
 const TriggerContext = React.createContext<{ value: string } | null>(null);
-const Trigger = React.forwardRef<
-  React.ElementRef<typeof Pressable>,
-  ComponentPropsWithAsChild<typeof Pressable> & {
-    value: string;
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
+  ({ asChild, value: tabValue, ...props }, ref) => {
+    const Component = asChild ? Slot.Pressable : Pressable;
+    return (
+      <TriggerContext.Provider value={{ value: tabValue }}>
+        <Tabs.Trigger value={tabValue} asChild>
+          <Component ref={ref} {...props} />
+        </Tabs.Trigger>
+      </TriggerContext.Provider>
+    );
   }
->(({ asChild, value: tabValue, ...props }, ref) => {
-  const Component = asChild ? Slot.Pressable : Pressable;
-  return (
-    <TriggerContext.Provider value={{ value: tabValue }}>
-      <Tabs.Trigger value={tabValue} asChild>
-        <Component ref={ref} {...props} />
-      </Tabs.Trigger>
-    </TriggerContext.Provider>
-  );
-});
+);
 
 Trigger.displayName = 'TriggerWebTabs';
 
@@ -81,7 +86,7 @@ function useTriggerContext() {
   return context;
 }
 
-const Content = React.forwardRef<ViewRef, SlottableViewProps & TabsContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   ({ asChild, forceMount, value, tabIndex = -1, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (

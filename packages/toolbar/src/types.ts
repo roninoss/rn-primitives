@@ -1,4 +1,11 @@
-interface ToolbarRootProps {
+import type {
+  PressableRef,
+  SlottablePressableProps,
+  SlottableViewProps,
+  ViewRef,
+} from '@rn-primitives/types';
+
+type RootProps = SlottableViewProps & {
   /**
    * Platform: WEB ONLY
    */
@@ -11,7 +18,7 @@ interface ToolbarRootProps {
    * Platform: WEB ONLY
    */
   loop?: boolean;
-}
+};
 
 type SingleToggleGroupProps = {
   type: 'single';
@@ -25,15 +32,36 @@ type MultipleToggleGroupProps = {
   onValueChange: (val: string[]) => void;
 };
 
-type ToolbarToggleGroupProps = (
-  | SingleToggleGroupProps
-  | MultipleToggleGroupProps
-) & {
+type ToggleGroupProps = (SingleToggleGroupProps | MultipleToggleGroupProps) & {
   disabled?: boolean;
+} & SlottableViewProps;
+
+type ToggleItemProps = SlottablePressableProps & {
+  value: string;
 };
 
-interface ToolbarToggleItem {
-  value: string;
-}
+type SeparatorProps = SlottableViewProps;
+type LinkProps = SlottablePressableProps;
+type ButtonProps = SlottablePressableProps;
 
-export type { ToolbarToggleGroupProps, ToolbarToggleItem, ToolbarRootProps };
+type RootRef = ViewRef;
+type LinkRef = PressableRef;
+type ButtonRef = PressableRef;
+type SeparatorRef = ViewRef;
+type ToggleGroupRef = ViewRef;
+type ToggleItemRef = PressableRef;
+
+export type {
+  ButtonProps,
+  ButtonRef,
+  LinkProps,
+  LinkRef,
+  RootProps,
+  RootRef,
+  SeparatorProps,
+  SeparatorRef,
+  ToggleGroupProps,
+  ToggleGroupRef,
+  ToggleItemProps,
+  ToggleItemRef,
+};

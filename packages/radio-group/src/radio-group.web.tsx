@@ -1,17 +1,12 @@
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  ForceMountable,
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
-import type { RadioGroupItemProps, RadioGroupRootProps } from './types';
-const RadioGroupContext = React.createContext<RadioGroupRootProps | null>(null);
-const Root = React.forwardRef<ViewRef, SlottableViewProps & RadioGroupRootProps>(
+import type { IndicatorProps, IndicatorRef, ItemProps, ItemRef, RootProps, RootRef } from './types';
+
+const RadioGroupContext = React.createContext<RootProps | null>(null);
+
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, value, onValueChange, disabled = false, ...viewProps }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
@@ -40,7 +35,7 @@ function useRadioGroupContext() {
   }
   return context;
 }
-const Item = React.forwardRef<PressableRef, SlottablePressableProps & RadioGroupItemProps>(
+const Item = React.forwardRef<ItemRef, ItemProps>(
   ({ asChild, value, onPress: onPressProps, ...props }, ref) => {
     const { onValueChange } = useRadioGroupContext();
 
@@ -62,7 +57,7 @@ const Item = React.forwardRef<PressableRef, SlottablePressableProps & RadioGroup
 
 Item.displayName = 'ItemRadioGroup';
 
-const Indicator = React.forwardRef<ViewRef, SlottableViewProps & ForceMountable>(
+const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (

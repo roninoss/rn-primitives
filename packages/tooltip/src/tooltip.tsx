@@ -1,12 +1,6 @@
 import { useAugmentedRef, useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import * as Slot from '@rn-primitives/slot';
-import type {
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
 import * as React from 'react';
 import {
   BackHandler,
@@ -17,11 +11,15 @@ import {
   type LayoutRectangle,
 } from 'react-native';
 import type {
-  TooltipContentProps,
-  TooltipOverlayProps,
-  TooltipPortalProps,
-  TooltipRootProps,
-  TooltipTriggerRef,
+  ContentProps,
+  ContentRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
 interface IRootContext {
@@ -36,7 +34,7 @@ interface IRootContext {
 
 const RootContext = React.createContext<IRootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & TooltipRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -87,7 +85,7 @@ function useTooltipContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TooltipTriggerRef, SlottablePressableProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { open, onOpenChange, setTriggerPosition } = useTooltipContext();
 
@@ -136,7 +134,7 @@ Trigger.displayName = 'TriggerNativeTooltip';
 /**
  * @warning when using a custom `<PortalHost />`, you might have to adjust the Content's sideOffset to account for nav elements like headers.
  */
-function Portal({ forceMount, hostName, children }: TooltipPortalProps) {
+function Portal({ forceMount, hostName, children }: PortalProps) {
   const value = useTooltipContext();
 
   if (!value.triggerPosition) {
@@ -156,7 +154,7 @@ function Portal({ forceMount, hostName, children }: TooltipPortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<PressableRef, SlottablePressableProps & TooltipOverlayProps>(
+const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props }, ref) => {
     const { open, onOpenChange, setContentLayout, setTriggerPosition } = useTooltipContext();
 
@@ -185,7 +183,7 @@ Overlay.displayName = 'OverlayNativeTooltip';
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior on native by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ViewRef, SlottableViewProps & TooltipContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   (
     {
       asChild = false,
@@ -269,8 +267,6 @@ const Content = React.forwardRef<ViewRef, SlottableViewProps & TooltipContentPro
 Content.displayName = 'ContentNativeTooltip';
 
 export { Content, Overlay, Portal, Root, Trigger };
-
-export type { TooltipTriggerRef };
 
 function onStartShouldSetResponder() {
   return true;

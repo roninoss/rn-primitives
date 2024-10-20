@@ -1,18 +1,12 @@
+import * as Slot from '@rn-primitives/slot';
+import { ToggleGroupUtils } from '@rn-primitives/utils';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import * as Slot from '@rn-primitives/slot';
-import type {
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
-import { ToggleGroupUtils } from '@rn-primitives/utils';
-import type { ToggleGroupItemProps, ToggleGroupRootProps } from './types';
+import type { ItemProps, ItemRef, RootProps, RootRef } from './types';
 
-const ToggleGroupContext = React.createContext<ToggleGroupRootProps | null>(null);
+const ToggleGroupContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & ToggleGroupRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -37,7 +31,7 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & ToggleGroupRootProps
             value,
             disabled,
             onValueChange,
-          } as ToggleGroupRootProps
+          } as RootProps
         }
       >
         <Component ref={ref} role='group' {...viewProps} />
@@ -58,9 +52,9 @@ function useRootContext() {
   return context;
 }
 
-const ItemContext = React.createContext<ToggleGroupItemProps | null>(null);
+const ItemContext = React.createContext<ItemProps | null>(null);
 
-const Item = React.forwardRef<PressableRef, SlottablePressableProps & ToggleGroupItemProps>(
+const Item = React.forwardRef<ItemRef, ItemProps>(
   (
     { asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props },
     ref
