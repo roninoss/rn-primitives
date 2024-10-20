@@ -1,6 +1,11 @@
-import type { SlottablePressableProps, SlottableViewProps } from '@rn-primitives/types';
+import type {
+  PressableRef,
+  SlottablePressableProps,
+  SlottableViewProps,
+  ViewRef,
+} from '@rn-primitives/types';
 
-type SwitchRootProps = SlottablePressableProps & {
+type RootProps = SlottablePressableProps & {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
   disabled?: boolean;
@@ -10,6 +15,9 @@ type SwitchRootProps = SlottablePressableProps & {
   onKeyDown?: (ev: React.KeyboardEvent) => void;
 };
 
-type SwitchThumbProps = SlottableViewProps;
+type ThumbProps = SlottableViewProps;
 
-export type { SwitchRootProps, SwitchThumbProps };
+type RootRef = PressableRef;
+type ThumbRef = ViewRef;
+
+export type { RootProps, RootRef, ThumbProps, ThumbRef };

@@ -1,10 +1,9 @@
 import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import type { SwitchRootProps, SwitchThumbProps } from './types';
+import type { RootProps, RootRef, ThumbProps, ThumbRef } from './types';
 
-const Root = React.forwardRef<PressableRef, SwitchRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -45,7 +44,7 @@ const Root = React.forwardRef<PressableRef, SwitchRootProps>(
 
 Root.displayName = 'RootNativeSwitch';
 
-const Thumb = React.forwardRef<ViewRef, SwitchThumbProps>(({ asChild, ...props }, ref) => {
+const Thumb = React.forwardRef<ThumbRef, ThumbProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='presentation' {...props} />;
 });
