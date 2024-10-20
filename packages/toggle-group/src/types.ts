@@ -1,4 +1,9 @@
-import { SlottablePressableProps, SlottableViewProps } from '@rn-primitives/types';
+import {
+  PressableRef,
+  SlottablePressableProps,
+  SlottableViewProps,
+  ViewRef,
+} from '@rn-primitives/types';
 
 type SingleRootProps = {
   type: 'single';
@@ -12,7 +17,7 @@ type MultipleRootProps = {
   onValueChange: (val: string[]) => void;
 };
 
-type ToggleGroupRootProps = (SingleRootProps | MultipleRootProps) & {
+type RootProps = (SingleRootProps | MultipleRootProps) & {
   disabled?: boolean;
   /**
    * Platform: WEB ONLY
@@ -32,8 +37,11 @@ type ToggleGroupRootProps = (SingleRootProps | MultipleRootProps) & {
   loop?: boolean;
 } & SlottableViewProps;
 
-type ToggleGroupItemProps = SlottablePressableProps & {
+type ItemProps = SlottablePressableProps & {
   value: string;
 };
 
-export type { ToggleGroupItemProps, ToggleGroupRootProps };
+type RootRef = ViewRef;
+type ItemRef = PressableRef;
+
+export type { ItemProps, ItemRef, RootProps, RootRef };
