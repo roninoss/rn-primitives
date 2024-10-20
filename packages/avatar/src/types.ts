@@ -1,15 +1,19 @@
-import type { ComponentPropsWithAsChild, SlottableViewProps } from '@rn-primitives/types';
+import type { ComponentPropsWithAsChild, SlottableViewProps, ViewRef } from '@rn-primitives/types';
 import type { Image } from 'react-native';
 
-type AvatarRootProps = SlottableViewProps & {
+type RootProps = SlottableViewProps & {
   alt: string;
 };
 
-type AvatarImageProps = Omit<ComponentPropsWithAsChild<typeof Image>, 'alt'> & {
+type ImageProps = Omit<ComponentPropsWithAsChild<typeof Image>, 'alt'> & {
   children?: React.ReactNode;
   onLoadingStatusChange?: (status: 'error' | 'loaded') => void;
 };
 
-type AvatarFallbackProps = SlottableViewProps;
+type FallbackProps = SlottableViewProps;
 
-export type { AvatarFallbackProps, AvatarImageProps, AvatarRootProps };
+type RootRef = ViewRef;
+type ImageRef = React.ElementRef<typeof Image>;
+type FallbackRef = ViewRef;
+
+export type { FallbackProps, FallbackRef, ImageProps, ImageRef, RootProps, RootRef };

@@ -1,6 +1,5 @@
 import { useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type { ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import {
   type ImageErrorEventData,
@@ -10,18 +9,18 @@ import {
   Image as RNImage,
   View,
 } from 'react-native';
-import type { AvatarFallbackProps, AvatarImageProps, AvatarRootProps } from './types';
+import type { FallbackProps, FallbackRef, ImageProps, ImageRef, RootProps, RootRef } from './types';
 
 type AvatarState = 'loading' | 'error' | 'loaded';
 
-interface IRootContext extends AvatarRootProps {
+interface IRootContext extends RootProps {
   status: AvatarState;
   setStatus: (status: AvatarState) => void;
 }
 
 const RootContext = React.createContext<IRootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, AvatarRootProps>(({ asChild, alt, ...viewProps }, ref) => {
+const Root = React.forwardRef<RootRef, RootProps>(({ asChild, alt, ...viewProps }, ref) => {
   const [status, setStatus] = React.useState<AvatarState>('error');
   const Component = asChild ? Slot.View : View;
   return (
@@ -41,7 +40,7 @@ function useRootContext() {
   return context;
 }
 
-const Image = React.forwardRef<React.ElementRef<typeof RNImage>, AvatarImageProps>(
+const Image = React.forwardRef<ImageRef, ImageProps>(
   (
     { asChild, onLoad: onLoadProps, onError: onErrorProps, onLoadingStatusChange, ...props },
     ref
@@ -87,7 +86,7 @@ const Image = React.forwardRef<React.ElementRef<typeof RNImage>, AvatarImageProp
 
 Image.displayName = 'ImageAvatar';
 
-const Fallback = React.forwardRef<ViewRef, AvatarFallbackProps>(({ asChild, ...props }, ref) => {
+const Fallback = React.forwardRef<FallbackRef, FallbackProps>(({ asChild, ...props }, ref) => {
   const { alt, status } = useRootContext();
 
   if (status !== 'error') {
