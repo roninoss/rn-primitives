@@ -1,24 +1,38 @@
 import type {
+  PressableRef,
   SlottablePressableProps,
   SlottableTextProps,
   SlottableViewProps,
+  TextRef,
+  ViewRef,
 } from '@rn-primitives/types';
 
-type ToastRootProps = SlottableViewProps & {
+type RootProps = SlottableViewProps & {
   open: boolean;
   onOpenChange: (value: boolean) => void;
   type?: 'foreground' | 'background';
 };
 
-type ToastCloseProps = SlottablePressableProps;
-type ToastActionProps = SlottablePressableProps;
-type ToastTitleProps = SlottableTextProps;
-type ToastDescriptionProps = SlottableTextProps;
+type CloseProps = SlottablePressableProps;
+type ActionProps = SlottablePressableProps;
+type TitleProps = SlottableTextProps;
+type DescriptionProps = SlottableTextProps;
+
+type RootRef = ViewRef;
+type CloseRef = PressableRef;
+type ActionRef = PressableRef;
+type TitleRef = TextRef;
+type DescriptionRef = TextRef;
 
 export type {
-  ToastActionProps,
-  ToastCloseProps,
-  ToastDescriptionProps,
-  ToastRootProps,
-  ToastTitleProps,
+  ActionProps,
+  ActionRef,
+  CloseProps,
+  CloseRef,
+  DescriptionProps,
+  DescriptionRef,
+  RootProps,
+  RootRef,
+  TitleProps,
+  TitleRef,
 };
