@@ -1,22 +1,21 @@
+import * as Slot from '@rn-primitives/slot';
+import type { PressableRef, TextRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, Text, View, type GestureResponderEvent } from 'react-native';
-import * as Slot from '@rn-primitives/slot';
 import type {
-  PressableRef,
-  SlottablePressableProps,
-  SlottableTextProps,
-  SlottableViewProps,
-  TextRef,
-  ViewRef,
-} from '@rn-primitives/types';
-import type { ToastRootProps } from './types';
+  ToastActionProps,
+  ToastCloseProps,
+  ToastDescriptionProps,
+  ToastRootProps,
+  ToastTitleProps,
+} from './types';
 
 interface RootContext extends ToastRootProps {
   nativeID: string;
 }
 const ToastContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & ToastRootProps>(
+const Root = React.forwardRef<ViewRef, ToastRootProps>(
   ({ asChild, type = 'foreground', open, onOpenChange, ...viewProps }, ref) => {
     const nativeID = React.useId();
 
@@ -55,7 +54,7 @@ function useToastContext() {
   return context;
 }
 
-const Close = React.forwardRef<PressableRef, SlottablePressableProps>(
+const Close = React.forwardRef<PressableRef, ToastCloseProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { onOpenChange } = useToastContext();
 
@@ -81,7 +80,7 @@ const Close = React.forwardRef<PressableRef, SlottablePressableProps>(
 
 Close.displayName = 'CloseToast';
 
-const Action = React.forwardRef<PressableRef, SlottablePressableProps>(
+const Action = React.forwardRef<PressableRef, ToastActionProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { onOpenChange } = useToastContext();
 
@@ -107,7 +106,7 @@ const Action = React.forwardRef<PressableRef, SlottablePressableProps>(
 
 Action.displayName = 'ActionToast';
 
-const Title = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props }, ref) => {
+const Title = React.forwardRef<TextRef, ToastTitleProps>(({ asChild, ...props }, ref) => {
   const { nativeID } = useToastContext();
 
   const Component = asChild ? Slot.Text : Text;
@@ -116,12 +115,14 @@ const Title = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props
 
 Title.displayName = 'TitleToast';
 
-const Description = React.forwardRef<TextRef, SlottableTextProps>(({ asChild, ...props }, ref) => {
-  const { nativeID } = useToastContext();
+const Description = React.forwardRef<TextRef, ToastDescriptionProps>(
+  ({ asChild, ...props }, ref) => {
+    const { nativeID } = useToastContext();
 
-  const Component = asChild ? Slot.Text : Text;
-  return <Component ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
-});
+    const Component = asChild ? Slot.Text : Text;
+    return <Component ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
+  }
+);
 
 Description.displayName = 'DescriptionToast';
 
