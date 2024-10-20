@@ -90,6 +90,19 @@ type SelectSeparatorProps = SlottableViewProps & {
   decorative?: boolean;
 };
 
+/**
+ * PLATFORM: WEB ONLY
+ */
+type SelectScrollUpButtonProps = React.ComponentPropsWithoutRef<'div'>;
+/**
+ * PLATFORM: WEB ONLY
+ */
+type SelectScrollDownButtonProps = React.ComponentPropsWithoutRef<'div'>;
+/**
+ * PLATFORM: WEB ONLY
+ */
+type SelectViewportProps = React.ComponentPropsWithoutRef<'div'>;
+
 export type {
   Option,
   SelectContentProps,
@@ -102,8 +115,11 @@ export type {
   SelectPortalProps,
   SelectRootContext,
   SelectRootProps,
+  SelectScrollDownButtonProps,
+  SelectScrollUpButtonProps,
   SelectSeparatorProps,
   SelectTriggerProps,
   SelectTriggerRef,
   SelectValueProps,
+  SelectViewportProps,
 };

@@ -19,9 +19,12 @@ import type {
   SelectPortalProps,
   SelectRootContext,
   SelectRootProps,
+  SelectScrollDownButtonProps,
+  SelectScrollUpButtonProps,
   SelectSeparatorProps,
   SelectTriggerProps,
   SelectValueProps,
+  SelectViewportProps,
 } from './types';
 
 const SelectContext = React.createContext<
@@ -299,17 +302,15 @@ const Separator = React.forwardRef<ViewRef, SelectSeparatorProps>(
 
 Separator.displayName = 'SeparatorWebSelect';
 
-const ScrollUpButton = (props: React.ComponentPropsWithoutRef<typeof Select.ScrollUpButton>) => {
+const ScrollUpButton = (props: SelectScrollUpButtonProps) => {
   return <Select.ScrollUpButton {...props} />;
 };
 
-const ScrollDownButton = (
-  props: React.ComponentPropsWithoutRef<typeof Select.ScrollDownButton>
-) => {
+const ScrollDownButton = (props: SelectScrollDownButtonProps) => {
   return <Select.ScrollDownButton {...props} />;
 };
 
-const Viewport = (props: React.ComponentPropsWithoutRef<typeof Select.Viewport>) => {
+const Viewport = (props: SelectViewportProps) => {
   return <Select.Viewport {...props} />;
 };
 

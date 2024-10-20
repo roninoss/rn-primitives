@@ -28,10 +28,13 @@ import type {
   SelectPortalProps,
   SelectRootContext,
   SelectRootProps,
+  SelectScrollDownButtonProps,
+  SelectScrollUpButtonProps,
   SelectSeparatorProps,
   SelectTriggerProps,
   SelectTriggerRef,
   SelectValueProps,
+  SelectViewportProps,
 } from './types';
 
 interface IRootContext extends SelectRootContext {
@@ -420,15 +423,15 @@ const Separator = React.forwardRef<ViewRef, SelectSeparatorProps>(
 
 Separator.displayName = 'SeparatorNativeSelect';
 
-const ScrollUpButton = ({ children }: { children?: React.ReactNode; className?: string }) => {
+const ScrollUpButton = ({ children }: SelectScrollUpButtonProps) => {
   return <>{children}</>;
 };
 
-const ScrollDownButton = ({ children }: { children?: React.ReactNode; className?: string }) => {
+const ScrollDownButton = ({ children }: SelectScrollDownButtonProps) => {
   return <>{children}</>;
 };
 
-const Viewport = ({ children }: { children?: React.ReactNode; className?: string }) => {
+const Viewport = ({ children }: SelectViewportProps) => {
   return <>{children}</>;
 };
 
