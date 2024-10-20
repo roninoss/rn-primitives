@@ -88,7 +88,6 @@ type ItemIndicatorRef = ViewRef;
 type ItemRef = PressableRef;
 type LabelRef = TextRef;
 type OverlayRef = PressableRef;
-type PortalRef = ViewRef;
 type RadioGroupRef = ViewRef;
 type RadioItemRef = PressableRef;
 type RootRef = ViewRef;
@@ -123,7 +122,6 @@ export type {
   OverlayProps,
   OverlayRef,
   PortalProps,
-  PortalRef,
   RadioGroupProps,
   RadioGroupRef,
   RadioItemProps,

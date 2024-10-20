@@ -70,7 +70,6 @@ type CloseRef = PressableRef;
 type ContentRef = ViewRef;
 type DescriptionRef = TextRef;
 type OverlayRef = PressableRef;
-type PortalRef = ViewRef;
 type RootRef = ViewRef;
 type TitleRef = TextRef;
 type TriggerRef = PressableRef;
@@ -85,7 +84,6 @@ export type {
   OverlayProps,
   OverlayRef,
   PortalProps,
-  PortalRef,
   RootContext,
   RootProps,
   RootRef,
