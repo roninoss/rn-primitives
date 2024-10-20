@@ -1,16 +1,18 @@
+import * as Slot from '@rn-primitives/slot';
+import type { PressableRef, ViewRef } from '@rn-primitives/types';
+import { ToggleGroupUtils } from '@rn-primitives/utils';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import * as Slot from '@rn-primitives/slot';
 import type {
-  PressableRef,
-  SlottablePressableProps,
-  SlottableViewProps,
-  ViewRef,
-} from '@rn-primitives/types';
-import { ToggleGroupUtils } from '@rn-primitives/utils';
-import type { ToolbarRootProps, ToolbarToggleGroupProps, ToolbarToggleItem } from './types';
+  ToolbarButtonProps,
+  ToolbarLinkProps,
+  ToolbarRootProps,
+  ToolbarSeparatorProps,
+  ToolbarToggleGroupProps,
+  ToolbarToggleItem,
+} from './types';
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps & ToolbarRootProps>(
+const Root = React.forwardRef<ViewRef, ToolbarRootProps>(
   ({ asChild, orientation: _orientation, dir: _dir, loop: _loop, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} role='toolbar' {...props} />;
@@ -21,7 +23,7 @@ Root.displayName = 'RootNativeToolbar';
 
 const ToggleGroupContext = React.createContext<ToolbarToggleGroupProps | null>(null);
 
-const ToggleGroup = React.forwardRef<ViewRef, SlottableViewProps & ToolbarToggleGroupProps>(
+const ToggleGroup = React.forwardRef<ViewRef, ToolbarToggleGroupProps>(
   ({ asChild, type, value, onValueChange, disabled = false, ...viewProps }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
@@ -53,7 +55,7 @@ function useToggleGroupContext() {
   return context;
 }
 
-const ToggleItem = React.forwardRef<PressableRef, SlottablePressableProps & ToolbarToggleItem>(
+const ToggleItem = React.forwardRef<PressableRef, ToolbarToggleItem>(
   (
     { asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props },
     ref
@@ -99,27 +101,23 @@ const ToggleItem = React.forwardRef<PressableRef, SlottablePressableProps & Tool
 
 ToggleItem.displayName = 'ToggleItemNativeToolbar';
 
-const Separator = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+const Separator = React.forwardRef<ViewRef, ToolbarSeparatorProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component role={'separator'} ref={ref} {...props} />;
 });
 
 Separator.displayName = 'SeparatorNativeToolbar';
 
-const Link = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, ...props }, ref) => {
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} role='link' {...props} />;
-  }
-);
+const Link = React.forwardRef<PressableRef, ToolbarLinkProps>(({ asChild, ...props }, ref) => {
+  const Component = asChild ? Slot.Pressable : Pressable;
+  return <Component ref={ref} role='link' {...props} />;
+});
 
 Link.displayName = 'LinkNativeToolbar';
 
-const Button = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, ...props }, ref) => {
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} role='button' {...props} />;
-  }
-);
+const Button = React.forwardRef<PressableRef, ToolbarButtonProps>(({ asChild, ...props }, ref) => {
+  const Component = asChild ? Slot.Pressable : Pressable;
+  return <Component ref={ref} role='button' {...props} />;
+});
 
 export { Button, Link, Root, Separator, ToggleGroup, ToggleItem };
