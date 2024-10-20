@@ -1,5 +1,3 @@
-import * as React from 'react';
-import { Pressable, View } from 'react-native';
 import * as Slot from '@rn-primitives/slot';
 import type {
   PressableRef,
@@ -7,49 +5,72 @@ import type {
   SlottableViewProps,
   ViewRef,
 } from '@rn-primitives/types';
+import * as React from 'react';
+import { Pressable, View } from 'react-native';
 
-const Root = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+type TableRootProps = SlottableViewProps;
+
+const Root = React.forwardRef<ViewRef, TableRootProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component role='table' ref={ref} {...props} />;
 });
 Root.displayName = 'RootTable';
 
-const Header = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+type TableHeaderProps = SlottableViewProps;
+
+const Header = React.forwardRef<ViewRef, TableHeaderProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component role='rowheader' ref={ref} {...props} />;
 });
 Header.displayName = 'HeaderTable';
 
-const Row = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, ...props }, ref) => {
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} role='row' {...props} />;
-  }
-);
+type TableRowProps = SlottablePressableProps;
+
+const Row = React.forwardRef<PressableRef, TableRowProps>(({ asChild, ...props }, ref) => {
+  const Component = asChild ? Slot.Pressable : Pressable;
+  return <Component ref={ref} role='row' {...props} />;
+});
 Row.displayName = 'RowTable';
 
-const Head = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+type TableHeadProps = SlottableViewProps;
+
+const Head = React.forwardRef<ViewRef, TableHeadProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='columnheader' {...props} />;
 });
 Head.displayName = 'HeadTable';
 
-const Body = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+type TableBodyProps = SlottableViewProps;
+
+const Body = React.forwardRef<ViewRef, TableBodyProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='rowgroup' {...props} />;
 });
 Body.displayName = 'BodyTable';
 
-const Cell = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+type TableCellProps = SlottableViewProps;
+
+const Cell = React.forwardRef<ViewRef, TableCellProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='cell' {...props} />;
 });
 Cell.displayName = 'CellTable';
 
-const Footer = React.forwardRef<ViewRef, SlottableViewProps>(({ asChild, ...props }, ref) => {
+type TableFooterProps = SlottableViewProps;
+
+const Footer = React.forwardRef<ViewRef, TableFooterProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='rowgroup' {...props} />;
 });
 Footer.displayName = 'FooterTable';
 
 export { Body, Cell, Footer, Head, Header, Root, Row };
+export type {
+  TableBodyProps,
+  TableCellProps,
+  TableFooterProps,
+  TableHeaderProps,
+  TableHeadProps,
+  TableRootProps,
+  TableRowProps,
+};
