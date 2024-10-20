@@ -1,11 +1,14 @@
 import type {
   ForceMountable,
   PositionedContentProps,
+  PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
+  ViewRef,
 } from '@rn-primitives/types';
+import type { ViewProps } from 'react-native';
 
-type NavigationMenuRootProps = SlottableViewProps & {
+type RootProps = SlottableViewProps & {
   value: string | undefined;
   onValueChange: (value: string | undefined) => void;
   /**
@@ -26,11 +29,11 @@ type NavigationMenuRootProps = SlottableViewProps & {
   orientation?: 'horizontal' | 'vertical';
 };
 
-type NavigationMenuItemProps = SlottableViewProps & {
+type ItemProps = SlottableViewProps & {
   value: string | undefined;
 };
 
-interface NavigationMenuPortalProps extends ForceMountable {
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -42,22 +45,41 @@ interface NavigationMenuPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-type NavigationMenuLinkProps = SlottablePressableProps & {
+type LinkProps = SlottablePressableProps & {
   active?: boolean;
 };
 
-type NavigationMenuListProps = SlottableViewProps;
-type NavigationMenuTriggerProps = SlottablePressableProps;
-type NavigationMenuContentProps = SlottableViewProps & PositionedContentProps;
-type NavigationMenuIndicatorProps = SlottableViewProps;
+type ListProps = SlottableViewProps;
+type TriggerProps = SlottablePressableProps;
+type ContentProps = SlottableViewProps & PositionedContentProps;
+type IndicatorProps = SlottableViewProps;
+type ViewportProps = Omit<ViewProps, 'children'>;
+
+type ContentRef = ViewRef;
+type IndicatorRef = ViewRef;
+type ItemRef = ViewRef;
+type LinkRef = PressableRef;
+type ListRef = ViewRef;
+type RootRef = ViewRef;
+type ViewportRef = ViewRef;
+type TriggerRef = PressableRef;
 
 export type {
-  NavigationMenuContentProps,
-  NavigationMenuIndicatorProps,
-  NavigationMenuItemProps,
-  NavigationMenuLinkProps,
-  NavigationMenuListProps,
-  NavigationMenuPortalProps,
-  NavigationMenuRootProps,
-  NavigationMenuTriggerProps,
+  ContentProps,
+  ContentRef,
+  IndicatorProps,
+  IndicatorRef,
+  ItemProps,
+  ItemRef,
+  LinkProps,
+  LinkRef,
+  ListProps,
+  ListRef,
+  PortalProps,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+  ViewportProps,
+  ViewportRef,
 };
