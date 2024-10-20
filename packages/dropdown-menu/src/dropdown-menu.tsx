@@ -6,7 +6,6 @@ import {
 } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, TextRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import {
   BackHandler,
@@ -18,23 +17,37 @@ import {
   type LayoutRectangle,
 } from 'react-native';
 import type {
-  DropdownMenuCheckboxItemProps,
-  DropdownMenuContentProps,
-  DropdownMenuGroupProps,
-  DropdownMenuItemIndicatorProps,
-  DropdownMenuItemProps,
-  DropdownMenuLabelProps,
-  DropdownMenuOverlayProps,
-  DropdownMenuPortalProps,
-  DropdownMenuRadioGroupProps,
-  DropdownMenuRadioItemProps,
-  DropdownMenuRootProps,
-  DropdownMenuSeparatorProps,
-  DropdownMenuSubContentProps,
-  DropdownMenuSubProps,
-  DropdownMenuSubTriggerProps,
-  DropdownMenuTriggerProps,
-  DropdownMenuTriggerRef,
+  CheckboxItemProps,
+  CheckboxItemRef,
+  ContentProps,
+  ContentRef,
+  GroupProps,
+  GroupRef,
+  ItemIndicatorProps,
+  ItemIndicatorRef,
+  ItemProps,
+  ItemRef,
+  LabelProps,
+  LabelRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RadioGroupProps,
+  RadioGroupRef,
+  RadioItemProps,
+  RadioItemRef,
+  RootProps,
+  RootRef,
+  SeparatorProps,
+  SeparatorRef,
+  SubContentProps,
+  SubContentRef,
+  SubProps,
+  SubRef,
+  SubTriggerProps,
+  SubTriggerRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
 interface IRootContext {
@@ -49,7 +62,7 @@ interface IRootContext {
 
 const RootContext = React.createContext<IRootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, DropdownMenuRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
     const nativeID = React.useId();
     const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
@@ -92,7 +105,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<DropdownMenuTriggerRef, DropdownMenuTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { open, onOpenChange, setTriggerPosition } = useRootContext();
 
@@ -142,7 +155,7 @@ Trigger.displayName = 'TriggerNativeDropdownMenu';
 /**
  * @warning when using a custom `<PortalHost />`, you might have to adjust the Content's sideOffset to account for nav elements like headers.
  */
-function Portal({ forceMount, hostName, children }: DropdownMenuPortalProps) {
+function Portal({ forceMount, hostName, children }: PortalProps) {
   const value = useRootContext();
 
   if (!value.triggerPosition) {
@@ -162,7 +175,7 @@ function Portal({ forceMount, hostName, children }: DropdownMenuPortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<PressableRef, DropdownMenuOverlayProps>(
+const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props }, ref) => {
     const { open, onOpenChange, setContentLayout, setTriggerPosition } = useRootContext();
 
@@ -191,7 +204,7 @@ Overlay.displayName = 'OverlayNativeDropdownMenu';
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<PressableRef, DropdownMenuContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   (
     {
       asChild = false,
@@ -273,7 +286,7 @@ const Content = React.forwardRef<PressableRef, DropdownMenuContentProps>(
 
 Content.displayName = 'ContentNativeDropdownMenu';
 
-const Item = React.forwardRef<PressableRef, DropdownMenuItemProps>(
+const Item = React.forwardRef<ItemRef, ItemProps>(
   (
     { asChild, textValue, onPress: onPressProp, disabled = false, closeOnPress = true, ...props },
     ref
@@ -307,14 +320,14 @@ const Item = React.forwardRef<PressableRef, DropdownMenuItemProps>(
 
 Item.displayName = 'ItemNativeDropdownMenu';
 
-const Group = React.forwardRef<ViewRef, DropdownMenuGroupProps>(({ asChild, ...props }, ref) => {
+const Group = React.forwardRef<GroupRef, GroupProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='group' {...props} />;
 });
 
 Group.displayName = 'GroupNativeDropdownMenu';
 
-const Label = React.forwardRef<TextRef, DropdownMenuLabelProps>(({ asChild, ...props }, ref) => {
+const Label = React.forwardRef<LabelRef, LabelProps>(({ asChild, ...props }, ref) => {
   const Component = asChild ? Slot.Text : Text;
   return <Component ref={ref} {...props} />;
 });
@@ -330,7 +343,7 @@ type FormItemContext =
 
 const FormItemContext = React.createContext<FormItemContext | null>(null);
 
-const CheckboxItem = React.forwardRef<PressableRef, DropdownMenuCheckboxItemProps>(
+const CheckboxItem = React.forwardRef<CheckboxItemRef, CheckboxItemProps>(
   (
     {
       asChild,
@@ -387,7 +400,7 @@ function useFormItemContext() {
   return context;
 }
 
-const RadioGroup = React.forwardRef<ViewRef, DropdownMenuRadioGroupProps>(
+const RadioGroup = React.forwardRef<RadioGroupRef, RadioGroupProps>(
   ({ asChild, value, onValueChange, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
@@ -406,7 +419,7 @@ type BothFormItemContext = Exclude<FormItemContext, { checked: boolean }> & {
 
 const RadioItemContext = React.createContext({} as { itemValue: string });
 
-const RadioItem = React.forwardRef<PressableRef, DropdownMenuRadioItemProps>(
+const RadioItem = React.forwardRef<RadioItemRef, RadioItemProps>(
   (
     {
       asChild,
@@ -459,7 +472,7 @@ function useItemIndicatorContext() {
   return React.useContext(RadioItemContext);
 }
 
-const ItemIndicator = React.forwardRef<ViewRef, DropdownMenuItemIndicatorProps>(
+const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const { itemValue } = useItemIndicatorContext();
     const { checked, value } = useFormItemContext() as BothFormItemContext;
@@ -479,7 +492,7 @@ const ItemIndicator = React.forwardRef<ViewRef, DropdownMenuItemIndicatorProps>(
 
 ItemIndicator.displayName = 'ItemIndicatorNativeDropdownMenu';
 
-const Separator = React.forwardRef<ViewRef, DropdownMenuSeparatorProps>(
+const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
   ({ asChild, decorative, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
     return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
@@ -494,7 +507,7 @@ const SubContext = React.createContext<{
   onOpenChange: (value: boolean) => void;
 } | null>(null);
 
-const Sub = React.forwardRef<ViewRef, DropdownMenuSubProps>(
+const Sub = React.forwardRef<SubRef, SubProps>(
   ({ asChild, defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, ...props }, ref) => {
     const nativeID = React.useId();
     const [open = false, onOpenChange] = useControllableState({
@@ -528,7 +541,7 @@ function useSubContext() {
   return context;
 }
 
-const SubTrigger = React.forwardRef<PressableRef, DropdownMenuSubTriggerProps>(
+const SubTrigger = React.forwardRef<SubTriggerRef, SubTriggerProps>(
   ({ asChild, textValue, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { nativeID, open, onOpenChange } = useSubContext();
 
@@ -557,7 +570,7 @@ const SubTrigger = React.forwardRef<PressableRef, DropdownMenuSubTriggerProps>(
 
 SubTrigger.displayName = 'SubTriggerNativeDropdownMenu';
 
-const SubContent = React.forwardRef<PressableRef, DropdownMenuSubContentProps>(
+const SubContent = React.forwardRef<SubContentRef, SubContentProps>(
   ({ asChild = false, forceMount, ...props }, ref) => {
     const { open, nativeID } = useSubContext();
 
@@ -594,5 +607,3 @@ export {
   useRootContext,
   useSubContext,
 };
-
-export type { DropdownMenuTriggerRef };
