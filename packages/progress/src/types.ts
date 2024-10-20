@@ -1,7 +1,11 @@
-interface ProgressRootProps {
+import { SlottableViewProps } from '@rn-primitives/types';
+
+type ProgressRootProps = SlottableViewProps & {
   value?: number | null | undefined;
   max?: number;
   getValueLabel?(value: number, max: number): string;
-}
+};
 
-export type { ProgressRootProps };
+type ProgressIndicatorProps = SlottableViewProps;
+
+export type { ProgressIndicatorProps, ProgressRootProps };
