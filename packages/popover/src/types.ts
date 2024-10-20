@@ -4,10 +4,11 @@ import type {
   PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
+  ViewRef,
 } from '@rn-primitives/types';
 
-type PopoverRootProps = SlottableViewProps & { onOpenChange?: (open: boolean) => void };
-interface PopoverPortalProps extends ForceMountable {
+type RootProps = SlottableViewProps & { onOpenChange?: (open: boolean) => void };
+interface PortalProps extends ForceMountable {
   children: React.ReactNode;
   /**
    * Platform: NATIVE ONLY
@@ -19,32 +20,40 @@ interface PopoverPortalProps extends ForceMountable {
   container?: HTMLElement | null | undefined;
 }
 
-type PopoverOverlayProps = ForceMountable &
+type OverlayProps = ForceMountable &
   SlottablePressableProps & {
     closeOnPress?: boolean;
   };
 
-interface PopoverTriggerRef extends PressableRef {
-  open: () => void;
-  close: () => void;
-}
-
-type PopoverTriggerProps = SlottablePressableProps;
-type PopoverContentProps = SlottableViewProps &
+type TriggerProps = SlottablePressableProps;
+type ContentProps = SlottableViewProps &
   PositionedContentProps & {
     /**
      * Platform: WEB ONLY
      */
     onOpenAutoFocus?: (event: Event) => void;
   };
-type PopoverCloseProps = SlottablePressableProps;
+type CloseProps = SlottablePressableProps;
+
+type CloseRef = PressableRef;
+type ContentRef = ViewRef;
+type OverlayRef = PressableRef;
+type RootRef = ViewRef;
+type TriggerRef = PressableRef & {
+  open: () => void;
+  close: () => void;
+};
 
 export type {
-  PopoverCloseProps,
-  PopoverContentProps,
-  PopoverOverlayProps,
-  PopoverPortalProps,
-  PopoverRootProps,
-  PopoverTriggerProps,
-  PopoverTriggerRef,
+  CloseProps,
+  CloseRef,
+  ContentProps,
+  ContentRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 };

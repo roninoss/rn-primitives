@@ -1,17 +1,20 @@
 import * as Popover from '@radix-ui/react-popover';
 import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type {
-  PopoverCloseProps,
-  PopoverContentProps,
-  PopoverOverlayProps,
-  PopoverPortalProps,
-  PopoverRootProps,
-  PopoverTriggerProps,
-  PopoverTriggerRef,
+  CloseProps,
+  CloseRef,
+  ContentProps,
+  ContentRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
 const RootContext = React.createContext<{
@@ -19,25 +22,24 @@ const RootContext = React.createContext<{
   onOpenChange: (open: boolean) => void;
 } | null>(null);
 
-const Root = React.forwardRef<
-  ViewRef,
-  PopoverRootProps & { onOpenChange?: (open: boolean) => void }
->(({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
-  const [open, setOpen] = React.useState(false);
+const Root = React.forwardRef<RootRef, RootProps & { onOpenChange?: (open: boolean) => void }>(
+  ({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
+    const [open, setOpen] = React.useState(false);
 
-  function onOpenChange(value: boolean) {
-    setOpen(value);
-    onOpenChangeProp?.(value);
+    function onOpenChange(value: boolean) {
+      setOpen(value);
+      onOpenChangeProp?.(value);
+    }
+    const Component = asChild ? Slot.View : View;
+    return (
+      <RootContext.Provider value={{ open, onOpenChange }}>
+        <Popover.Root open={open} onOpenChange={onOpenChange}>
+          <Component ref={ref} {...viewProps} />
+        </Popover.Root>
+      </RootContext.Provider>
+    );
   }
-  const Component = asChild ? Slot.View : View;
-  return (
-    <RootContext.Provider value={{ open, onOpenChange }}>
-      <Popover.Root open={open} onOpenChange={onOpenChange}>
-        <Component ref={ref} {...viewProps} />
-      </Popover.Root>
-    </RootContext.Provider>
-  );
-});
+);
 
 Root.displayName = 'RootWebPopover';
 
@@ -49,7 +51,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PopoverTriggerRef, PopoverTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, role: _role, disabled, ...props }, ref) => {
     const { onOpenChange, open } = useRootContext();
     const augmentedRef = useAugmentedRef({
@@ -95,11 +97,11 @@ const Trigger = React.forwardRef<PopoverTriggerRef, PopoverTriggerProps>(
 
 Trigger.displayName = 'TriggerWebPopover';
 
-function Portal({ forceMount, container, children }: PopoverPortalProps) {
+function Portal({ forceMount, container, children }: PortalProps) {
   return <Popover.Portal forceMount={forceMount} children={children} container={container} />;
 }
 
-const Overlay = React.forwardRef<PressableRef, PopoverOverlayProps>(
+const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} {...props} />;
@@ -108,7 +110,7 @@ const Overlay = React.forwardRef<PressableRef, PopoverOverlayProps>(
 
 Overlay.displayName = 'OverlayWebPopover';
 
-const Content = React.forwardRef<ViewRef, PopoverContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   (
     {
       asChild = false,
@@ -152,7 +154,7 @@ const Content = React.forwardRef<ViewRef, PopoverContentProps>(
 
 Content.displayName = 'ContentWebPopover';
 
-const Close = React.forwardRef<PressableRef, PopoverCloseProps>(
+const Close = React.forwardRef<CloseRef, CloseProps>(
   ({ asChild, onPress: onPressProp, disabled, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { onOpenChange, open } = useRootContext();
@@ -191,5 +193,3 @@ const Close = React.forwardRef<PressableRef, PopoverCloseProps>(
 Close.displayName = 'CloseWebPopover';
 
 export { Close, Content, Overlay, Portal, Root, Trigger, useRootContext };
-
-export type { PopoverTriggerRef };

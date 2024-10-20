@@ -1,7 +1,6 @@
 import { useAugmentedRef, useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import {
   BackHandler,
@@ -12,13 +11,17 @@ import {
   type LayoutRectangle,
 } from 'react-native';
 import type {
-  PopoverCloseProps,
-  PopoverContentProps,
-  PopoverOverlayProps,
-  PopoverPortalProps,
-  PopoverRootProps,
-  PopoverTriggerProps,
-  PopoverTriggerRef,
+  CloseProps,
+  CloseRef,
+  ContentProps,
+  ContentRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
 interface IRootContext {
@@ -33,7 +36,7 @@ interface IRootContext {
 
 const RootContext = React.createContext<IRootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, PopoverRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
     const nativeID = React.useId();
     const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
@@ -74,7 +77,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PopoverTriggerRef, PopoverTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { onOpenChange, open, setTriggerPosition } = useRootContext();
 
@@ -122,7 +125,7 @@ Trigger.displayName = 'TriggerNativePopover';
 /**
  * @warning when using a custom `<PortalHost />`, you might have to adjust the Content's sideOffset to account for nav elements like headers.
  */
-function Portal({ forceMount, hostName, children }: PopoverPortalProps) {
+function Portal({ forceMount, hostName, children }: PortalProps) {
   const value = useRootContext();
 
   if (!value.triggerPosition) {
@@ -142,7 +145,7 @@ function Portal({ forceMount, hostName, children }: PopoverPortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<PressableRef, PopoverOverlayProps>(
+const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props }, ref) => {
     const { open, onOpenChange, setTriggerPosition, setContentLayout } = useRootContext();
 
@@ -171,7 +174,7 @@ Overlay.displayName = 'OverlayNativePopover';
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ViewRef, PopoverContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   (
     {
       asChild = false,
@@ -255,7 +258,7 @@ const Content = React.forwardRef<ViewRef, PopoverContentProps>(
 
 Content.displayName = 'ContentNativePopover';
 
-const Close = React.forwardRef<PressableRef, PopoverCloseProps>(
+const Close = React.forwardRef<CloseRef, CloseProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { onOpenChange, setContentLayout, setTriggerPosition } = useRootContext();
 
@@ -284,8 +287,6 @@ const Close = React.forwardRef<PressableRef, PopoverCloseProps>(
 Close.displayName = 'CloseNativePopover';
 
 export { Close, Content, Overlay, Portal, Root, Trigger, useRootContext };
-
-export type { PopoverTriggerRef };
 
 function onStartShouldSetResponder() {
   return true;
