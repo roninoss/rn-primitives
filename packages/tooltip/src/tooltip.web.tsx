@@ -1,16 +1,18 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type {
-  TooltipContentProps,
-  TooltipOverlayProps,
-  TooltipPortalProps,
-  TooltipRootProps,
-  TooltipTriggerProps,
-  TooltipTriggerRef,
+  ContentProps,
+  ContentRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
 const RootContext = React.createContext<{
@@ -18,7 +20,7 @@ const RootContext = React.createContext<{
   onOpenChange: (open: boolean) => void;
 } | null>(null);
 
-const Root = React.forwardRef<ViewRef, TooltipRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -69,7 +71,7 @@ function useTooltipContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TooltipTriggerRef, TooltipTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, role: _role, disabled, ...props }, ref) => {
     const { onOpenChange, open } = useTooltipContext();
     const augmentedRef = useAugmentedRef({
@@ -115,11 +117,11 @@ const Trigger = React.forwardRef<TooltipTriggerRef, TooltipTriggerProps>(
 
 Trigger.displayName = 'TriggerWebTooltip';
 
-function Portal({ forceMount, container, children }: TooltipPortalProps) {
+function Portal({ forceMount, container, children }: PortalProps) {
   return <Tooltip.Portal forceMount={forceMount} children={children} container={container} />;
 }
 
-const Overlay = React.forwardRef<PressableRef, TooltipOverlayProps>(
+const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} {...props} />;
@@ -128,7 +130,7 @@ const Overlay = React.forwardRef<PressableRef, TooltipOverlayProps>(
 
 Overlay.displayName = 'OverlayWebTooltip';
 
-const Content = React.forwardRef<ViewRef, TooltipContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   (
     {
       asChild = false,
@@ -173,5 +175,3 @@ const Content = React.forwardRef<ViewRef, TooltipContentProps>(
 Content.displayName = 'ContentWebTooltip';
 
 export { Content, Overlay, Portal, Root, Trigger };
-
-export type { TooltipTriggerRef };
