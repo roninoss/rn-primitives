@@ -5,20 +5,24 @@ import {
   useIsomorphicLayoutEffect,
 } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
 import type {
-  AccordionContentProps,
-  AccordionHeaderProps,
-  AccordionItemProps,
-  AccordionRootProps,
-  AccordionTriggerProps,
+  ContentProps,
+  ContentRef,
+  HeaderProps,
+  HeaderRef,
+  ItemProps,
+  ItemRef,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
 
-const AccordionContext = React.createContext<AccordionRootProps | null>(null);
+const AccordionContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<ViewRef, AccordionRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -53,7 +57,7 @@ const Root = React.forwardRef<ViewRef, AccordionRootProps>(
             disabled,
             dir,
             orientation,
-          } as AccordionRootProps
+          } as RootProps
         }
       >
         <Accordion.Root
@@ -85,11 +89,11 @@ function useRootContext() {
   return context;
 }
 
-const AccordionItemContext = React.createContext<
-  (AccordionItemProps & { isExpanded: boolean }) | null
->(null);
+const AccordionItemContext = React.createContext<(ItemProps & { isExpanded: boolean }) | null>(
+  null
+);
 
-const Item = React.forwardRef<ViewRef, AccordionItemProps>(
+const Item = React.forwardRef<ItemRef, ItemProps>(
   ({ asChild, value: itemValue, disabled, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
     const { value, orientation, disabled: disabledRoot } = useRootContext();
@@ -143,7 +147,7 @@ function useItemContext() {
   return context;
 }
 
-const Header = React.forwardRef<ViewRef, AccordionHeaderProps>(({ asChild, ...props }, ref) => {
+const Header = React.forwardRef<HeaderRef, HeaderProps>(({ asChild, ...props }, ref) => {
   const augmentedRef = useAugmentedRef({ ref });
   const { disabled, isExpanded } = useItemContext();
   const { orientation, disabled: disabledRoot } = useRootContext();
@@ -185,7 +189,7 @@ const HIDDEN_STYLE: React.CSSProperties = {
   opacity: 0,
 };
 
-const Trigger = React.forwardRef<PressableRef, AccordionTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, disabled: disabledProp, ...props }, ref) => {
     const { disabled: disabledRoot } = useRootContext();
     const { disabled, isExpanded } = useItemContext();
@@ -246,7 +250,7 @@ const Trigger = React.forwardRef<PressableRef, AccordionTriggerProps>(
 
 Trigger.displayName = 'TriggerWebAccordion';
 
-const Content = React.forwardRef<ViewRef, AccordionContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const augmentedRef = useAugmentedRef({ ref });
 

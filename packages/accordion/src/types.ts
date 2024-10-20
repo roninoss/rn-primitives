@@ -1,7 +1,9 @@
 import type {
   ForceMountable,
+  PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
+  ViewRef,
 } from '@rn-primitives/types';
 
 type RootContext = {
@@ -26,7 +28,7 @@ type MultipleRootProps = {
   onValueChange?: (value: string[]) => void;
 };
 
-type AccordionRootProps = (SingleRootProps | MultipleRootProps) & {
+type RootProps = (SingleRootProps | MultipleRootProps) & {
   defaultValue?: string | string[];
   disabled?: boolean;
   collapsible?: boolean;
@@ -40,20 +42,32 @@ type AccordionRootProps = (SingleRootProps | MultipleRootProps) & {
   orientation?: 'vertical' | 'horizontal';
 } & SlottableViewProps;
 
-type AccordionItemProps = {
+type RootRef = ViewRef;
+
+type ItemProps = {
   value: string;
   disabled?: boolean;
 } & SlottableViewProps;
 
-type AccordionContentProps = ForceMountable & SlottableViewProps;
-type AccordionHeaderProps = SlottableViewProps;
-type AccordionTriggerProps = SlottablePressableProps;
+type ItemRef = ViewRef;
+
+type ContentProps = ForceMountable & SlottableViewProps;
+type ContentRef = ViewRef;
+type HeaderProps = SlottableViewProps;
+type HeaderRef = ViewRef;
+type TriggerProps = SlottablePressableProps;
+type TriggerRef = PressableRef;
 
 export type {
-  AccordionContentProps,
-  AccordionItemProps,
-  AccordionRootProps,
+  ContentProps,
+  ContentRef,
+  HeaderProps,
+  HeaderRef,
+  ItemProps,
+  ItemRef,
   RootContext,
-  AccordionHeaderProps,
-  AccordionTriggerProps,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 };

@@ -1,20 +1,24 @@
+import { useControllableState } from '@rn-primitives/hooks';
+import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, ViewRef } from '@rn-primitives/types';
 import type {
-  AccordionContentProps,
-  AccordionHeaderProps,
-  AccordionItemProps,
-  AccordionRootProps,
-  AccordionTriggerProps,
+  ContentProps,
+  ContentRef,
+  HeaderProps,
+  HeaderRef,
+  ItemProps,
+  ItemRef,
   RootContext,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 } from './types';
-import { useControllableState } from '@rn-primitives/hooks';
 
 const AccordionContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<ViewRef, AccordionRootProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -65,14 +69,14 @@ function useRootContext() {
   return context;
 }
 
-type AccordionItemContext = AccordionItemProps & {
+type AccordionItemContext = ItemProps & {
   nativeID: string;
   isExpanded: boolean;
 };
 
 const AccordionItemContext = React.createContext<AccordionItemContext | null>(null);
 
-const Item = React.forwardRef<ViewRef, AccordionItemProps>(
+const Item = React.forwardRef<ItemRef, ItemProps>(
   ({ asChild, value, disabled, ...viewProps }, ref) => {
     const { value: rootValue } = useRootContext();
     const nativeID = React.useId();
@@ -105,7 +109,7 @@ function useItemContext() {
   return context;
 }
 
-const Header = React.forwardRef<ViewRef, AccordionHeaderProps>(({ asChild, ...props }, ref) => {
+const Header = React.forwardRef<HeaderRef, HeaderProps>(({ asChild, ...props }, ref) => {
   const { disabled: rootDisabled } = useRootContext();
   const { disabled: itemDisabled, isExpanded } = useItemContext();
 
@@ -123,7 +127,7 @@ const Header = React.forwardRef<ViewRef, AccordionHeaderProps>(({ asChild, ...pr
 
 Header.displayName = 'HeaderNativeAccordion';
 
-const Trigger = React.forwardRef<PressableRef, AccordionTriggerProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled: disabledProp, ...props }, ref) => {
     const {
       disabled: rootDisabled,
@@ -175,7 +179,7 @@ const Trigger = React.forwardRef<PressableRef, AccordionTriggerProps>(
 
 Trigger.displayName = 'TriggerNativeAccordion';
 
-const Content = React.forwardRef<ViewRef, AccordionContentProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const { type } = useRootContext();
     const { nativeID, isExpanded } = useItemContext();
@@ -201,7 +205,7 @@ const Content = React.forwardRef<ViewRef, AccordionContentProps>(
 
 Content.displayName = 'ContentNativeAccordion';
 
-export { Content, Header, Item, Root, Trigger, useRootContext, useItemContext };
+export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };
 
 function toStringArray(value?: string | string[]) {
   return Array.isArray(value) ? value : value ? [value] : [];
