@@ -1,18 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Theme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { PortalHost } from '@rn-primitives/portal';
 import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Platform, Text } from 'react-native';
 import { NAV_THEME } from '~/lib/constants';
-import { PortalHost } from '@rn-primitives/portal';
 
-const LIGHT_THEME: Theme = {
-  dark: false,
+const LIGHT_THEME = {
+  ...DefaultTheme,
   colors: NAV_THEME.light,
 };
-const DARK_THEME: Theme = {
-  dark: true,
+const DARK_THEME = {
+  ...DarkTheme,
   colors: NAV_THEME.dark,
 };
 

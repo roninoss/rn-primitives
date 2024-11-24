@@ -169,7 +169,7 @@ const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
     return (
       <>
         {open && <Component ref={ref} {...props} />}
-        {children}
+        {children as React.ReactNode}
       </>
     );
   }
@@ -229,7 +229,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
       <ItemContext.Provider value={{ itemValue: value, label: label }}>
         <Slot.Pressable ref={ref} {...props}>
           <Select.Item textValue={label} value={value} disabled={props.disabled ?? undefined}>
-            <>{children}</>
+            <>{children as React.ReactNode}</>
           </Select.Item>
         </Slot.Pressable>
       </ItemContext.Provider>
