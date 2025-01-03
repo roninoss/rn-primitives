@@ -117,75 +117,73 @@ function Example() {
   const [radioValue, setRadioValue] = React.useState('pedro');
 
   return (
-    <DropdownMenu.Root>
-          <DropdownMenu.Trigger>
-            <Text>
-              Open Dropdown Menu
-            </Text>
-          </DropdownMenu.Trigger>
+    <DropdownMenuPrimitive.Root>
+      <DropdownMenuPrimitive.Trigger>
+        <Text>Open Dropdown Menu</Text>
+      </DropdownMenuPrimitive.Trigger>
 
-          <DropdownMenuPrimitive.Portal>
-            <DropdownMenuPrimitive.Overlay>
-              <DropdownMenu.Content>
-                <DropdownMenu.Item>
-                  <Text>Back</Text>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item>
-                  <Text>Forward</Text>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item>
-                  <Text>Reload</Text>
-                </DropdownMenu.Item>
+      <DropdownMenuPrimitive.Portal>
+        <DropdownMenuPrimitive.Overlay>
+          <DropdownMenuPrimitive.Content>
+            <DropdownMenuPrimitive.Item>
+              <Text>Back</Text>
+            </DropdownMenuPrimitive.Item>
+            <DropdownMenuPrimitive.Item>
+              <Text>Forward</Text>
+            </DropdownMenuPrimitive.Item>
+            <DropdownMenuPrimitive.Item>
+              <Text>Reload</Text>
+            </DropdownMenuPrimitive.Item>
 
-                <DropdownMenu.Sub>
-                  <DropdownMenu.SubTrigger>
-                    <Text>More Tools</Text>
-                  </DropdownMenu.SubTrigger>
-                  <DropdownMenu.SubContent>
-                      <DropdownMenu.Item>
-                        <Text>Save Page As...</Text>
-                      </DropdownMenu.Item>
-                      <DropdownMenu.Item>
-                        <Text>Create Shortcut...</Text>
-                      </DropdownMenu.Item>
+            <DropdownMenuPrimitive.Sub>
+              <DropdownMenuPrimitive.SubTrigger>
+                <Text>More Tools</Text>
+              </DropdownMenuPrimitive.SubTrigger>
+              <DropdownMenuPrimitive.SubContent>
+                <DropdownMenuPrimitive.Item>
+                  <Text>Save Page As...</Text>
+                </DropdownMenuPrimitive.Item>
+                <DropdownMenuPrimitive.Item>
+                  <Text>Create Shortcut...</Text>
+                </DropdownMenuPrimitive.Item>
 
-                      <DropdownMenu.Separator />
-                      <DropdownMenu.Item>
-                        <Text>Developer Tools</Text>
-                      </DropdownMenu.Item>
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
+                <DropdownMenuPrimitive.Separator />
+                <DropdownMenuPrimitive.Item>
+                  <Text>Developer Tools</Text>
+                </DropdownMenuPrimitive.Item>
+              </DropdownMenuPrimitive.SubContent>
+            </DropdownMenuPrimitive.Sub>
 
-                <DropdownMenu.Separator />
-                <DropdownMenu.CheckboxItem
-                  checked={checkboxValue}
-                  onCheckedChange={setCheckboxValue}
-                  closeOnPress={false}
-                >
-                  <Text>Show Bookmarks Bar</Text>
-                </DropdownMenu.CheckboxItem>
-                <DropdownMenu.CheckboxItem
-                  checked={subCheckboxValue}
-                  onCheckedChange={setSubCheckboxValue}
-                  closeOnPress={false}
-                >
-                  <Text>Show Full URLs</Text>
-                </DropdownMenu.CheckboxItem>
-                <DropdownMenu.Separator />
-                <DropdownMenu.RadioGroup value={radioValue} onValueChange={setRadioValue}>
-                  <DropdownMenu.Label>People</DropdownMenu.Label>
-                  <DropdownMenu.Separator />
-                  <DropdownMenu.RadioItem value='pedro' closeOnPress={false}>
-                    <Text>Elmer Fudd</Text>
-                  </DropdownMenu.RadioItem>
-                  <DropdownMenu.RadioItem value='colm' closeOnPress={false}>
-                    <Text>Foghorn Leghorn</Text>
-                  </DropdownMenu.RadioItem>
-                </DropdownMenu.RadioGroup>
-              </DropdownMenu.Content>  
-            </DropdownMenuPrimitive.Overlay>
-          </DropdownMenuPrimitive.Portal>
-    </DropdownMenu.Root>
+            <DropdownMenuPrimitive.Separator />
+            <DropdownMenuPrimitive.CheckboxItem
+              checked={checkboxValue}
+              onCheckedChange={setCheckboxValue}
+              closeOnPress={false}
+            >
+              <Text>Show Bookmarks Bar</Text>
+            </DropdownMenuPrimitive.CheckboxItem>
+            <DropdownMenuPrimitive.CheckboxItem
+              checked={subCheckboxValue}
+              onCheckedChange={setSubCheckboxValue}
+              closeOnPress={false}
+            >
+              <Text>Show Full URLs</Text>
+            </DropdownMenuPrimitive.CheckboxItem>
+            <DropdownMenuPrimitive.Separator />
+            <DropdownMenuPrimitive.RadioGroup value={radioValue} onValueChange={setRadioValue}>
+              <DropdownMenuPrimitive.Label>People</DropdownMenuPrimitive.Label>
+              <DropdownMenuPrimitive.Separator />
+              <DropdownMenuPrimitive.RadioItem value='pedro' closeOnPress={false}>
+                <Text>Elmer Fudd</Text>
+              </DropdownMenuPrimitive.RadioItem>
+              <DropdownMenuPrimitive.RadioItem value='colm' closeOnPress={false}>
+                <Text>Foghorn Leghorn</Text>
+              </DropdownMenuPrimitive.RadioItem>
+            </DropdownMenuPrimitive.RadioGroup>
+          </DropdownMenuPrimitive.Content>
+        </DropdownMenuPrimitive.Overlay>
+      </DropdownMenuPrimitive.Portal>
+    </DropdownMenuPrimitive.Root>
   );
 }
 ```
