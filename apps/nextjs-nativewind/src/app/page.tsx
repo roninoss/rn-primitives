@@ -53,6 +53,7 @@ import {
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '~/components/ui/hover-card';
+import { Input } from '~/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover';
 import { Progress } from '~/components/ui/progress';
 import {
@@ -126,6 +127,7 @@ export default function Home() {
         <ToggleExample />
         <ToggleGroupExample />
         <TooltipExample />
+        <InputExample />
       </main>
     </div>
   );
@@ -440,5 +442,14 @@ function TableExample() {
         </TableRow>
       </TableFooter>
     </Table>
+  );
+}
+
+function InputExample() {
+  return (
+    <>
+      <Text>Input</Text>
+      <Input />
+    </>
   );
 }

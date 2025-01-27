@@ -4,6 +4,8 @@ const config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    '!./../../packages/**/node_modules',
+    './../../packages/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   presets: [require('nativewind/preset')],
   important: 'html',
