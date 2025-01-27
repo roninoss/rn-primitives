@@ -3,6 +3,18 @@
   "version": "1.1.0",
   "description": "Primitive accordion",
   "license": "MIT",
+  "author": "Method",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/method-inc/rnr-method.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "bugs": {
+    "url": "https://github.com/method-inc/rnr-method/issues"
+  },
+  "homepage": "https://github.com/method-inc/rnr-method#readme",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
