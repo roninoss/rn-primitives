@@ -39,8 +39,8 @@ jobs:
           registry-url: https://npm.pkg.github.com
           scope: '@method-inc'
       - run: pnpm install
-      - run: npm run build
-      - run: npm publish-all:primitives
+      - run: pnpm run build
+      - run: pnpm run publish-all:primitives
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
