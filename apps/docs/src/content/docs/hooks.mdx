@@ -9,10 +9,10 @@ description: A collection of hooks for core primitives.
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Card, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedIndexCode from '@/../node_modules/@rn-primitives/hooks/src/index.ts?raw';
-import importedUseAugmentedRefCode from '@/../node_modules/@rn-primitives/hooks/src/useAugmentedRef.tsx?raw';
-import importedUseControllableStateCode from '@/../node_modules/@rn-primitives/hooks/src/useControllableState.tsx?raw';
-import importedUseRelativePositionCode from '@/../node_modules/@rn-primitives/hooks/src/useRelativePosition.tsx?raw';
+import importedIndexCode from '@/../node_modules/@rnr-method/hooks/src/index.ts?raw';
+import importedUseAugmentedRefCode from '@/../node_modules/@rnr-method/hooks/src/useAugmentedRef.tsx?raw';
+import importedUseControllableStateCode from '@/../node_modules/@rnr-method/hooks/src/useControllableState.tsx?raw';
+import importedUseRelativePositionCode from '@/../node_modules/@rnr-method/hooks/src/useRelativePosition.tsx?raw';
 
 <LinkButton href="/primitives/types">
   Types Primitives
@@ -38,7 +38,7 @@ A collection of hooks for core primitives.
   Install the component via your command line.
 
     ```bash
-    npx expo install @rn-primitives/hooks
+    npx expo install @rnr-method/hooks
     ```
 
   </TabItem>
@@ -79,8 +79,8 @@ A collection of hooks for core primitives.
 ### useAugmentedRef
 
 ```tsx
-import { useAugmentedRef } from '@rn-primitives/hooks';
-import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
+import { useAugmentedRef } from '@rnr-method/hooks';
+import type { PressableRef, SlottablePressableProps } from '@rnr-method/types';
 
 const Thing = React.forwardRef<PressableRef, SlottablePressableProps>(
   (props, ref) => {
@@ -105,8 +105,8 @@ const Thing = React.forwardRef<PressableRef, SlottablePressableProps>(
 ### useControllableState
 
 ```tsx
-import { useControllableState } from '@rn-primitives/hooks';
-import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
+import { useControllableState } from '@rnr-method/hooks';
+import type { PressableRef, SlottablePressableProps } from '@rnr-method/types';
 
 const Thing = React.forwardRef<PressableRef, SlottablePressableProps & { defaultOpen?: boolean, open?: boolean, onOpenChange?: (open: boolean) => void }>(
   ({ defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, onPress: onPressProp, ...props}, ref) => {
@@ -135,8 +135,8 @@ const Thing = React.forwardRef<PressableRef, SlottablePressableProps & { default
 ### useRelativePosition
 
 ```tsx
-import { useRelativePosition } from '@rn-primitives/hooks';
-import type { PositionedContentProps, SlottablePressableProps, ViewRef } from '@rn-primitives/types';
+import { useRelativePosition } from '@rnr-method/hooks';
+import type { PositionedContentProps, SlottablePressableProps, ViewRef } from '@rnr-method/types';
 
 const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContentProps>(
   (

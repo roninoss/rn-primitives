@@ -1,5 +1,5 @@
 import * as Tabs from '@radix-ui/react-tabs';
-import * as Slot from '@rn-primitives/slot';
+import * as Slot from '@rnr-method/slot';
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
 import type {

@@ -1,5 +1,5 @@
-import * as Slot from '@rn-primitives/slot';
-import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
+import * as Slot from '@rnr-method/slot';
+import type { PressableRef, SlottablePressableProps } from '@rnr-method/types';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
 import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';

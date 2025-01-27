@@ -1,5 +1,5 @@
 {
-  "name": "@rn-primitives/accordion",
+  "name": "@rnr-method/accordion",
   "version": "1.1.0",
   "description": "Primitive accordion",
   "license": "MIT",
@@ -33,9 +33,9 @@
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",
-    "@rn-primitives/hooks": "workspace:*",
-    "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rnr-method/hooks": "workspace:*",
+    "@rnr-method/slot": "workspace:*",
+    "@rnr-method/types": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",

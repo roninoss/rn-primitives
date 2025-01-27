@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import * as AvatarPrimitive from '@rn-primitives/avatar';
+import * as AvatarPrimitive from '@rnr-method/avatar';
 import { cn } from '~/lib/utils';
 
 const AvatarPrimitiveRoot = AvatarPrimitive.Root;

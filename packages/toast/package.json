@@ -1,5 +1,5 @@
 {
-  "name": "@rn-primitives/toast",
+  "name": "@rnr-method/toast",
   "version": "1.1.0",
   "description": "Primitive toast",
   "license": "MIT",
@@ -32,8 +32,8 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rnr-method/slot": "workspace:*",
+    "@rnr-method/types": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",

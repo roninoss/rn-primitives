@@ -1,4 +1,4 @@
-import { SlottableViewProps, ViewRef } from '@rn-primitives/types';
+import { SlottableViewProps, ViewRef } from '@rnr-method/types';
 
 type RootProps = SlottableViewProps & {
   value?: number | null | undefined;

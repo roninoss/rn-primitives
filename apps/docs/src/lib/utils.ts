@@ -6,5 +6,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function fixManualImports(rawfile: string) {
-  return rawfile.replaceAll('@rn-primitives/', '~/components/primitives/');
+  return rawfile.replaceAll('@rnr-method/', '~/components/primitives/');
 }

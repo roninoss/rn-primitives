@@ -49,100 +49,100 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.1.0(@types/react@18.3.12)(react@18.3.1)
-      '@rn-primitives/accordion':
+      '@rnr-method/accordion':
         specifier: workspace:*
         version: link:../../packages/accordion
-      '@rn-primitives/alert-dialog':
+      '@rnr-method/alert-dialog':
         specifier: workspace:*
         version: link:../../packages/alert-dialog
-      '@rn-primitives/aspect-ratio':
+      '@rnr-method/aspect-ratio':
         specifier: workspace:*
         version: link:../../packages/aspect-ratio
-      '@rn-primitives/avatar':
+      '@rnr-method/avatar':
         specifier: workspace:*
         version: link:../../packages/avatar
-      '@rn-primitives/checkbox':
+      '@rnr-method/checkbox':
         specifier: workspace:*
         version: link:../../packages/checkbox
-      '@rn-primitives/collapsible':
+      '@rnr-method/collapsible':
         specifier: workspace:*
         version: link:../../packages/collapsible
-      '@rn-primitives/context-menu':
+      '@rnr-method/context-menu':
         specifier: workspace:*
         version: link:../../packages/context-menu
-      '@rn-primitives/dialog':
+      '@rnr-method/dialog':
         specifier: workspace:*
         version: link:../../packages/dialog
-      '@rn-primitives/dropdown-menu':
+      '@rnr-method/dropdown-menu':
         specifier: workspace:*
         version: link:../../packages/dropdown-menu
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../../packages/hooks
-      '@rn-primitives/hover-card':
+      '@rnr-method/hover-card':
         specifier: workspace:*
         version: link:../../packages/hover-card
-      '@rn-primitives/label':
+      '@rnr-method/label':
         specifier: workspace:*
         version: link:../../packages/label
-      '@rn-primitives/menubar':
+      '@rnr-method/menubar':
         specifier: workspace:*
         version: link:../../packages/menubar
-      '@rn-primitives/navigation-menu':
+      '@rnr-method/navigation-menu':
         specifier: workspace:*
         version: link:../../packages/navigation-menu
-      '@rn-primitives/popover':
+      '@rnr-method/popover':
         specifier: workspace:*
         version: link:../../packages/popover
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../../packages/portal
-      '@rn-primitives/progress':
+      '@rnr-method/progress':
         specifier: workspace:*
         version: link:../../packages/progress
-      '@rn-primitives/radio-group':
+      '@rnr-method/radio-group':
         specifier: workspace:*
         version: link:../../packages/radio-group
-      '@rn-primitives/select':
+      '@rnr-method/select':
         specifier: workspace:*
         version: link:../../packages/select
-      '@rn-primitives/separator':
+      '@rnr-method/separator':
         specifier: workspace:*
         version: link:../../packages/separator
-      '@rn-primitives/slider':
+      '@rnr-method/slider':
         specifier: workspace:*
         version: link:../../packages/slider
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../../packages/slot
-      '@rn-primitives/switch':
+      '@rnr-method/switch':
         specifier: workspace:*
         version: link:../../packages/switch
-      '@rn-primitives/table':
+      '@rnr-method/table':
         specifier: workspace:*
         version: link:../../packages/table
-      '@rn-primitives/tabs':
+      '@rnr-method/tabs':
         specifier: workspace:*
         version: link:../../packages/tabs
-      '@rn-primitives/toast':
+      '@rnr-method/toast':
         specifier: workspace:*
         version: link:../../packages/toast
-      '@rn-primitives/toggle':
+      '@rnr-method/toggle':
         specifier: workspace:*
         version: link:../../packages/toggle
-      '@rn-primitives/toggle-group':
+      '@rnr-method/toggle-group':
         specifier: workspace:*
         version: link:../../packages/toggle-group
-      '@rn-primitives/toolbar':
+      '@rnr-method/toolbar':
         specifier: workspace:*
         version: link:../../packages/toolbar
-      '@rn-primitives/tooltip':
+      '@rnr-method/tooltip':
         specifier: workspace:*
         version: link:../../packages/tooltip
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../../packages/types
-      '@rn-primitives/utils':
+      '@rnr-method/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       '@types/react':
@@ -196,94 +196,94 @@ importers:
       '@react-navigation/native':
         specifier: ^7.0.0
         version: 7.0.4(react-native@0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/accordion':
+      '@rnr-method/accordion':
         specifier: workspace:*
         version: link:../../packages/accordion
-      '@rn-primitives/alert-dialog':
+      '@rnr-method/alert-dialog':
         specifier: workspace:*
         version: link:../../packages/alert-dialog
-      '@rn-primitives/aspect-ratio':
+      '@rnr-method/aspect-ratio':
         specifier: workspace:*
         version: link:../../packages/aspect-ratio
-      '@rn-primitives/avatar':
+      '@rnr-method/avatar':
         specifier: workspace:*
         version: link:../../packages/avatar
-      '@rn-primitives/checkbox':
+      '@rnr-method/checkbox':
         specifier: workspace:*
         version: link:../../packages/checkbox
-      '@rn-primitives/collapsible':
+      '@rnr-method/collapsible':
         specifier: workspace:*
         version: link:../../packages/collapsible
-      '@rn-primitives/context-menu':
+      '@rnr-method/context-menu':
         specifier: workspace:*
         version: link:../../packages/context-menu
-      '@rn-primitives/dialog':
+      '@rnr-method/dialog':
         specifier: workspace:*
         version: link:../../packages/dialog
-      '@rn-primitives/dropdown-menu':
+      '@rnr-method/dropdown-menu':
         specifier: workspace:*
         version: link:../../packages/dropdown-menu
-      '@rn-primitives/hover-card':
+      '@rnr-method/hover-card':
         specifier: workspace:*
         version: link:../../packages/hover-card
-      '@rn-primitives/label':
+      '@rnr-method/label':
         specifier: workspace:*
         version: link:../../packages/label
-      '@rn-primitives/menubar':
+      '@rnr-method/menubar':
         specifier: workspace:*
         version: link:../../packages/menubar
-      '@rn-primitives/navigation-menu':
+      '@rnr-method/navigation-menu':
         specifier: workspace:*
         version: link:../../packages/navigation-menu
-      '@rn-primitives/popover':
+      '@rnr-method/popover':
         specifier: workspace:*
         version: link:../../packages/popover
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../../packages/portal
-      '@rn-primitives/progress':
+      '@rnr-method/progress':
         specifier: workspace:*
         version: link:../../packages/progress
-      '@rn-primitives/radio-group':
+      '@rnr-method/radio-group':
         specifier: workspace:*
         version: link:../../packages/radio-group
-      '@rn-primitives/select':
+      '@rnr-method/select':
         specifier: workspace:*
         version: link:../../packages/select
-      '@rn-primitives/separator':
+      '@rnr-method/separator':
         specifier: workspace:*
         version: link:../../packages/separator
-      '@rn-primitives/slider':
+      '@rnr-method/slider':
         specifier: workspace:*
         version: link:../../packages/slider
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../../packages/slot
-      '@rn-primitives/switch':
+      '@rnr-method/switch':
         specifier: workspace:*
         version: link:../../packages/switch
-      '@rn-primitives/table':
+      '@rnr-method/table':
         specifier: workspace:*
         version: link:../../packages/table
-      '@rn-primitives/tabs':
+      '@rnr-method/tabs':
         specifier: workspace:*
         version: link:../../packages/tabs
-      '@rn-primitives/toast':
+      '@rnr-method/toast':
         specifier: workspace:*
         version: link:../../packages/toast
-      '@rn-primitives/toggle':
+      '@rnr-method/toggle':
         specifier: workspace:*
         version: link:../../packages/toggle
-      '@rn-primitives/toggle-group':
+      '@rnr-method/toggle-group':
         specifier: workspace:*
         version: link:../../packages/toggle-group
-      '@rn-primitives/toolbar':
+      '@rnr-method/toolbar':
         specifier: workspace:*
         version: link:../../packages/toolbar
-      '@rn-primitives/tooltip':
+      '@rnr-method/tooltip':
         specifier: workspace:*
         version: link:../../packages/tooltip
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../../packages/types
       class-variance-authority:
@@ -374,94 +374,94 @@ importers:
       '@react-navigation/native':
         specifier: ^7.0.0
         version: 7.0.4(react-native@0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/accordion':
+      '@rnr-method/accordion':
         specifier: workspace:*
         version: link:../../packages/accordion
-      '@rn-primitives/alert-dialog':
+      '@rnr-method/alert-dialog':
         specifier: workspace:*
         version: link:../../packages/alert-dialog
-      '@rn-primitives/aspect-ratio':
+      '@rnr-method/aspect-ratio':
         specifier: workspace:*
         version: link:../../packages/aspect-ratio
-      '@rn-primitives/avatar':
+      '@rnr-method/avatar':
         specifier: workspace:*
         version: link:../../packages/avatar
-      '@rn-primitives/checkbox':
+      '@rnr-method/checkbox':
         specifier: workspace:*
         version: link:../../packages/checkbox
-      '@rn-primitives/collapsible':
+      '@rnr-method/collapsible':
         specifier: workspace:*
         version: link:../../packages/collapsible
-      '@rn-primitives/context-menu':
+      '@rnr-method/context-menu':
         specifier: workspace:*
         version: link:../../packages/context-menu
-      '@rn-primitives/dialog':
+      '@rnr-method/dialog':
         specifier: workspace:*
         version: link:../../packages/dialog
-      '@rn-primitives/dropdown-menu':
+      '@rnr-method/dropdown-menu':
         specifier: workspace:*
         version: link:../../packages/dropdown-menu
-      '@rn-primitives/hover-card':
+      '@rnr-method/hover-card':
         specifier: workspace:*
         version: link:../../packages/hover-card
-      '@rn-primitives/label':
+      '@rnr-method/label':
         specifier: workspace:*
         version: link:../../packages/label
-      '@rn-primitives/menubar':
+      '@rnr-method/menubar':
         specifier: workspace:*
         version: link:../../packages/menubar
-      '@rn-primitives/navigation-menu':
+      '@rnr-method/navigation-menu':
         specifier: workspace:*
         version: link:../../packages/navigation-menu
-      '@rn-primitives/popover':
+      '@rnr-method/popover':
         specifier: workspace:*
         version: link:../../packages/popover
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../../packages/portal
-      '@rn-primitives/progress':
+      '@rnr-method/progress':
         specifier: workspace:*
         version: link:../../packages/progress
-      '@rn-primitives/radio-group':
+      '@rnr-method/radio-group':
         specifier: workspace:*
         version: link:../../packages/radio-group
-      '@rn-primitives/select':
+      '@rnr-method/select':
         specifier: workspace:*
         version: link:../../packages/select
-      '@rn-primitives/separator':
+      '@rnr-method/separator':
         specifier: workspace:*
         version: link:../../packages/separator
-      '@rn-primitives/slider':
+      '@rnr-method/slider':
         specifier: workspace:*
         version: link:../../packages/slider
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../../packages/slot
-      '@rn-primitives/switch':
+      '@rnr-method/switch':
         specifier: workspace:*
         version: link:../../packages/switch
-      '@rn-primitives/table':
+      '@rnr-method/table':
         specifier: workspace:*
         version: link:../../packages/table
-      '@rn-primitives/tabs':
+      '@rnr-method/tabs':
         specifier: workspace:*
         version: link:../../packages/tabs
-      '@rn-primitives/toast':
+      '@rnr-method/toast':
         specifier: workspace:*
         version: link:../../packages/toast
-      '@rn-primitives/toggle':
+      '@rnr-method/toggle':
         specifier: workspace:*
         version: link:../../packages/toggle
-      '@rn-primitives/toggle-group':
+      '@rnr-method/toggle-group':
         specifier: workspace:*
         version: link:../../packages/toggle-group
-      '@rn-primitives/toolbar':
+      '@rnr-method/toolbar':
         specifier: workspace:*
         version: link:../../packages/toolbar
-      '@rn-primitives/tooltip':
+      '@rnr-method/tooltip':
         specifier: workspace:*
         version: link:../../packages/tooltip
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../../packages/types
       expo:
@@ -528,94 +528,94 @@ importers:
 
   apps/nextjs-nativewind:
     dependencies:
-      '@rn-primitives/accordion':
+      '@rnr-method/accordion':
         specifier: workspace:*
         version: link:../../packages/accordion
-      '@rn-primitives/alert-dialog':
+      '@rnr-method/alert-dialog':
         specifier: workspace:*
         version: link:../../packages/alert-dialog
-      '@rn-primitives/aspect-ratio':
+      '@rnr-method/aspect-ratio':
         specifier: workspace:*
         version: link:../../packages/aspect-ratio
-      '@rn-primitives/avatar':
+      '@rnr-method/avatar':
         specifier: workspace:*
         version: link:../../packages/avatar
-      '@rn-primitives/checkbox':
+      '@rnr-method/checkbox':
         specifier: workspace:*
         version: link:../../packages/checkbox
-      '@rn-primitives/collapsible':
+      '@rnr-method/collapsible':
         specifier: workspace:*
         version: link:../../packages/collapsible
-      '@rn-primitives/context-menu':
+      '@rnr-method/context-menu':
         specifier: workspace:*
         version: link:../../packages/context-menu
-      '@rn-primitives/dialog':
+      '@rnr-method/dialog':
         specifier: workspace:*
         version: link:../../packages/dialog
-      '@rn-primitives/dropdown-menu':
+      '@rnr-method/dropdown-menu':
         specifier: workspace:*
         version: link:../../packages/dropdown-menu
-      '@rn-primitives/hover-card':
+      '@rnr-method/hover-card':
         specifier: workspace:*
         version: link:../../packages/hover-card
-      '@rn-primitives/label':
+      '@rnr-method/label':
         specifier: workspace:*
         version: link:../../packages/label
-      '@rn-primitives/menubar':
+      '@rnr-method/menubar':
         specifier: workspace:*
         version: link:../../packages/menubar
-      '@rn-primitives/navigation-menu':
+      '@rnr-method/navigation-menu':
         specifier: workspace:*
         version: link:../../packages/navigation-menu
-      '@rn-primitives/popover':
+      '@rnr-method/popover':
         specifier: workspace:*
         version: link:../../packages/popover
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../../packages/portal
-      '@rn-primitives/progress':
+      '@rnr-method/progress':
         specifier: workspace:*
         version: link:../../packages/progress
-      '@rn-primitives/radio-group':
+      '@rnr-method/radio-group':
         specifier: workspace:*
         version: link:../../packages/radio-group
-      '@rn-primitives/select':
+      '@rnr-method/select':
         specifier: workspace:*
         version: link:../../packages/select
-      '@rn-primitives/separator':
+      '@rnr-method/separator':
         specifier: workspace:*
         version: link:../../packages/separator
-      '@rn-primitives/slider':
+      '@rnr-method/slider':
         specifier: workspace:*
         version: link:../../packages/slider
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../../packages/slot
-      '@rn-primitives/switch':
+      '@rnr-method/switch':
         specifier: workspace:*
         version: link:../../packages/switch
-      '@rn-primitives/table':
+      '@rnr-method/table':
         specifier: workspace:*
         version: link:../../packages/table
-      '@rn-primitives/tabs':
+      '@rnr-method/tabs':
         specifier: workspace:*
         version: link:../../packages/tabs
-      '@rn-primitives/toast':
+      '@rnr-method/toast':
         specifier: workspace:*
         version: link:../../packages/toast
-      '@rn-primitives/toggle':
+      '@rnr-method/toggle':
         specifier: workspace:*
         version: link:../../packages/toggle
-      '@rn-primitives/toggle-group':
+      '@rnr-method/toggle-group':
         specifier: workspace:*
         version: link:../../packages/toggle-group
-      '@rn-primitives/toolbar':
+      '@rnr-method/toolbar':
         specifier: workspace:*
         version: link:../../packages/toolbar
-      '@rn-primitives/tooltip':
+      '@rnr-method/tooltip':
         specifier: workspace:*
         version: link:../../packages/tooltip
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../../packages/types
       class-variance-authority:
@@ -679,13 +679,13 @@ importers:
       '@radix-ui/react-accordion':
         specifier: ^1.2.0
         version: 1.2.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -713,20 +713,20 @@ importers:
       '@radix-ui/react-alert-dialog':
         specifier: ^1.1.1
         version: 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
         specifier: '*'
         version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../portal
       '@tsconfig/react-native':
@@ -747,10 +747,10 @@ importers:
 
   packages/aspect-ratio:
     dependencies:
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -775,13 +775,13 @@ importers:
 
   packages/avatar:
     dependencies:
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -809,13 +809,13 @@ importers:
       '@radix-ui/react-checkbox':
         specifier: ^1.1.1
         version: 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -843,13 +843,13 @@ importers:
       '@radix-ui/react-collapsible':
         specifier: ^1.1.0
         version: 1.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -877,23 +877,23 @@ importers:
       '@radix-ui/react-context-menu':
         specifier: ^2.2.1
         version: 2.2.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
-      '@rn-primitives/utils':
+      '@rnr-method/utils':
         specifier: workspace:*
         version: link:../utils
       react-native-web:
         specifier: '*'
         version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../portal
       '@tsconfig/react-native':
@@ -917,20 +917,20 @@ importers:
       '@radix-ui/react-dialog':
         specifier: ^1.1.1
         version: 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
         specifier: '*'
         version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../portal
       '@tsconfig/react-native':
@@ -954,23 +954,23 @@ importers:
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.1.1
         version: 2.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
-      '@rn-primitives/utils':
+      '@rnr-method/utils':
         specifier: workspace:*
         version: link:../utils
       react-native-web:
         specifier: '*'
         version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../portal
       '@tsconfig/react-native':
@@ -991,7 +991,7 @@ importers:
 
   packages/hooks:
     dependencies:
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -1019,23 +1019,23 @@ importers:
       '@radix-ui/react-hover-card':
         specifier: ^1.1.1
         version: 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/popover':
+      '@rnr-method/popover':
         specifier: workspace:*
         version: link:../popover
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
         specifier: '*'
         version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../portal
       '@tsconfig/react-native':
@@ -1059,10 +1059,10 @@ importers:
       '@radix-ui/react-label':
         specifier: ^2.1.0
         version: 2.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -1090,23 +1090,23 @@ importers:
       '@radix-ui/react-menubar':
         specifier: ^1.1.1
         version: 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
-      '@rn-primitives/utils':
+      '@rnr-method/utils':
         specifier: workspace:*
         version: link:../utils
       react-native-web:
         specifier: '*'
         version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../portal
       '@tsconfig/react-native':
@@ -1130,23 +1130,23 @@ importers:
       '@radix-ui/react-navigation-menu':
         specifier: ^1.2.0
         version: 1.2.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
-      '@rn-primitives/utils':
+      '@rnr-method/utils':
         specifier: workspace:*
         version: link:../utils
       react-native-web:
         specifier: '*'
         version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../portal
       '@tsconfig/react-native':
@@ -1170,20 +1170,20 @@ importers:
       '@radix-ui/react-popover':
         specifier: ^1.1.1
         version: 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
         specifier: '*'
         version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../portal
       '@tsconfig/react-native':
@@ -1232,10 +1232,10 @@ importers:
       '@radix-ui/react-progress':
         specifier: ^1.1.0
         version: 1.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -1263,10 +1263,10 @@ importers:
       '@radix-ui/react-radio-group':
         specifier: ^1.2.0
         version: 1.2.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -1294,20 +1294,20 @@ importers:
       '@radix-ui/react-select':
         specifier: ^2.1.1
         version: 2.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
         specifier: '*'
         version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../portal
       '@tsconfig/react-native':
@@ -1331,10 +1331,10 @@ importers:
       '@radix-ui/react-separator':
         specifier: ^1.1.0
         version: 1.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -1362,10 +1362,10 @@ importers:
       '@radix-ui/react-slider':
         specifier: ^1.2.0
         version: 1.2.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -1415,10 +1415,10 @@ importers:
       '@radix-ui/react-switch':
         specifier: ^1.1.0
         version: 1.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -1443,10 +1443,10 @@ importers:
 
   packages/table:
     dependencies:
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -1474,10 +1474,10 @@ importers:
       '@radix-ui/react-tabs':
         specifier: ^1.1.0
         version: 1.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -1502,10 +1502,10 @@ importers:
 
   packages/toast:
     dependencies:
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -1533,10 +1533,10 @@ importers:
       '@radix-ui/react-toggle':
         specifier: ^1.1.0
         version: 1.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
@@ -1564,13 +1564,13 @@ importers:
       '@radix-ui/react-toggle-group':
         specifier: ^1.1.0
         version: 1.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
-      '@rn-primitives/utils':
+      '@rnr-method/utils':
         specifier: workspace:*
         version: link:../utils
       react-native-web:
@@ -1598,13 +1598,13 @@ importers:
       '@radix-ui/react-toolbar':
         specifier: ^1.1.0
         version: 1.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
-      '@rn-primitives/utils':
+      '@rnr-method/utils':
         specifier: workspace:*
         version: link:../utils
       react-native-web:
@@ -1632,20 +1632,20 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.1.2
         version: 1.1.4(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
+      '@rnr-method/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
+      '@rnr-method/slot':
         specifier: workspace:*
         version: link:../slot
-      '@rn-primitives/types':
+      '@rnr-method/types':
         specifier: workspace:*
         version: link:../types
       react-native-web:
         specifier: '*'
         version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@rn-primitives/portal':
+      '@rnr-method/portal':
         specifier: workspace:*
         version: link:../portal
       '@tsconfig/react-native':

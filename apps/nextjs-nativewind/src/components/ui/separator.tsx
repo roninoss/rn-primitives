@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import * as SeparatorPrimitive from '@rn-primitives/separator';
+import * as SeparatorPrimitive from '@rnr-method/separator';
 import { cn } from '~/lib/utils';
 
 const Separator = React.forwardRef<

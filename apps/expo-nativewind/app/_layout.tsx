@@ -2,7 +2,7 @@ import '~/global.css';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { PortalHost } from '@rn-primitives/portal';
+import { PortalHost } from '@rnr-method/portal';
 import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';

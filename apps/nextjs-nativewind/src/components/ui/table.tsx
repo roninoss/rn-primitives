@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import * as TablePrimitive from '@rn-primitives/table';
+import * as TablePrimitive from '@rnr-method/table';
 import { cn } from '~/lib/utils';
 import { TextClassContext } from '~/components/ui/text';
 

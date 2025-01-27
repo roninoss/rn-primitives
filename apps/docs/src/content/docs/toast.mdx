@@ -9,8 +9,8 @@ description: A concise message that appears briefly.
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, TabItem, Tabs } from '@astrojs/starlight/components';
-import importedCode from '@/../node_modules/@rn-primitives/toast/src/toast.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/toast/src/types.ts?raw';
+import importedCode from '@/../node_modules/@rnr-method/toast/src/toast.tsx?raw';
+import importedTypesCode from '@/../node_modules/@rnr-method/toast/src/types.ts?raw';
 
 A concise message that appears briefly.
 
@@ -22,14 +22,14 @@ A concise message that appears briefly.
   Install the component via your command line.
 
     ```bash
-    npx expo install @rn-primitives/toast
+    npx expo install @rnr-method/toast
     ```
 
     <Aside title="Peer dependency">
       If you do not have the portal primitive in your project, you will need to add it as well.
 
        ```bash
-      npx expo install @rn-primitives/portal
+      npx expo install @rnr-method/portal
       ```
     </Aside>
 
@@ -62,7 +62,7 @@ A concise message that appears briefly.
   Requires a `<PortalHost />` as the last child of your `<Root/>` (`app/_layout.tsx`) component
 
   ```tsx
-  import { PortalHost } from '@rn-primitives/portal';
+  import { PortalHost } from '@rnr-method/portal';
 
   function Root() {
     return (
@@ -81,8 +81,8 @@ A concise message that appears briefly.
 import * React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Portal } from '@rn-primitives/portal';
-import * as ToastPrimitive from '@rn-primitives/toast';
+import { Portal } from '@rnr-method/portal';
+import * as ToastPrimitive from '@rnr-method/toast';
 
 function Example() {
   const [open, setOpen] = React.useState(false);

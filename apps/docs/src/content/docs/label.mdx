@@ -9,10 +9,10 @@ description: A user-friendly label linked to controls for improved accessibility
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/label/src/label.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/label/src/label.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/label/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/label/src/index.ts?raw';
+import importedNativeCode from '@/../node_modules/@rnr-method/label/src/label.tsx?raw';
+import importedWebCode from '@/../node_modules/@rnr-method/label/src/label.web.tsx?raw';
+import importedTypesCode from '@/../node_modules/@rnr-method/label/src/types.ts?raw';
+import importedIndexCode from '@/../node_modules/@rnr-method/label/src/index.ts?raw';
 
 A user-friendly label linked to controls for improved accessibility.
 
@@ -24,14 +24,14 @@ A user-friendly label linked to controls for improved accessibility.
   Install the component via your command line.
 
     ```bash
-    npx expo install @rn-primitives/label
+    npx expo install @rnr-method/label
     ```
 
     <Aside title="Peer dependency">
       If you do not have the portal primitive in your project, you will need to add it as well.
 
        ```bash
-      npx expo install @rn-primitives/portal
+      npx expo install @rnr-method/portal
       ```
     </Aside>
 
@@ -84,7 +84,7 @@ A user-friendly label linked to controls for improved accessibility.
 ## Usage
 
 ```tsx
-import * as LabelPrimitive from '@rn-primitives/label';
+import * as LabelPrimitive from '@rnr-method/label';
 
 function Example() {
   const [checked, setChecked] = React.useState(false);

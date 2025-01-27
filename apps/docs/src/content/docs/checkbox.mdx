@@ -9,10 +9,10 @@ description: A box that is a checked (ticked) indicator when activated.
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/checkbox/src/checkbox.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/checkbox/src/checkbox.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/checkbox/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/checkbox/src/index.ts?raw';
+import importedNativeCode from '@/../node_modules/@rnr-method/checkbox/src/checkbox.tsx?raw';
+import importedWebCode from '@/../node_modules/@rnr-method/checkbox/src/checkbox.web.tsx?raw';
+import importedTypesCode from '@/../node_modules/@rnr-method/checkbox/src/types.ts?raw';
+import importedIndexCode from '@/../node_modules/@rnr-method/checkbox/src/index.ts?raw';
 
 
 A box that is a checked (ticked) indicator when activated.
@@ -25,7 +25,7 @@ A box that is a checked (ticked) indicator when activated.
   Install the component via your command line.
 
     ```bash
-    npx expo install @rn-primitives/checkbox
+    npx expo install @rnr-method/checkbox
     ```
 
   </TabItem>
@@ -80,7 +80,7 @@ A box that is a checked (ticked) indicator when activated.
 ## Usage
 
 ```tsx
-import * as CheckboxPrimitive from '@rn-primitives/checkbox';
+import * as CheckboxPrimitive from '@rnr-method/checkbox';
 
 function Example() {
   const [checked, setChecked] = React.useState(false);

@@ -3,7 +3,7 @@ import type {
   SlottablePressableProps,
   SlottableTextProps,
   TextRef,
-} from '@rn-primitives/types';
+} from '@rnr-method/types';
 import type { ViewStyle } from 'react-native';
 
 type RootProps = Omit<SlottablePressableProps, 'children' | 'hitSlop' | 'style'> & {

@@ -1,6 +1,6 @@
 'use client';
 
-import * as SelectPrimitive from '@rn-primitives/select';
+import * as SelectPrimitive from '@rnr-method/select';
 import * as React from 'react';
 import { Platform, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';

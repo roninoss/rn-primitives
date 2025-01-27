@@ -95,7 +95,7 @@ export default function Home() {
   return (
     <div className='py-24 px-4 min-h-svh'>
       <main className='mx-auto max-w-3xl w-full flex flex-col gap-12 '>
-        <Typography.H1>@rn-primitives</Typography.H1>
+        <Typography.H1>@rnr-method</Typography.H1>
         <Typography.P className='font-medium'>
           Styled with{' '}
           <a className='hover:underline' href='https://www.nativewind.dev/v4/overview'>

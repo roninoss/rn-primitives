@@ -9,10 +9,10 @@ description: A collection of buttons with true or false states, which can be act
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/toggle-group/src/toggle-group.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/toggle-group/src/toggle-group.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/toggle-group/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/toggle-group/src/index.ts?raw';
+import importedNativeCode from '@/../node_modules/@rnr-method/toggle-group/src/toggle-group.tsx?raw';
+import importedWebCode from '@/../node_modules/@rnr-method/toggle-group/src/toggle-group.web.tsx?raw';
+import importedTypesCode from '@/../node_modules/@rnr-method/toggle-group/src/types.ts?raw';
+import importedIndexCode from '@/../node_modules/@rnr-method/toggle-group/src/index.ts?raw';
 
 A collection of buttons with true or false states, which can be activated or deactivated by toggling.
 
@@ -24,7 +24,7 @@ A collection of buttons with true or false states, which can be activated or dea
   Install the component via your command line.
 
     ```bash
-    npx expo install @rn-primitives/toggle-group
+    npx expo install @rnr-method/toggle-group
     ```
 
   </TabItem>
@@ -82,7 +82,7 @@ A collection of buttons with true or false states, which can be activated or dea
 ```tsx
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import * as ToggleGroupPrimitive from '@rn-primitives/toggle-group';
+import * as ToggleGroupPrimitive from '@rnr-method/toggle-group';
 
 function Example() {
   const [multipleValue, setMultipleValue] = React.useState<string[]>([]);

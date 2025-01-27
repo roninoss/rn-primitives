@@ -1,5 +1,5 @@
 {
-  "name": "@rn-primitives/toolbar",
+  "name": "@rnr-method/toolbar",
   "version": "1.1.0",
   "description": "Primitive toolbar",
   "license": "MIT",
@@ -33,9 +33,9 @@
   },
   "dependencies": {
     "@radix-ui/react-toolbar": "^1.1.0",
-    "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*",
-    "@rn-primitives/utils": "workspace:*"
+    "@rnr-method/slot": "workspace:*",
+    "@rnr-method/types": "workspace:*",
+    "@rnr-method/utils": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",

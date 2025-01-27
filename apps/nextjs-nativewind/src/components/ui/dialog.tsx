@@ -1,6 +1,6 @@
 'use client';
 
-import * as DialogPrimitive from '@rn-primitives/dialog';
+import * as DialogPrimitive from '@rnr-method/dialog';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';

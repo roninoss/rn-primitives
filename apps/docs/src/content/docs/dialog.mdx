@@ -9,10 +9,10 @@ description: A modal dialog that interrupts the user with important content and 
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/dialog/src/dialog.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/dialog/src/dialog.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/dialog/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/dialog/src/index.ts?raw';
+import importedNativeCode from '@/../node_modules/@rnr-method/dialog/src/dialog.tsx?raw';
+import importedWebCode from '@/../node_modules/@rnr-method/dialog/src/dialog.web.tsx?raw';
+import importedTypesCode from '@/../node_modules/@rnr-method/dialog/src/types.ts?raw';
+import importedIndexCode from '@/../node_modules/@rnr-method/dialog/src/index.ts?raw';
 
 A modal dialog that interrupts the user with important content and expects a response.
 
@@ -24,14 +24,14 @@ A modal dialog that interrupts the user with important content and expects a res
   Install the component via your command line.
 
     ```bash
-    npx expo install @rn-primitives/dialog
+    npx expo install @rnr-method/dialog
     ```
 
     <Aside title="Peer dependency">
       If you do not have the portal primitive in your project, you will need to add it as well.
 
        ```bash
-      npx expo install @rn-primitives/portal
+      npx expo install @rnr-method/portal
       ```
     </Aside>
 
@@ -89,7 +89,7 @@ A modal dialog that interrupts the user with important content and expects a res
   Requires a `<PortalHost />` as the last child of your `<Root/>` (`app/_layout.tsx`) component
 
   ```tsx
-  import { PortalHost } from '@rn-primitives/portal';
+  import { PortalHost } from '@rnr-method/portal';
 
   function Root() {
     return (
@@ -105,7 +105,7 @@ A modal dialog that interrupts the user with important content and expects a res
 </Aside>
 
 ```tsx
-import * as DialogPrimitive from '@rn-primitives/dialog';
+import * as DialogPrimitive from '@rnr-method/dialog';
 import { Text } from 'react-native';
 
 function Example() {

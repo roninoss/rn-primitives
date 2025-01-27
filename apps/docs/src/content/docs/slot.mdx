@@ -9,7 +9,7 @@ description: Merges its props onto its immediate child.
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Card, TabItem, Tabs } from '@astrojs/starlight/components';
-import importedCode from '@/../node_modules/@rn-primitives/slot/src/slot.tsx?raw';
+import importedCode from '@/../node_modules/@rnr-method/slot/src/slot.tsx?raw';
 
 Merges its props onto its immediate child. 
 
@@ -26,7 +26,7 @@ Merges its props onto its immediate child.
   Install the component via your command line.
 
     ```bash
-    npx expo install @rn-primitives/slot
+    npx expo install @rnr-method/slot
     ```
 
   </TabItem>
@@ -42,7 +42,7 @@ Merges its props onto its immediate child.
 ### View Slot
 
 ```tsx
-import * as Slot from '@rn-primitives/slot';
+import * as Slot from '@rnr-method/slot';
 
 function CustomView({ isChild = true }) {
   const Component = isChild ? Slot.View : View;
@@ -58,7 +58,7 @@ function CustomView({ isChild = true }) {
 ### Pressable Slot
 
 ```tsx
-import * as Slot from '@rn-primitives/slot';
+import * as Slot from '@rnr-method/slot';
 
 function CustomPressable() {
   return (
@@ -73,7 +73,7 @@ function CustomPressable() {
 ### Text Slot
 
 ```tsx
-import * as Slot from '@rn-primitives/slot';
+import * as Slot from '@rnr-method/slot';
 
 function CustomText() {
   return (
@@ -88,7 +88,7 @@ function CustomText() {
 ### Image Slot
 
 ```tsx
-import * as Slot from '@rn-primitives/slot';
+import * as Slot from '@rnr-method/slot';
 
 function CustomImage() {
   return (

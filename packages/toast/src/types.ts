@@ -5,7 +5,7 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from '@rn-primitives/types';
+} from '@rnr-method/types';
 
 type RootProps = SlottableViewProps & {
   open: boolean;

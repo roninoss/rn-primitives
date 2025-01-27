@@ -1,7 +1,7 @@
 'use client';
 
-import * as Slot from '@rn-primitives/slot';
-import { SlottableTextProps, TextRef } from '@rn-primitives/types';
+import * as Slot from '@rnr-method/slot';
+import { SlottableTextProps, TextRef } from '@rnr-method/types';
 import * as React from 'react';
 import { Platform, Text as RNText } from 'react-native';
 import { cn } from '~/lib/utils';

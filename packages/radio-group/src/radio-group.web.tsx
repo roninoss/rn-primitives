@@ -1,5 +1,5 @@
 import * as RadioGroup from '@radix-ui/react-radio-group';
-import * as Slot from '@rn-primitives/slot';
+import * as Slot from '@rnr-method/slot';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
 import type { IndicatorProps, IndicatorRef, ItemProps, ItemRef, RootProps, RootRef } from './types';

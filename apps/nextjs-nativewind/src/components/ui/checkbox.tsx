@@ -1,6 +1,6 @@
 'use client';
 
-import * as CheckboxPrimitive from '@rn-primitives/checkbox';
+import * as CheckboxPrimitive from '@rnr-method/checkbox';
 import * as React from 'react';
 import { Platform } from 'react-native';
 import { Check } from '~/lib/icons/Check';

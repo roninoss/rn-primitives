@@ -1,6 +1,6 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
-import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
-import * as Slot from '@rn-primitives/slot';
+import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rnr-method/hooks';
+import * as Slot from '@rnr-method/slot';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
 import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';

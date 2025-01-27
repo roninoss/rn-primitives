@@ -9,10 +9,10 @@ description: A collection of layered content sections, referred to as tab panels
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/tabs/src/tabs.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/tabs/src/tabs.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/tabs/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/tabs/src/index.ts?raw';
+import importedNativeCode from '@/../node_modules/@rnr-method/tabs/src/tabs.tsx?raw';
+import importedWebCode from '@/../node_modules/@rnr-method/tabs/src/tabs.web.tsx?raw';
+import importedTypesCode from '@/../node_modules/@rnr-method/tabs/src/types.ts?raw';
+import importedIndexCode from '@/../node_modules/@rnr-method/tabs/src/index.ts?raw';
 
 A collection of layered content sections, referred to as tab panels, displayed individually.
 
@@ -24,7 +24,7 @@ A collection of layered content sections, referred to as tab panels, displayed i
   Install the component via your command line.
 
     ```bash
-    npx expo install @rn-primitives/tabs
+    npx expo install @rnr-method/tabs
     ```
 
   </TabItem>
@@ -79,7 +79,7 @@ A collection of layered content sections, referred to as tab panels, displayed i
 
 ```tsx
 import * as React from 'react';
-import * as TabsPrimitive from '@rn-primitives/tabs';
+import * as TabsPrimitive from '@rnr-method/tabs';
 import { Text } from 'react-native';
 
 function Example() {

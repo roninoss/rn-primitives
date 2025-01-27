@@ -1,4 +1,4 @@
-import * as Slot from '@rn-primitives/slot';
+import * as Slot from '@rnr-method/slot';
 import * as React from 'react';
 import { Pressable, Text as RNText } from 'react-native';
 import type { RootProps, RootRef, TextProps, TextRef } from './types';

@@ -1,5 +1,5 @@
 {
-  "name": "@rn-primitives/tooltip",
+  "name": "@rnr-method/tooltip",
   "version": "1.1.0",
   "description": "Primitive tooltip",
   "license": "MIT",
@@ -33,12 +33,12 @@
   },
   "dependencies": {
     "@radix-ui/react-tooltip": "^1.1.2",
-    "@rn-primitives/hooks": "workspace:*",
-    "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rnr-method/hooks": "workspace:*",
+    "@rnr-method/slot": "workspace:*",
+    "@rnr-method/types": "workspace:*"
   },
   "devDependencies": {
-    "@rn-primitives/portal": "workspace:*",
+    "@rnr-method/portal": "workspace:*",
     "@tsconfig/react-native": "^1.0.1",
     "@types/react": "~18.3.12",
     "react": "18.3.1",
@@ -46,7 +46,7 @@
     "tsup": "^8.1.0"
   },
   "peerDependencies": {
-    "@rn-primitives/portal": "*",
+    "@rnr-method/portal": "*",
     "react": "*",
     "react-native": "*",
     "react-native-web": "*"

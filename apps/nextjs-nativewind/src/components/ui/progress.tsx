@@ -1,6 +1,6 @@
 'use client';
 
-import * as ProgressPrimitive from '@rn-primitives/progress';
+import * as ProgressPrimitive from '@rnr-method/progress';
 import * as React from 'react';
 import { View } from 'react-native';
 import { cn } from '~/lib/utils';

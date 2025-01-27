@@ -1,6 +1,6 @@
 'use client';
 
-import * as AccordionPrimitive from '@rn-primitives/accordion';
+import * as AccordionPrimitive from '@rnr-method/accordion';
 import React from 'react';
 import { Platform, Pressable, View } from 'react-native';
 import Animated, {

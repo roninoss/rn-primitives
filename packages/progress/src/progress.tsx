@@ -1,4 +1,4 @@
-import * as Slot from '@rn-primitives/slot';
+import * as Slot from '@rnr-method/slot';
 import * as React from 'react';
 import { View } from 'react-native';
 import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';

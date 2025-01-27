@@ -1,6 +1,6 @@
 'use client';
 
-import { TextRef } from '@rn-primitives/types';
+import { TextRef } from '@rnr-method/types';
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '~/components/ui/text';

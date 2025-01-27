@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import * as Slot from '@rn-primitives/slot';
+import * as Slot from '@rnr-method/slot';
 import type { IndicatorProps, IndicatorRef, ItemProps, ItemRef, RootProps, RootRef } from './types';
 
 const RadioGroupContext = React.createContext<RootProps | null>(null);

@@ -8,7 +8,7 @@ description: A collection of utilities for the core primitives.
 
 import Code from '@/components/ManualCode.astro';
 import { Aside, Card, TabItem, Tabs } from '@astrojs/starlight/components';
-import importedCode from '@/../node_modules/@rn-primitives/utils/src/index.ts?raw';
+import importedCode from '@/../node_modules/@rnr-method/utils/src/index.ts?raw';
 
 A collection of utilities for core primitives.
 
@@ -27,7 +27,7 @@ A collection of utilities for core primitives.
   Install the component via your command line.
 
     ```bash
-    npx expo install @rn-primitives/utils
+    npx expo install @rnr-method/utils
     ```
   </TabItem>
   <TabItem label="Manual">
@@ -46,8 +46,8 @@ A collection of utilities for core primitives.
 - `getNewMultipleValue`: Returns the new value for a multiple toggle group.
 
 ```tsx
-import { ToggleGroupUtils } from '@rn-primitives/hooks';
-import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
+import { ToggleGroupUtils } from '@rnr-method/hooks';
+import type { PressableRef, SlottablePressableProps } from '@rnr-method/types';
 
 const Item = React.forwardRef<PressableRef, SlottablePressableProps>(
   (
@@ -93,8 +93,8 @@ const Item = React.forwardRef<PressableRef, SlottablePressableProps>(
 ### EmptyGestureResponderEvent
 
 ```tsx
-import { EmptyGestureResponderEvent } from '@rn-primitives/hooks';
-import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
+import { EmptyGestureResponderEvent } from '@rnr-method/hooks';
+import type { PressableRef, SlottablePressableProps } from '@rnr-method/types';
 
 const Item = React.forwardRef<PressableRef, SlottablePressableProps>(
   ({  onPress: onPressProp, onKeyDown: onKeyDownProp, ...props }, ref) => {

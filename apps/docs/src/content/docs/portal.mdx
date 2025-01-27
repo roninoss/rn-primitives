@@ -9,7 +9,7 @@ description: Portals let you render its children into a different part of your a
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Card, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedPortalCode from '@/../node_modules/@rn-primitives/portal/src/portal.tsx?raw';
+import importedPortalCode from '@/../node_modules/@rnr-method/portal/src/portal.tsx?raw';
 
 Portals let you render its children into a different part of your app.
 
@@ -29,7 +29,7 @@ Portals let you render its children into a different part of your app.
   Install the component via your command line.
 
     ```bash
-    npx expo install @rn-primitives/portal
+    npx expo install @rnr-method/portal
     ```
 
   </TabItem>
@@ -57,7 +57,7 @@ Portals let you render its children into a different part of your app.
 Add the `<PortalHost />` as the last child of your `<Root/>` component (for expo-router, the default export in the root `_layout.tsx`)
 
 ```tsx
-import { PortalHost } from '@rn-primitives/portal';
+import { PortalHost } from '@rnr-method/portal';
 
 function Root() {
   return (
@@ -73,7 +73,7 @@ function Root() {
 Then, from any component, add a `<Portal />` and its content will be rendered as a child of `<PortalHost />`
 
 ```tsx
-import { Portal } from '@rn-primitives/portal';
+import { Portal } from '@rnr-method/portal';
 
 function Card() {
   return (
@@ -109,7 +109,7 @@ function Card() {
 Add the `<PortalHost name="unique-host-name"/>` with a unique name where you want the contents of `<Portal />` to render. Then, from any component, add a `<Portal />` and its content will be rendered as a child of `<PortalHost />`
 
 ```tsx
-import { Portal, PortalHost } from '@rn-primitives/portal';
+import { Portal, PortalHost } from '@rnr-method/portal';
 
 function Example() {
   return (

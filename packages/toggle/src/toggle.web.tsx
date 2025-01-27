@@ -1,5 +1,5 @@
 import * as Toggle from '@radix-ui/react-toggle';
-import * as Slot from '@rn-primitives/slot';
+import * as Slot from '@rnr-method/slot';
 import * as React from 'react';
 import { Pressable, type GestureResponderEvent } from 'react-native';
 import type { RootProps, RootRef } from './types';

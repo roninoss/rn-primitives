@@ -4,7 +4,7 @@ import type {
   SlottablePressableProps,
   SlottableViewProps,
   ViewRef,
-} from '@rn-primitives/types';
+} from '@rnr-method/types';
 
 type RootContext = {
   type: 'single' | 'multiple';

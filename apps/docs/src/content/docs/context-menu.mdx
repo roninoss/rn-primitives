@@ -9,10 +9,10 @@ description: Shows a menu activated by either a right-click or a long-press.
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/context-menu/src/context-menu.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/context-menu/src/context-menu.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/context-menu/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/context-menu/src/index.ts?raw';
+import importedNativeCode from '@/../node_modules/@rnr-method/context-menu/src/context-menu.tsx?raw';
+import importedWebCode from '@/../node_modules/@rnr-method/context-menu/src/context-menu.web.tsx?raw';
+import importedTypesCode from '@/../node_modules/@rnr-method/context-menu/src/types.ts?raw';
+import importedIndexCode from '@/../node_modules/@rnr-method/context-menu/src/index.ts?raw';
 
 
 Shows a menu activated by either a right-click or a long-press.
@@ -25,7 +25,7 @@ Shows a menu activated by either a right-click or a long-press.
   Install the component via your command line.
 
     ```bash
-    npx expo install @rn-primitives/context-menu
+    npx expo install @rnr-method/context-menu
     ```
 
 
@@ -33,7 +33,7 @@ Shows a menu activated by either a right-click or a long-press.
       If you do not have the portal primitive in your project, you will need to add it as well.
 
        ```bash
-      npx expo install @rn-primitives/portal
+      npx expo install @rnr-method/portal
       ```
     </Aside>
 
@@ -95,7 +95,7 @@ Shows a menu activated by either a right-click or a long-press.
   Requires a `<PortalHost />` as the last child of your `<Root/>` (`app/_layout.tsx`) component
 
   ```tsx
-  import { PortalHost } from '@rn-primitives/portal';
+  import { PortalHost } from '@rnr-method/portal';
 
   function Root() {
     return (
@@ -112,7 +112,7 @@ Shows a menu activated by either a right-click or a long-press.
 
 ```tsx
 import * as React from 'react';
-import * as ContextMenuPrimitive from '@rn-primitives/context-menu';
+import * as ContextMenuPrimitive from '@rnr-method/context-menu';
 import { Text } from 'react-native';
 
 function Example() {

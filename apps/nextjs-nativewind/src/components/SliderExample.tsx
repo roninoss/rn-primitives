@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Pressable, View, Text } from 'react-native';
-import * as Slider from '@rn-primitives/slider';
+import * as Slider from '@rnr-method/slider';
 import { cn } from '~/lib/utils';
 
 export function SliderExample() {

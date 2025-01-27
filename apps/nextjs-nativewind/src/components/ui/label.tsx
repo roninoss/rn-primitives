@@ -1,6 +1,6 @@
 'use client';
 
-import * as LabelPrimitive from '@rn-primitives/label';
+import * as LabelPrimitive from '@rnr-method/label';
 import * as React from 'react';
 import { cn } from '~/lib/utils';
 

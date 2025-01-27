@@ -1,6 +1,6 @@
-import { useAugmentedRef, useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
-import { Portal as RNPPortal } from '@rn-primitives/portal';
-import * as Slot from '@rn-primitives/slot';
+import { useAugmentedRef, useRelativePosition, type LayoutPosition } from '@rnr-method/hooks';
+import { Portal as RNPPortal } from '@rnr-method/portal';
+import * as Slot from '@rnr-method/slot';
 import * as React from 'react';
 import {
   BackHandler,

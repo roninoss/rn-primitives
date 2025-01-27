@@ -1,6 +1,6 @@
 import * as Toolbar from '@radix-ui/react-toolbar';
-import * as Slot from '@rn-primitives/slot';
-import { ToggleGroupUtils } from '@rn-primitives/utils';
+import * as Slot from '@rnr-method/slot';
+import { ToggleGroupUtils } from '@rnr-method/utils';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type {

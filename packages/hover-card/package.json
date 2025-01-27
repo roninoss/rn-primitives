@@ -1,5 +1,5 @@
 {
-  "name": "@rn-primitives/hover-card",
+  "name": "@rnr-method/hover-card",
   "version": "1.1.0",
   "description": "Primitive hover card",
   "license": "MIT",
@@ -33,13 +33,13 @@
   },
   "dependencies": {
     "@radix-ui/react-hover-card": "^1.1.1",
-    "@rn-primitives/popover": "workspace:*",
-    "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/hooks": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rnr-method/popover": "workspace:*",
+    "@rnr-method/slot": "workspace:*",
+    "@rnr-method/hooks": "workspace:*",
+    "@rnr-method/types": "workspace:*"
   },
   "devDependencies": {
-    "@rn-primitives/portal": "workspace:*",
+    "@rnr-method/portal": "workspace:*",
     "@tsconfig/react-native": "^1.0.1",
     "@types/react": "~18.3.12",
     "react": "18.3.1",
@@ -47,7 +47,7 @@
     "tsup": "^8.1.0"
   },
   "peerDependencies": {
-    "@rn-primitives/portal": "*",
+    "@rnr-method/portal": "*",
     "react": "*",
     "react-native": "*",
     "react-native-web": "*"
