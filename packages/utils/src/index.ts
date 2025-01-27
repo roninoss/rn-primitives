@@ -1,4 +1,6 @@
 import type { GestureResponderEvent } from 'react-native';
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
 
 const ToggleGroupUtils = {
   getIsSelected(value: string | string[] | undefined, itemValue: string) {
@@ -58,4 +60,9 @@ const EmptyGestureResponderEvent: GestureResponderEvent = {
   type: '',
 };
 
-export { ToggleGroupUtils, EmptyGestureResponderEvent };
+
+const cn = (...inputs: ClassValue[]) => {
+  return twMerge(clsx(inputs))
+}
+
+export { ToggleGroupUtils, EmptyGestureResponderEvent, cn };
