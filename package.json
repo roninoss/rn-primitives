@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "turbo dev --concurrency=34",
-    "dev:primitives": "turbo dev --filter=./packages/* --concurrency=33",
+    "dev:primitives": "turbo dev --filter=./packages/* --concurrency=34",
     "dev:expo-nativewind": "turbo dev --filter=./apps/expo-nativewind",
     "dev:nextjs-nativewind": "turbo dev --filter=./apps/nextjs-nativewind",
     "dev:docs": "turbo dev --filter=./apps/docs",
@@ -11,8 +11,8 @@
     "test": "turbo test",
     "build": "turbo build --filter=./packages/*",
     "build:docs": "turbo build --filter=./apps/docs",
-    "publish-all:primitives:next": "turbo pub:next --filter=./packages/* --concurrency=33",
-    "publish-all:primitives": "turbo pub:release --filter=./packages/* --concurrency=33",
+    "publish-all:primitives:next": "turbo pub:next --filter=./packages/* --concurrency=34",
+    "publish-all:primitives": "turbo pub:release --filter=./packages/* --concurrency=34",
     "clean": "turbo clean && rm -rf .turbo node_modules"
   },
   "devDependencies": {
