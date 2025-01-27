@@ -34,6 +34,8 @@ package-lock.json
 .*.swo
 .*.swn
 .*.swm
+.*.swm
+*-E
 
 # Sublime Text
 *.sublime-project
