@@ -20,10 +20,25 @@
       "es2022.object",
       "es2022.string"
     ],
+    "target": "esnext",
+    "module": "commonjs",
+    "types": [
+      "react-native"
+    ],
+    "allowJs": true,
+    "jsx": "react-native",
+    "noEmit": true,
+    "isolatedModules": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "dist",
     "build",
     "node_modules"
-  ],
+  ]
 }
