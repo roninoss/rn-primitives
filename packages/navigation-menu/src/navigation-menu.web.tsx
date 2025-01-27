@@ -141,7 +141,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       <NavigationMenu.Trigger disabled={disabled ?? undefined} asChild>
         <Component
           ref={ref}
-          // @ts-expect-error web only
+          // @ts-ignore web only
           onKeyDown={onKeyDown}
           onPress={onPress}
           {...props}
@@ -217,7 +217,7 @@ const Link = React.forwardRef<LinkRef, LinkProps>(
         <Component
           ref={ref}
           role='link'
-          // @ts-expect-error web only
+          // @ts-ignore web only
           onKeyDown={onKeyDown}
           onPress={onPress}
           {...props}

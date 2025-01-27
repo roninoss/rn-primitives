@@ -261,7 +261,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
       >
         <Component
           ref={ref}
-          // @ts-expect-error web only
+          // @ts-ignore web only
           onKeyDown={onKeyDown}
           onPress={onPress}
           {...props}
@@ -340,7 +340,7 @@ const CheckboxItem = React.forwardRef<CheckboxItemRef, CheckboxItemProps>(
       >
         <Component
           ref={ref}
-          // @ts-expect-error web only
+          // @ts-ignore web only
           onKeyDown={onKeyDown}
           onPress={onPress}
           role='button'
@@ -428,7 +428,7 @@ const RadioItem = React.forwardRef<RadioItemRef, RadioItemProps>(
       >
         <Component
           ref={ref}
-          // @ts-expect-error web only
+          // @ts-ignore web only
           onKeyDown={onKeyDown}
           onPress={onPress}
           {...props}

@@ -36,7 +36,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
           ref={ref}
           disabled={disabled}
           onPress={onPress}
-          // @ts-expect-error Web only
+          // @ts-ignore Web only
           onKeyDown={onKeyDown}
           {...props}
         />
