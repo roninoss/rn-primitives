@@ -1,8 +1,8 @@
+import { Input } from '@rnr-method/input';
 import { Link } from 'expo-router';
 import * as React from 'react';
 import { FlatList, View } from 'react-native';
 import { Button } from '~/components/ui/button';
-import { Input } from '~/components/ui/input';
 import { Text } from '~/components/ui/text';
 import { ChevronRight } from '~/lib/icons/ChevronRight';
 import { cn } from '~/lib/utils';

@@ -44,6 +44,7 @@
     "@rnr-method/toolbar": "workspace:*",
     "@rnr-method/tooltip": "workspace:*",
     "@rnr-method/types": "workspace:*",
+    "@rnr-method/input": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "expo": "^52.0.11",
