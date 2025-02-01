@@ -232,7 +232,12 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
     return (
       <ItemContext.Provider value={{ itemValue: value, label: label }}>
         <Slot.Pressable ref={ref} {...props}>
-          <Select.Item textValue={label} value={value} disabled={props.disabled ?? undefined}>
+          <Select.Item
+            asChild={asChild}
+            textValue={label}
+            value={value}
+            disabled={props.disabled ?? undefined}
+          >
             <>{children as React.ReactNode}</>
           </Select.Item>
         </Slot.Pressable>
