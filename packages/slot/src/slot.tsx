@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  type PressableProps,
   Image as RNImage,
   Pressable as RNPressable,
   Text as RNText,
@@ -14,6 +15,36 @@ import {
   type StyleProp,
 } from 'react-native';
 
+// TODO: test the slot component
+// TODO: if all works, remove other slots
+function SlotImplementation<T extends React.ElementType>(
+  props: React.ComponentPropsWithoutRef<T>,
+  forwardedRef: React.Ref<React.ElementRef<T>>
+) {
+  const { children, ...restOfProps } = props;
+
+  if (!React.isValidElement(children)) {
+    console.log('Slot - Invalid asChild element', children);
+    return null;
+  }
+
+  if (isTextChildren(children)) {
+    console.log('Slot - Text children are not supported', children);
+    return null;
+  }
+
+  return React.cloneElement(children, {
+    ...mergeProps(restOfProps, children.props as any),
+    ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
+  } as unknown as Partial<React.ComponentProps<T>>);
+}
+
+export const Slot = React.forwardRef(SlotImplementation) as <T extends React.ElementType>(
+  props: React.ComponentPropsWithoutRef<T> & { as?: T; ref?: React.Ref<React.ElementRef<T>> }
+) => React.ReactElement | null;
+
+(Slot as React.NamedExoticComponent<any>).displayName = 'Slot';
+
 const Pressable = React.forwardRef<React.ElementRef<typeof RNPressable>, RNPressableProps>(
   (props, forwardedRef) => {
     const { children, ...pressableSlotProps } = props;
@@ -25,7 +56,7 @@ const Pressable = React.forwardRef<React.ElementRef<typeof RNPressable>, RNPress
 
     return React.cloneElement<
       React.ComponentPropsWithoutRef<typeof RNPressable>,
-      React.ElementRef<typeof RNPressable>
+      React.Component<Omit<PressableProps & React.RefAttributes<RNView>, 'ref'>, any, any>
     >(isTextChildren(children) ? <></> : children, {
       ...mergeProps(pressableSlotProps, children.props),
       ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,

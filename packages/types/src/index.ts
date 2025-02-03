@@ -1,14 +1,31 @@
-import type { Pressable, Text, View, ViewStyle } from 'react-native';
+import type {
+  Image,
+  ImageProps,
+  ImageStyle,
+  Pressable,
+  PressableProps,
+  StyleProp,
+  Text,
+  TextProps,
+  TextStyle,
+  View,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
 
-type ComponentPropsWithAsChild<T extends React.ElementType<any>> =
-  React.ComponentPropsWithoutRef<T> & { asChild?: boolean };
+type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & {};
 
-type ViewRef = React.ElementRef<typeof View>;
-type PressableRef = React.ElementRef<typeof Pressable>;
-type TextRef = React.ElementRef<typeof Text>;
+type PropsWithout<T, U> = Omit<T, keyof U>;
+type PropsWithoutHTML<T, U> = PropsWithout<T, React.HTMLAttributes<U>>;
 
-type SlottableViewProps = ComponentPropsWithAsChild<typeof View>;
-type SlottablePressableProps = ComponentPropsWithAsChild<typeof Pressable> & {
+type Slottable<T> = Prettify<T & { asChild?: boolean }>;
+
+type SlottableViewProps = Slottable<ViewProps>;
+
+// TODO: remove the web only props
+type SlottablePressableProps = Slottable<PressableProps> & {
   /**
    * Platform: WEB ONLY
    */
@@ -18,7 +35,39 @@ type SlottablePressableProps = ComponentPropsWithAsChild<typeof Pressable> & {
    */
   onKeyUp?: (ev: React.KeyboardEvent) => void;
 };
-type SlottableTextProps = ComponentPropsWithAsChild<typeof Text>;
+type SlottableTextProps = Slottable<TextProps>;
+type SlottableImageProps = Slottable<ImageProps>;
+
+type BaseSlottableTextProps = Slottable<{
+  children?: React.ReactNode;
+  style?: StyleProp<TextStyle>;
+  className?: string;
+}>;
+type BaseSlottableViewProps = Slottable<{
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  className?: string;
+}>;
+type BaseSlottablePressableProps = Slottable<{
+  children?: PressableProps['children'];
+  style?: PressableProps['style'];
+  className?: string;
+}>;
+type BaseSlottableImageProps = Slottable<{
+  style?: StyleProp<ImageStyle>;
+  className?: string;
+}>;
+
+type ViewRef = React.ElementRef<typeof View>;
+type PressableRef = React.ElementRef<typeof Pressable>;
+type TextRef = React.ElementRef<typeof Text>;
+type ImageRef = React.ElementRef<typeof Image>;
+
+type BasicPressEvents = {
+  onPress?: () => void;
+  onPressIn?: () => void;
+  onPressOut?: () => void;
+};
 
 interface Insets {
   top?: number;
@@ -70,9 +119,7 @@ interface PositionedContentProps {
   /**
    * Platform: WEB ONLY
    */
-  onInteractOutside?: (
-    event: PointerDownOutsideEvent | FocusOutsideEvent
-  ) => void;
+  onInteractOutside?: (event: PointerDownOutsideEvent | FocusOutsideEvent) => void;
   /**
    * Platform: WEB ONLY
    */
@@ -92,11 +139,21 @@ interface ForceMountable {
 }
 
 export type {
-  ComponentPropsWithAsChild,
+  BaseSlottableImageProps,
+  BaseSlottablePressableProps,
+  BaseSlottableTextProps,
+  BaseSlottableViewProps,
+  BasicPressEvents,
   ForceMountable,
+  ImageRef,
   Insets,
   PositionedContentProps,
   PressableRef,
+  Prettify,
+  PropsWithout,
+  PropsWithoutHTML,
+  Slottable,
+  SlottableImageProps,
   SlottablePressableProps,
   SlottableTextProps,
   SlottableViewProps,

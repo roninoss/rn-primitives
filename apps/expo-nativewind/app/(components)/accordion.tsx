@@ -1,15 +1,27 @@
+import * as React from 'react';
 import { View } from 'react-native';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  AccordionTriggerRef,
 } from '~/components/ui/accordion';
+import { Button } from '~/components/ui/button';
 import { Text } from '~/components/ui/text';
 
 export default function AccordionScreen() {
+  const ref = React.useRef<AccordionTriggerRef>(null);
   return (
     <View className='flex-1 justify-center items-center p-6'>
+      <Button
+        className='absolute top-4 right-4'
+        onPress={() => {
+          ref.current?.trigger?.();
+        }}
+      >
+        <Text>Trigger Item 1</Text>
+      </Button>
       <Accordion
         type='multiple'
         collapsible
@@ -17,8 +29,8 @@ export default function AccordionScreen() {
         className='w-full max-w-sm native:max-w-md'
       >
         <AccordionItem value='item-1'>
-          <AccordionTrigger>
-            <Text>Is it accessible?</Text>
+          <AccordionTrigger ref={ref}>
+            {({ pressed }) => <Text>Is it accessible? {pressed ? 'pressed' : 'not pressed'}</Text>}
           </AccordionTrigger>
           <AccordionContent>
             <Text>Yes. It adheres to the WAI-ARIA design pattern.</Text>

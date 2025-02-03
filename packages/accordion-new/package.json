@@ -1,0 +1,91 @@
+{
+  "name": "@rn-primitives/accordion-new",
+  "version": "1.1.0",
+  "description": "Primitive accordion",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./accordion-native": {
+      "import": "./dist/accordion-native.mjs",
+      "require": "./dist/accordion-native.js",
+      "types": "./dist/accordion-native.d.ts",
+      "default": "./dist/accordion-native.js"
+    },
+    "./accordion-web": {
+      "import": "./dist/accordion-web.mjs",
+      "require": "./dist/accordion-web.js",
+      "types": "./dist/accordion-web.d.ts",
+      "default": "./dist/accordion-web.js"
+    },
+    "./dist/accordion": {
+      "import": "./dist/accordion.mjs",
+      "require": "./dist/accordion.js",
+      "types": "./dist/accordion.d.ts",
+      "default": "./dist/accordion.js"
+    },
+    "./dist/accordion-native": {
+      "import": "./dist/accordion-native.mjs",
+      "require": "./dist/accordion-native.js",
+      "types": "./dist/accordion-native.d.ts",
+      "default": "./dist/accordion-native.js"
+    },
+    "./dist/accordion-web": {
+      "import": "./dist/accordion-web.mjs",
+      "require": "./dist/accordion-web.js",
+      "types": "./dist/accordion-web.d.ts",
+      "default": "./dist/accordion-web.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
+    "pub:beta": "pnpm publish --no-git-checks --access public --tag beta",
+    "pub:next": "pnpm publish --no-git-checks --access public --tag next",
+    "pub:release": "pnpm publish --access public"
+  },
+  "dependencies": {
+    "@radix-ui/react-accordion": "^1.2.0",
+    "@react-native/normalize-colors": "^0.77.0",
+    "@rn-primitives/animatable": "workspace:*",
+    "@rn-primitives/hooks": "workspace:*",
+    "@rn-primitives/slot": "workspace:*",
+    "@rn-primitives/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@tsconfig/react-native": "^1.0.1",
+    "@types/react": "~18.3.12",
+    "react": "18.3.1",
+    "react-native": "0.76.3",
+    "react-native-reanimated": "~3.16.2",
+    "tsup": "^8.1.0"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-reanimated": "*",
+    "react-native-web": "*"
+  },
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    },
+    "react-native-web": {
+      "optional": true
+    },
+    "react-native-reanimated": {
+      "optional": true
+    }
+  }
+}

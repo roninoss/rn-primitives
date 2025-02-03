@@ -199,6 +199,9 @@ importers:
       '@rn-primitives/accordion':
         specifier: workspace:*
         version: link:../../packages/accordion
+      '@rn-primitives/accordion-new':
+        specifier: workspace:*
+        version: link:../../packages/accordion-new
       '@rn-primitives/alert-dialog':
         specifier: workspace:*
         version: link:../../packages/alert-dialog
@@ -708,6 +711,49 @@ importers:
         specifier: ^8.1.0
         version: 8.3.5(jiti@1.21.6)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1)
 
+  packages/accordion-new:
+    dependencies:
+      '@radix-ui/react-accordion':
+        specifier: ^1.2.0
+        version: 1.2.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-native/normalize-colors':
+        specifier: ^0.77.0
+        version: 0.77.0
+      '@rn-primitives/animatable':
+        specifier: workspace:*
+        version: link:../animatable
+      '@rn-primitives/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@rn-primitives/slot':
+        specifier: workspace:*
+        version: link:../slot
+      '@rn-primitives/types':
+        specifier: workspace:*
+        version: link:../types
+      react-native-web:
+        specifier: '*'
+        version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    devDependencies:
+      '@tsconfig/react-native':
+        specifier: ^1.0.1
+        version: 1.0.5
+      '@types/react':
+        specifier: ~18.3.12
+        version: 18.3.12
+      react:
+        specifier: 18.3.1
+        version: 18.3.1
+      react-native:
+        specifier: 0.76.3
+        version: 0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1)
+      react-native-reanimated:
+        specifier: ~3.16.2
+        version: 3.16.2(@babel/core@7.26.0)(react-native@0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
+      tsup:
+        specifier: ^8.1.0
+        version: 8.3.5(jiti@1.21.6)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1)
+
   packages/alert-dialog:
     dependencies:
       '@radix-ui/react-alert-dialog':
@@ -729,6 +775,37 @@ importers:
       '@rn-primitives/portal':
         specifier: workspace:*
         version: link:../portal
+      '@tsconfig/react-native':
+        specifier: ^1.0.1
+        version: 1.0.5
+      '@types/react':
+        specifier: ~18.3.12
+        version: 18.3.12
+      react:
+        specifier: 18.3.1
+        version: 18.3.1
+      react-native:
+        specifier: 0.76.3
+        version: 0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1)
+      tsup:
+        specifier: ^8.1.0
+        version: 8.3.5(jiti@1.21.6)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1)
+
+  packages/animatable:
+    dependencies:
+      '@rn-primitives/slot':
+        specifier: workspace:*
+        version: link:../slot
+      '@rn-primitives/types':
+        specifier: workspace:*
+        version: link:../types
+      react-native-reanimated:
+        specifier: '*'
+        version: 3.16.2(@babel/core@7.26.0)(react-native@0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
+      react-native-web:
+        specifier: '*'
+        version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    devDependencies:
       '@tsconfig/react-native':
         specifier: ^1.0.1
         version: 1.0.5
@@ -3871,6 +3948,9 @@ packages:
 
   '@react-native/normalize-colors@0.76.3':
     resolution: {integrity: sha512-Yrpmrh4IDEupUUM/dqVxhAN8QW1VEUR3Qrk2lzJC1jB2s46hDe0hrMP2vs12YJqlzshteOthjwXQlY0TgIzgbg==}
+
+  '@react-native/normalize-colors@0.77.0':
+    resolution: {integrity: sha512-qjmxW3xRZe4T0ZBEaXZNHtuUbRgyfybWijf1yUuQwjBt24tSapmIslwhCjpKidA0p93ssPcepquhY0ykH25mew==}
 
   '@react-native/virtualized-lists@0.76.3':
     resolution: {integrity: sha512-wTGv9pVh3vAOWb29xFm+J9VRe9dUcUcb9FyaMLT/Hxa88W4wqa5ZMe1V9UvrrBiA1G5DKjv8/1ZcDsJhyugVKA==}
@@ -7901,9 +7981,11 @@ packages:
 
   sudo-prompt@8.2.5:
     resolution: {integrity: sha512-rlBo3HU/1zAJUrkY6jNxDOC9eVYliG6nS4JA8u8KAshITd07tafMc/Br7xQwCSseXwJ2iCcHCE8SNWX3q8Z+kw==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   sudo-prompt@9.1.1:
     resolution: {integrity: sha512-es33J1g2HjMpyAhz8lOR+ICmXXAqTuKbuXuUWLhOLew20oN9oUCgCJx615U/v7aioZg7IX5lIh9x34vwneu4pA==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
@@ -11417,6 +11499,8 @@ snapshots:
   '@react-native/normalize-colors@0.74.88': {}
 
   '@react-native/normalize-colors@0.76.3': {}
+
+  '@react-native/normalize-colors@0.77.0': {}
 
   '@react-native/virtualized-lists@0.76.3(@types/react@18.3.12)(react-native@0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)':
     dependencies:

@@ -2,8 +2,8 @@
   "name": "@rn-primitives/monorepo",
   "private": true,
   "scripts": {
-    "dev": "turbo dev --concurrency=34",
-    "dev:primitives": "turbo dev --filter=./packages/* --concurrency=33",
+    "dev": "turbo dev --concurrency=38",
+    "dev:primitives": "turbo dev --filter=./packages/* --concurrency=35",
     "dev:expo-nativewind": "turbo dev --filter=./apps/expo-nativewind",
     "dev:nextjs-nativewind": "turbo dev --filter=./apps/nextjs-nativewind",
     "dev:docs": "turbo dev --filter=./apps/docs",

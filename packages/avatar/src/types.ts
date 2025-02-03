@@ -1,12 +1,11 @@
-import type { ComponentPropsWithAsChild, SlottableViewProps, ViewRef } from '@rn-primitives/types';
+import type { SlottableImageProps, SlottableViewProps, ViewRef } from '@rn-primitives/types';
 import type { Image } from 'react-native';
 
 type RootProps = SlottableViewProps & {
   alt: string;
 };
 
-type ImageProps = Omit<ComponentPropsWithAsChild<typeof Image>, 'alt'> & {
-  children?: React.ReactNode;
+type ImageProps = Omit<SlottableImageProps, 'alt'> & {
   onLoadingStatusChange?: (status: 'error' | 'loaded') => void;
 };
 
