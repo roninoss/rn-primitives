@@ -2,10 +2,6 @@ import type { Insets } from '@rn-primitives/types';
 import * as React from 'react';
 import { Dimensions, type LayoutRectangle, type ScaledSize, type ViewStyle } from 'react-native';
 
-const POSITION_ABSOLUTE: ViewStyle = {
-  position: 'absolute',
-};
-
 const HIDDEN_CONTENT: ViewStyle = {
   position: 'absolute',
   opacity: 0,
@@ -213,7 +209,7 @@ function getContentStyle({
   dimensions,
 }: GetContentStyleArgs) {
   return Object.assign(
-    POSITION_ABSOLUTE,
+    { position: 'absolute' } as const,
     getSidePosition({
       side,
       triggerPosition,
