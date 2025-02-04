@@ -228,7 +228,9 @@ const ItemContext = React.createContext<{
 const Item = React.forwardRef<ItemRef, ItemProps>(
   ({ asChild, closeOnPress = true, label, value, children, ...props }, ref) => {
     const { labelForValueRef } = useRootContext();
-    labelForValueRef.current[value] = label;
+    if (!(value in labelForValueRef.current)) {
+      labelForValueRef.current[value] = label;
+    }
     return (
       <ItemContext.Provider value={{ itemValue: value, label: label }}>
         <Slot.Pressable ref={ref} {...props}>
