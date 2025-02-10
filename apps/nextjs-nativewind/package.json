@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@rn-primitives/accordion": "workspace:*",
+    "@rn-primitives/accordion-new": "workspace:*",
     "@rn-primitives/alert-dialog": "workspace:*",
     "@rn-primitives/aspect-ratio": "workspace:*",
     "@rn-primitives/avatar": "workspace:*",

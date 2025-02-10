@@ -1,12 +1,20 @@
 import * as React from 'react';
+import type { PressableProps, PressableStateCallbackType } from 'react-native';
 import {
   Content as ContentWeb,
   Header as HeaderWeb,
   Item as ItemWeb,
   Root as RootWeb,
   Trigger as TriggerWeb,
+  useItemContext,
+  useRootContext,
 } from './accordion-web';
-import { BaseAccordionMultipleProps, BaseAccordionSingleProps } from './types/base';
+import { convertStyleForWeb } from './convert-style-for-web';
+import {
+  BaseAccordionMultipleProps,
+  BaseAccordionSingleProps,
+  BaseAccordionTriggerRef,
+} from './types/base';
 import type {
   ContentProps,
   HeaderProps,
@@ -15,11 +23,7 @@ import type {
   TriggerProps,
   TriggerRef,
 } from './types/universal';
-
-import { convertStyleForWeb } from './convert-style-for-web';
-import { PressableProps, PressableStateCallbackType } from 'react-native';
-
-// TODO: add contexts
+import type { AccordionTriggerWebOnlyRef } from './types/web-only';
 
 function Root({ native: _native, web, ...props }: RootProps) {
   return <RootWeb {...(props as BaseAccordionSingleProps | BaseAccordionMultipleProps)} {...web} />;
@@ -58,21 +62,10 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       onPressIn,
       onPressOut,
     });
-    const triggerRef = React.useRef<HTMLButtonElement>(null);
-
-    React.useImperativeHandle(
-      ref,
-      () => ({
-        trigger: () => {
-          triggerRef.current?.click();
-        },
-      }),
-      [triggerRef.current]
-    );
 
     return (
       <TriggerWeb
-        ref={triggerRef}
+        ref={ref as React.LegacyRef<AccordionTriggerWebOnlyRef & BaseAccordionTriggerRef>}
         children={children}
         style={style}
         onClick={onPress}
@@ -173,16 +166,6 @@ function useWebPressableProps({
         ? childrenProp({ focused, hovered, pressed } as PressableStateCallbackType)
         : childrenProp,
   };
-}
-
-// TODO:
-function useItemContext() {
-  return {};
-}
-
-// TODO:
-function useRootContext() {
-  return {};
 }
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };

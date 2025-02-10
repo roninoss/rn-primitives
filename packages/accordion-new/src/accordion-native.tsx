@@ -1,8 +1,8 @@
+import { AnimatablePressable, AnimatableView } from '@rn-primitives/animatable';
 import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
-import { type GestureResponderEvent } from 'react-native';
-import { AnimatablePressable, AnimatableView } from '@rn-primitives/animatable';
+import type { GestureResponderEvent } from 'react-native';
 import type {
   BaseAccordionContentProps,
   BaseAccordionHeaderProps,
@@ -23,11 +23,13 @@ import type {
   AccordionTriggerNativeOnlyProps,
   AccordionTriggerNativeOnlyRef,
 } from './types/native-only';
-
-const AccordionContext = React.createContext<Omit<
-  BaseAccordionRootProps,
-  'asChild' | 'defaultValue' | 'children'
-> | null>(null);
+import {
+  RootContext,
+  createItemContext,
+  createUseItemContext,
+  useRootContext,
+} from './utils/contexts';
+import { isItemExpanded } from './utils/is-item-expanded';
 
 type AccordionRootNativeProps = AccordionRootNativeOnlyProps & BaseAccordionRootProps;
 type AccordionRootNativeRef = AccordionRootNativeOnlyRef;
@@ -48,68 +50,53 @@ const Root = React.forwardRef<AccordionRootNativeRef, AccordionRootNativeProps>(
     },
     ref
   ) => {
-    const [value = type === 'multiple' ? [] : undefined, onValueChange] = useControllableState<
-      (string | undefined) | string[]
-    >({
-      prop: valueProp,
-      defaultProp: defaultValue,
-      onChange: onValueChangeProps as (state: string | string[] | undefined) => void,
-    });
+    const [rootValue = type === 'multiple' ? [] : undefined, onRootValueChange] =
+      useControllableState<(string | undefined) | string[]>({
+        prop: valueProp,
+        defaultProp: defaultValue,
+        onChange: onValueChangeProps as (state: string | string[] | undefined) => void,
+      });
 
     const Component = asChild ? Slot<typeof AnimatableView> : AnimatableView;
     return (
-      <AccordionContext.Provider
+      <RootContext.Provider
         value={{
           type,
           disabled,
           collapsible,
-          value,
-          onValueChange,
+          rootValue,
+          onRootValueChange,
           dir,
           orientation,
         }}
       >
         <Component ref={ref} {...viewProps} />
-      </AccordionContext.Provider>
+      </RootContext.Provider>
     );
   }
 );
 
 Root.displayName = 'AccordionRootNative';
 
-function useRootContext() {
-  const context = React.useContext(AccordionContext);
-  if (!context) {
-    throw new Error(
-      'Accordion compound components cannot be rendered outside the Accordion component'
-    );
-  }
-  return context;
-}
-
-type AccordionItemContextType = Omit<BaseAccordionItemProps, 'asChild' | 'children'> & {
-  nativeID: string;
-  isExpanded: boolean;
-};
-
-const AccordionItemContext = React.createContext<AccordionItemContextType | null>(null);
+const AccordionItemContext = createItemContext<{ nativeID: string }>();
+const useItemContext = createUseItemContext(AccordionItemContext);
 
 type AccordionItemNativeProps = AccordionItemNativeOnlyProps & BaseAccordionItemProps;
 type AccordionItemNativeRef = AccordionItemNativeOnlyRef;
 
 const Item = React.forwardRef<AccordionItemNativeRef, AccordionItemNativeProps>(
-  ({ asChild, value, disabled, ...viewProps }, ref) => {
-    const { value: rootValue } = useRootContext();
+  ({ asChild, value: itemValue, disabled, ...viewProps }, ref) => {
+    const { rootValue } = useRootContext();
     const nativeID = React.useId();
 
     const Component = asChild ? Slot<typeof AnimatableView> : AnimatableView;
     return (
       <AccordionItemContext.Provider
         value={{
-          value,
+          itemValue,
           disabled,
           nativeID,
-          isExpanded: isItemExpanded(rootValue, value),
+          isExpanded: isItemExpanded(rootValue, itemValue),
         }}
       >
         <Component ref={ref} {...viewProps} />
@@ -119,16 +106,6 @@ const Item = React.forwardRef<AccordionItemNativeRef, AccordionItemNativeProps>(
 );
 
 Item.displayName = 'AccordionItemNative';
-
-function useItemContext() {
-  const context = React.useContext(AccordionItemContext);
-  if (!context) {
-    throw new Error(
-      'AccordionItem compound components cannot be rendered outside the AccordionItem component'
-    );
-  }
-  return context;
-}
 
 type AccordionHeaderNativeProps = AccordionHeaderNativeOnlyProps & BaseAccordionHeaderProps;
 type AccordionHeaderNativeRef = AccordionHeaderNativeOnlyRef;
@@ -161,48 +138,45 @@ const Trigger = React.forwardRef<AccordionTriggerNativeRef, AccordionTriggerNati
     const {
       disabled: rootDisabled,
       type,
-      onValueChange,
-      value: rootValue,
+      onRootValueChange,
+      rootValue,
       collapsible,
     } = useRootContext();
-    const { nativeID, disabled: itemDisabled, value, isExpanded } = useItemContext();
+    const { nativeID, disabled: itemDisabled, itemValue, isExpanded } = useItemContext();
 
     const methods = React.useMemo(() => {
       return {
         trigger: () => {
           if (type === 'single') {
-            const newValue = collapsible ? (value === rootValue ? undefined : value) : value;
-            onValueChange?.(newValue as string[] & string);
+            const newValue = collapsible
+              ? itemValue === rootValue
+                ? undefined
+                : itemValue
+              : itemValue;
+            onRootValueChange?.(newValue as string[] & string);
           }
           if (type === 'multiple') {
             const rootToArray = toStringArray(rootValue);
             const newValue = collapsible
-              ? rootToArray.includes(value)
-                ? rootToArray.filter((val) => val !== value)
-                : rootToArray.concat(value)
-              : [...new Set(rootToArray.concat(value))];
-            onValueChange?.(newValue as string[] & string);
+              ? rootToArray.includes(itemValue)
+                ? rootToArray.filter((val) => val !== itemValue)
+                : rootToArray.concat(itemValue)
+              : [...new Set(rootToArray.concat(itemValue))];
+            onRootValueChange?.(newValue as string[] & string);
           }
         },
       };
-    }, [collapsible, onValueChange, rootValue, type, value]);
+    }, [collapsible, onRootValueChange, rootValue, type, itemValue]);
 
     const triggerRef = useAugmentedRef({ ref, methods });
 
     const isDisabled = !!(disabledProp || rootDisabled || itemDisabled);
 
-    const accessibilityState = React.useMemo(() => {
-      return {
-        expanded: isExpanded,
-        disabled: isDisabled,
-      };
-    }, [isDisabled, isExpanded]);
-
     const onPress = React.useCallback(
       (ev: GestureResponderEvent) => {
         methods.trigger();
         if (typeof onPressProp === 'function') {
-          onPressProp?.(ev);
+          onPressProp(ev);
         }
       },
       [onPressProp, methods]
@@ -216,7 +190,7 @@ const Trigger = React.forwardRef<AccordionTriggerNativeRef, AccordionTriggerNati
         aria-disabled={isDisabled}
         role='button'
         onPress={onPress}
-        accessibilityState={accessibilityState}
+        aria-expanded={isExpanded}
         disabled={isDisabled}
         {...props}
       />
@@ -245,7 +219,7 @@ const Content = React.forwardRef<AccordionContentNativeOnlyRef, AccordionContent
       <Component
         ref={ref}
         aria-hidden={!(forceMount || isExpanded)}
-        accessibilityLabelledBy={nativeID}
+        aria-labelledby={nativeID}
         role={type === 'single' ? 'region' : 'summary'}
         {...props}
       />
@@ -272,8 +246,4 @@ export type {
 
 function toStringArray(value?: string | string[]) {
   return Array.isArray(value) ? value : value ? [value] : [];
-}
-
-function isItemExpanded(rootValue: string | string[] | undefined, value: string) {
-  return Array.isArray(rootValue) ? rootValue.includes(value) : rootValue === value;
 }

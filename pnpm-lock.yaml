@@ -534,6 +534,9 @@ importers:
       '@rn-primitives/accordion':
         specifier: workspace:*
         version: link:../../packages/accordion
+      '@rn-primitives/accordion-new':
+        specifier: workspace:*
+        version: link:../../packages/accordion-new
       '@rn-primitives/alert-dialog':
         specifier: workspace:*
         version: link:../../packages/alert-dialog

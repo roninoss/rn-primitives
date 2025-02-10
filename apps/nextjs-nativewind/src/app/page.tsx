@@ -132,8 +132,9 @@ export default function Home() {
 }
 
 function AccordionExample() {
+  // TODO: fix typing since this should error
   return (
-    <Accordion type='multiple' collapsible defaultValue={['item-1']}>
+    <Accordion type='multiple' collapsible defaultValue={'item-1'}>
       <AccordionItem value='item-1'>
         <AccordionTrigger>
           <Text>Is it accessible?</Text>

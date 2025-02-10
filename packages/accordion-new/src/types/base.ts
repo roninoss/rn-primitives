@@ -8,6 +8,7 @@ import type {
 } from '@radix-ui/react-accordion';
 import type { Prettify, PropsWithoutHTML } from '@rn-primitives/types';
 
+// TODO: Make stricter
 type AccordionRootProps = BaseAccordionMultipleProps | BaseAccordionSingleProps;
 
 type BaseAccordionRootProps = Prettify<
@@ -40,11 +41,30 @@ type BaseAccordionTriggerProps = Omit<
 
 type BaseAccordionTriggerRef = { trigger: () => void };
 
+type BaseAccordionRootContext = Prettify<
+  Omit<
+    BaseAccordionRootProps,
+    'asChild' | 'defaultValue' | 'children' | 'value' | 'onValueChange'
+  > & {
+    rootValue: BaseAccordionRootProps['value'];
+    onRootValueChange: BaseAccordionRootProps['onValueChange'];
+  }
+> | null;
+
+type BaseAccordionItemContext = Prettify<
+  Omit<BaseAccordionItemProps, 'asChild' | 'children' | 'value'> & {
+    itemValue: BaseAccordionItemProps['value'];
+    isExpanded: boolean;
+  }
+> | null;
+
 export type {
   BaseAccordionContentProps,
   BaseAccordionHeaderProps,
+  BaseAccordionItemContext,
   BaseAccordionItemProps,
   BaseAccordionMultipleProps,
+  BaseAccordionRootContext,
   BaseAccordionRootProps,
   BaseAccordionSingleProps,
   BaseAccordionTriggerProps,
