@@ -92,19 +92,19 @@ function Example() {
   return (
       <RadioGroupPrimitive.Root value={value} onValueChange={setValue}>
         <View>
-          <RadioGroupPrimitive.Item value='Default' aria-labelledby='default-label'>
+          <RadioGroupPrimitive.Item value='Default' accessibilityLabelledBy='default-label'>
             <RadioGroupPrimitive.Indicator />
           </RadioGroupPrimitive.Item>
           <Text nativeID='default-label' onPress={onLabelPress('Default')}>Default</Text>
         </View>
         <View>
-          <RadioGroupPrimitive.Item value='Comfortable' aria-labelledby='comfortable-label'>
+          <RadioGroupPrimitive.Item value='Comfortable' accessibilityLabelledBy='comfortable-label'>
             <RadioGroupPrimitive.Indicator />
           </RadioGroupPrimitive.Item>
           <Text nativeID='comfortable-label' onPress={onLabelPress('Comfortable')}>Comfortable</Text>
         </View>
         <View>
-          <RadioGroupPrimitive.Item value='Compact' aria-labelledby='compact-label'>
+          <RadioGroupPrimitive.Item value='Compact' accessibilityLabelledBy='compact-label'>
             <RadioGroupPrimitive.Indicator />
           </RadioGroupPrimitive.Item>
           <Text nativeID='compact-label' onPress={onLabelPress('Compact')}>Compact</Text>
@@ -134,7 +134,7 @@ Extends [`Pressable`](https://reactnative.dev/docs/pressable#props) props
 |  Prop   |  Type   |     Note     |
 | :-----: | :-----: | :----------: |
 | value | string |  |
-| aria-labelledby | string | Its label's `nativeID`|
+| accessibilityLabelledBy | string | Its label's `nativeID`|
 | asChild | boolean | _(optional)_ |
 
 ### Indicator

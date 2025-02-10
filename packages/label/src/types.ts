@@ -13,7 +13,7 @@ type RootProps = Omit<SlottablePressableProps, 'children' | 'hitSlop' | 'style'>
 
 type TextProps = SlottableTextProps & {
   /**
-   * Equivalent to `id` so that the same value can be passed as `aria-labelledby` to the input element.
+   * Equivalent to `id` so that the same value can be passed as `accessibilityLabelledBy` to the input element.
    */
   nativeID?: string;
   /**

@@ -80,7 +80,7 @@ function LabelledInput({
       <Input
         ref={inputRef}
         autoFocus={autoFocus}
-        aria-labelledby={id}
+        accessibilityLabelledBy={id}
         defaultValue='25px'
         className='web:col-span-2 flex-1 h-8'
       />

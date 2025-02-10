@@ -245,7 +245,7 @@ const Content = React.forwardRef<AccordionContentNativeOnlyRef, AccordionContent
       <Component
         ref={ref}
         aria-hidden={!(forceMount || isExpanded)}
-        aria-labelledby={nativeID}
+        accessibilityLabelledBy={nativeID}
         role={type === 'single' ? 'region' : 'summary'}
         {...props}
       />

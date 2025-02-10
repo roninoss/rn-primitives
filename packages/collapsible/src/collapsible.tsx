@@ -107,7 +107,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       <Component
         ref={ref}
         aria-hidden={!(forceMount || open)}
-        aria-labelledby={nativeID}
+        accessibilityLabelledBy={nativeID}
         role={'region'}
         {...props}
       />

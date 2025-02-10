@@ -149,7 +149,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
         ref={ref}
         role='alertdialog'
         nativeID={nativeID}
-        aria-labelledby={`${nativeID}_label`}
+        accessibilityLabelledBy={`${nativeID}_label`}
         aria-describedby={`${nativeID}_desc`}
         aria-modal={true}
         {...props}
