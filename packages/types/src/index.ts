@@ -11,7 +11,11 @@ import type {
   View,
   ViewProps,
   ViewStyle,
+  ViewPropsIOS,
 } from 'react-native';
+
+// TODO: Export types for ViewStyleIos, ViewStyleAndroid, ViewStyleUniversal (?) https://reactnative.dev/docs/view-style-props#elevation-android
+// TODO: Export types for ViewIos, ViewAndroid, ViewUniversal (?) and use the proper style type from above https://reactnative.dev/docs/view#accessibilityignoresinvertcolors-ios
 
 type Prettify<T> = {
   [K in keyof T]: T[K];
