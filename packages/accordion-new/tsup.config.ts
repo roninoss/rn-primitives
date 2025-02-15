@@ -5,15 +5,19 @@ export default defineConfig((options: Options) => ({
     'src/index.ts',
     'src/accordion.tsx',
     'src/accordion.web.tsx',
-    'src/accordion.native.tsx', // TODO: review this - it's not supposed to be the entry file, but it's supposed to be accessible
-    'src/accordion-web.tsx', // TODO: review this - it's not supposed to be the entry file, but it's supposed to be accessible
+    'src/accordion-web/index.ts',
+    'src/accordion-web/accordion-web.tsx',
+    'src/accordion-web/accordion-web.native.tsx',
+    'src/accordion-native/index.ts',
+    'src/accordion-native/accordion-native.tsx',
+    'src/accordion-native/accordion-native.web.tsx',
   ],
   banner: {
     js: "'use client'",
   },
   clean: true,
   format: ['cjs', 'esm'],
-  external: ['react', './accordion'],
+  external: ['react', './accordion', './accordion-native', './accordion-web'],
   dts: true,
   ...options,
   esbuildOptions(options) {

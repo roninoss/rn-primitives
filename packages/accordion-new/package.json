@@ -14,34 +14,16 @@
       "default": "./dist/index.js"
     },
     "./accordion-native": {
-      "import": "./dist/accordion-native.mjs",
-      "require": "./dist/accordion-native.js",
-      "types": "./dist/accordion-native.d.ts",
-      "default": "./dist/accordion-native.js"
+      "import": "./dist/accordion-native/index.mjs",
+      "require": "./dist/accordion-native/index.js",
+      "types": "./dist/accordion-native/index.d.ts",
+      "default": "./dist/accordion-native/index.js"
     },
     "./accordion-web": {
-      "import": "./dist/accordion-web.mjs",
-      "require": "./dist/accordion-web.js",
-      "types": "./dist/accordion-web.d.ts",
-      "default": "./dist/accordion-web.js"
-    },
-    "./dist/accordion": {
-      "import": "./dist/accordion.mjs",
-      "require": "./dist/accordion.js",
-      "types": "./dist/accordion.d.ts",
-      "default": "./dist/accordion.js"
-    },
-    "./dist/accordion-native": {
-      "import": "./dist/accordion-native.mjs",
-      "require": "./dist/accordion-native.js",
-      "types": "./dist/accordion-native.d.ts",
-      "default": "./dist/accordion-native.js"
-    },
-    "./dist/accordion-web": {
-      "import": "./dist/accordion-web.mjs",
-      "require": "./dist/accordion-web.js",
-      "types": "./dist/accordion-web.d.ts",
-      "default": "./dist/accordion-web.js"
+      "import": "./dist/accordion-web/index.mjs",
+      "require": "./dist/accordion-web/index.js",
+      "types": "./dist/accordion-web/index.d.ts",
+      "default": "./dist/accordion-web/index.js"
     }
   },
   "files": [

@@ -1,15 +1,10 @@
-export {
-  Content,
-  Header,
-  Item,
-  Root,
-  Trigger,
-  useItemContext,
-  useRootContext,
-  type ContentProps,
-  type HeaderProps,
-  type ItemProps,
-  type RootProps,
-  type TriggerProps,
-  type TriggerRef,
-} from './accordion';
+export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext } from './accordion';
+
+export type {
+  ContentProps,
+  HeaderProps,
+  ItemProps,
+  RootProps,
+  TriggerProps,
+  TriggerRef,
+} from './types/universal';

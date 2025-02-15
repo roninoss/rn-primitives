@@ -3,39 +3,28 @@ import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import type { GestureResponderEvent } from 'react-native';
-import type {
-  BaseAccordionContentProps,
-  BaseAccordionHeaderProps,
-  BaseAccordionItemProps,
-  BaseAccordionRootProps,
-  BaseAccordionTriggerProps,
-  BaseAccordionTriggerRef,
-} from './types/base';
-import type {
-  AccordionContentNativeOnlyProps,
-  AccordionContentNativeOnlyRef,
-  AccordionHeaderNativeOnlyProps,
-  AccordionHeaderNativeOnlyRef,
-  AccordionItemNativeOnlyProps,
-  AccordionItemNativeOnlyRef,
-  AccordionRootNativeOnlyProps,
-  AccordionRootNativeOnlyRef,
-  AccordionTriggerNativeOnlyProps,
-  AccordionTriggerNativeOnlyRef,
-} from './types/native-only';
 import {
   RootContext,
   createItemContext,
   createUseItemContext,
   useRootContext,
-} from './utils/contexts';
-import { getDefaultValue } from './utils/get-default-value';
-import { isItemExpanded } from './utils/is-item-expanded';
+} from '../utils/contexts';
+import { getDefaultValue } from '../utils/get-default-value';
+import { isItemExpanded } from '../utils/is-item-expanded';
+import type {
+  ContentProps,
+  ContentRef,
+  HeaderProps,
+  HeaderRef,
+  ItemProps,
+  ItemRef,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+} from './types';
 
-type AccordionRootNativeProps = AccordionRootNativeOnlyProps & BaseAccordionRootProps;
-type AccordionRootNativeRef = AccordionRootNativeOnlyRef;
-
-const Root = React.forwardRef<AccordionRootNativeRef, AccordionRootNativeProps>(
+const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
       asChild,
@@ -82,10 +71,7 @@ Root.displayName = 'AccordionRootNative';
 const AccordionItemContext = createItemContext<{ nativeID: string }>();
 const useItemContext = createUseItemContext(AccordionItemContext);
 
-type AccordionItemNativeProps = AccordionItemNativeOnlyProps & BaseAccordionItemProps;
-type AccordionItemNativeRef = AccordionItemNativeOnlyRef;
-
-const Item = React.forwardRef<AccordionItemNativeRef, AccordionItemNativeProps>(
+const Item = React.forwardRef<ItemRef, ItemProps>(
   ({ asChild, value: itemValue, disabled, ...viewProps }, ref) => {
     const { rootValue } = useRootContext();
     const nativeID = React.useId();
@@ -108,33 +94,25 @@ const Item = React.forwardRef<AccordionItemNativeRef, AccordionItemNativeProps>(
 
 Item.displayName = 'AccordionItemNative';
 
-type AccordionHeaderNativeProps = AccordionHeaderNativeOnlyProps & BaseAccordionHeaderProps;
-type AccordionHeaderNativeRef = AccordionHeaderNativeOnlyRef;
+const Header = React.forwardRef<HeaderRef, HeaderProps>(({ asChild, ...props }, ref) => {
+  const { disabled: rootDisabled } = useRootContext();
+  const { disabled: itemDisabled, isExpanded } = useItemContext();
 
-const Header = React.forwardRef<AccordionHeaderNativeRef, AccordionHeaderNativeProps>(
-  ({ asChild, ...props }, ref) => {
-    const { disabled: rootDisabled } = useRootContext();
-    const { disabled: itemDisabled, isExpanded } = useItemContext();
-
-    const Component = asChild ? Slot<typeof AnimatableView> : AnimatableView;
-    return (
-      <Component
-        ref={ref}
-        role='heading'
-        aria-expanded={isExpanded}
-        aria-disabled={rootDisabled ?? itemDisabled}
-        {...props}
-      />
-    );
-  }
-);
+  const Component = asChild ? Slot<typeof AnimatableView> : AnimatableView;
+  return (
+    <Component
+      ref={ref}
+      role='heading'
+      aria-expanded={isExpanded}
+      aria-disabled={rootDisabled ?? itemDisabled}
+      {...props}
+    />
+  );
+});
 
 Header.displayName = 'AccordionHeaderNative';
 
-type AccordionTriggerNativeProps = AccordionTriggerNativeOnlyProps & BaseAccordionTriggerProps;
-type AccordionTriggerNativeRef = AccordionTriggerNativeOnlyRef & BaseAccordionTriggerRef;
-
-const Trigger = React.forwardRef<AccordionTriggerNativeRef, AccordionTriggerNativeProps>(
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled: disabledProp, ...props }, ref) => {
     const {
       disabled: rootDisabled,
@@ -201,10 +179,7 @@ const Trigger = React.forwardRef<AccordionTriggerNativeRef, AccordionTriggerNati
 
 Trigger.displayName = 'AccordionTriggerNative';
 
-type AccordionContentNativeProps = AccordionContentNativeOnlyProps & BaseAccordionContentProps;
-type AccordionContentNativeRef = AccordionContentNativeOnlyRef;
-
-const Content = React.forwardRef<AccordionContentNativeOnlyRef, AccordionContentNativeProps>(
+const Content = React.forwardRef<ContentRef, ContentProps>(
   ({ asChild, forceMount, ...props }, ref) => {
     const { type } = useRootContext();
     const { nativeID, isExpanded } = useItemContext();
@@ -231,19 +206,6 @@ const Content = React.forwardRef<AccordionContentNativeOnlyRef, AccordionContent
 Content.displayName = 'AccordionContentNative';
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };
-
-export type {
-  AccordionContentNativeProps as ContentProps,
-  AccordionContentNativeRef as ContentRef,
-  AccordionHeaderNativeProps as HeaderProps,
-  AccordionHeaderNativeRef as HeaderRef,
-  AccordionItemNativeProps as ItemProps,
-  AccordionItemNativeRef as ItemRef,
-  AccordionRootNativeProps as RootProps,
-  AccordionRootNativeRef as RootRef,
-  AccordionTriggerNativeProps as TriggerProps,
-  AccordionTriggerNativeRef as TriggerRef,
-};
 
 function toStringArray(value?: string | string[]) {
   return Array.isArray(value) ? value : value ? [value] : [];

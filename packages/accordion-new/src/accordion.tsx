@@ -43,5 +43,3 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
 );
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };
-
-export type { ContentProps, HeaderProps, ItemProps, RootProps, TriggerProps, TriggerRef };

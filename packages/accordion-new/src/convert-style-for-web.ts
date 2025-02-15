@@ -6,7 +6,7 @@
 import normalizeRNColor from '@react-native/normalize-colors';
 import { type StyleProp, StyleSheet, TextStyle, ViewStyle, ImageStyle } from 'react-native';
 
-// TODO: add default RN styles - either through tailwind preset or copy/pastable css code
+// TODO: add default RN styles - either through tailwind preset or copy/pastable css code or look into react-native-web class name, is it generated or can we use it?
 
 // TODO: test this works
 // TODO: move to other package
