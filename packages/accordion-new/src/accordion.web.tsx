@@ -10,11 +10,7 @@ import {
   useRootContext,
 } from './accordion-web';
 import { convertStyleForWeb } from './convert-style-for-web';
-import {
-  BaseAccordionMultipleProps,
-  BaseAccordionSingleProps,
-  BaseAccordionTriggerRef,
-} from './types/base';
+import { BaseAccordionTriggerRef } from './types/base';
 import type {
   ContentProps,
   HeaderProps,
@@ -25,8 +21,8 @@ import type {
 } from './types/universal';
 import type { AccordionTriggerWebOnlyRef } from './types/web-only';
 
-function Root({ native: _native, web, ...props }: RootProps) {
-  return <RootWeb {...(props as BaseAccordionSingleProps | BaseAccordionMultipleProps)} {...web} />;
+function Root({ native: _native, web, style, ...props }: RootProps) {
+  return <RootWeb {...props} style={convertStyleForWeb(style)} {...web} />;
 }
 
 function Content({ native: _native, style, web, ...props }: ContentProps) {

@@ -35,6 +35,7 @@ import {
   createUseItemContext,
   useRootContext,
 } from './utils/contexts';
+import { getDefaultValue } from './utils/get-default-value';
 import { isItemExpanded } from './utils/is-item-expanded';
 
 type AccordionRootWebProps = BaseAccordionRootProps & AccordionRootWebOnlyProps;
@@ -48,7 +49,7 @@ const Root = React.forwardRef<AccordionRootWebRef, AccordionRootWebProps>(
     const [rootValue = props.type === 'multiple' ? [] : undefined, onRootValueChange] =
       useControllableState<(string | undefined) | string[]>({
         prop: valueProp,
-        defaultProp: defaultValue,
+        defaultProp: getDefaultValue(defaultValue, props.type),
         onChange: onValueChangeProps as (state: string | string[] | undefined) => void,
       });
 

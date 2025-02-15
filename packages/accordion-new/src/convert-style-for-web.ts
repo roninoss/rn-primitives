@@ -6,7 +6,7 @@
 import normalizeRNColor from '@react-native/normalize-colors';
 import { type StyleProp, StyleSheet, TextStyle, ViewStyle, ImageStyle } from 'react-native';
 
-// TODO: add default RN styles - maybe with css through a class name?
+// TODO: add default RN styles - either through tailwind preset or copy/pastable css code
 
 // TODO: test this works
 // TODO: move to other package

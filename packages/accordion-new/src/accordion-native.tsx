@@ -29,6 +29,7 @@ import {
   createUseItemContext,
   useRootContext,
 } from './utils/contexts';
+import { getDefaultValue } from './utils/get-default-value';
 import { isItemExpanded } from './utils/is-item-expanded';
 
 type AccordionRootNativeProps = AccordionRootNativeOnlyProps & BaseAccordionRootProps;
@@ -53,7 +54,7 @@ const Root = React.forwardRef<AccordionRootNativeRef, AccordionRootNativeProps>(
     const [rootValue = type === 'multiple' ? [] : undefined, onRootValueChange] =
       useControllableState<(string | undefined) | string[]>({
         prop: valueProp,
-        defaultProp: defaultValue,
+        defaultProp: getDefaultValue(defaultValue, type),
         onChange: onValueChangeProps as (state: string | string[] | undefined) => void,
       });
 
