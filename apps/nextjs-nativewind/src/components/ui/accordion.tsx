@@ -1,8 +1,9 @@
 'use client';
 
 import * as AccordionPrimitive from '@rn-primitives/accordion-new';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
-import { Platform, PressableProps, PressableStateCallbackType, View } from 'react-native';
+import { Platform, type PressableProps, type PressableStateCallbackType, View } from 'react-native';
 import Animated, {
   Extrapolation,
   FadeIn,
@@ -17,7 +18,6 @@ import Animated, {
 import { TextClassContext } from '~/components/ui/text';
 import { ChevronDown } from '~/lib/icons/ChevronDown';
 import { cn } from '~/lib/utils';
-import { Slot } from '@rn-primitives/slot';
 
 type AccordionTriggerRef = AccordionPrimitive.TriggerRef;
 
@@ -132,12 +132,6 @@ function AccordionContent({ className, children, ...props }: AccordionPrimitive.
 }
 
 function InnerContent({ children, className }: { children: React.ReactNode; className?: string }) {
-  const rootContent = AccordionPrimitive.useRootContext();
-  const itemContext = AccordionPrimitive.useItemContext();
-
-  console.log('root context', rootContent);
-  console.log('item context', itemContext);
-
   if (Platform.OS === 'web') {
     return <View className={cn('pb-4', className)}>{children}</View>;
   }
