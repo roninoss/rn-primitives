@@ -74,7 +74,7 @@ const STYLE_SHORT_FORM_EXPANSIONS = {
 
 type Style = TextStyle | ViewStyle | ImageStyle;
 
-export function convertStyleForWeb<T extends Style>(
+export function rnStyleToWebStyle<T extends Style>(
   reactNativeStyle?: StyleProp<T>
 ): React.CSSProperties | undefined {
   if (!reactNativeStyle) {
