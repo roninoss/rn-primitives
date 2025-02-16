@@ -48,8 +48,12 @@
   }
 }
 
+/* TODO: Revisit this web styling */
+
 /* React Native Web styling */
-html, body, #__next {
+html,
+body,
+#__next {
   -webkit-overflow-scrolling: touch;
 }
 #__next {
