@@ -25,6 +25,9 @@
     "pub:next": "pnpm publish --no-git-checks --access public --tag next",
     "pub:release": "pnpm publish --access public"
   },
+  "dependencies": {
+    "@react-native/normalize-colors": "^0.77.1"
+  },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",
     "@types/react": "~18.3.12",

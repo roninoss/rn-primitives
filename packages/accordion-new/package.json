@@ -39,7 +39,6 @@
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.3",
-    "@react-native/normalize-colors": "^0.77.1",
     "@rn-primitives/animatable": "workspace:*",
     "@rn-primitives/hooks": "workspace:*",
     "@rn-primitives/slot": "workspace:*",
