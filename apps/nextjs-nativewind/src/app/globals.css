@@ -48,8 +48,34 @@
   }
 }
 
-/* TODO: Revisit this web styling */
+/* TODO: */
+/* Is react-native-web necessary? Would removing it cause more issues than help? */
+/* Maybe provide primitives for view, text, image, and pressable, made from html elements and then use those components. */
+/* When user is not using react-native-web, default react-native-web styling would be removed and native and web would be different (ex: native is flex and flex-col by default). We could provide a tailwind plugin or copy/paste css snippet to adjust */
 
+/* Initial CSS reset from react-native-web */
+/* const initialRules = [
+  // minimal top-level reset
+  'html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(0,0,0,0);}',
+  'body{margin:0;}',
+  // minimal form pseudo-element reset
+  'button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}',
+  'input::-webkit-search-cancel-button,input::-webkit-search-decoration,input::-webkit-search-results-button,input::-webkit-search-results-decoration{display:none;}'
+]; */
+
+/* Default View Styling */
+/* https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/View/index.js#L148 */
+
+/* Default Text Styling */
+/* https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/Text/index.js#L189 */
+
+/* Default Pressable Styling Inherits from View */
+/* https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/Text/index.js#L189 */
+
+/* Default Image Styling */
+/* https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/Image/index.js#L378 */
+
+/* TODO: Revisit this web styling - not sure if needed + seems like there no element with id __next*/
 /* React Native Web styling */
 html,
 body,
