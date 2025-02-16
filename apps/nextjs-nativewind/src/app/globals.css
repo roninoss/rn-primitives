@@ -49,7 +49,7 @@
 }
 
 /* TODO: */
-/* Is react-native-web necessary? Would removing it cause more issues than help? */
+/* Is react-native or react-native-web necessary? Would removing it cause more issues than help? */
 /* Maybe provide primitives for view, text, image, and pressable, made from html elements and then use those components. */
 /* When user is not using react-native-web, default react-native-web styling would be removed and native and web would be different (ex: native is flex and flex-col by default). We could provide a tailwind plugin or copy/paste css snippet to adjust */
 
