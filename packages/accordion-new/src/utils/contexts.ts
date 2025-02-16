@@ -12,8 +12,9 @@ function useRootContext() {
   return context;
 }
 
-const createItemContext = <T,>() =>
-  React.createContext<(BaseAccordionItemContext & T) | null>(null);
+type RootContextReturnType = ReturnType<typeof useRootContext>;
+
+const createItemContext = <T>() => React.createContext<(BaseAccordionItemContext & T) | null>(null);
 
 function createUseItemContext<T>(accordionItemContext: ReturnType<typeof createItemContext<T>>) {
   return () => {
@@ -27,4 +28,8 @@ function createUseItemContext<T>(accordionItemContext: ReturnType<typeof createI
   };
 }
 
+type ItemContextReturnType<T> = ReturnType<typeof createUseItemContext<T>>;
+
 export { createItemContext, createUseItemContext, RootContext, useRootContext };
+
+export type { ItemContextReturnType, RootContextReturnType };

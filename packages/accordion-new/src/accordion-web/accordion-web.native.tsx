@@ -1,6 +1,6 @@
 import { Content, Header } from '@radix-ui/react-accordion';
 import * as React from 'react';
-import { createItemContext, createUseItemContext, useRootContext } from '../utils/contexts';
+import type { ItemContextReturnType, RootContextReturnType } from '../utils/contexts';
 import type { ItemProps, ItemRef, RootProps, RootRef, TriggerProps, TriggerRef } from './types';
 
 const Root = React.forwardRef<RootRef, RootProps>(() => {
@@ -8,9 +8,6 @@ const Root = React.forwardRef<RootRef, RootProps>(() => {
 });
 
 Root.displayName = 'AccordionRootWeb';
-
-const AccordionItemContext = createItemContext();
-const useItemContext = createUseItemContext(AccordionItemContext);
 
 const Item = React.forwardRef<ItemRef, ItemProps>(() => {
   return null;
@@ -23,5 +20,19 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(() => {
 });
 
 Trigger.displayName = 'AccordionTriggerWeb';
+
+const useRootContext = () => {
+  throw new Error(
+    'Cannot access the web useRootContext on a native platform. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/accordion-native`'
+  );
+  return {} as RootContextReturnType;
+};
+
+const useItemContext = () => {
+  throw new Error(
+    'Cannot access the web useItemContext on a native platform. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/accordion-native`'
+  );
+  return {} as ItemContextReturnType<{ nativeID: string }>;
+};
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };

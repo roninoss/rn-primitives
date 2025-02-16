@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createItemContext, createUseItemContext, useRootContext } from '../utils/contexts';
+import type { ItemContextReturnType, RootContextReturnType } from '../utils/contexts';
 import type {
   ContentProps,
   ContentRef,
@@ -18,9 +18,6 @@ const Root = React.forwardRef<RootRef, RootProps>(() => {
 });
 
 Root.displayName = 'AccordionRootNative';
-
-const AccordionItemContext = createItemContext<{ nativeID: string }>();
-const useItemContext = createUseItemContext(AccordionItemContext);
 
 const Item = React.forwardRef<ItemRef, ItemProps>(() => {
   return null;
@@ -45,5 +42,19 @@ const Content = React.forwardRef<ContentRef, ContentProps>(() => {
 });
 
 Content.displayName = 'AccordionContentNative';
+
+const useRootContext = () => {
+  throw new Error(
+    'Cannot access the native useRootContext on the web. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/accordion-web`'
+  );
+  return {} as RootContextReturnType;
+};
+
+const useItemContext = () => {
+  throw new Error(
+    'Cannot access the native useItemContext on the web. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/accordion-web`'
+  );
+  return {} as ItemContextReturnType<{ nativeID: string }>;
+};
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };
