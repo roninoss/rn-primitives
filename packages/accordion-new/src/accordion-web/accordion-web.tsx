@@ -1,104 +1,38 @@
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  Content,
-  Header,
-} from '@radix-ui/react-accordion';
-import { useControllableState } from '@rn-primitives/hooks';
+import { Content, Header } from '@radix-ui/react-accordion';
 import * as React from 'react';
-import type { BaseAccordionMultipleProps, BaseAccordionSingleProps } from '../types/base';
-import {
-  RootContext,
-  createItemContext,
-  createUseItemContext,
-  useRootContext,
-} from '../utils/contexts';
-import { getDefaultValue } from '../utils/get-default-value';
-import { isItemExpanded } from '../utils/is-item-expanded';
+import type { ItemContextReturnType, RootContextReturnType } from '../utils/contexts';
 import type { ItemProps, ItemRef, RootProps, RootRef, TriggerProps, TriggerRef } from './types';
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    { value: valueProp, onValueChange: onValueChangeProps, defaultValue, collapsible, ...props },
-    ref
-  ) => {
-    const [rootValue = props.type === 'multiple' ? [] : undefined, onRootValueChange] =
-      useControllableState<(string | undefined) | string[]>({
-        prop: valueProp,
-        defaultProp: getDefaultValue(defaultValue, props.type),
-        onChange: onValueChangeProps as (state: string | string[] | undefined) => void,
-      });
-
-    return (
-      <RootContext.Provider
-        value={{
-          type: props.type,
-          disabled: props.disabled,
-          collapsible: collapsible,
-          rootValue,
-          onRootValueChange,
-          dir: props.dir,
-          orientation: props.orientation,
-        }}
-      >
-        <Accordion
-          ref={ref}
-          {...({
-            ...props,
-            value: rootValue,
-            onValueChange: onRootValueChange,
-            collapsible: collapsible?.toString(),
-          } as BaseAccordionSingleProps | BaseAccordionMultipleProps)}
-        />
-      </RootContext.Provider>
-    );
-  }
-);
+const Root = React.forwardRef<RootRef, RootProps>(() => {
+  return null;
+});
 
 Root.displayName = 'AccordionRootWeb';
 
-const AccordionItemContext = createItemContext();
-const useItemContext = createUseItemContext(AccordionItemContext);
-
-const Item = React.forwardRef<ItemRef, ItemProps>((props, ref) => {
-  const { rootValue } = useRootContext();
-
-  return (
-    <AccordionItemContext.Provider
-      value={{
-        itemValue: props.value,
-        disabled: props.disabled,
-        isExpanded: isItemExpanded(rootValue, props.value),
-      }}
-    >
-      <AccordionItem ref={ref} {...props} />
-    </AccordionItemContext.Provider>
-  );
+const Item = React.forwardRef<ItemRef, ItemProps>(() => {
+  return null;
 });
 
 Item.displayName = 'AccordionItemWeb';
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>((props, ref) => {
-  const triggerRef = React.useRef<TriggerRef>(null);
-
-  React.useImperativeHandle(
-    ref,
-    () =>
-      triggerRef.current
-        ? {
-            ...triggerRef.current,
-            trigger: () => {
-              triggerRef.current?.click();
-            },
-          }
-        : ({} as TriggerRef),
-    []
-  );
-
-  return <AccordionTrigger ref={triggerRef} {...props} />;
+const Trigger = React.forwardRef<TriggerRef, TriggerProps>(() => {
+  return null;
 });
 
-Trigger.displayName = 'Trigger';
+Trigger.displayName = 'AccordionTriggerWeb';
+
+const useRootContext = () => {
+  throw new Error(
+    'Cannot access the web useRootContext on a native platform. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/native`'
+  );
+  return {} as RootContextReturnType;
+};
+
+const useItemContext = () => {
+  throw new Error(
+    'Cannot access the web useItemContext on a native platform. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/native`'
+  );
+  return {} as ItemContextReturnType<{ nativeID: string }>;
+};
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };

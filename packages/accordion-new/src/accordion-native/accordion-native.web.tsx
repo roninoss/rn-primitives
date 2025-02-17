@@ -45,14 +45,14 @@ Content.displayName = 'AccordionContentNative';
 
 const useRootContext = () => {
   throw new Error(
-    'Cannot access the native useRootContext on the web. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/accordion-web`'
+    'Cannot access the native useRootContext on the web. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/web`'
   );
   return {} as RootContextReturnType;
 };
 
 const useItemContext = () => {
   throw new Error(
-    'Cannot access the native useItemContext on the web. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/accordion-web`'
+    'Cannot access the native useItemContext on the web. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/web`'
   );
   return {} as ItemContextReturnType<{ nativeID: string }>;
 };

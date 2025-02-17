@@ -13,13 +13,13 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./accordion-native": {
+    "./native": {
       "import": "./dist/accordion-native/index.mjs",
       "require": "./dist/accordion-native/index.js",
       "types": "./dist/accordion-native/index.d.ts",
       "default": "./dist/accordion-native/index.js"
     },
-    "./accordion-web": {
+    "./web": {
       "import": "./dist/accordion-web/index.mjs",
       "require": "./dist/accordion-web/index.js",
       "types": "./dist/accordion-web/index.d.ts",
@@ -32,7 +32,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist .turbo node_modules",
     "pub:beta": "pnpm publish --no-git-checks --access public --tag beta",
     "pub:next": "pnpm publish --no-git-checks --access public --tag next",
     "pub:release": "pnpm publish --access public"
