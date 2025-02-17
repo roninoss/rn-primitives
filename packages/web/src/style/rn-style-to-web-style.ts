@@ -2,9 +2,15 @@
 // The code is licensed under the MIT License.
 // https://github.com/necolas/react-native-web
 
+// This project uses code from facebook/react-native
+// The code is licensed under the MIT License.
+// https://github.com/facebook/react-native
+
 // @ts-expect-error - no types
 import normalizeRNColor from '@react-native/normalize-colors';
-import { type StyleProp, StyleSheet, TextStyle, ViewStyle, ImageStyle } from 'react-native';
+import type { StyleProp } from 'react-native';
+import { flattenStyle } from './flatten-style';
+import { Style } from './type';
 
 // TODO: add default RN styles - either through tailwind preset or copy/pastable css code or look into react-native-web class name, is it generated or can we use it?
 
@@ -72,8 +78,6 @@ const STYLE_SHORT_FORM_EXPANSIONS = {
   paddingBlockEnd: ['paddingBottom'],
 };
 
-type Style = TextStyle | ViewStyle | ImageStyle;
-
 export function rnStyleToWebStyle<T extends Style>(
   reactNativeStyle?: StyleProp<T>
 ): React.CSSProperties | undefined {
@@ -82,7 +86,7 @@ export function rnStyleToWebStyle<T extends Style>(
   }
 
   const style = (
-    Array.isArray(reactNativeStyle) ? StyleSheet.flatten(reactNativeStyle) : reactNativeStyle
+    Array.isArray(reactNativeStyle) ? flattenStyle(reactNativeStyle) : reactNativeStyle
   ) as T;
 
   const resolvedStyle: Record<string, unknown> = {};

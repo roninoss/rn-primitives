@@ -719,9 +719,6 @@ importers:
       '@radix-ui/react-accordion':
         specifier: ^1.2.3
         version: 1.2.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@react-native/normalize-colors':
-        specifier: ^0.77.1
-        version: 0.77.1
       '@rn-primitives/animatable':
         specifier: workspace:*
         version: link:../animatable
@@ -1793,9 +1790,9 @@ importers:
 
   packages/web:
     dependencies:
-      react-native-web:
-        specifier: '*'
-        version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-native/normalize-colors':
+        specifier: ^0.77.1
+        version: 0.77.1
     devDependencies:
       '@tsconfig/react-native':
         specifier: ^1.0.1

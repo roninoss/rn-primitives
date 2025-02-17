@@ -1,6 +1,6 @@
-import type { PressableProps, PressableStateCallbackType } from 'react-native';
 import * as React from 'react';
-import { rnStyleToWebStyle } from './rn-style-to-web-style';
+import type { PressableProps, PressableStateCallbackType } from 'react-native';
+import { rnStyleToWebStyle } from './style/rn-style-to-web-style';
 
 type WebPressableProps = Pick<
   React.ComponentPropsWithoutRef<'button'>,
