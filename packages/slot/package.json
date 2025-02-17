@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist .turbo node_modules",
     "pub:beta": "pnpm publish --no-git-checks --access public --tag beta",
     "pub:next": "pnpm publish --no-git-checks --access public --tag next",
     "pub:release": "pnpm publish --access public"
