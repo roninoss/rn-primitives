@@ -7,7 +7,7 @@ import type {
   BaseAccordionRootProps,
   BaseAccordionTriggerProps,
   BaseAccordionTriggerRef,
-} from './base';
+} from '../base-types';
 
 type AccordionRootWebOnlyProps = PropsWithout<
   React.ComponentPropsWithoutRef<typeof Root>,

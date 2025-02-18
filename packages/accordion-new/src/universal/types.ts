@@ -11,21 +11,21 @@ import type {
   BaseAccordionRootProps,
   BaseAccordionTriggerProps,
   BaseAccordionTriggerRef,
-} from './base';
+} from '../base-types';
 import type {
   AccordionContentNativeOnlyProps,
   AccordionHeaderNativeOnlyProps,
   AccordionItemNativeOnlyProps,
   AccordionRootNativeOnlyProps,
   AccordionTriggerNativeOnlyProps,
-} from './native';
+} from '../native/types';
 import type {
   AccordionContentWebOnlyProps,
   AccordionHeaderWebOnlyProps,
   AccordionItemWebOnlyProps,
   AccordionRootWebOnlyProps,
   AccordionTriggerWebOnlyProps,
-} from './web';
+} from '../web/types';
 
 type ContentProps = Prettify<
   BaseAccordionContentProps &

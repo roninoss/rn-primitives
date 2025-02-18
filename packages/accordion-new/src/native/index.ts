@@ -15,4 +15,4 @@ export type {
   RootProps,
   TriggerProps,
   TriggerRef,
-} from '../types/native';
+} from './types';

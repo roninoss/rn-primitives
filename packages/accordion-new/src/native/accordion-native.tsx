@@ -3,6 +3,14 @@ import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import type { GestureResponderEvent } from 'react-native';
+import {
+  RootContext,
+  createItemContext,
+  createUseItemContext,
+  useRootContext,
+} from '../utils/contexts';
+import { getDefaultValue } from '../utils/get-default-value';
+import { isItemExpanded } from '../utils/is-item-expanded';
 import type {
   ContentProps,
   ContentRef,
@@ -14,15 +22,7 @@ import type {
   RootRef,
   TriggerProps,
   TriggerRef,
-} from '../types/native';
-import {
-  RootContext,
-  createItemContext,
-  createUseItemContext,
-  useRootContext,
-} from '../utils/contexts';
-import { getDefaultValue } from '../utils/get-default-value';
-import { isItemExpanded } from '../utils/is-item-expanded';
+} from './types';
 
 const Root = React.forwardRef<RootRef, RootProps>(
   (

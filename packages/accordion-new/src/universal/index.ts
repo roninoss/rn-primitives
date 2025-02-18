@@ -7,4 +7,4 @@ export type {
   RootProps,
   TriggerProps,
   TriggerRef,
-} from '../types/universal';
+} from './types';

@@ -7,7 +7,7 @@ import type {
   BaseAccordionRootProps,
   BaseAccordionTriggerProps,
   BaseAccordionTriggerRef,
-} from './base';
+} from '../base-types';
 
 type AccordionContentNativeOnlyProps = AnimatableViewProps;
 type AccordionContentNativeOnlyRef = ViewRef;

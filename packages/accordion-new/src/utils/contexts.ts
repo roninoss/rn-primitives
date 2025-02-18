@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { BaseAccordionItemContext, BaseAccordionRootContext } from '../types/base';
+import type { BaseAccordionItemContext, BaseAccordionRootContext } from '../base-types';
 
 const RootContext = React.createContext<BaseAccordionRootContext>(null);
 function useRootContext() {

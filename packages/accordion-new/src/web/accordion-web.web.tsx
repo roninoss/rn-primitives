@@ -7,15 +7,7 @@ import {
 } from '@radix-ui/react-accordion';
 import { useControllableState } from '@rn-primitives/hooks';
 import * as React from 'react';
-import type { BaseAccordionMultipleProps, BaseAccordionSingleProps } from '../types/base';
-import type {
-  ItemProps,
-  ItemRef,
-  RootProps,
-  RootRef,
-  TriggerProps,
-  TriggerRef,
-} from '../types/web';
+import type { BaseAccordionMultipleProps, BaseAccordionSingleProps } from '../base-types';
 import {
   RootContext,
   createItemContext,
@@ -24,6 +16,7 @@ import {
 } from '../utils/contexts';
 import { getDefaultValue } from '../utils/get-default-value';
 import { isItemExpanded } from '../utils/is-item-expanded';
+import type { ItemProps, ItemRef, RootProps, RootRef, TriggerProps, TriggerRef } from './types';
 
 const Root = React.forwardRef<RootRef, RootProps>(
   (

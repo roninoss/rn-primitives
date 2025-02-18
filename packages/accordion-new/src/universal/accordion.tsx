@@ -16,7 +16,7 @@ import type {
   RootProps,
   TriggerProps,
   TriggerRef,
-} from '../types/universal';
+} from './types';
 
 function Root({ web: _web, native, ...props }: RootProps) {
   return <RootNative {...props} {...native} />;
