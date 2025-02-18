@@ -118,11 +118,12 @@ function AccordionContent({ className, children, ...props }: AccordionPrimitive.
   return (
     <TextClassContext.Provider value='native:text-lg'>
       <AccordionPrimitive.Content
-        className='overflow-hidden text-sm'
-        web={{
-          className:
-            'overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
-        }}
+        className={cn(
+          'overflow-hidden text-sm',
+          Platform.select({
+            web: 'overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
+          })
+        )}
         {...props}
       >
         <InnerContent className={cn('pb-4', className)}>{children}</InnerContent>
