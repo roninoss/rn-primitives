@@ -8,7 +8,7 @@ import {
   TriggerRef as TriggerNativeRef,
   useItemContext,
   useRootContext,
-} from './accordion-native';
+} from '../native';
 import type {
   ContentProps,
   HeaderProps,
@@ -16,7 +16,7 @@ import type {
   RootProps,
   TriggerProps,
   TriggerRef,
-} from './types/universal';
+} from '../types/universal';
 
 function Root({ web: _web, native, ...props }: RootProps) {
   return <RootNative {...props} {...native} />;

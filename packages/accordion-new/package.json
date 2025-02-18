@@ -14,16 +14,16 @@
       "default": "./dist/index.js"
     },
     "./native": {
-      "import": "./dist/accordion-native/index.mjs",
-      "require": "./dist/accordion-native/index.js",
-      "types": "./dist/accordion-native/index.d.ts",
-      "default": "./dist/accordion-native/index.js"
+      "import": "./dist/native/index.mjs",
+      "require": "./dist/native/index.js",
+      "types": "./dist/native/index.d.ts",
+      "default": "./dist/native/index.js"
     },
     "./web": {
-      "import": "./dist/accordion-web/index.mjs",
-      "require": "./dist/accordion-web/index.js",
-      "types": "./dist/accordion-web/index.d.ts",
-      "default": "./dist/accordion-web/index.js"
+      "import": "./dist/web/index.mjs",
+      "require": "./dist/web/index.js",
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
     }
   },
   "files": [

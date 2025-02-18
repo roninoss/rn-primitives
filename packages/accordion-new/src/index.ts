@@ -1,4 +1,12 @@
-export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext } from './accordion';
+export {
+  Content,
+  Header,
+  Item,
+  Root,
+  Trigger,
+  useItemContext,
+  useRootContext,
+} from './universal/accordion';
 
 export type {
   ContentProps,

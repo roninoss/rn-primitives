@@ -1,5 +1,15 @@
 import { rnStyleToWebStyle, useWebPressableProps } from '@rn-primitives/web';
 import * as React from 'react';
+import { BaseAccordionTriggerRef } from '../types/base';
+import type {
+  ContentProps,
+  HeaderProps,
+  ItemProps,
+  RootProps,
+  TriggerProps,
+  TriggerRef,
+} from '../types/universal';
+import type { AccordionTriggerWebOnlyRef } from '../types/web';
 import {
   Content as ContentWeb,
   Header as HeaderWeb,
@@ -8,17 +18,7 @@ import {
   Trigger as TriggerWeb,
   useItemContext,
   useRootContext,
-} from './accordion-web';
-import type { AccordionTriggerWebOnlyRef } from './types/web';
-import { BaseAccordionTriggerRef } from './types/base';
-import type {
-  ContentProps,
-  HeaderProps,
-  ItemProps,
-  RootProps,
-  TriggerProps,
-  TriggerRef,
-} from './types/universal';
+} from '../web';
 
 function Root({ native: _native, web, style, ...props }: RootProps) {
   return <RootWeb {...props} style={rnStyleToWebStyle(style)} {...web} />;
