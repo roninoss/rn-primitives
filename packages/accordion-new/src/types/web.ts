@@ -1,12 +1,13 @@
 import type { Content, Header, Item, Root, Trigger } from '@radix-ui/react-accordion';
+import type { PropsWithout } from '@rn-primitives/types';
 import type {
   BaseAccordionContentProps,
   BaseAccordionHeaderProps,
   BaseAccordionItemProps,
   BaseAccordionRootProps,
   BaseAccordionTriggerProps,
+  BaseAccordionTriggerRef,
 } from './base';
-import type { PropsWithout } from '@rn-primitives/types';
 
 type AccordionRootWebOnlyProps = PropsWithout<
   React.ComponentPropsWithoutRef<typeof Root>,
@@ -38,6 +39,17 @@ type AccordionTriggerWebOnlyProps = PropsWithout<
 >;
 type AccordionTriggerWebOnlyRef = React.ElementRef<typeof Trigger>;
 
+type RootProps = BaseAccordionRootProps & AccordionRootWebOnlyProps;
+type RootRef = AccordionRootWebOnlyRef;
+type ItemProps = BaseAccordionItemProps & AccordionItemWebOnlyProps;
+type ItemRef = AccordionItemWebOnlyRef;
+type HeaderProps = BaseAccordionHeaderProps & AccordionHeaderWebOnlyProps;
+type HeaderRef = AccordionHeaderWebOnlyRef;
+type TriggerProps = BaseAccordionTriggerProps & AccordionTriggerWebOnlyProps;
+type TriggerRef = AccordionTriggerWebOnlyRef & BaseAccordionTriggerRef;
+type ContentProps = BaseAccordionContentProps & AccordionContentWebOnlyProps;
+type ContentRef = AccordionContentWebOnlyRef;
+
 export type {
   AccordionContentWebOnlyProps,
   AccordionContentWebOnlyRef,
@@ -49,4 +61,14 @@ export type {
   AccordionRootWebOnlyRef,
   AccordionTriggerWebOnlyProps,
   AccordionTriggerWebOnlyRef,
+  ContentProps,
+  ContentRef,
+  HeaderProps,
+  HeaderRef,
+  ItemProps,
+  ItemRef,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
 };

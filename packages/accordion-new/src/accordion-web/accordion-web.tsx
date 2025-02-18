@@ -1,7 +1,14 @@
 import { Content, Header } from '@radix-ui/react-accordion';
 import * as React from 'react';
+import type {
+  ItemProps,
+  ItemRef,
+  RootProps,
+  RootRef,
+  TriggerProps,
+  TriggerRef,
+} from '../types/web';
 import type { ItemContextReturnType, RootContextReturnType } from '../utils/contexts';
-import type { ItemProps, ItemRef, RootProps, RootRef, TriggerProps, TriggerRef } from './types';
 
 const Root = React.forwardRef<RootRef, RootProps>(() => {
   return null;

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import type { ItemContextReturnType, RootContextReturnType } from '../utils/contexts';
 import type {
   ContentProps,
   ContentRef,
@@ -11,7 +10,8 @@ import type {
   RootRef,
   TriggerProps,
   TriggerRef,
-} from './types';
+} from '../types/native';
+import type { ItemContextReturnType, RootContextReturnType } from '../utils/contexts';
 
 const Root = React.forwardRef<RootRef, RootProps>(() => {
   return null;

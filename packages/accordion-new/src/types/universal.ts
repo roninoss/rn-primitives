@@ -18,14 +18,14 @@ import type {
   AccordionItemNativeOnlyProps,
   AccordionRootNativeOnlyProps,
   AccordionTriggerNativeOnlyProps,
-} from './native-only';
+} from './native';
 import type {
   AccordionContentWebOnlyProps,
   AccordionHeaderWebOnlyProps,
   AccordionItemWebOnlyProps,
   AccordionRootWebOnlyProps,
   AccordionTriggerWebOnlyProps,
-} from './web-only';
+} from './web';
 
 type ContentProps = Prettify<
   BaseAccordionContentProps &
