@@ -11,11 +11,111 @@ import type {
   View,
   ViewProps,
   ViewStyle,
-  ViewPropsIOS,
 } from 'react-native';
 
-// TODO: Export types for ViewStyleIos, ViewStyleAndroid, ViewStyleUniversal (?) https://reactnative.dev/docs/view-style-props#elevation-android
-// TODO: Export types for ViewIos, ViewAndroid, ViewUniversal (?) and use the proper style type from above https://reactnative.dev/docs/view#accessibilityignoresinvertcolors-ios
+// ViewStyle
+type AndroidOnlyViewStyleKeys = 'elevation' | 'dropShadow';
+type AndroidOnlyViewStyleFilterKeys =
+  | 'blur'
+  | 'contrast'
+  | 'dropShadow'
+  | 'grayscale'
+  | 'hueRotate'
+  | 'invert'
+  | 'sepia'
+  | 'saturate';
+
+type IosOnlyViewStyleKeys = 'borderCurve' | 'shadowOffset' | 'shadowOpacity' | 'shadowRadius';
+type IosViewStyleFilterKeys = Omit<ViewStyle['filter'], AndroidOnlyViewStyleFilterKeys>;
+
+type ViewStyleAndroid = Omit<ViewStyle, IosOnlyViewStyleKeys>;
+type ViewStyleIos = Omit<ViewStyle, AndroidOnlyViewStyleKeys | 'filter'> & {
+  filter: IosViewStyleFilterKeys;
+};
+
+// ViewProps
+type AndroidOnlyViewProps =
+  | 'accessibilityLiveRegion'
+  | 'aria-labelledby'
+  | 'aria-live'
+  | 'focusable'
+  | 'importantForAccessibility'
+  | 'nextFocusDown'
+  | 'nextFocusForward'
+  | 'nextFocusLeft'
+  | 'nextFocusRight'
+  | 'nextFocusUp'
+  | 'renderToHardwareTextureAndroid'
+  | 'tabIndex';
+
+type IosOnlyViewProps =
+  | 'accessibilityElementsHidden'
+  | 'accessibilityLanguage'
+  | 'accessibilityIgnoresInvertColors'
+  | 'accessibilityViewIsModal'
+  | 'aria-modal'
+  | 'onAccessibilityEscape'
+  | 'onMagicTap'
+  | 'shouldRasterizeIOS';
+
+type ViewPropsAndroid = Prettify<
+  PropsWithout<ViewProps, IosOnlyViewProps | 'style'> & { style?: ViewStyleAndroid }
+>;
+type ViewPropsIos = Prettify<
+  PropsWithout<ViewProps, AndroidOnlyViewProps | 'style'> & { style?: ViewStyleIos }
+>;
+
+// TextStyle
+type AndroidOnlyTextStyleKeys = 'includeFontPadding' | 'textAlignVertical' | 'verticalAlign';
+
+type IosOnlyTextStyleKeys = 'textDecorationColor' | 'textDecorationStyle' | 'writingDirection';
+
+type TextStyleAndroid = Omit<TextStyle, IosOnlyTextStyleKeys>;
+type TextStyleIos = Omit<TextStyle, AndroidOnlyTextStyleKeys>;
+
+// TextProps
+type AndroidOnlyTextProps =
+  | 'android_hyphenationFrequency'
+  | 'dataDetectorType'
+  | 'disabled'
+  | 'selectionColor'
+  | 'textBreakStrategy';
+
+type IosOnlyTextProps =
+  | 'accessibilityLanguage'
+  | 'dynamicTypeRamp'
+  | 'minimumFontScale'
+  | 'suppressHighlighting'
+  | 'lineBreakStrategyIOS';
+
+type TextPropsAndroid = Prettify<
+  PropsWithout<TextProps, IosOnlyTextProps | 'style'> & { style?: TextStyleAndroid }
+>;
+type TextPropsIos = Prettify<
+  PropsWithout<TextProps, AndroidOnlyTextProps | 'style'> & { style?: TextStyleIos }
+>;
+
+// ImageStyle
+type AndroidOnlyImageStyleKeys = 'overlayColor';
+
+type ImageStyleAndroid = ImageStyle;
+type ImageStyleIos = Omit<ImageStyle, AndroidOnlyImageStyleKeys>;
+
+// ImageProps
+type AndroidOnlyImageProps =
+  | 'fadeDuration'
+  | 'progressiveRenderingEnabled'
+  | 'resizeMethod'
+  | 'resizeMultiplier';
+
+type IosOnlyImageProps = 'capInsets' | 'onPartialLoad';
+
+type ImagePropsAndroid = Prettify<
+  PropsWithout<ImageProps, IosOnlyImageProps | 'style'> & { style?: ImageStyleAndroid }
+>;
+type ImagePropsIos = Prettify<
+  PropsWithout<ImageProps, AndroidOnlyImageProps | 'style'> & { style?: ImageStyleIos }
+>;
 
 type Prettify<T> = {
   [K in keyof T]: T[K];
