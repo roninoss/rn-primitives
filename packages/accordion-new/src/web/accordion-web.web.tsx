@@ -8,12 +8,7 @@ import {
 import { useControllableState } from '@rn-primitives/hooks';
 import * as React from 'react';
 import type { BaseAccordionMultipleProps, BaseAccordionSingleProps } from '../base-types';
-import {
-  RootContext,
-  createItemContext,
-  createUseItemContext,
-  useRootContext,
-} from '../utils/contexts';
+import { ItemContext, RootContext, useItemContext, useRootContext } from '../utils/contexts';
 import { getDefaultValue } from '../utils/get-default-value';
 import { isItemExpanded } from '../utils/is-item-expanded';
 import type { ItemProps, ItemRef, RootProps, RootRef, TriggerProps, TriggerRef } from './types';
@@ -48,7 +43,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
             ...props,
             value: rootValue,
             onValueChange: onRootValueChange,
-            collapsible: collapsible?.toString(),
+            collapsible: collapsible?.toString(), // fixes radix-ui/accordion console error
           } as BaseAccordionSingleProps | BaseAccordionMultipleProps)}
         />
       </RootContext.Provider>
@@ -58,14 +53,11 @@ const Root = React.forwardRef<RootRef, RootProps>(
 
 Root.displayName = 'AccordionRootWeb';
 
-const AccordionItemContext = createItemContext();
-const useItemContext = createUseItemContext(AccordionItemContext);
-
 const Item = React.forwardRef<ItemRef, ItemProps>((props, ref) => {
   const { rootValue } = useRootContext();
 
   return (
-    <AccordionItemContext.Provider
+    <ItemContext.Provider
       value={{
         itemValue: props.value,
         disabled: props.disabled,
@@ -73,7 +65,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>((props, ref) => {
       }}
     >
       <AccordionItem ref={ref} {...props} />
-    </AccordionItemContext.Provider>
+    </ItemContext.Provider>
   );
 });
 

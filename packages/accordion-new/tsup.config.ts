@@ -8,7 +8,7 @@ export default defineConfig((options: Options) => ({
     'src/universal/accordion.web.tsx',
     'src/native/index.ts',
     'src/native/accordion-native.tsx',
-    'src/native/accordion-native.web.tsx',
+    'src/native/accordion-native.native.tsx',
     'src/web/index.ts',
     'src/web/accordion-web.tsx',
     'src/web/accordion-web.web.tsx',

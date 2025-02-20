@@ -43,7 +43,7 @@ type BaseAccordionTriggerRef = { trigger: () => void };
 type BaseAccordionRootContext = Prettify<
   Omit<
     BaseAccordionRootProps,
-    'asChild' | 'defaultValue' | 'children' | 'value' | 'onValueChange'
+    'asChild' | 'defaultValue' | 'children' | 'value' | 'onValueChange' | 'key'
   > & {
     rootValue: BaseAccordionRootProps['value'];
     onRootValueChange: BaseAccordionRootProps['onValueChange'];
@@ -51,7 +51,7 @@ type BaseAccordionRootContext = Prettify<
 > | null;
 
 type BaseAccordionItemContext = Prettify<
-  Omit<BaseAccordionItemProps, 'asChild' | 'children' | 'value'> & {
+  Omit<BaseAccordionItemProps, 'asChild' | 'children' | 'value' | 'key'> & {
     itemValue: BaseAccordionItemProps['value'];
     isExpanded: boolean;
   }

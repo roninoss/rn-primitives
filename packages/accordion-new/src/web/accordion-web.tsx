@@ -32,7 +32,7 @@ const useItemContext = () => {
   throw new Error(
     'Cannot access the web useItemContext on a native platform. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/native`'
   );
-  return {} as ItemContextReturnType<{ nativeID: string }>;
+  return {} as ItemContextReturnType;
 };
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };

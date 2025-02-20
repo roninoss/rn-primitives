@@ -14,22 +14,20 @@ function useRootContext() {
 
 type RootContextReturnType = ReturnType<typeof useRootContext>;
 
-const createItemContext = <T>() => React.createContext<(BaseAccordionItemContext & T) | null>(null);
+const ItemContext = React.createContext<BaseAccordionItemContext | null>(null);
 
-function createUseItemContext<T>(accordionItemContext: ReturnType<typeof createItemContext<T>>) {
-  return () => {
-    const context = React.useContext(accordionItemContext);
-    if (!context) {
-      throw new Error(
-        'AccordionItem compound components cannot be rendered outside the AccordionItem component'
-      );
-    }
-    return context;
-  };
+function useItemContext() {
+  const context = React.useContext(ItemContext);
+  if (!context) {
+    throw new Error(
+      'AccordionItem compound components cannot be rendered outside the AccordionItem component'
+    );
+  }
+  return context;
 }
 
-type ItemContextReturnType<T> = ReturnType<typeof createUseItemContext<T>>;
+type ItemContextReturnType = ReturnType<typeof useItemContext>;
 
-export { createItemContext, createUseItemContext, RootContext, useRootContext };
+export { ItemContext, useItemContext, RootContext, useRootContext };
 
 export type { ItemContextReturnType, RootContextReturnType };
