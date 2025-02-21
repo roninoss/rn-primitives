@@ -21,6 +21,7 @@ type UseRelativePositionArgs = Omit<
   disablePositioningStyle?: boolean;
 };
 
+// TODO(zach): Re-analyze this, especially with new arch but caution of https://github.com/software-mansion/react-native-screens/issues/2539
 export function useRelativePosition({
   align,
   avoidCollisions,

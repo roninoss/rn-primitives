@@ -561,6 +561,9 @@ importers:
       '@rn-primitives/dropdown-menu':
         specifier: workspace:*
         version: link:../../packages/dropdown-menu
+      '@rn-primitives/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
       '@rn-primitives/hover-card':
         specifier: workspace:*
         version: link:../../packages/hover-card

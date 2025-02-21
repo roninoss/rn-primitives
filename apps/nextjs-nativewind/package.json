@@ -19,6 +19,7 @@
     "@rn-primitives/context-menu": "workspace:*",
     "@rn-primitives/dialog": "workspace:*",
     "@rn-primitives/dropdown-menu": "workspace:*",
+    "@rn-primitives/hooks": "workspace:*",
     "@rn-primitives/hover-card": "workspace:*",
     "@rn-primitives/label": "workspace:*",
     "@rn-primitives/menubar": "workspace:*",
