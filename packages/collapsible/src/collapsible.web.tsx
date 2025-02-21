@@ -4,7 +4,7 @@ import {
   useControllableState,
   useIsomorphicLayoutEffect,
 } from '@rn-primitives/hooks';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type {
@@ -56,7 +56,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       }
     }, [disabled]);
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <CollapsibleContext.Provider
         value={{
@@ -120,7 +120,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       onOpenChange(!open);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Collapsible.Trigger disabled={disabled} asChild>
         <Component
@@ -149,7 +149,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       }
     }, [open]);
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <Collapsible.Content forceMount={forceMount} asChild>
         <Component ref={augmentedRef} {...props} />

@@ -4,7 +4,7 @@ import {
   useControllableState,
   useIsomorphicLayoutEffect,
 } from '@rn-primitives/hooks';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, Text, View, type GestureResponderEvent } from 'react-native';
 import type {
@@ -35,7 +35,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       defaultProp: defaultOpen,
       onChange: onOpenChangeProp,
     });
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <DialogContext.Provider value={{ open, onOpenChange }}>
         <Dialog.Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
@@ -75,7 +75,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       }
     }, [open]);
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Dialog.Trigger disabled={disabled ?? undefined} asChild>
         <Component
@@ -98,7 +98,7 @@ function Portal({ forceMount, container, children }: PortalProps) {
 
 const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, ...props }, ref) => {
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Dialog.Overlay forceMount={forceMount}>
         <Component ref={ref} {...props} />
@@ -123,7 +123,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
     },
     ref
   ) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <Dialog.Content
         onOpenAutoFocus={onOpenAutoFocus}
@@ -160,7 +160,7 @@ const Close = React.forwardRef<CloseRef, CloseProps>(
       }
     }, []);
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <>
         <Dialog.Close disabled={disabled ?? undefined} asChild>
@@ -180,7 +180,7 @@ const Close = React.forwardRef<CloseRef, CloseProps>(
 Close.displayName = 'CloseWebDialog';
 
 const Title = React.forwardRef<TitleRef, TitleProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.Text : Text;
+  const Component = asChild ? Slot : Text;
   return (
     <Dialog.Title asChild>
       <Component ref={ref} {...props} />
@@ -192,7 +192,7 @@ Title.displayName = 'TitleWebDialog';
 
 const Description = React.forwardRef<DescriptionRef, DescriptionProps>(
   ({ asChild, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : Text;
+    const Component = asChild ? Slot : Text;
     return (
       <Dialog.Description asChild>
         <Component ref={ref} {...props} />

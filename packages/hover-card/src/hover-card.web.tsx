@@ -1,6 +1,6 @@
 import * as HoverCard from '@radix-ui/react-hover-card';
 import { useAugmentedRef } from '@rn-primitives/hooks';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
 import type {
@@ -27,7 +27,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       onOpenChangeProp?.(value);
     }
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <HoverCardContext.Provider value={{ open, onOpenChange }}>
         <HoverCard.Root
@@ -69,7 +69,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(({ asChild, ...props 
     },
   });
 
-  const Component = asChild ? Slot.Pressable : Pressable;
+  const Component = asChild ? Slot : Pressable;
   return (
     <HoverCard.Trigger asChild>
       <Component ref={augmentedRef} {...props} />
@@ -84,7 +84,7 @@ function Portal({ forceMount, container, children }: PortalProps) {
 }
 
 const Overlay = React.forwardRef<OverlayRef, OverlayProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.Pressable : Pressable;
+  const Component = asChild ? Slot : Pressable;
   return <Component ref={ref} {...props} />;
 });
 
@@ -114,7 +114,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
     },
     ref
   ) => {
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <HoverCard.Content
         forceMount={forceMount}

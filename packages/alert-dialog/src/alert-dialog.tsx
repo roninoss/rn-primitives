@@ -1,6 +1,6 @@
 import { useControllableState } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { BackHandler, Pressable, Text, View, type GestureResponderEvent } from 'react-native';
 import type {
@@ -34,7 +34,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       defaultProp: defaultOpen,
       onChange: onOpenChangeProp,
     });
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <AlertDialogContext.Provider
         value={{
@@ -70,7 +70,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={ref}
@@ -115,7 +115,7 @@ const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
       }
     }
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return <Component ref={ref} {...props} />;
   }
 );
@@ -143,7 +143,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       }
     }
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <Component
         ref={ref}
@@ -170,7 +170,7 @@ const Cancel = React.forwardRef<CancelRef, CancelProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={ref}
@@ -196,7 +196,7 @@ const Action = React.forwardRef<ActionRef, ActionProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={ref}
@@ -214,7 +214,7 @@ Action.displayName = 'ActionNativeAlertDialog';
 
 const Title = React.forwardRef<TitleRef, TitleProps>(({ asChild, ...props }, ref) => {
   const { nativeID } = useRootContext();
-  const Component = asChild ? Slot.Text : Text;
+  const Component = asChild ? Slot : Text;
   return <Component ref={ref} role='heading' nativeID={`${nativeID}_label`} {...props} />;
 });
 
@@ -223,7 +223,7 @@ Title.displayName = 'TitleNativeAlertDialog';
 const Description = React.forwardRef<DescriptionRef, DescriptionProps>(
   ({ asChild, ...props }, ref) => {
     const { nativeID } = useRootContext();
-    const Component = asChild ? Slot.Text : Text;
+    const Component = asChild ? Slot : Text;
     return <Component ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
   }
 );

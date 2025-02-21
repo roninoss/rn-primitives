@@ -1,4 +1,4 @@
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
@@ -50,7 +50,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={ref}
@@ -82,7 +82,7 @@ const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
       }
     }
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <Component
         ref={ref}

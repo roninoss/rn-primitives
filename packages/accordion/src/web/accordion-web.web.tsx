@@ -42,6 +42,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
           {...({
             ...props,
             value: rootValue,
+            defaultValue,
             onValueChange: onRootValueChange,
             collapsible: collapsible?.toString(), // fixes radix-ui/accordion console error
           } as BaseAccordionSingleProps | BaseAccordionMultipleProps)}

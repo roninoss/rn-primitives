@@ -1,4 +1,4 @@
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type {
@@ -32,7 +32,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
     ref
   ) => {
     const nativeID = React.useId();
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <TabsContext.Provider
         value={{
@@ -58,7 +58,7 @@ function useRootContext() {
 }
 
 const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role='tablist' {...props} />;
 });
 
@@ -76,7 +76,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <TriggerContext.Provider value={{ value: tabValue }}>
         <Component
@@ -120,7 +120,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       }
     }
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <Component
         ref={ref}

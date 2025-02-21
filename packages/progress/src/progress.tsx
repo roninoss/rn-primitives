@@ -1,4 +1,4 @@
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { View } from 'react-native';
 import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
@@ -17,7 +17,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
     const max = maxProp ?? DEFAULT_MAX;
     const value = isValidValueNumber(valueProp, max) ? valueProp : 0;
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <Component
         role='progressbar'
@@ -41,7 +41,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
 Root.displayName = 'RootProgress';
 
 const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role='presentation' {...props} />;
 });
 

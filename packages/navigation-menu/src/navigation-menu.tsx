@@ -1,6 +1,6 @@
 import { useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import {
   BackHandler,
@@ -46,7 +46,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
     const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
     const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <RootContext.Provider
         value={{
@@ -78,7 +78,7 @@ function useRootContext() {
 }
 
 const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...viewProps }, ref) => {
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role='menubar' {...viewProps} />;
 });
 
@@ -89,7 +89,7 @@ const ItemContext = React.createContext<(ItemProps & { nativeID: string }) | nul
 const Item = React.forwardRef<ItemRef, ItemProps>(({ asChild, value, ...viewProps }, ref) => {
   const nativeID = React.useId();
 
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return (
     <ItemContext.Provider
       value={{
@@ -141,7 +141,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={triggerRef}
@@ -255,7 +255,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       }
     }
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <Component
         ref={ref}
@@ -274,7 +274,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
 Content.displayName = 'ContentNativeNavigationMenu';
 
 const Link = React.forwardRef<LinkRef, LinkProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.Pressable : Pressable;
+  const Component = asChild ? Slot : Pressable;
   return <Component ref={ref} role='link' {...props} />;
 });
 
@@ -287,7 +287,7 @@ const Viewport = React.forwardRef<ViewportRef, ViewportProps>((props, ref) => {
 Viewport.displayName = 'ViewportNativeNavigationMenu';
 
 const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} {...props} />;
 });
 

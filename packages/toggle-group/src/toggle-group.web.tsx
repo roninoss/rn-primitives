@@ -1,5 +1,5 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import { ToggleGroupUtils } from '@rn-primitives/utils';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
@@ -23,7 +23,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
     },
     ref
   ) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <ToggleGroupContext.Provider
         value={
@@ -84,7 +84,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
       }
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <ItemContext.Provider value={{ value: itemValue }}>
         <ToggleGroup.Item value={itemValue} asChild>

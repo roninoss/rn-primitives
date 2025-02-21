@@ -1,5 +1,5 @@
 import * as Switch from '@radix-ui/react-switch';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type { RootProps, RootRef, ThumbProps, ThumbRef } from './types';
@@ -29,14 +29,13 @@ const Root = React.forwardRef<RootRef, RootProps>(
       }
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Switch.Root checked={checked} onCheckedChange={onCheckedChange} disabled={disabled} asChild>
         <Component
           ref={ref}
           disabled={disabled}
           onPress={onPress}
-          // @ts-expect-error Web only
           onKeyDown={onKeyDown}
           {...props}
         />
@@ -48,7 +47,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
 Root.displayName = 'RootWebSwitch';
 
 const Thumb = React.forwardRef<ThumbRef, ThumbProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return (
     <Switch.Thumb asChild>
       <Component ref={ref} {...props} />

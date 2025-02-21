@@ -4,7 +4,7 @@ import {
   useControllableState,
   useIsomorphicLayoutEffect,
 } from '@rn-primitives/hooks';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, Text, View, type GestureResponderEvent } from 'react-native';
 import type {
@@ -37,7 +37,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       defaultProp: defaultOpen,
       onChange: onOpenChangeProp,
     });
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <AlertDialogContext.Provider value={{ open, onOpenChange }}>
         <AlertDialog.Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
@@ -79,7 +79,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       }
     }, [open]);
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <AlertDialog.Trigger disabled={disabled ?? undefined} asChild>
         <Component
@@ -102,7 +102,7 @@ function Portal({ forceMount, container, children }: PortalProps) {
 
 const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <AlertDialog.Overlay forceMount={forceMount}>
         <Component ref={ref} {...props} />
@@ -125,7 +125,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       }
     }, [open]);
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <AlertDialog.Content
         onOpenAutoFocus={onOpenAutoFocus}
@@ -161,7 +161,7 @@ const Cancel = React.forwardRef<CancelRef, CancelProps>(
       }
     }, []);
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <>
         <AlertDialog.Cancel disabled={disabled ?? undefined} asChild>
@@ -199,7 +199,7 @@ const Action = React.forwardRef<ActionRef, ActionProps>(
       }
     }, []);
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <>
         <AlertDialog.Action disabled={disabled ?? undefined} asChild>
@@ -219,7 +219,7 @@ const Action = React.forwardRef<ActionRef, ActionProps>(
 Action.displayName = 'ActionAlertWebDialog';
 
 const Title = React.forwardRef<TitleRef, TitleProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.Text : Text;
+  const Component = asChild ? Slot : Text;
   return (
     <AlertDialog.Title asChild>
       <Component ref={ref} {...props} />
@@ -231,7 +231,7 @@ Title.displayName = 'TitleAlertWebDialog';
 
 const Description = React.forwardRef<DescriptionRef, DescriptionProps>(
   ({ asChild, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : Text;
+    const Component = asChild ? Slot : Text;
     return (
       <AlertDialog.Description asChild>
         <Component ref={ref} {...props} />

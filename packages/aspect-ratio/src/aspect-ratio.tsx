@@ -1,4 +1,4 @@
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import type { SlottableViewProps, ViewRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { View, type ViewStyle } from 'react-native';
@@ -12,7 +12,7 @@ type RootRef = ViewRef;
 
 const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, ratio = 1, style, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return <Component ref={ref} style={[style, { aspectRatio: ratio }]} {...props} />;
   }
 );

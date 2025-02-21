@@ -1,6 +1,6 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type {
@@ -39,7 +39,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       onOpenChangeProp?.(value);
     }
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <RootContext.Provider value={{ open, onOpenChange }}>
         <Tooltip.Provider
@@ -100,7 +100,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       }
     }, [open]);
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Tooltip.Trigger disabled={disabled ?? undefined} asChild>
         <Component
@@ -123,7 +123,7 @@ function Portal({ forceMount, container, children }: PortalProps) {
 
 const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
   ({ asChild, forceMount, ...props }, ref) => {
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return <Component ref={ref} {...props} />;
   }
 );
@@ -152,7 +152,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
     },
     ref
   ) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <Tooltip.Content
         onEscapeKeyDown={onEscapeKeyDown}

@@ -1,5 +1,5 @@
 import { useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import {
   type ImageErrorEventData,
@@ -22,7 +22,7 @@ const RootContext = React.createContext<IRootContext | null>(null);
 
 const Root = React.forwardRef<RootRef, RootProps>(({ asChild, alt, ...viewProps }, ref) => {
   const [status, setStatus] = React.useState<AvatarState>('error');
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return (
     <RootContext.Provider value={{ alt, status, setStatus }}>
       <Component ref={ref} {...viewProps} />
@@ -79,7 +79,7 @@ const Image = React.forwardRef<ImageRef, ImageProps>(
       return null;
     }
 
-    const Component = asChild ? Slot.Image : RNImage;
+    const Component = asChild ? Slot : RNImage;
     return <Component ref={ref} alt={alt} onLoad={onLoad} onError={onError} {...props} />;
   }
 );
@@ -92,7 +92,7 @@ const Fallback = React.forwardRef<FallbackRef, FallbackProps>(({ asChild, ...pro
   if (status !== 'error') {
     return null;
   }
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role={'img'} aria-label={alt} {...props} />;
 });
 

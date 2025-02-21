@@ -1,4 +1,4 @@
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, Text, View, type GestureResponderEvent } from 'react-native';
 import type {
@@ -27,7 +27,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       return null;
     }
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <ToastContext.Provider
         value={{
@@ -68,7 +68,7 @@ const Close = React.forwardRef<CloseRef, CloseProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={ref}
@@ -94,7 +94,7 @@ const Action = React.forwardRef<ActionRef, ActionProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={ref}
@@ -113,7 +113,7 @@ Action.displayName = 'ActionToast';
 const Title = React.forwardRef<TitleRef, TitleProps>(({ asChild, ...props }, ref) => {
   const { nativeID } = useToastContext();
 
-  const Component = asChild ? Slot.Text : Text;
+  const Component = asChild ? Slot : Text;
   return <Component ref={ref} role='heading' nativeID={`${nativeID}_label`} {...props} />;
 });
 
@@ -123,7 +123,7 @@ const Description = React.forwardRef<DescriptionRef, DescriptionProps>(
   ({ asChild, ...props }, ref) => {
     const { nativeID } = useToastContext();
 
-    const Component = asChild ? Slot.Text : Text;
+    const Component = asChild ? Slot : Text;
     return <Component ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
   }
 );

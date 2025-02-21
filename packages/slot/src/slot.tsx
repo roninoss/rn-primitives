@@ -39,12 +39,15 @@ function SlotImplementation<T extends React.ElementType>(
   } as unknown as Partial<React.ComponentProps<T>>);
 }
 
-export const Slot = React.forwardRef(SlotImplementation) as <T extends React.ElementType>(
-  props: React.ComponentPropsWithoutRef<T> & { as?: T; ref?: React.Ref<React.ElementRef<T>> }
+const Slot = React.forwardRef(SlotImplementation) as <T extends React.ElementType>(
+  props: React.ComponentPropsWithoutRef<T> & { ref?: React.Ref<React.ElementRef<T>> }
 ) => React.ReactElement | null;
 
 (Slot as React.NamedExoticComponent<any>).displayName = 'Slot';
 
+/**
+ * Deprecated: Use Slot instead
+ */
 const Pressable = React.forwardRef<React.ElementRef<typeof RNPressable>, RNPressableProps>(
   (props, forwardedRef) => {
     const { children, ...pressableSlotProps } = props;
@@ -66,6 +69,9 @@ const Pressable = React.forwardRef<React.ElementRef<typeof RNPressable>, RNPress
 
 Pressable.displayName = 'SlotPressable';
 
+/**
+ * Deprecated: Use Slot instead
+ */
 const View = React.forwardRef<React.ElementRef<typeof RNView>, RNViewProps>(
   (props, forwardedRef) => {
     const { children, ...viewSlotProps } = props;
@@ -87,6 +93,9 @@ const View = React.forwardRef<React.ElementRef<typeof RNView>, RNViewProps>(
 
 View.displayName = 'SlotView';
 
+/**
+ * Deprecated: Use Slot instead
+ */
 const Text = React.forwardRef<React.ElementRef<typeof RNText>, RNTextProps>(
   (props, forwardedRef) => {
     const { children, ...textSlotProps } = props;
@@ -112,6 +121,9 @@ type ImageSlotProps = RNImageProps & {
   children?: React.ReactNode;
 };
 
+/**
+ * Deprecated: Use Slot instead
+ */
 const Image = React.forwardRef<React.ElementRef<typeof RNImage>, ImageSlotProps>(
   (props, forwardedRef) => {
     const { children, ...imageSlotProps } = props;
@@ -133,7 +145,7 @@ const Image = React.forwardRef<React.ElementRef<typeof RNImage>, ImageSlotProps>
 
 Image.displayName = 'SlotImage';
 
-export { Image, Pressable, Text, View };
+export { Slot, Image, Pressable, Text, View };
 
 // This project uses code from WorkOS/Radix Primitives.
 // The code is licensed under the MIT License.

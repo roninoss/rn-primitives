@@ -1,5 +1,5 @@
 import * as RadioGroup from '@radix-ui/react-radio-group';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
 import type { IndicatorProps, IndicatorRef, ItemProps, ItemRef, RootProps, RootRef } from './types';
@@ -8,7 +8,7 @@ const RadioGroupContext = React.createContext<RootProps | null>(null);
 
 const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, value, onValueChange, disabled = false, ...viewProps }, ref) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <RadioGroupContext.Provider
         value={{
@@ -46,7 +46,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
       onValueChange(value);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <RadioGroup.Item value={value} asChild>
         <Component ref={ref} onPress={onPress} {...props} />
@@ -59,7 +59,7 @@ Item.displayName = 'ItemRadioGroup';
 
 const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
   ({ asChild, forceMount, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <RadioGroup.Indicator asChild>
         <Component ref={ref} {...props} />

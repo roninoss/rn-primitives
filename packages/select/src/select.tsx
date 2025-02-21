@@ -5,7 +5,7 @@ import {
   type LayoutPosition,
 } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import {
   BackHandler,
@@ -86,7 +86,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       onOpenChangeProp?.(value);
     }
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <RootContext.Provider
         value={{
@@ -147,7 +147,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={augmentedRef}
@@ -166,7 +166,7 @@ Trigger.displayName = 'TriggerNativeSelect';
 
 const Value = React.forwardRef<ValueRef, ValueProps>(({ asChild, placeholder, ...props }, ref) => {
   const { value } = useRootContext();
-  const Component = asChild ? Slot.Text : Text;
+  const Component = asChild ? Slot : Text;
   return (
     <Component ref={ref} {...props}>
       {value?.label ?? placeholder}
@@ -218,7 +218,7 @@ const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
       }
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
 );
@@ -294,7 +294,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       }
     }
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <Component
         ref={ref}
@@ -343,7 +343,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <ItemContext.Provider value={{ itemValue, label }}>
         <Component
@@ -378,7 +378,7 @@ function useItemContext() {
 const ItemText = React.forwardRef<ItemTextRef, ItemTextProps>(({ asChild, ...props }, ref) => {
   const { label } = useItemContext();
 
-  const Component = asChild ? Slot.Text : Text;
+  const Component = asChild ? Slot : Text;
   return (
     <Component ref={ref} {...props}>
       {label}
@@ -398,7 +398,7 @@ const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
         return null;
       }
     }
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return <Component ref={ref} role='presentation' {...props} />;
   }
 );
@@ -406,14 +406,14 @@ const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
 ItemIndicator.displayName = 'ItemIndicatorNativeSelect';
 
 const Group = React.forwardRef<GroupRef, GroupProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role='group' {...props} />;
 });
 
 Group.displayName = 'GroupNativeSelect';
 
 const Label = React.forwardRef<LabelRef, LabelProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.Text : Text;
+  const Component = asChild ? Slot : Text;
   return <Component ref={ref} {...props} />;
 });
 
@@ -421,7 +421,7 @@ Label.displayName = 'LabelNativeSelect';
 
 const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
   ({ asChild, decorative, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
   }
 );

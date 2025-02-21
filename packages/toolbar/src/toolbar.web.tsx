@@ -1,5 +1,5 @@
 import * as Toolbar from '@radix-ui/react-toolbar';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import { ToggleGroupUtils } from '@rn-primitives/utils';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
@@ -20,7 +20,7 @@ import type {
 
 const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, orientation, dir, loop, style, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <Toolbar.Root orientation={orientation} dir={dir} loop={loop} asChild>
         <Component ref={ref} {...props} />
@@ -35,7 +35,7 @@ const ToggleGroupContext = React.createContext<ToggleGroupProps | null>(null);
 
 const ToggleGroup = React.forwardRef<ToggleGroupRef, ToggleGroupProps>(
   ({ asChild, type, value, onValueChange, disabled = false, style, ...viewProps }, ref) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <ToggleGroupContext.Provider
         value={
@@ -98,7 +98,7 @@ const ToggleItem = React.forwardRef<ToggleItemRef, ToggleItemProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Toolbar.ToggleItem value={itemValue} asChild>
         <Component ref={ref} onPress={onPress} role='button' {...props} />
@@ -111,7 +111,7 @@ ToggleItem.displayName = 'ToggleItemWebToolbar';
 
 const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
   ({ asChild, style, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return <Component ref={ref} {...props} />;
   }
 );
@@ -119,7 +119,7 @@ const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
 Separator.displayName = 'SeparatorWebToolbar';
 
 const Link = React.forwardRef<LinkRef, LinkProps>(({ asChild, style, ...props }, ref) => {
-  const Component = asChild ? Slot.Pressable : Pressable;
+  const Component = asChild ? Slot : Pressable;
   return (
     <Toolbar.Link asChild>
       <Component ref={ref} {...props} />
@@ -130,7 +130,7 @@ const Link = React.forwardRef<LinkRef, LinkProps>(({ asChild, style, ...props },
 Link.displayName = 'LinkWebToolbar';
 
 const Button = React.forwardRef<ButtonRef, ButtonProps>(({ asChild, style, ...props }, ref) => {
-  const Component = asChild ? Slot.Pressable : Pressable;
+  const Component = asChild ? Slot : Pressable;
   return (
     <Toolbar.Button asChild>
       <Component ref={ref} role='button' {...props} />

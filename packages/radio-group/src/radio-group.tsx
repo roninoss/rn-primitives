@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import type { IndicatorProps, IndicatorRef, ItemProps, ItemRef, RootProps, RootRef } from './types';
 
 const RadioGroupContext = React.createContext<RootProps | null>(null);
 
 const Root = React.forwardRef<RootRef, RootProps>(
   ({ asChild, value, onValueChange, disabled = false, ...viewProps }, ref) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <RadioGroupContext.Provider
         value={{
@@ -53,7 +53,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <RadioItemContext.Provider
         value={{
@@ -99,7 +99,7 @@ const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
         return null;
       }
     }
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return <Component ref={ref} role='presentation' {...props} />;
   }
 );

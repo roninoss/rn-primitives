@@ -5,7 +5,7 @@ import {
   type LayoutPosition,
 } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import {
   BackHandler,
@@ -74,7 +74,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       onOpenChangeProp?.(open);
     }
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <RootContext.Provider
         value={{
@@ -135,7 +135,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={augmentedRef}
@@ -194,7 +194,7 @@ const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
       }
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
 );
@@ -269,7 +269,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       }
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={ref}
@@ -302,7 +302,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={ref}
@@ -321,14 +321,14 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
 Item.displayName = 'ItemNativeDropdownMenu';
 
 const Group = React.forwardRef<GroupRef, GroupProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role='group' {...props} />;
 });
 
 Group.displayName = 'GroupNativeDropdownMenu';
 
 const Label = React.forwardRef<LabelRef, LabelProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.Text : Text;
+  const Component = asChild ? Slot : Text;
   return <Component ref={ref} {...props} />;
 });
 
@@ -369,7 +369,7 @@ const CheckboxItem = React.forwardRef<CheckboxItemRef, CheckboxItemProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <FormItemContext.Provider value={{ checked }}>
         <Component
@@ -402,7 +402,7 @@ function useFormItemContext() {
 
 const RadioGroup = React.forwardRef<RadioGroupRef, RadioGroupProps>(
   ({ asChild, value, onValueChange, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <FormItemContext.Provider value={{ value, onValueChange }}>
         <Component ref={ref} role='radiogroup' {...props} />
@@ -445,7 +445,7 @@ const RadioItem = React.forwardRef<RadioItemRef, RadioItemProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <RadioItemContext.Provider value={{ itemValue }}>
         <Component
@@ -485,7 +485,7 @@ const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
         return null;
       }
     }
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return <Component ref={ref} role='presentation' {...props} />;
   }
 );
@@ -494,7 +494,7 @@ ItemIndicator.displayName = 'ItemIndicatorNativeDropdownMenu';
 
 const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
   ({ asChild, decorative, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
   }
 );
@@ -516,7 +516,7 @@ const Sub = React.forwardRef<SubRef, SubProps>(
       onChange: onOpenChangeProp,
     });
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <SubContext.Provider
         value={{
@@ -550,7 +550,7 @@ const SubTrigger = React.forwardRef<SubTriggerRef, SubTriggerProps>(
       onPressProp?.(ev);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <Component
         ref={ref}
@@ -580,7 +580,7 @@ const SubContent = React.forwardRef<SubContentRef, SubContentProps>(
       }
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return <Component ref={ref} role='group' accessibilityLabelledBy={nativeID} {...props} />;
   }
 );

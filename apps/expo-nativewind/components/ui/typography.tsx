@@ -1,4 +1,4 @@
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import { SlottableTextProps, TextRef } from '@rn-primitives/types';
 import * as React from 'react';
 import { Platform, Text as RNText } from 'react-native';
@@ -6,7 +6,7 @@ import { cn } from '~/lib/utils';
 
 const H1 = React.forwardRef<TextRef, SlottableTextProps>(
   ({ className, asChild = false, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : RNText;
+    const Component = asChild ? Slot : RNText;
     return (
       <Component
         role='heading'
@@ -26,7 +26,7 @@ H1.displayName = 'H1';
 
 const H2 = React.forwardRef<TextRef, SlottableTextProps>(
   ({ className, asChild = false, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : RNText;
+    const Component = asChild ? Slot : RNText;
     return (
       <Component
         role='heading'
@@ -46,7 +46,7 @@ H2.displayName = 'H2';
 
 const H3 = React.forwardRef<TextRef, SlottableTextProps>(
   ({ className, asChild = false, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : RNText;
+    const Component = asChild ? Slot : RNText;
     return (
       <Component
         role='heading'
@@ -66,7 +66,7 @@ H3.displayName = 'H3';
 
 const H4 = React.forwardRef<TextRef, SlottableTextProps>(
   ({ className, asChild = false, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : RNText;
+    const Component = asChild ? Slot : RNText;
     return (
       <Component
         role='heading'
@@ -86,7 +86,7 @@ H4.displayName = 'H4';
 
 const P = React.forwardRef<TextRef, SlottableTextProps>(
   ({ className, asChild = false, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : RNText;
+    const Component = asChild ? Slot : RNText;
     return (
       <Component
         className={cn('text-base text-foreground web:select-text', className)}
@@ -100,7 +100,7 @@ P.displayName = 'P';
 
 const BlockQuote = React.forwardRef<TextRef, SlottableTextProps>(
   ({ className, asChild = false, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : RNText;
+    const Component = asChild ? Slot : RNText;
     return (
       <Component
         // @ts-ignore - role of blockquote renders blockquote element on the web
@@ -120,7 +120,7 @@ BlockQuote.displayName = 'BlockQuote';
 
 const Code = React.forwardRef<TextRef, SlottableTextProps>(
   ({ className, asChild = false, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : RNText;
+    const Component = asChild ? Slot : RNText;
     return (
       <Component
         // @ts-ignore - role of code renders code element on the web
@@ -140,7 +140,7 @@ Code.displayName = 'Code';
 
 const Lead = React.forwardRef<TextRef, SlottableTextProps>(
   ({ className, asChild = false, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : RNText;
+    const Component = asChild ? Slot : RNText;
     return (
       <Component
         className={cn('text-xl text-muted-foreground web:select-text', className)}
@@ -155,7 +155,7 @@ Lead.displayName = 'Lead';
 
 const Large = React.forwardRef<TextRef, SlottableTextProps>(
   ({ className, asChild = false, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : RNText;
+    const Component = asChild ? Slot : RNText;
     return (
       <Component
         className={cn('text-xl text-foreground font-semibold web:select-text', className)}
@@ -170,7 +170,7 @@ Large.displayName = 'Large';
 
 const Small = React.forwardRef<TextRef, SlottableTextProps>(
   ({ className, asChild = false, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : RNText;
+    const Component = asChild ? Slot : RNText;
     return (
       <Component
         className={cn(
@@ -188,7 +188,7 @@ Small.displayName = 'Small';
 
 const Muted = React.forwardRef<TextRef, SlottableTextProps>(
   ({ className, asChild = false, ...props }, ref) => {
-    const Component = asChild ? Slot.Text : RNText;
+    const Component = asChild ? Slot : RNText;
     return (
       <Component
         className={cn('text-sm text-muted-foreground web:select-text', className)}

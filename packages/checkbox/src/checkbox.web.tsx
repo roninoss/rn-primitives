@@ -1,6 +1,6 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
 import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
@@ -41,7 +41,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       }
     }, [disabled]);
 
-    const Component = asChild ? Slot.Pressable : Pressable;
+    const Component = asChild ? Slot : Pressable;
     return (
       <CheckboxContext.Provider value={{ checked, disabled, onCheckedChange }}>
         <Checkbox.Root
@@ -98,7 +98,7 @@ const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
       }
     }, [disabled]);
 
-    const Component = asChild ? Slot.View : View;
+    const Component = asChild ? Slot : View;
     return (
       <Checkbox.Indicator forceMount={forceMount} asChild>
         <Component ref={ref} {...props} />
