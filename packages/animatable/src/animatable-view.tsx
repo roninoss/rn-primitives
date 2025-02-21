@@ -1,14 +1,20 @@
 import { Slot } from '@rn-primitives/slot';
-import type { Slottable, ViewRef } from '@rn-primitives/types';
+import type {
+  RemoveAndroidOnlyViewProps,
+  RemoveIosOnlyViewProps,
+  Slottable,
+  ViewRef,
+} from '@rn-primitives/types';
 import * as React from 'react';
 import { View, type ViewProps } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-type AnimatedViewProps = React.ComponentPropsWithoutRef<typeof Animated.View>;
+type AnimatedViewProps = Slottable<React.ComponentPropsWithoutRef<typeof Animated.View>>;
+type RNViewProps = Slottable<ViewProps>;
 
-type AnimatableViewProps = Slottable<
-  (ViewProps & { isAnimated?: false }) | (AnimatedViewProps & { isAnimated: true })
->;
+type AnimatableViewProps =
+  | (RNViewProps & { isAnimated?: false | undefined })
+  | (AnimatedViewProps & { isAnimated: true });
 
 const AnimatableView = React.forwardRef<ViewRef, AnimatableViewProps>(
   ({ asChild, ...props }, ref) => {
@@ -24,6 +30,14 @@ const AnimatableView = React.forwardRef<ViewRef, AnimatableViewProps>(
 
 AnimatableView.displayName = 'AnimatableView';
 
+type AnimatableViewIosProps =
+  | (RemoveAndroidOnlyViewProps<RNViewProps> & { isAnimated?: false | undefined })
+  | (RemoveAndroidOnlyViewProps<AnimatedViewProps> & { isAnimated: true });
+
+type AnimatableViewAndroidProps =
+  | (RemoveIosOnlyViewProps<RNViewProps> & { isAnimated?: false | undefined })
+  | (RemoveIosOnlyViewProps<AnimatedViewProps> & { isAnimated: true });
+
 export { AnimatableView };
 
-export type { AnimatableViewProps };
+export type { AnimatableViewAndroidProps, AnimatableViewIosProps, AnimatableViewProps };

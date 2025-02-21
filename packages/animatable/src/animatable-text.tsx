@@ -1,17 +1,25 @@
 import { Slot } from '@rn-primitives/slot';
-import type { Slottable, TextRef } from '@rn-primitives/types';
+import type {
+  RemoveAndroidOnlyTextProps,
+  RemoveIosOnlyTextProps,
+  Slottable,
+  TextRef,
+} from '@rn-primitives/types';
 import * as React from 'react';
 import { Text, type TextProps } from 'react-native';
 import type { SharedValue } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 
-type AnimatedTextProps = Omit<React.ComponentPropsWithoutRef<typeof Animated.Text>, 'children'> & {
-  children?: React.ReactNode | SharedValue<React.ReactNode>;
-};
-
-type AnimatableTextProps = Slottable<
-  (TextProps & { isAnimated?: false }) | (AnimatedTextProps & { isAnimated: true })
+type AnimatedTextProps = Slottable<
+  Omit<React.ComponentPropsWithoutRef<typeof Animated.Text>, 'children'> & {
+    children?: React.ReactNode | SharedValue<React.ReactNode>;
+  }
 >;
+type RNTextProps = Slottable<TextProps>;
+
+type AnimatableTextProps =
+  | (RNTextProps & { isAnimated?: false | undefined })
+  | (AnimatedTextProps & { isAnimated: true });
 
 const AnimatableText = React.forwardRef<TextRef, AnimatableTextProps>(
   ({ asChild, ...props }, ref) => {
@@ -25,6 +33,14 @@ const AnimatableText = React.forwardRef<TextRef, AnimatableTextProps>(
   }
 );
 
+type AnimatableTextIosProps =
+  | (RemoveAndroidOnlyTextProps<RNTextProps> & { isAnimated?: false | undefined })
+  | (RemoveAndroidOnlyTextProps<AnimatedTextProps> & { isAnimated: true });
+
+type AnimatableTextAndroidProps =
+  | (RemoveIosOnlyTextProps<RNTextProps> & { isAnimated?: false | undefined })
+  | (RemoveIosOnlyTextProps<AnimatedTextProps> & { isAnimated: true });
+
 export { AnimatableText };
 
-export type { AnimatableTextProps };
+export type { AnimatableTextAndroidProps, AnimatableTextIosProps, AnimatableTextProps };
