@@ -6,6 +6,7 @@ export default defineConfig((options: Options) => ({
     'src/use-augmented-ref.tsx',
     'src/use-controllable-state.tsx',
     'src/use-isomorphic-layout-effect.tsx',
+    'src/use-isomorphic-layout-effect.web.tsx',
     'src/use-relative-position.tsx',
     'src/use-relative-position.web.tsx',
   ],
@@ -14,7 +15,7 @@ export default defineConfig((options: Options) => ({
   },
   clean: true,
   format: ['cjs', 'esm'],
-  external: ['react', './use-relative-position'],
+  external: ['react', './use-relative-position', './use-isomorphic-layout-effect'],
   dts: true,
   ...options,
   esbuildOptions(options) {
