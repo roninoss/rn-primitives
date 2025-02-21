@@ -44,6 +44,7 @@
     "@rn-primitives/toolbar": "workspace:*",
     "@rn-primitives/tooltip": "workspace:*",
     "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/utils": "workspace:*",
     "expo": "^52.0.11",
     "expo-linking": "~7.0.3",
     "expo-navigation-bar": "~4.0.4",

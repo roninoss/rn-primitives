@@ -14,7 +14,6 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/native": "^7.0.0",
-    "@rn-primitives/accordion-new": "workspace:*",
     "@rn-primitives/accordion": "workspace:*",
     "@rn-primitives/alert-dialog": "workspace:*",
     "@rn-primitives/aspect-ratio": "workspace:*",
@@ -45,6 +44,7 @@
     "@rn-primitives/toolbar": "workspace:*",
     "@rn-primitives/tooltip": "workspace:*",
     "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/utils": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "expo": "^52.0.11",

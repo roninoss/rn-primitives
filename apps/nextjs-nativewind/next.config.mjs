@@ -10,7 +10,6 @@ const nextConfig = {
     'react-native-css-interop',
     'react-native-reanimated',
     '@rn-primitives/accordion',
-    '@rn-primitives/accordion-new',
     '@rn-primitives/alert-dialog',
     '@rn-primitives/aspect-ratio',
     '@rn-primitives/avatar',

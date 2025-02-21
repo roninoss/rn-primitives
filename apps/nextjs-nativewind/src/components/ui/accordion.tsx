@@ -1,9 +1,10 @@
 'use client';
 
-import * as AccordionPrimitive from '@rn-primitives/accordion-new';
+import * as AccordionPrimitive from '@rn-primitives/accordion';
 import { Slot } from '@rn-primitives/slot';
+import { renderPressableChildren } from '@rn-primitives/utils';
 import * as React from 'react';
-import { Platform, type PressableProps, type PressableStateCallbackType, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import Animated, {
   Extrapolation,
   FadeIn,
@@ -103,16 +104,6 @@ const AccordionTrigger = React.forwardRef<
     </TextClassContext.Provider>
   );
 });
-
-// TODO: move this to nr-primitives
-function renderPressableChildren(
-  children: PressableProps['children'],
-  render: (children: React.ReactNode) => React.ReactNode
-) {
-  return typeof children === 'function'
-    ? (state: PressableStateCallbackType) => render(children(state))
-    : render(children);
-}
 
 function AccordionContent({ className, children, ...props }: AccordionPrimitive.ContentProps) {
   return (

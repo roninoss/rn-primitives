@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/accordion",
-  "version": "1.1.0",
+  "version": "2.0.0-alpha.1",
   "description": "Primitive accordion",
   "license": "MIT",
   "main": "dist/index.js",
@@ -13,11 +13,17 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./dist/accordion": {
-      "import": "./dist/accordion.mjs",
-      "require": "./dist/accordion.js",
-      "types": "./dist/accordion.d.ts",
-      "default": "./dist/accordion.js"
+    "./native": {
+      "import": "./dist/native/index.mjs",
+      "require": "./dist/native/index.js",
+      "types": "./dist/native/index.d.ts",
+      "default": "./dist/native/index.js"
+    },
+    "./web": {
+      "import": "./dist/web/index.mjs",
+      "require": "./dist/web/index.js",
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
     }
   },
   "files": [
@@ -32,10 +38,12 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-accordion": "^1.2.0",
+    "@radix-ui/react-accordion": "^1.2.3",
+    "@rn-primitives/animatable": "workspace:*",
     "@rn-primitives/hooks": "workspace:*",
     "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/web": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",
@@ -47,6 +55,7 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
+    "react-native-reanimated": "*",
     "react-native-web": "*"
   },
   "peerDependenciesMeta": {
@@ -54,6 +63,9 @@
       "optional": true
     },
     "react-native-web": {
+      "optional": true
+    },
+    "react-native-reanimated": {
       "optional": true
     }
   }

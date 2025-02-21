@@ -199,9 +199,6 @@ importers:
       '@rn-primitives/accordion':
         specifier: workspace:*
         version: link:../../packages/accordion
-      '@rn-primitives/accordion-new':
-        specifier: workspace:*
-        version: link:../../packages/accordion-new
       '@rn-primitives/alert-dialog':
         specifier: workspace:*
         version: link:../../packages/alert-dialog
@@ -289,6 +286,9 @@ importers:
       '@rn-primitives/types':
         specifier: workspace:*
         version: link:../../packages/types
+      '@rn-primitives/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -467,6 +467,9 @@ importers:
       '@rn-primitives/types':
         specifier: workspace:*
         version: link:../../packages/types
+      '@rn-primitives/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       expo:
         specifier: ^52.0.11
         version: 52.0.11(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@expo/metro-runtime@4.0.0(react-native@0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1)))(react-native@0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
@@ -534,9 +537,6 @@ importers:
       '@rn-primitives/accordion':
         specifier: workspace:*
         version: link:../../packages/accordion
-      '@rn-primitives/accordion-new':
-        specifier: workspace:*
-        version: link:../../packages/accordion-new
       '@rn-primitives/alert-dialog':
         specifier: workspace:*
         version: link:../../packages/alert-dialog
@@ -624,6 +624,9 @@ importers:
       '@rn-primitives/types':
         specifier: workspace:*
         version: link:../../packages/types
+      '@rn-primitives/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -681,40 +684,6 @@ importers:
         version: 5.7.2
 
   packages/accordion:
-    dependencies:
-      '@radix-ui/react-accordion':
-        specifier: ^1.2.0
-        version: 1.2.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
-        specifier: workspace:*
-        version: link:../hooks
-      '@rn-primitives/slot':
-        specifier: workspace:*
-        version: link:../slot
-      '@rn-primitives/types':
-        specifier: workspace:*
-        version: link:../types
-      react-native-web:
-        specifier: '*'
-        version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-    devDependencies:
-      '@tsconfig/react-native':
-        specifier: ^1.0.1
-        version: 1.0.5
-      '@types/react':
-        specifier: ~18.3.12
-        version: 18.3.12
-      react:
-        specifier: 18.3.1
-        version: 18.3.1
-      react-native:
-        specifier: 0.76.3
-        version: 0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1)
-      tsup:
-        specifier: ^8.1.0
-        version: 8.3.5(jiti@1.21.6)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1)
-
-  packages/accordion-new:
     dependencies:
       '@radix-ui/react-accordion':
         specifier: ^1.2.3
@@ -3333,19 +3302,6 @@ packages:
 
   '@radix-ui/primitive@1.1.1':
     resolution: {integrity: sha512-SJ31y+Q/zAyShtXJc8x83i9TYdbAfHZ++tUZnvjJJqFjzsdUnKsxPL6IEtBlxKkU7yzer//GQtZSV4GbldL3YA==}
-
-  '@radix-ui/react-accordion@1.2.1':
-    resolution: {integrity: sha512-bg/l7l5QzUjgsh8kjwDFommzAshnUsuVMV5NM56QVCm+7ZckYdd9P/ExR8xG/Oup0OajVxNLaHJ1tb8mXk+nzQ==}
-    peerDependencies:
-      '@types/react': '*'
-      '@types/react-dom': '*'
-      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
-      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      '@types/react-dom':
-        optional: true
 
   '@radix-ui/react-accordion@1.2.3':
     resolution: {integrity: sha512-RIQ15mrcvqIkDARJeERSuXSry2N8uYnxkdDetpfmalT/+0ntOXLkFOsh9iwlAsCv+qcmhZjbdJogIm6WBa6c4A==}
@@ -10847,23 +10803,6 @@ snapshots:
   '@radix-ui/primitive@1.1.0': {}
 
   '@radix-ui/primitive@1.1.1': {}
-
-  '@radix-ui/react-accordion@1.2.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@radix-ui/primitive': 1.1.0
-      '@radix-ui/react-collapsible': 1.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-collection': 1.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.12)(react@18.3.1)
-      '@radix-ui/react-context': 1.1.1(@types/react@18.3.12)(react@18.3.1)
-      '@radix-ui/react-direction': 1.1.0(@types/react@18.3.12)(react@18.3.1)
-      '@radix-ui/react-id': 1.1.0(@types/react@18.3.12)(react@18.3.1)
-      '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-use-controllable-state': 1.1.0(@types/react@18.3.12)(react@18.3.1)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    optionalDependencies:
-      '@types/react': 18.3.12
-      '@types/react-dom': 18.3.1
 
   '@radix-ui/react-accordion@1.2.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
