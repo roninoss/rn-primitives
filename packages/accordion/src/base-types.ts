@@ -8,6 +8,8 @@ import type {
 } from '@radix-ui/react-accordion';
 import type { Prettify, PropsWithoutHTML } from '@rn-primitives/types';
 
+// TODO: consider using Pick method instead of PropsWithoutHTML
+
 type AccordionRootProps = BaseAccordionMultipleProps | BaseAccordionSingleProps;
 
 type BaseAccordionRootProps = Prettify<

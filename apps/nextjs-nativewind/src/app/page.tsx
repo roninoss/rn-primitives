@@ -1,3 +1,4 @@
+import { Pressable } from 'react-native';
 import { CheckboxExample } from '~/components/CheckboxExample';
 import { CollapsibleExample } from '~/components/CollapsibleExample';
 import { ContextMenuExample } from '~/components/ContextMenuExample';
@@ -169,9 +170,16 @@ function AlertDialogExample() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant='outline'>
+        {/* <Button variant='outline'> */}
+        <Pressable>
           <Text>Show Alert Dialog</Text>
-        </Button>
+        </Pressable>
+        {/* </Button> */}
+      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>
+        <button>
+          <Text>Show Alert Dialog</Text>
+        </button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

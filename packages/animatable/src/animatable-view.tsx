@@ -9,6 +9,8 @@ import * as React from 'react';
 import { View, type ViewProps } from 'react-native';
 import Animated from 'react-native-reanimated';
 
+// TODO: handle web
+
 type AnimatedViewProps = Slottable<React.ComponentPropsWithoutRef<typeof Animated.View>>;
 type RNViewProps = Slottable<ViewProps>;
 

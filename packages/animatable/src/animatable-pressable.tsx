@@ -17,6 +17,8 @@ import {
 } from 'react-native';
 import Animated from 'react-native-reanimated';
 
+// TODO: handle web
+
 type AnimatedPressableProps = Slottable<
   React.ComponentPropsWithoutRef<typeof AnimatedPressable> & {
     key?: React.Key | null | undefined;

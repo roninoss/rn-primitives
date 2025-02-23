@@ -12,6 +12,7 @@
   "dependencies": {
     "@rn-primitives/accordion": "workspace:*",
     "@rn-primitives/alert-dialog": "workspace:*",
+    "@rn-primitives/alert-dialog-new": "workspace:*",
     "@rn-primitives/aspect-ratio": "workspace:*",
     "@rn-primitives/avatar": "workspace:*",
     "@rn-primitives/checkbox": "workspace:*",

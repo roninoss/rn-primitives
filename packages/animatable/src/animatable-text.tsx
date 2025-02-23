@@ -10,6 +10,7 @@ import { Text, type TextProps } from 'react-native';
 import type { SharedValue } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 
+// TODO: handle web
 type AnimatedTextProps = Slottable<
   Omit<React.ComponentPropsWithoutRef<typeof Animated.Text>, 'children'> & {
     children?: React.ReactNode | SharedValue<React.ReactNode>;

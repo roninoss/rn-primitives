@@ -8,6 +8,7 @@ export {
   useRootContext,
 } from './accordion-native';
 
+// TODO: export ref types
 export type {
   ContentProps,
   HeaderProps,

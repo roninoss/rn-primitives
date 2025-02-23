@@ -155,8 +155,6 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
 
     const triggerRef = useAugmentedRef({ ref, methods });
 
-    const isDisabled = !!(disabledProp || rootDisabled || itemDisabled);
-
     const onPress = React.useCallback(
       (ev: GestureResponderEvent) => {
         methods.trigger();
@@ -166,6 +164,8 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       },
       [onPressProp, methods]
     );
+
+    const isDisabled = !!(disabledProp || rootDisabled || itemDisabled);
 
     const Component = asChild ? Slot<typeof AnimatablePressable> : AnimatablePressable;
     return (

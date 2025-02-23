@@ -9,6 +9,8 @@ import * as React from 'react';
 import { Image, type ImageProps } from 'react-native';
 import Animated from 'react-native-reanimated';
 
+// TODO: handle web
+
 type AnimatedImageProps = Slottable<React.ComponentPropsWithoutRef<typeof Animated.Image>>;
 type RNImageProps = Slottable<ImageProps>;
 

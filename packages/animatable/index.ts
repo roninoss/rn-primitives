@@ -1,4 +1,24 @@
-export { AnimatableImage, type AnimatableImageProps } from './src/animatable-image';
-export { AnimatablePressable, type AnimatablePressableProps } from './src/animatable-pressable';
-export { AnimatableText, type AnimatableTextProps } from './src/animatable-text';
-export { AnimatableView, type AnimatableViewProps } from './src/animatable-view';
+export {
+  AnimatableImage,
+  type AnimatableImageAndroidProps,
+  type AnimatableImageIosProps,
+  type AnimatableImageProps,
+} from './src/animatable-image';
+export {
+  AnimatablePressable,
+  type AnimatablePressableAndroidProps,
+  type AnimatablePressableIosProps,
+  type AnimatablePressableProps,
+} from './src/animatable-pressable';
+export {
+  AnimatableText,
+  type AnimatableTextAndroidProps,
+  type AnimatableTextIosProps,
+  type AnimatableTextProps,
+} from './src/animatable-text';
+export {
+  AnimatableView,
+  type AnimatableViewAndroidProps,
+  type AnimatableViewIosProps,
+  type AnimatableViewProps,
+} from './src/animatable-view';

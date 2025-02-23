@@ -4,7 +4,7 @@ import * as AccordionPrimitive from '@rn-primitives/accordion';
 import { Slot } from '@rn-primitives/slot';
 import { renderPressableChildren } from '@rn-primitives/utils';
 import * as React from 'react';
-import { Platform, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
 import Animated, {
   Extrapolation,
   FadeIn,
@@ -75,6 +75,7 @@ const AccordionTrigger = React.forwardRef<
     <TextClassContext.Provider value='native:text-lg font-medium web:group-hover:underline'>
       <AccordionPrimitive.Header className='flex'>
         <AccordionPrimitive.Trigger
+          asChild
           ref={ref}
           className={cn(
             'flex flex-row web:flex-1 items-center justify-between py-4 web:transition-all group web:focus-visible:outline-none web:focus-visible:ring-1 web:focus-visible:ring-muted-foreground',
@@ -83,22 +84,24 @@ const AccordionTrigger = React.forwardRef<
           )}
           {...props}
         >
-          {renderPressableChildren(children, (children) => {
-            return (
-              <>
-                {children}
-                <IconWrapper style={Platform.select({ native: chevronStyle })}>
-                  <ChevronDown
-                    size={18}
-                    className={cn(
-                      'text-foreground shrink-0',
-                      Platform.select({ web: 'transition-transform duration-200' })
-                    )}
-                  />
-                </IconWrapper>
-              </>
-            );
-          })}
+          <Pressable>
+            {renderPressableChildren(children, (children) => {
+              return (
+                <>
+                  {children}
+                  <IconWrapper style={Platform.select({ native: chevronStyle })}>
+                    <ChevronDown
+                      size={18}
+                      className={cn(
+                        'text-foreground shrink-0',
+                        Platform.select({ web: 'transition-transform duration-200' })
+                      )}
+                    />
+                  </IconWrapper>
+                </>
+              );
+            })}
+          </Pressable>
         </AccordionPrimitive.Trigger>
       </AccordionPrimitive.Header>
     </TextClassContext.Provider>

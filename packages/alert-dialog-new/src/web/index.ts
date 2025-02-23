@@ -1,0 +1,31 @@
+export {
+  Action,
+  Cancel,
+  Content,
+  Description,
+  Overlay,
+  Portal,
+  Root,
+  Title,
+  Trigger,
+  useRootContext,
+} from './alert-dialog-web';
+
+export type {
+  ActionProps,
+  ActionRef,
+  CancelProps,
+  CancelRef,
+  ContentProps,
+  ContentRef,
+  DescriptionProps,
+  DescriptionRef,
+  OverlayProps,
+  OverlayRef,
+  PortalProps,
+  RootProps,
+  TitleProps,
+  TitleRef,
+  TriggerProps,
+  TriggerRef,
+} from './types';

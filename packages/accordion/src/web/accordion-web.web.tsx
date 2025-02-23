@@ -92,6 +92,6 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>((props, ref) => {
   return <AccordionTrigger ref={triggerRef} {...props} />;
 });
 
-Trigger.displayName = 'Trigger';
+Trigger.displayName = 'AccordionTriggerWeb';
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };
