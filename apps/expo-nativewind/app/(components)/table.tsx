@@ -35,7 +35,7 @@ export default function TableScreen() {
     <>
       <Stack.Screen options={{ headerShadowVisible: false }} />
       <ScrollView horizontal bounces={false} showsHorizontalScrollIndicator={false}>
-        <Table accessibilityLabelledBy='invoice-table'>
+        <Table aria-labelledby='invoice-table'>
           <TableHeader>
             <TableRow>
               <TableHead className='px-0.5' style={{ width: columnWidths[0] }}>

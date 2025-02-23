@@ -17,7 +17,7 @@ type ItemProps = SlottablePressableProps & {
   /**
    * nativeID of the label element that describes this radio group item
    */
-  accessibilityLabelledBy?: string;
+  'aria-labelledby'?: string;
 };
 
 type IndicatorProps = SlottableViewProps & ForceMountable;

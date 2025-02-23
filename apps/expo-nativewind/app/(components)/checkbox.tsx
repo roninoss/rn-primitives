@@ -10,7 +10,7 @@ export default function CheckboxScreen() {
       <View className='flex-row gap-3 items-center'>
         <Checkbox
           id='checkbox'
-          accessibilityLabelledBy='terms'
+          aria-labelledby='terms'
           checked={checked}
           onCheckedChange={setChecked}
         />

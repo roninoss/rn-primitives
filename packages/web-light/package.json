@@ -1,5 +1,5 @@
 {
-  "name": "@rn-primitives/web",
+  "name": "@rn-primitives/web-light",
   "version": "2.0.0-alpha.1",
   "description": "Styling utilities for React Native and Web",
   "license": "MIT",
@@ -26,7 +26,8 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@react-native/normalize-colors": "^0.77.1"
+    "@react-native/normalize-colors": "^0.77.1",
+    "@rn-primitives/utils": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",
@@ -36,6 +37,12 @@
     "tsup": "^8.1.0"
   },
   "peerDependencies": {
-    "react": "*"
+    "react": "*",
+    "react-native": "*"
+  },
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    }
   }
 }

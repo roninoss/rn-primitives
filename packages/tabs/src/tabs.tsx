@@ -125,7 +125,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       <Component
         ref={ref}
         aria-hidden={!(forceMount || rootValue === tabValue)}
-        accessibilityLabelledBy={`${nativeID}-tab-${tabValue}`}
+        aria-labelledby={`${nativeID}-tab-${tabValue}`}
         role='tabpanel'
         {...props}
       />

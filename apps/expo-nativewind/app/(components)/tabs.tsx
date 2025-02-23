@@ -42,7 +42,7 @@ export default function TabsScreen() {
             <CardContent className='gap-4 native:gap-2'>
               <View className='gap-1'>
                 <Label nativeID='name'>Name</Label>
-                <Input aria-accessibilityLabelledBy='name' defaultValue='Pedro Duarte' />
+                <Input aria-aria-labelledby='name' defaultValue='Pedro Duarte' />
               </View>
               <View className='gap-1'>
                 <Label nativeID='username'>Username</Label>
@@ -67,11 +67,11 @@ export default function TabsScreen() {
             <CardContent className='gap-4 native:gap-2'>
               <View className='gap-1'>
                 <Label nativeID='current'>Current password</Label>
-                <Input placeholder='********' accessibilityLabelledBy='current' secureTextEntry />
+                <Input placeholder='********' aria-labelledby='current' secureTextEntry />
               </View>
               <View className='gap-1'>
                 <Label nativeID='new'>New password</Label>
-                <Input placeholder='********' accessibilityLabelledBy='new' secureTextEntry />
+                <Input placeholder='********' aria-labelledby='new' secureTextEntry />
               </View>
             </CardContent>
             <CardFooter>

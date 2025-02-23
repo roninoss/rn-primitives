@@ -595,7 +595,7 @@ const SubContent = React.forwardRef<SubContentRef, SubContentProps>(
     }
 
     const Component = asChild ? Slot : View;
-    return <Component ref={ref} role='group' accessibilityLabelledBy={nativeID} {...props} />;
+    return <Component ref={ref} role='group' aria-labelledby={nativeID} {...props} />;
   }
 );
 
