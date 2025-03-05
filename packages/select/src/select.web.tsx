@@ -6,7 +6,7 @@ import {
 } from '@rn-primitives/hooks';
 import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { GestureResponderEvent, Pressable, Text, View } from 'react-native';
 import type {
   ContentProps,
   ContentRef,
@@ -112,8 +112,14 @@ function useRootContext() {
 }
 
 const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, role: _role, disabled, ...props }, ref) => {
+  ({ asChild, onPress: onPressProp, role: _role, disabled, ...props }, ref) => {
     const { open, onOpenChange } = useRootContext();
+    function onPress(ev: GestureResponderEvent) {
+      if (disabled) return;
+      onOpenChange(!open);
+      onPressProp?.(ev);
+    }
+
     const augmentedRef = useAugmentedRef({
       ref,
       methods: {
@@ -137,7 +143,13 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Select.Trigger disabled={disabled ?? undefined} asChild>
-        <Component ref={augmentedRef} role='button' disabled={disabled} {...props} />
+        <Component
+          onPress={onPress}
+          ref={augmentedRef}
+          role='button'
+          disabled={disabled}
+          {...props}
+        />
       </Select.Trigger>
     );
   }
