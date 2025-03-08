@@ -1,13 +1,28 @@
 import * as React from 'react';
 import type { PressableProps, PressableStateCallbackType } from 'react-native';
-import { rnStyleToWebStyle } from '../style/rn-style-to-web-style';
+import { rnStyleToWebStyle } from './style/rn-style-to-web-style';
 
-type WebPressableProps = Pick<
-  React.ComponentPropsWithoutRef<'button'>,
+type Element =
+  | 'article'
+  | 'header'
+  | 'button'
+  | 'aside'
+  | 'footer'
+  | 'figure'
+  | 'form'
+  | 'ul'
+  | 'li'
+  | 'main'
+  | 'nav'
+  | 'section'
+  | 'div';
+
+type WebPressableProps<T extends Element> = Pick<
+  React.ComponentPropsWithoutRef<T>,
   'onFocus' | 'onBlur' | 'onMouseEnter' | 'onMouseLeave' | 'onMouseDown' | 'onMouseUp'
 >;
 
-export function useWebPressableProps({
+export function useWebPressableProps<T extends Element>({
   childrenProp,
   styleProp,
   webProps,
@@ -16,7 +31,7 @@ export function useWebPressableProps({
 }: {
   styleProp: PressableProps['style'];
   childrenProp: PressableProps['children'];
-  webProps?: WebPressableProps;
+  webProps?: WebPressableProps<T>;
   onPressInProp?: () => void;
   onPressOutProp?: () => void;
 }) {
@@ -26,23 +41,23 @@ export function useWebPressableProps({
 
   const events = React.useMemo(() => {
     return {
-      onFocus: (ev: React.FocusEvent<HTMLButtonElement, Element>) => {
+      onFocus: (ev: any) => {
         setFocused(true);
         webProps?.onFocus?.(ev);
       },
-      onBlur: (ev: React.FocusEvent<HTMLButtonElement, Element>) => {
+      onBlur: (ev: any) => {
         setFocused(false);
         webProps?.onBlur?.(ev);
       },
-      onMouseEnter: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      onMouseEnter: (ev: any) => {
         setHovered(true);
         webProps?.onMouseEnter?.(ev);
       },
-      onMouseLeave: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      onMouseLeave: (ev: any) => {
         setHovered(false);
         webProps?.onMouseLeave?.(ev);
       },
-      onMouseDown: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      onMouseDown: (ev: any) => {
         setPressed(true);
         if (webProps?.onMouseDown) {
           webProps.onMouseDown?.(ev);
@@ -50,7 +65,7 @@ export function useWebPressableProps({
         }
         onPressInProp?.();
       },
-      onMouseUp: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      onMouseUp: (ev: any) => {
         setPressed(false);
         if (webProps?.onMouseUp) {
           webProps?.onMouseUp?.(ev);

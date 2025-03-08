@@ -1,4 +1,4 @@
-import { rnStyleToWebStyle, useWebPressableProps } from '@rn-primitives/web-light';
+import { rnStyleToWebStyle, useWebPressableProps } from '@rn-primitives/utils';
 import * as React from 'react';
 import { BaseAccordionTriggerRef } from '../base-types';
 import {

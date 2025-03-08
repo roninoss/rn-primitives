@@ -172,7 +172,9 @@ function AlertDialogExample() {
       <AlertDialogTrigger asChild>
         {/* <Button variant='outline'> */}
         <Pressable>
-          <Text>Show Alert Dialog</Text>
+          <Text className='mx-auto'>
+            Show Alert Dialog (won't work with asChild trigger to React Native Pressable)
+          </Text>
         </Pressable>
         {/* </Button> */}
       </AlertDialogTrigger>

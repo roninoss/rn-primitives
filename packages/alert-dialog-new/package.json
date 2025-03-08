@@ -44,7 +44,7 @@
     "@rn-primitives/portal": "workspace:*",
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*",
-    "@rn-primitives/web-light": "workspace:*"
+    "@rn-primitives/utils": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",

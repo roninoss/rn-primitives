@@ -1,4 +1,4 @@
-import { rnStyleToWebStyle, useWebPressableProps } from '../../../web-light/dist';
+import { rnStyleToWebStyle, useWebPressableProps } from '@rn-primitives/utils';
 import * as React from 'react';
 import {
   Action as ActionWeb,

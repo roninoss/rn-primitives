@@ -3,7 +3,7 @@
 // https://github.com/facebook/react-native
 
 import type { StyleProp } from 'react-native';
-import { Style } from './type';
+import type { Style } from './types';
 
 export function flattenStyle<T extends Style>(style: StyleProp<T>): T | undefined {
   if (style === null || typeof style !== 'object') {

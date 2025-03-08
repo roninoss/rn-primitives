@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
   "include": [
-    "."
+    ".",
   ],
   "compilerOptions": {
     "lib": [
