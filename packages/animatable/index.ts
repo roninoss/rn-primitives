@@ -22,3 +22,5 @@ export {
   type AnimatableViewIosProps,
   type AnimatableViewProps,
 } from './src/animatable-view';
+
+// TODO: Delete this package since it's now exported from core

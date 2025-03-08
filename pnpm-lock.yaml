@@ -558,6 +558,9 @@ importers:
       '@rn-primitives/context-menu':
         specifier: workspace:*
         version: link:../../packages/context-menu
+      '@rn-primitives/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@rn-primitives/dialog':
         specifier: workspace:*
         version: link:../../packages/dialog
@@ -706,9 +709,9 @@ importers:
       '@rn-primitives/types':
         specifier: workspace:*
         version: link:../types
-      '@rn-primitives/web-light':
+      '@rn-primitives/utils':
         specifier: workspace:*
-        version: link:../web-light
+        version: link:../utils
       react-native-reanimated:
         specifier: '*'
         version: 3.16.2(@babel/core@7.26.0)(react-native@0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
@@ -789,9 +792,9 @@ importers:
       '@rn-primitives/types':
         specifier: workspace:*
         version: link:../types
-      '@rn-primitives/web-light':
+      '@rn-primitives/utils':
         specifier: workspace:*
-        version: link:../web-light
+        version: link:../utils
       react-native-web:
         specifier: '*'
         version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -994,6 +997,40 @@ importers:
       '@rn-primitives/portal':
         specifier: workspace:*
         version: link:../portal
+      '@tsconfig/react-native':
+        specifier: ^1.0.1
+        version: 1.0.5
+      '@types/react':
+        specifier: ~18.3.12
+        version: 18.3.12
+      react:
+        specifier: 18.3.1
+        version: 18.3.1
+      react-native:
+        specifier: 0.76.3
+        version: 0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1)
+      tsup:
+        specifier: ^8.1.0
+        version: 8.3.5(jiti@1.21.6)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1)
+
+  packages/core:
+    dependencies:
+      '@react-native/normalize-colors':
+        specifier: ^0.77.1
+        version: 0.77.1
+      '@rn-primitives/slot':
+        specifier: workspace:*
+        version: link:../slot
+      '@rn-primitives/types':
+        specifier: workspace:*
+        version: link:../types
+      '@rn-primitives/utils':
+        specifier: workspace:*
+        version: link:../utils
+      react-native-reanimated:
+        specifier: '*'
+        version: 3.16.2(@babel/core@7.26.0)(react-native@0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
+    devDependencies:
       '@tsconfig/react-native':
         specifier: ^1.0.1
         version: 1.0.5
@@ -1788,35 +1825,6 @@ importers:
         version: 8.3.5(jiti@1.21.6)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1)
 
   packages/utils:
-    dependencies:
-      react-native-web:
-        specifier: '*'
-        version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-    devDependencies:
-      '@tsconfig/react-native':
-        specifier: ^1.0.1
-        version: 1.0.5
-      '@types/react':
-        specifier: ~18.3.12
-        version: 18.3.12
-      react:
-        specifier: 18.3.1
-        version: 18.3.1
-      react-native:
-        specifier: 0.76.3
-        version: 0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1)
-      tsup:
-        specifier: ^8.1.0
-        version: 8.3.5(jiti@1.21.6)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1)
-
-  packages/web-light:
-    dependencies:
-      '@react-native/normalize-colors':
-        specifier: ^0.77.1
-        version: 0.77.1
-      '@rn-primitives/utils':
-        specifier: workspace:*
-        version: link:../utils
     devDependencies:
       '@tsconfig/react-native':
         specifier: ^1.0.1

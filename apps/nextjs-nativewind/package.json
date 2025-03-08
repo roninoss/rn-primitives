@@ -17,6 +17,7 @@
     "@rn-primitives/avatar": "workspace:*",
     "@rn-primitives/checkbox": "workspace:*",
     "@rn-primitives/collapsible": "workspace:*",
+    "@rn-primitives/core": "workspace:*",
     "@rn-primitives/context-menu": "workspace:*",
     "@rn-primitives/dialog": "workspace:*",
     "@rn-primitives/dropdown-menu": "workspace:*",
