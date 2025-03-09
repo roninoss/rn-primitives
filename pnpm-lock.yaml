@@ -692,6 +692,52 @@ importers:
         specifier: ^5
         version: 5.7.2
 
+  apps/nextjs-no-rn:
+    dependencies:
+      '@rn-primitives/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      next:
+        specifier: 14.2.14
+        version: 14.2.14(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: ^18
+        version: 18.3.1
+      react-dom:
+        specifier: ^18
+        version: 18.3.1(react@18.3.1)
+      tailwind-merge:
+        specifier: ^2.5.3
+        version: 2.5.4
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.15)
+    devDependencies:
+      '@types/node':
+        specifier: ^20
+        version: 20.17.7
+      '@types/react':
+        specifier: ^18
+        version: 18.3.12
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.3.1
+      postcss:
+        specifier: ^8
+        version: 8.4.49
+      tailwindcss:
+        specifier: ^3.4.1
+        version: 3.4.15
+      typescript:
+        specifier: ^5
+        version: 5.7.2
+
   packages/accordion:
     dependencies:
       '@radix-ui/react-accordion':

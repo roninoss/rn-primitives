@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+  }
+
+  .dark:root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+
+/* TODO: */
+/* Is react-native or react-native-web necessary? Would removing it cause more issues than help? */
+/* Maybe provide primitives for view, text, image, and pressable, made from html elements and then use those components. */
+/* When user is not using react-native-web, default react-native-web styling would be removed and native and web would be different (ex: native is flex and flex-col by default). We could provide a tailwind plugin or copy/paste css snippet to adjust */
+
+/* Initial CSS reset from react-native-web */
+/* const initialRules = [
+  // minimal top-level reset
+  'html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(0,0,0,0);}',
+  'body{margin:0;}',
+  // minimal form pseudo-element reset
+  'button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}',
+  'input::-webkit-search-cancel-button,input::-webkit-search-decoration,input::-webkit-search-results-button,input::-webkit-search-results-decoration{display:none;}'
+]; */
+
+/* Default View Styling */
+/* https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/View/index.js#L148 */
+
+/* Default Text Styling */
+/* https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/Text/index.js#L189 */
+
+/* Default Pressable Styling Inherits from View */
+/* https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/Text/index.js#L189 */
+
+/* Default Image Styling */
+/* https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/Image/index.js#L378 */
+
+/* TODO: Revisit this web styling - not sure if needed + seems like there no element with id __next*/
+/* React Native Web styling */
+html,
+body,
+#__next {
+  -webkit-overflow-scrolling: touch;
+}
+#__next {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  /* Allows you to scroll below the viewport; default value is visible */
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-overflow-style: scrollbar;
+}
