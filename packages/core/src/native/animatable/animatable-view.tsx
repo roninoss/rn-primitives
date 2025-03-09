@@ -1,3 +1,5 @@
+'use client';
+
 import { Slot } from '@rn-primitives/slot';
 import type { ViewRef } from '@rn-primitives/types';
 import * as React from 'react';

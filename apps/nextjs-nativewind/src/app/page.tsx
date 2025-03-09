@@ -2,6 +2,7 @@ import { Pressable } from 'react-native';
 import { CheckboxExample } from '~/components/CheckboxExample';
 import { CollapsibleExample } from '~/components/CollapsibleExample';
 import { ContextMenuExample } from '~/components/ContextMenuExample';
+import { Core } from '~/components/core';
 import { MenubarExample } from '~/components/MenubarExample';
 import { NavigationMenuExample } from '~/components/NavigationMenuExample';
 import { RadioGroupExample } from '~/components/RadioGroupExample';
@@ -103,6 +104,7 @@ export default function Home() {
             NativeWind
           </a>
         </Typography.P>
+        <Core />
         <AccordionExample />
         <AlertDialogExample />
         <AspectRatioExample />

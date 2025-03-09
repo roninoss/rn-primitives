@@ -13,7 +13,7 @@ type ElementTagFromRole<R extends Role | undefined> = R extends Role
 
 type ElementFromRole<R extends Role | undefined> = HTMLElementTagNameMap[ElementTagFromRole<R>];
 
-type BoxProps<T extends Role | undefined> = React.ComponentPropsWithoutRef<
+type DivProps<T extends Role | undefined> = React.ComponentPropsWithoutRef<
   ElementTagFromRole<T>
 > & {
   asChild?: boolean;
@@ -26,7 +26,7 @@ type AriaLevel = keyof typeof ARIA_LEVEL_TO_ELEMENT_TAG_NAME_MAP;
 
 export type {
   AriaLevel,
-  BoxProps,
+  DivProps,
   ElementFromRole,
   ElementTagFromRole,
   Role,

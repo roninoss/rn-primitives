@@ -1,3 +1,5 @@
+'use client';
+
 import { Slot } from '@rn-primitives/slot';
 import type { Slottable } from '@rn-primitives/types';
 import * as React from 'react';
@@ -6,10 +8,10 @@ import {
   ROLE_TO_ELEMENT_TAG_NAME_MAP,
   ROLE_TO_INPUT_TYPE_MAP,
 } from './constants';
-import type { AriaLevel, BoxProps, ElementFromRole, Role, RoleForInputType } from './types';
+import type { AriaLevel, DivProps, ElementFromRole, Role, RoleForInputType } from './types';
 
-function BoxImpl<T extends Role | undefined = undefined>(
-  { asChild, role, 'aria-level': ariaLevel, ...props }: BoxProps<T>,
+function DivImpl<T extends Role | undefined = undefined>(
+  { asChild, role, 'aria-level': ariaLevel, ...props }: DivProps<T>,
   ref: React.Ref<ElementFromRole<T>>
 ) {
   if (asChild) {
@@ -21,7 +23,7 @@ function BoxImpl<T extends Role | undefined = undefined>(
     ref,
     'data-rn-primitives': true,
     ...(element === 'input' ? { type: ROLE_TO_INPUT_TYPE_MAP[role as RoleForInputType] } : {}),
-    role: role && role in ROLE_TO_ELEMENT_TAG_NAME_MAP ? role : undefined,
+    role: role && role in ROLE_TO_ELEMENT_TAG_NAME_MAP ? undefined : role,
     ...props,
   });
 }
@@ -41,15 +43,15 @@ function getElement<T extends Role | undefined = undefined>(
   return element as keyof HTMLElementTagNameMap;
 }
 
-const Box = React.forwardRef(BoxImpl) as <T extends Role | undefined = undefined>(
-  props: BoxProps<T> & { ref?: React.Ref<ElementFromRole<T>> }
+const Div = React.forwardRef(DivImpl) as <T extends Role | undefined = undefined>(
+  props: DivProps<T> & { ref?: React.Ref<ElementFromRole<T>> }
 ) => JSX.Element;
 
-const Pressable = Box;
+const Pressable = Div;
 
-const Text = Box;
+const Text = Div;
 
-const View = Box;
+const View = Div;
 
 const Image = React.forwardRef<HTMLImageElement, Slottable<React.ComponentPropsWithoutRef<'img'>>>(
   ({ asChild, ...props }, ref) => {

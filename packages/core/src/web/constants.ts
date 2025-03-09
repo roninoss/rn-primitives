@@ -21,7 +21,6 @@ const ROLE_TO_ELEMENT_TAG_NAME_MAP = {
   grid: 'table',
   group: 'div',
   heading: 'h1',
-  img: 'img',
   link: 'a',
   list: 'ul',
   listitem: 'li',

@@ -1,5 +1,5 @@
-import { Text } from '@rn-primitives/core/web';
+import { Text, Platform } from '@rn-primitives/core/web';
 
-function Test() {
-  return <Text role='paragraph' onClick={(ev) => {}} />;
+export function Core() {
+  return <Text role='paragraph'>{Platform.select({ ios: 'iOS', web: 'Web' })}</Text>;
 }

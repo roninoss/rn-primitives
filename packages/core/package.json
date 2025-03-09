@@ -19,12 +19,6 @@
       "types": "./dist/native/index.d.ts",
       "default": "./dist/native/index.js"
     },
-    "./animatable": {
-      "import": "./dist/native/animatable/index.mjs",
-      "require": "./dist/native/animatable/index.js",
-      "types": "./dist/native/animatable/index.d.ts",
-      "default": "./dist/native/animatable/index.js"
-    },
     "./web": {
       "import": "./dist/web/index.mjs",
       "require": "./dist/web/index.js",
