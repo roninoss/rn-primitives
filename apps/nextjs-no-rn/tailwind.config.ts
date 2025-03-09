@@ -5,7 +5,6 @@ const config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  presets: [],
   important: 'html',
   theme: {
     extend: {
