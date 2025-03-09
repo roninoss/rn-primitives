@@ -39,7 +39,7 @@ const nextConfig = {
     // '@rn-primitives/toolbar',
     // '@rn-primitives/tooltip',
     // '@rn-primitives/types',
-    '@rn-primitives/core',
+    // '@rn-primitives/core',
   ],
 
   experimental: {
@@ -49,7 +49,6 @@ const nextConfig = {
 
 export default withRNPrimitives(nextConfig);
 
-// https://github.com/expo/expo-webpack-integrations/blob/main/packages/next-adapter/src/index.ts
 function withRNPrimitives(nextConfig) {
   return {
     ...nextConfig,
