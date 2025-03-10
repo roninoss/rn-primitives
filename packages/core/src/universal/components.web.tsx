@@ -1,6 +1,5 @@
 'use client';
 
-import { useAugmentedRef } from '@rn-primitives/hooks';
 import { useWebPressableProps } from '@rn-primitives/utils';
 import * as React from 'react';
 import {
@@ -29,14 +28,20 @@ function PressableImpl<T extends Role | undefined>(
   }: PressableProps<T>,
   ref: React.Ref<PressableRef>
 ) {
-  const methods = React.useMemo(() => {
-    return {
-      press: () => {
-        onPressProp?.();
-      },
-    };
-  }, [onPressProp]);
-  const augmentedRef = useAugmentedRef({ ref, methods });
+  const augmentedRef = React.useRef<HTMLButtonElement>(null);
+  React.useImperativeHandle(
+    ref,
+    () => {
+      return {
+        ...augmentedRef.current,
+        press: () => {
+          augmentedRef.current?.click();
+        },
+      } as PressableRef;
+    },
+    [augmentedRef.current]
+  );
+
   const { children, events, style } = useWebPressableProps({
     styleProp,
     childrenProp,
