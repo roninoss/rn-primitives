@@ -10,9 +10,9 @@ import {
 } from './constants';
 import type { AriaLevel, DivProps, ElementFromRole, Role, RoleForInputType } from './types';
 
-function DivImpl<T extends Role | undefined = undefined>(
+function DivImpl<T extends Role | undefined>(
   { asChild, role, 'aria-level': ariaLevel, ...props }: DivProps<T>,
-  ref: React.Ref<ElementFromRole<T>>
+  ref?: React.Ref<ElementFromRole<T>>
 ) {
   if (asChild) {
     return <Slot ref={ref} {...props} />;
@@ -28,7 +28,7 @@ function DivImpl<T extends Role | undefined = undefined>(
   });
 }
 
-function getElement<T extends Role | undefined = undefined>(
+function getElement<T extends Role | undefined>(
   role: (React.AriaRole & T) | undefined,
   ariaLevel?: number
 ) {
@@ -43,7 +43,7 @@ function getElement<T extends Role | undefined = undefined>(
   return element as keyof HTMLElementTagNameMap;
 }
 
-const Div = React.forwardRef(DivImpl) as <T extends Role | undefined = undefined>(
+const Div = React.forwardRef(DivImpl) as <T extends Role | undefined>(
   props: DivProps<T> & { ref?: React.Ref<ElementFromRole<T>> }
 ) => JSX.Element;
 

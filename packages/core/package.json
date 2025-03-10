@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@react-native/normalize-colors": "^0.77.1",
+    "@rn-primitives/hooks": "workspace:*",
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*",
     "@rn-primitives/utils": "workspace:*"

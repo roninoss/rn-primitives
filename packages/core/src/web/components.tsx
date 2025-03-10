@@ -4,7 +4,7 @@ import type { Slottable } from '@rn-primitives/types';
 import * as React from 'react';
 import type { DivProps, ElementFromRole, Role } from './types';
 
-function DivImpl<T extends Role | undefined = undefined>(
+function DivImpl<T extends Role | undefined>(
   _props: DivProps<T>,
   _ref: React.Ref<ElementFromRole<T>>
 ) {
@@ -16,7 +16,7 @@ function DivImpl<T extends Role | undefined = undefined>(
   return null;
 }
 
-const Div = React.forwardRef(DivImpl) as <T extends Role | undefined = undefined>(
+const Div = React.forwardRef(DivImpl) as <T extends Role | undefined>(
   props: DivProps<T> & { ref?: React.Ref<ElementFromRole<T>> }
 ) => JSX.Element;
 

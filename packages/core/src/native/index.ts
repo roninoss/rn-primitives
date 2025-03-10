@@ -8,6 +8,7 @@ export type {
   AnimatablePressableAndroidProps as PressableAndroidProps,
   AnimatablePressableIosProps as PressableIosProps,
   AnimatablePressableProps as PressableProps,
+  AnimatablePressableRef as PressableRef,
   AnimatableTextAndroidProps as TextAndroidProps,
   AnimatableTextIosProps as TextIosProps,
   AnimatableTextProps as TextProps,

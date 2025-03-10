@@ -6,7 +6,11 @@ export type {
   DivProps,
   ElementFromRole,
   ElementTagFromRole,
+  ImageProps,
+  PressableProps,
   Role,
   RoleForInputType,
   RoleToElementMap,
+  TextProps,
+  ViewProps,
 } from './types';

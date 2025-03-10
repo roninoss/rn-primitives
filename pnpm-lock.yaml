@@ -1067,6 +1067,9 @@ importers:
       '@react-native/normalize-colors':
         specifier: ^0.77.1
         version: 0.77.1
+      '@rn-primitives/hooks':
+        specifier: workspace:*
+        version: link:../hooks
       '@rn-primitives/slot':
         specifier: workspace:*
         version: link:../slot
