@@ -3,62 +3,72 @@
 import { Slot } from '@rn-primitives/slot';
 import type { Slottable } from '@rn-primitives/types';
 import * as React from 'react';
-import {
-  ARIA_LEVEL_TO_ELEMENT_TAG_NAME_MAP,
-  ROLE_TO_ELEMENT_TAG_NAME_MAP,
-  ROLE_TO_INPUT_TYPE_MAP,
-} from './constants';
-import type { AriaLevel, DivProps, ElementFromRole, Role, RoleForInputType } from './types';
+import type { DivProps, Element, ElementTag } from './types';
 
-function DivImpl<T extends Role | undefined>(
-  { asChild, role, 'aria-level': ariaLevel, ...props }: DivProps<T>,
-  ref?: React.Ref<ElementFromRole<T>>
-) {
-  if (asChild) {
-    return <Slot ref={ref} {...props} />;
+function createDivElement(type: 'pressable' | 'view') {
+  function DivImpl<T extends ElementTag = 'div'>(
+    { asChild, as, ...props }: DivProps<T>,
+    ref?: React.Ref<Element<T>>
+  ) {
+    if (asChild) {
+      return <Slot ref={ref} {...props} />;
+    }
+
+    return React.createElement(as ?? 'div', {
+      ref,
+      'data-rn-primitives': type,
+      ...props,
+    });
   }
 
-  const element = getElement(role, ariaLevel);
-  return React.createElement(element, {
-    ref,
-    'data-rn-primitives': true,
-    ...(element === 'input' ? { type: ROLE_TO_INPUT_TYPE_MAP[role as RoleForInputType] } : {}),
-    role: role && role in ROLE_TO_ELEMENT_TAG_NAME_MAP ? undefined : role,
-    ...props,
-  });
+  return React.forwardRef(DivImpl) as <T extends ElementTag = 'div'>(
+    props: DivProps<T> & { ref?: React.Ref<Element<T>> }
+  ) => JSX.Element;
 }
 
-function getElement<T extends Role | undefined>(
-  role: (React.AriaRole & T) | undefined,
-  ariaLevel?: number
-) {
-  const element =
-    role && ROLE_TO_ELEMENT_TAG_NAME_MAP[role] ? ROLE_TO_ELEMENT_TAG_NAME_MAP[role] : 'div';
+const HasAncestorContext = React.createContext(false);
 
-  if (element === 'h1') {
-    return (ARIA_LEVEL_TO_ELEMENT_TAG_NAME_MAP[ariaLevel as AriaLevel] ??
-      'h1') as keyof HTMLElementTagNameMap;
+function createTextElement() {
+  function DivImpl<T extends ElementTag = 'div'>(
+    { asChild, as, ...props }: DivProps<T>,
+    ref?: React.Ref<Element<T>>
+  ) {
+    const hasAncestor = React.useContext(HasAncestorContext);
+
+    if (asChild) {
+      return <Slot ref={ref} {...props} />;
+    }
+
+    const element = React.createElement(!as ? (hasAncestor ? 'span' : 'div') : as, {
+      ref,
+      'data-rn-primitives': 'text',
+      ...props,
+    });
+
+    if (hasAncestor) {
+      return element;
+    }
+
+    return <HasAncestorContext.Provider value={true}>{element}</HasAncestorContext.Provider>;
   }
 
-  return element as keyof HTMLElementTagNameMap;
+  return React.forwardRef(DivImpl) as <T extends ElementTag = 'div'>(
+    props: DivProps<T> & { ref?: React.Ref<Element<T>> }
+  ) => JSX.Element;
 }
 
-const Div = React.forwardRef(DivImpl) as <T extends Role | undefined>(
-  props: DivProps<T> & { ref?: React.Ref<ElementFromRole<T>> }
-) => JSX.Element;
+const Pressable = createDivElement('pressable');
 
-const Pressable = Div;
+const View = createDivElement('view');
 
-const Text = Div;
-
-const View = Div;
+const Text = createTextElement();
 
 const Image = React.forwardRef<HTMLImageElement, Slottable<React.ComponentPropsWithoutRef<'img'>>>(
   ({ asChild, ...props }, ref) => {
     if (asChild) {
       return <Slot ref={ref} {...props} />;
     }
-    return <img data-rn-primitives='true' ref={ref} {...props} />;
+    return <img data-rn-primitives='image' ref={ref} {...props} />;
   }
 );
 

@@ -6,43 +6,37 @@ import {
   type PressableRef as TriggerNativeRef,
   View as ViewNative,
 } from '../native';
-import type { Role } from '../web';
-import type { ImageProps, PressableProps, PressableRef, TextProps, ViewProps } from './types';
+import type {
+  ElementTag,
+  ImageProps,
+  PressableProps,
+  PressableRef,
+  TextProps,
+  ViewProps,
+} from './types';
 
-function Image({ src, role, web: _web, native, ...props }: ImageProps) {
-  return (
-    <ImageNative
-      source={{ uri: src }}
-      role={role === 'paragraph' ? undefined : role}
-      {...props}
-      {...native}
-    />
-  );
+function Image({ src, web: _web, native, ...props }: ImageProps) {
+  return <ImageNative source={{ uri: src }} {...props} {...native} />;
 }
 
-function PressableImpl<T extends Role | undefined>(
-  { role, web: _web, native, ...props }: PressableProps<T>,
+function PressableImpl<T extends ElementTag>(
+  { web: _web, native, ...props }: PressableProps<T>,
   ref?: React.Ref<PressableRef>
 ) {
   return (
-    <PressableNative
-      ref={ref as React.ForwardedRef<TriggerNativeRef>}
-      role={role === 'paragraph' ? undefined : role}
-      {...props}
-      {...native}
-    />
+    <PressableNative ref={ref as React.ForwardedRef<TriggerNativeRef>} {...props} {...native} />
   );
 }
-const Pressable = React.forwardRef(PressableImpl) as <T extends Role | undefined>(
+const Pressable = React.forwardRef(PressableImpl) as <T extends ElementTag>(
   props: PressableProps<T> & { ref?: React.Ref<PressableRef> }
 ) => JSX.Element;
 
-function Text<T extends Role | undefined>({ role, web: _web, native, ...props }: TextProps<T>) {
-  return <TextNative {...props} role={role === 'paragraph' ? undefined : role} {...native} />;
+function Text<T extends ElementTag>({ web: _web, native, ...props }: TextProps<T>) {
+  return <TextNative {...props} {...native} />;
 }
 
-function View<T extends Role | undefined>({ role, web: _web, native, ...props }: ViewProps<T>) {
-  return <ViewNative {...props} role={role === 'paragraph' ? undefined : role} {...native} />;
+function View<T extends ElementTag>({ web: _web, native, ...props }: ViewProps<T>) {
+  return <ViewNative {...props} {...native} />;
 }
 
 export { Image, Pressable, Text, View };

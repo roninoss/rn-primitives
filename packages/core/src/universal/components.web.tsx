@@ -1,21 +1,29 @@
 'use client';
 
-import { useWebPressableProps } from '@rn-primitives/utils';
+import { rnStyleToWebStyle, useWebPressableProps } from '@rn-primitives/utils';
 import * as React from 'react';
 import {
   Image as ImageWeb,
   Pressable as PressableWeb,
-  type Role,
   Text as TextWeb,
   View as ViewWeb,
+  type ElementTag,
 } from '../web';
 import type { ImageProps, PressableProps, PressableRef, TextProps, ViewProps } from './types';
 
+function ImageWithStyle({ web, native: _native, style: styleProp, ...props }: ImageProps) {
+  const style = React.useMemo(() => rnStyleToWebStyle(styleProp), [styleProp]);
+  return <ImageWeb {...props} style={style} {...web} />;
+}
+
 function Image({ web, native: _native, style, ...props }: ImageProps) {
+  if (style) {
+    return <ImageWithStyle style={style} {...props} web={web} />;
+  }
   return <ImageWeb {...props} {...web} />;
 }
 
-function PressableImpl<T extends Role | undefined>(
+function PressableImpl<T extends ElementTag>(
   {
     native: _native,
     web: webProps,
@@ -28,7 +36,7 @@ function PressableImpl<T extends Role | undefined>(
   }: PressableProps<T>,
   ref: React.Ref<PressableRef>
 ) {
-  const augmentedRef = React.useRef<HTMLButtonElement>(null);
+  const augmentedRef = React.useRef<HTMLElementTagNameMap[T]>(null);
   React.useImperativeHandle(
     ref,
     () => {
@@ -52,27 +60,53 @@ function PressableImpl<T extends Role | undefined>(
 
   return (
     <PressableWeb
-      ref={augmentedRef as any}
+      ref={augmentedRef}
       children={children}
       style={style}
       onClick={onPressProp}
       {...props}
-      {...webProps}
+      {...(webProps as PressableProps<ElementTag>['web'])}
       {...events}
     />
   );
 }
 
-const Pressable = React.forwardRef(PressableImpl) as <T extends Role | undefined>(
+const Pressable = React.forwardRef(PressableImpl) as <T extends ElementTag>(
   props: PressableProps<T> & { ref?: React.Ref<PressableRef> }
 ) => JSX.Element;
 
-function Text<T extends Role | undefined>({ web, native: _native, style, ...props }: TextProps<T>) {
-  return <TextWeb {...props} {...web} />;
+function TextWithStyle<T extends ElementTag>({
+  web,
+  native: _native,
+  style: styleProp,
+  ...props
+}: TextProps<T>) {
+  const style = React.useMemo(() => rnStyleToWebStyle(styleProp), [styleProp]);
+  return <TextWeb {...props} style={style} {...(web as TextProps<ElementTag>['web'])} />;
 }
 
-function View<T extends Role | undefined>({ web, native: _native, style, ...props }: ViewProps<T>) {
-  return <ViewWeb {...props} {...web} />;
+function Text<T extends ElementTag>({ web, native: _native, style, ...props }: TextProps<T>) {
+  if (style) {
+    return <TextWithStyle style={style} {...props} web={web} />;
+  }
+  return <TextWeb {...props} {...(web as TextProps<ElementTag>['web'])} />;
+}
+
+function ViewWithStyle<T extends ElementTag>({
+  web,
+  native: _native,
+  style: styleProp,
+  ...props
+}: ViewProps<T>) {
+  const style = React.useMemo(() => rnStyleToWebStyle(styleProp), [styleProp]);
+  return <ViewWeb {...props} style={style} {...(web as ViewProps<ElementTag>['web'])} />;
+}
+
+function View<T extends ElementTag>({ web, native: _native, style, ...props }: ViewProps<T>) {
+  if (style) {
+    return <ViewWithStyle style={style} {...props} web={web} />;
+  }
+  return <ViewWeb {...props} {...(web as ViewProps<ElementTag>['web'])} />;
 }
 
 export { Image, Pressable, Text, View };

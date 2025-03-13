@@ -2,10 +2,10 @@ import type { Prettify } from '@rn-primitives/types';
 import type {
   ImageProps as RNImageProps,
   PressableProps as RNPressableProps,
+  Role as RNRole,
   TextProps as RNTextProps,
   ViewProps as RNViewProps,
 } from 'react-native';
-
 import type {
   ImageProps as ImagePropsNative,
   PressableProps as PressablePropsNative,
@@ -18,10 +18,7 @@ import type {
   TextProps as TextPropsWeb,
   ViewProps as ViewPropsWeb,
 } from '../web';
-
-import type { ROLE_TO_ELEMENT_TAG_NAME_MAP } from '../web/constants';
-
-type Role = keyof typeof ROLE_TO_ELEMENT_TAG_NAME_MAP;
+import { ElementTag } from '../web/types';
 
 type BaseKeys =
   | 'style'
@@ -42,19 +39,19 @@ type ImageProps = Prettify<
   }
 > & {
   src: string;
-  role?: Role;
+  role?: RNRole;
   native?: ImagePropsNative;
   web?: ImagePropsWeb;
 };
 
-type PressableProps<T extends Role | undefined> = Prettify<
+type PressableProps<T extends ElementTag> = Prettify<
   Pick<RNPressableProps, BaseKeys | 'disabled'> & {
     onPress?: () => void;
     onPressIn?: () => void;
     onPressOut?: () => void;
   } & {
     className?: string;
-    role?: Role;
+    role?: RNRole;
     native?: PressablePropsNative;
     web?: PressablePropsWeb<T>;
   }
@@ -62,22 +59,22 @@ type PressableProps<T extends Role | undefined> = Prettify<
 
 type PressableRef = { press?: () => void };
 
-type TextProps<T extends Role | undefined> = Prettify<
+type TextProps<T extends ElementTag> = Prettify<
   Pick<RNTextProps, BaseKeys> & {
     className?: string;
-    role?: Role;
+    role?: RNRole;
     native?: TextPropsNative;
     web?: TextPropsWeb<T>;
   }
 >;
 
-type ViewProps<T extends Role | undefined> = Prettify<
+type ViewProps<T extends ElementTag> = Prettify<
   Pick<RNViewProps, BaseKeys> & {
     className?: string;
-    role?: Role;
+    role?: RNRole;
     native?: ViewPropsNative;
     web?: ViewPropsWeb<T>;
   }
 >;
 
-export type { ImageProps, PressableProps, PressableRef, TextProps, ViewProps };
+export type { ElementTag, ImageProps, PressableProps, PressableRef, TextProps, ViewProps };

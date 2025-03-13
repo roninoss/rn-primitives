@@ -1,5 +1,5 @@
 'use client';
-import { Text, Pressable, View, Image, Platform, type PressableRef } from '@rn-primitives/core';
+import { Image, Platform, Pressable, Text, View, type PressableRef } from '@rn-primitives/core';
 import * as React from 'react';
 
 export function Core() {
@@ -7,8 +7,10 @@ export function Core() {
   return (
     <View>
       <Image src='https://github.com/mrzachnugent.png' className='h-14 w-14 rounded-full' />
-      <Pressable ref={ref} role='button' onPress={() => alert('Pressed')}>
-        <Text role='paragraph'>{Platform.select({ ios: 'iOS', web: 'Web' })} Pressable</Text>
+      <Pressable ref={ref} onPress={() => alert('Pressed')}>
+        <Text web={{ as: 'p' }}>
+          {Platform.select({ ios: 'iOS', web: 'Web' })} Pressable with <Text>Nested text</Text>{' '}
+        </Text>
       </Pressable>
       <Pressable
         onPress={() => {
