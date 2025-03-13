@@ -33,18 +33,22 @@ type BaseKeys =
   | 'aria-live'
   | 'aria-modal';
 
-type ImageProps = Prettify<
+type ImagePropsUniversal = Prettify<
   Pick<RNImageProps, Exclude<BaseKeys, 'children'>> & {
     className?: string;
   }
 > & {
   src: string;
   role?: RNRole;
+  asChild?: boolean;
+};
+
+type ImageProps = ImagePropsUniversal & {
   native?: ImagePropsNative;
   web?: ImagePropsWeb;
 };
 
-type PressableProps<T extends ElementTag> = Prettify<
+type PressablePropsUniversal = Prettify<
   Pick<RNPressableProps, BaseKeys | 'disabled'> & {
     onPress?: () => void;
     onPressIn?: () => void;
@@ -52,29 +56,54 @@ type PressableProps<T extends ElementTag> = Prettify<
   } & {
     className?: string;
     role?: RNRole;
-    native?: PressablePropsNative;
-    web?: PressablePropsWeb<T>;
+    asChild?: boolean;
   }
 >;
 
-type PressableRef = { press?: () => void };
+type PressableProps<T extends ElementTag> = PressablePropsUniversal & {
+  native?: PressablePropsNative;
+  web?: PressablePropsWeb<T>;
+};
 
-type TextProps<T extends ElementTag> = Prettify<
+type PressableRefUniversal = { press?: () => void };
+type PressableRef = PressableRefUniversal;
+
+type TextPropsUniversal = Prettify<
   Pick<RNTextProps, BaseKeys> & {
     className?: string;
     role?: RNRole;
-    native?: TextPropsNative;
-    web?: TextPropsWeb<T>;
+    asChild?: boolean;
   }
 >;
 
-type ViewProps<T extends ElementTag> = Prettify<
+type TextProps<T extends ElementTag> = TextPropsUniversal & {
+  native?: TextPropsNative;
+  web?: TextPropsWeb<T>;
+};
+
+type ViewPropsUniversal = Prettify<
   Pick<RNViewProps, BaseKeys> & {
     className?: string;
     role?: RNRole;
-    native?: ViewPropsNative;
-    web?: ViewPropsWeb<T>;
+    asChild?: boolean;
   }
 >;
 
-export type { ElementTag, ImageProps, PressableProps, PressableRef, TextProps, ViewProps };
+type ViewProps<T extends ElementTag> = ViewPropsUniversal & {
+  native?: ViewPropsNative;
+  web?: ViewPropsWeb<T>;
+};
+
+export type {
+  ElementTag,
+  ImageProps,
+  ImagePropsUniversal,
+  PressableProps,
+  PressablePropsUniversal,
+  PressableRef,
+  PressableRefUniversal,
+  TextProps,
+  TextPropsUniversal,
+  ViewProps,
+  ViewPropsUniversal,
+};
