@@ -12,59 +12,54 @@ import type {
   BaseTriggerProps,
 } from '../base-types';
 import type {
-  ContentProps as ContentPropsNative,
-  HeaderProps as HeaderPropsNative,
-  ItemProps as ItemPropsNative,
-  RootProps as RootPropsNative,
-  TriggerProps as TriggerPropsNative,
+  ContentPropsNativeOnly,
+  HeaderPropsNativeOnly,
+  ItemPropsNativeOnly,
+  RootPropsNativeOnly,
+  TriggerPropsNativeOnly,
 } from '../native/types';
 import type {
-  ContentProps as ContentPropsWeb,
-  HeaderProps as HeaderPropsWeb,
-  ItemProps as ItemPropsWeb,
-  RootProps as RootPropsWeb,
-  TriggerProps as TriggerPropsWeb,
+  ContentPropsWebOnly,
+  HeaderPropsWebOnly,
+  ItemPropsWebOnly,
+  RootPropsWebOnly,
+  TriggerPropsWebOnly,
 } from '../web/types';
 
-type ContentProps = Prettify<
-  BaseContentProps &
-    ViewPropsUniversal & {
-      native?: ContentPropsNative;
-      web?: ContentPropsWeb;
-    }
+type BaseWithPlatformProps<B, N, W> = Prettify<
+  B & {
+    native?: N;
+    web?: W;
+  }
 >;
 
-type HeaderProps = Prettify<
-  BaseHeaderProps &
-    ViewPropsUniversal & {
-      native?: HeaderPropsNative;
-      web?: HeaderPropsWeb;
-    }
->;
+type ContentProps = BaseWithPlatformProps<
+  BaseContentProps,
+  ContentPropsNativeOnly,
+  ContentPropsWebOnly
+> &
+  ViewPropsUniversal;
 
-type ItemProps = Prettify<
-  BaseItemProps &
-    ViewPropsUniversal & {
-      native?: ItemPropsNative;
-      web?: ItemPropsWeb;
-    }
->;
+type HeaderProps = BaseWithPlatformProps<
+  BaseHeaderProps,
+  HeaderPropsNativeOnly,
+  HeaderPropsWebOnly
+> &
+  ViewPropsUniversal;
 
-type RootProps = Prettify<
-  BaseRootProps &
-    ViewPropsUniversal & {
-      native?: RootPropsNative;
-      web?: RootPropsWeb;
-    }
->;
+type ItemProps = BaseWithPlatformProps<BaseItemProps, ItemPropsNativeOnly, ItemPropsWebOnly> &
+  ViewPropsUniversal;
 
-type TriggerProps = Prettify<
-  BaseTriggerProps &
-    PressablePropsUniversal & {
-      native?: TriggerPropsNative;
-      web?: TriggerPropsWeb;
-    }
->;
+type RootProps = BaseWithPlatformProps<BaseRootProps, RootPropsNativeOnly, RootPropsWebOnly> &
+  ViewPropsUniversal;
+
+type TriggerProps = BaseWithPlatformProps<
+  BaseTriggerProps,
+  TriggerPropsNativeOnly,
+  TriggerPropsWebOnly
+> &
+  PressablePropsUniversal;
+
 type TriggerRef = PressableRefUniversal;
 
 export type { ContentProps, HeaderProps, ItemProps, RootProps, TriggerProps, TriggerRef };

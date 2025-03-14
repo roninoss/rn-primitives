@@ -5,16 +5,11 @@ import { Platform, View } from '@rn-primitives/core';
 import { renderPressableChildren } from '@rn-primitives/utils';
 import * as React from 'react';
 import {
-  Extrapolation,
   FadeIn,
   FadeOutUp,
   LayoutAnimationConfig,
   LinearTransition,
-  interpolate,
-  useAnimatedStyle,
-  useDerivedValue,
-  withTiming,
-} from 'react-native-reanimated';
+} from '@rn-primitives/core/native-only-reanimated';
 import { TextClassContext } from '~/components/ui/text';
 import { ChevronDown } from '~/lib/icons/ChevronDown';
 import { cn } from '~/lib/utils';
@@ -25,7 +20,7 @@ const WEB_AS_CHILD = { asChild: true };
 
 const NATIVE_ROOT = {
   isAnimated: true,
-  layout: LinearTransition.duration(200).delay(200).build(),
+  layout: LinearTransition,
 };
 
 const INNER_NATIVE = {
@@ -62,44 +57,35 @@ const AccordionTrigger = React.forwardRef<
 >(({ className, children, ...props }, ref) => {
   const { isExpanded } = AccordionPrimitive.useItemContext();
 
-  const progress = useDerivedValue(
-    () => (isExpanded ? withTiming(1, { duration: 250 }) : withTiming(0, { duration: 200 })),
-    [isExpanded]
-  );
-  const chevronStyle = useAnimatedStyle(
-    () => ({
-      transform: [{ rotate: `${progress.value * 180}deg` }],
-      opacity: interpolate(progress.value, [0, 1], [1, 0.8], Extrapolation.CLAMP),
-    }),
-    [progress]
-  );
-
   return (
-    <TextClassContext.Provider value='native:text-lg font-medium web:group-hover:underline'>
+    <TextClassContext.Provider value='native:text-lg font-medium'>
       <AccordionPrimitive.Header className='flex'>
         <AccordionPrimitive.Trigger
           ref={ref}
           className={cn(
-            'flex flex-row web:flex-1 items-center justify-between py-4 web:transition-all group web:focus-visible:outline-none web:focus-visible:ring-1 web:focus-visible:ring-muted-foreground',
-            Platform.select({ web: '[&[data-state=open]>svg]:rotate-180' }),
+            'flex flex-row items-center justify-between py-4',
+            Platform.select({
+              web: 'flex-1 hover:underline transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-muted-foreground [&[data-state=open]>svg]:rotate-180',
+            }),
             className
           )}
           {...props}
         >
-          {renderPressableChildren(children, (children, state) => {
+          {renderPressableChildren(children, (children) => {
             return (
               <>
                 {children}
                 <View
-                  native={{ isAnimated: true, style: Platform.select({ native: chevronStyle }) }}
+                  // native={{ isAnimated: true }}
+                  // native={{ isAnimated: true, className: cn(isExpanded && 'rotate-180') }}
                   web={WEB_AS_CHILD}
                 >
                   <ChevronDown
                     size={18}
                     className={cn(
                       'text-foreground shrink-0',
-                      Platform.select({ web: 'transition-transform duration-200' }),
-                      state?.pressed && 'opacity-50'
+                      Platform.select({ web: 'transition-transform duration-200' })
+                      // state?.pressed && 'opacity-50'
                     )}
                   />
                 </View>

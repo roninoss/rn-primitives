@@ -40,7 +40,7 @@ type ImagePropsUniversal = Prettify<
 > & {
   src: string;
   role?: RNRole;
-  asChild?: boolean;
+  asChild?: boolean | undefined;
 };
 
 type ImageProps = ImagePropsUniversal & {
@@ -56,7 +56,7 @@ type PressablePropsUniversal = Prettify<
   } & {
     className?: string;
     role?: RNRole;
-    asChild?: boolean;
+    asChild?: boolean | undefined;
   }
 >;
 
@@ -72,7 +72,7 @@ type TextPropsUniversal = Prettify<
   Pick<RNTextProps, BaseKeys> & {
     className?: string;
     role?: RNRole;
-    asChild?: boolean;
+    asChild?: boolean | undefined;
   }
 >;
 
@@ -85,7 +85,7 @@ type ViewPropsUniversal = Prettify<
   Pick<RNViewProps, BaseKeys> & {
     className?: string;
     role?: RNRole;
-    asChild?: boolean;
+    asChild?: boolean | undefined;
   }
 >;
 

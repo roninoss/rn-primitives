@@ -19,6 +19,12 @@
       "types": "./dist/native/index.d.ts",
       "default": "./dist/native/index.js"
     },
+    "./native-only-reanimated": {
+      "import": "./dist/native/reanimated/index.mjs",
+      "require": "./dist/native/reanimated/index.js",
+      "types": "./dist/native/reanimated/index.d.ts",
+      "default": "./dist/native/reanimated/index.js"
+    },
     "./web": {
       "import": "./dist/web/index.mjs",
       "require": "./dist/web/index.js",

@@ -18,7 +18,7 @@ export * from './rn-platform-specific';
 type PropsWithout<T, U> = Omit<T, keyof U>;
 type PropsWithoutHTML<T, U> = PropsWithout<T, React.HTMLAttributes<U>>;
 
-type Slottable<T> = Prettify<T & { asChild?: boolean }>;
+type Slottable<T> = Prettify<T & { asChild?: boolean | undefined }>;
 
 type SlottableViewProps = Slottable<ViewProps>;
 

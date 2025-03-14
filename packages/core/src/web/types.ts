@@ -7,7 +7,7 @@ type Element<T extends ElementTag> = T extends ElementTag ? HTMLElementTagNameMa
 type DivProps<T extends ElementTag> = React.ComponentPropsWithoutRef<
   T extends ElementTag ? T : 'div'
 > & {
-  asChild?: boolean;
+  asChild?: boolean | undefined;
   as?: T;
 };
 
