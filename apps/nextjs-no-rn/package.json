@@ -10,6 +10,10 @@
     "clean": "rm -rf .next node_modules"
   },
   "dependencies": {
+    "@rn-primitives/accordion": "workspace:*",
+    "@rn-primitives/slot": "workspace:*",
+    "@rn-primitives/utils": "workspace:*",
+    "@rn-primitives/types": "workspace:*",
     "@rn-primitives/core": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

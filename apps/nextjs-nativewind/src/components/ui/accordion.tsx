@@ -1,11 +1,10 @@
 'use client';
 
 import * as AccordionPrimitive from '@rn-primitives/accordion';
-import { Slot } from '@rn-primitives/slot';
+import { Platform, View } from '@rn-primitives/core';
 import { renderPressableChildren } from '@rn-primitives/utils';
 import * as React from 'react';
-import { Platform, Pressable, View } from 'react-native';
-import Animated, {
+import {
   Extrapolation,
   FadeIn,
   FadeOutUp,
@@ -22,20 +21,25 @@ import { cn } from '~/lib/utils';
 
 type AccordionTriggerRef = AccordionPrimitive.TriggerRef;
 
+const WEB_AS_CHILD = { asChild: true };
+
+const NATIVE_ROOT = {
+  isAnimated: true,
+  layout: LinearTransition.duration(200).delay(200).build(),
+};
+
+const INNER_NATIVE = {
+  isAnimated: true,
+  layout: Platform.select({ native: LinearTransition.duration(200) }),
+};
+
 function Accordion({ children, ...props }: AccordionPrimitive.RootProps) {
-  const Inner = Platform.OS === 'web' ? Slot : Animated.View;
   return (
     <LayoutAnimationConfig skipEntering>
-      <AccordionPrimitive.Root
-        native={{
-          isAnimated: true,
-          layout: LinearTransition.duration(200),
-        }}
-        {...props}
-      >
-        <Inner layout={Platform.select({ native: LinearTransition.duration(200) })}>
+      <AccordionPrimitive.Root native={NATIVE_ROOT} {...props}>
+        <View web={WEB_AS_CHILD} native={INNER_NATIVE}>
           <>{children}</>
-        </Inner>
+        </View>
       </AccordionPrimitive.Root>
     </LayoutAnimationConfig>
   );
@@ -70,7 +74,6 @@ const AccordionTrigger = React.forwardRef<
     [progress]
   );
 
-  const IconWrapper = Platform.OS === 'web' ? Slot : Animated.View;
   return (
     <TextClassContext.Provider value='native:text-lg font-medium web:group-hover:underline'>
       <AccordionPrimitive.Header className='flex'>
@@ -83,19 +86,23 @@ const AccordionTrigger = React.forwardRef<
           )}
           {...props}
         >
-          {renderPressableChildren(children, (children) => {
+          {renderPressableChildren(children, (children, state) => {
             return (
               <>
                 {children}
-                <IconWrapper style={Platform.select({ native: chevronStyle })}>
+                <View
+                  native={{ isAnimated: true, style: Platform.select({ native: chevronStyle }) }}
+                  web={WEB_AS_CHILD}
+                >
                   <ChevronDown
                     size={18}
                     className={cn(
                       'text-foreground shrink-0',
-                      Platform.select({ web: 'transition-transform duration-200' })
+                      Platform.select({ web: 'transition-transform duration-200' }),
+                      state?.pressed && 'opacity-50'
                     )}
                   />
-                </IconWrapper>
+                </View>
               </>
             );
           })}
@@ -110,31 +117,21 @@ function AccordionContent({ className, children, ...props }: AccordionPrimitive.
     <TextClassContext.Provider value='native:text-lg'>
       <AccordionPrimitive.Content
         className={cn(
-          'overflow-hidden text-sm',
+          'overflow-hidden',
           Platform.select({
             web: 'overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
           })
         )}
         {...props}
       >
-        <InnerContent className={cn('pb-4', className)}>{children}</InnerContent>
+        <View
+          native={{ isAnimated: true, entering: FadeIn, exiting: FadeOutUp.duration(200) }}
+          className={cn('pb-4', className)}
+        >
+          {children}
+        </View>
       </AccordionPrimitive.Content>
     </TextClassContext.Provider>
-  );
-}
-
-function InnerContent({ children, className }: { children: React.ReactNode; className?: string }) {
-  if (Platform.OS === 'web') {
-    return <View className={cn('pb-4', className)}>{children}</View>;
-  }
-  return (
-    <Animated.View
-      entering={FadeIn}
-      exiting={FadeOutUp.duration(200)}
-      className={cn('pb-4', className)}
-    >
-      {children}
-    </Animated.View>
   );
 }
 

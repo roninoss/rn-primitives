@@ -1,9 +1,8 @@
-import { AnimatablePressable, AnimatableView } from '@rn-primitives/animatable';
-import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
-import { Slot } from '@rn-primitives/slot';
+import { Pressable, View } from '@rn-primitives/core/dist/native';
+import { useControllableState } from '@rn-primitives/hooks';
 import * as React from 'react';
 import type { GestureResponderEvent } from 'react-native';
-import { RootContext, ItemContext, useItemContext, useRootContext } from '../utils/contexts';
+import { ItemContext, RootContext, useItemContext, useRootContext } from '../utils/contexts';
 import { getDefaultValue } from '../utils/get-default-value';
 import { isItemExpanded } from '../utils/is-item-expanded';
 import type {
@@ -22,15 +21,12 @@ import type {
 const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
-      asChild,
       type,
       disabled = false,
       collapsible = true,
       value: valueProp,
       onValueChange: onValueChangeProps,
       defaultValue,
-      orientation,
-      dir,
       ...viewProps
     },
     ref
@@ -42,7 +38,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
         onChange: onValueChangeProps as (state: string | string[] | undefined) => void,
       });
 
-    const Component = asChild ? Slot<typeof AnimatableView> : AnimatableView;
     return (
       <RootContext.Provider
         value={{
@@ -51,11 +46,9 @@ const Root = React.forwardRef<RootRef, RootProps>(
           collapsible,
           rootValue,
           onRootValueChange,
-          dir,
-          orientation,
         }}
       >
-        <Component ref={ref} {...viewProps} />
+        <View ref={ref} {...viewProps} />
       </RootContext.Provider>
     );
   }
@@ -66,11 +59,10 @@ Root.displayName = 'AccordionRootNative';
 const ItemInternalContext = React.createContext<{ nativeID: string } | null>(null);
 
 const Item = React.forwardRef<ItemRef, ItemProps>(
-  ({ asChild, value: itemValue, disabled, ...viewProps }, ref) => {
+  ({ value: itemValue, disabled, ...viewProps }, ref) => {
     const { rootValue } = useRootContext();
     const nativeID = React.useId();
 
-    const Component = asChild ? Slot<typeof AnimatableView> : AnimatableView;
     return (
       <ItemInternalContext.Provider value={{ nativeID }}>
         <ItemContext.Provider
@@ -80,7 +72,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
             isExpanded: isItemExpanded(rootValue, itemValue),
           }}
         >
-          <Component ref={ref} {...viewProps} />
+          <View ref={ref} {...viewProps} />
         </ItemContext.Provider>
       </ItemInternalContext.Provider>
     );
@@ -99,13 +91,12 @@ function useItemInternalContext() {
   return context;
 }
 
-const Header = React.forwardRef<HeaderRef, HeaderProps>(({ asChild, ...props }, ref) => {
+const Header = React.forwardRef<HeaderRef, HeaderProps>(({ ...props }, ref) => {
   const { disabled: rootDisabled } = useRootContext();
   const { disabled: itemDisabled, isExpanded } = useItemContext();
 
-  const Component = asChild ? Slot<typeof AnimatableView> : AnimatableView;
   return (
-    <Component
+    <View
       ref={ref}
       role='heading'
       aria-expanded={isExpanded}
@@ -118,7 +109,7 @@ const Header = React.forwardRef<HeaderRef, HeaderProps>(({ asChild, ...props }, 
 Header.displayName = 'AccordionHeaderNative';
 
 const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled: disabledProp, ...props }, ref) => {
+  ({ onPress: onPressProp, disabled: disabledProp, ...props }, ref) => {
     const {
       disabled: rootDisabled,
       type,
@@ -129,48 +120,37 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
     const { disabled: itemDisabled, itemValue, isExpanded } = useItemContext();
     const { nativeID } = useItemInternalContext();
 
-    const methods = React.useMemo(() => {
-      return {
-        trigger: () => {
-          if (type === 'single') {
-            const newValue = collapsible
-              ? itemValue === rootValue
-                ? undefined
-                : itemValue
-              : itemValue;
-            onRootValueChange?.(newValue as string[] & string);
-          }
-          if (type === 'multiple') {
-            const rootToArray = toStringArray(rootValue);
-            const newValue = collapsible
-              ? rootToArray.includes(itemValue)
-                ? rootToArray.filter((val) => val !== itemValue)
-                : rootToArray.concat(itemValue)
-              : [...new Set(rootToArray.concat(itemValue))];
-            onRootValueChange?.(newValue as string[] & string);
-          }
-        },
-      };
-    }, [collapsible, onRootValueChange, rootValue, type, itemValue]);
-
-    const triggerRef = useAugmentedRef({ ref, methods });
-
     const onPress = React.useCallback(
       (ev: GestureResponderEvent) => {
-        methods.trigger();
+        if (type === 'single') {
+          const newValue = collapsible
+            ? itemValue === rootValue
+              ? undefined
+              : itemValue
+            : itemValue;
+          onRootValueChange?.(newValue as string[] & string);
+        }
+        if (type === 'multiple') {
+          const rootToArray = toStringArray(rootValue);
+          const newValue = collapsible
+            ? rootToArray.includes(itemValue)
+              ? rootToArray.filter((val) => val !== itemValue)
+              : rootToArray.concat(itemValue)
+            : [...new Set(rootToArray.concat(itemValue))];
+          onRootValueChange?.(newValue as string[] & string);
+        }
         if (typeof onPressProp === 'function') {
           onPressProp(ev);
         }
       },
-      [onPressProp, methods]
+      [onPressProp, itemValue, rootValue, collapsible, type, onRootValueChange]
     );
 
     const isDisabled = !!(disabledProp || rootDisabled || itemDisabled);
 
-    const Component = asChild ? Slot<typeof AnimatablePressable> : AnimatablePressable;
     return (
-      <Component
-        ref={triggerRef}
+      <Pressable
+        ref={ref}
         nativeID={nativeID}
         aria-disabled={isDisabled}
         role='button'
@@ -185,30 +165,27 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
 
 Trigger.displayName = 'AccordionTriggerNative';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
-    const { type } = useRootContext();
-    const { isExpanded } = useItemContext();
-    const { nativeID } = useItemInternalContext();
+const Content = React.forwardRef<ContentRef, ContentProps>(({ forceMount, ...props }, ref) => {
+  const { type } = useRootContext();
+  const { isExpanded } = useItemContext();
+  const { nativeID } = useItemInternalContext();
 
-    if (!forceMount) {
-      if (!isExpanded) {
-        return null;
-      }
+  if (!forceMount) {
+    if (!isExpanded) {
+      return null;
     }
-
-    const Component = asChild ? Slot<typeof AnimatableView> : AnimatableView;
-    return (
-      <Component
-        ref={ref}
-        aria-hidden={!(forceMount || isExpanded)}
-        aria-labelledby={nativeID}
-        role={type === 'single' ? 'region' : 'summary'}
-        {...props}
-      />
-    );
   }
-);
+
+  return (
+    <View
+      ref={ref}
+      aria-hidden={!(forceMount || isExpanded)}
+      aria-labelledby={nativeID}
+      role={type === 'single' ? 'region' : 'summary'}
+      {...props}
+    />
+  );
+});
 
 Content.displayName = 'AccordionContentNative';
 

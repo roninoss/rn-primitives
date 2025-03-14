@@ -15,7 +15,7 @@ export function Core() {
       <Pressable
         onPress={() => {
           console.log('ref', ref.current);
-          ref.current?.press?.();
+          ref.current?.press();
         }}
       >
         <Text>Press other Pressable</Text>

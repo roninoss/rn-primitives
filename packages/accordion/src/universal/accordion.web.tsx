@@ -1,6 +1,5 @@
-import { rnStyleToWebStyle, useWebPressableProps } from '@rn-primitives/utils';
+import { Pressable, View } from '@rn-primitives/core';
 import * as React from 'react';
-import { BaseAccordionTriggerRef } from '../base-types';
 import {
   Content as ContentWeb,
   Header as HeaderWeb,
@@ -10,7 +9,6 @@ import {
   useItemContext,
   useRootContext,
 } from '../web';
-import type { AccordionTriggerWebOnlyRef } from '../web/types';
 import type {
   ContentProps,
   HeaderProps,
@@ -21,53 +19,43 @@ import type {
 } from './types';
 
 function Root({ native: _native, web, style, ...props }: RootProps) {
-  return <RootWeb {...props} style={rnStyleToWebStyle(style)} {...web} />;
+  return (
+    <View style={style} asChild>
+      <RootWeb {...props} {...(web as any)} />
+    </View>
+  );
 }
 
 function Content({ native: _native, style, web, ...props }: ContentProps) {
-  return <ContentWeb {...props} style={rnStyleToWebStyle(style)} {...web} />;
+  return (
+    <View style={style} asChild>
+      <ContentWeb {...props} {...web} />
+    </View>
+  );
 }
 
 function Header({ native: _native, style, web, ...props }: HeaderProps) {
-  return <HeaderWeb {...props} style={rnStyleToWebStyle(style)} {...web} />;
+  return (
+    <View style={style} asChild>
+      <HeaderWeb {...props} {...web} />
+    </View>
+  );
 }
 
 function Item({ native: _native, style, web, ...props }: ItemProps) {
-  return <ItemWeb {...props} style={rnStyleToWebStyle(style)} {...web} />;
+  return (
+    <View style={style} asChild>
+      <ItemWeb {...props} {...web} />
+    </View>
+  );
 }
 
 const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  (
-    {
-      native: _native,
-      style: styleProp,
-      children: childrenProp,
-      onPress: onPressProp,
-      onPressIn: onPressInProp,
-      onPressOut: onPressOutProp,
-      web: webProps,
-      ...props
-    },
-    ref
-  ) => {
-    const { children, events, style } = useWebPressableProps({
-      styleProp,
-      childrenProp,
-      webProps,
-      onPressInProp,
-      onPressOutProp,
-    });
-
+  ({ native: _native, web, ...props }, ref) => {
     return (
-      <TriggerWeb
-        ref={ref as React.LegacyRef<AccordionTriggerWebOnlyRef & BaseAccordionTriggerRef>}
-        children={children}
-        style={style}
-        onClick={onPressProp}
-        {...props}
-        {...webProps}
-        {...events}
-      />
+      <TriggerWeb asChild>
+        <Pressable web={{ as: 'button', ...web }} ref={ref} {...props} />
+      </TriggerWeb>
     );
   }
 );

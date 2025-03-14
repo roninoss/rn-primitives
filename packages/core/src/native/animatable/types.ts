@@ -52,7 +52,7 @@ type RNPressableProps = Slottable<PressableProps>;
 type AnimatablePressableProps =
   | (AnimatedPressableProps & { isAnimated: true })
   | (RNPressableProps & { isAnimated?: false | undefined });
-type AnimatablePressableRef = PressableRef & { press?: () => void };
+type AnimatablePressableRef = PressableRef & { press: () => void };
 type AnimatedPressableStyle = AnimatedPressableProps['style'];
 type AnimatedPressableCbStyle = Exclude<AnimatedPressableStyle, StyleProp<ViewStyle>>;
 

@@ -65,7 +65,7 @@ type PressableProps<T extends ElementTag> = PressablePropsUniversal & {
   web?: PressablePropsWeb<T>;
 };
 
-type PressableRefUniversal = { press?: () => void };
+type PressableRefUniversal = { press: () => void };
 type PressableRef = PressableRefUniversal;
 
 type TextPropsUniversal = Prettify<

@@ -1,71 +1,70 @@
+import {
+  PressablePropsUniversal,
+  PressableRefUniversal,
+  ViewPropsUniversal,
+} from '@rn-primitives/core';
+import type { Prettify } from '@rn-primitives/types';
 import type {
-  BaseSlottablePressableProps,
-  BaseSlottableViewProps,
-  BasicPressEvents,
-  Prettify,
-} from '@rn-primitives/types';
-import type {
-  BaseAccordionContentProps,
-  BaseAccordionHeaderProps,
-  BaseAccordionItemProps,
-  BaseAccordionRootProps,
-  BaseAccordionTriggerProps,
-  BaseAccordionTriggerRef,
+  BaseContentProps,
+  BaseHeaderProps,
+  BaseItemProps,
+  BaseRootProps,
+  BaseTriggerProps,
 } from '../base-types';
 import type {
-  AccordionContentNativeOnlyProps,
-  AccordionHeaderNativeOnlyProps,
-  AccordionItemNativeOnlyProps,
-  AccordionRootNativeOnlyProps,
-  AccordionTriggerNativeOnlyProps,
+  ContentProps as ContentPropsNative,
+  HeaderProps as HeaderPropsNative,
+  ItemProps as ItemPropsNative,
+  RootProps as RootPropsNative,
+  TriggerProps as TriggerPropsNative,
 } from '../native/types';
 import type {
-  AccordionContentWebOnlyProps,
-  AccordionHeaderWebOnlyProps,
-  AccordionItemWebOnlyProps,
-  AccordionRootWebOnlyProps,
-  AccordionTriggerWebOnlyProps,
+  ContentProps as ContentPropsWeb,
+  HeaderProps as HeaderPropsWeb,
+  ItemProps as ItemPropsWeb,
+  RootProps as RootPropsWeb,
+  TriggerProps as TriggerPropsWeb,
 } from '../web/types';
 
 type ContentProps = Prettify<
-  BaseAccordionContentProps &
-    BaseSlottableViewProps & {
-      native?: AccordionContentNativeOnlyProps;
-      web?: AccordionContentWebOnlyProps;
+  BaseContentProps &
+    ViewPropsUniversal & {
+      native?: ContentPropsNative;
+      web?: ContentPropsWeb;
     }
 >;
 
 type HeaderProps = Prettify<
-  BaseAccordionHeaderProps &
-    BaseSlottableViewProps & {
-      native?: AccordionHeaderNativeOnlyProps;
-      web?: AccordionHeaderWebOnlyProps;
+  BaseHeaderProps &
+    ViewPropsUniversal & {
+      native?: HeaderPropsNative;
+      web?: HeaderPropsWeb;
     }
 >;
 
 type ItemProps = Prettify<
-  BaseAccordionItemProps &
-    BaseSlottableViewProps & {
-      native?: AccordionItemNativeOnlyProps;
-      web?: AccordionItemWebOnlyProps;
+  BaseItemProps &
+    ViewPropsUniversal & {
+      native?: ItemPropsNative;
+      web?: ItemPropsWeb;
     }
 >;
 
 type RootProps = Prettify<
-  BaseAccordionRootProps &
-    BaseSlottableViewProps & {
-      native?: AccordionRootNativeOnlyProps;
-      web?: AccordionRootWebOnlyProps;
+  BaseRootProps &
+    ViewPropsUniversal & {
+      native?: RootPropsNative;
+      web?: RootPropsWeb;
     }
 >;
 
 type TriggerProps = Prettify<
-  BaseAccordionTriggerProps &
-    BaseSlottablePressableProps & {
-      native?: AccordionTriggerNativeOnlyProps;
-      web?: AccordionTriggerWebOnlyProps;
-    } & BasicPressEvents
+  BaseTriggerProps &
+    PressablePropsUniversal & {
+      native?: TriggerPropsNative;
+      web?: TriggerPropsWeb;
+    }
 >;
-type TriggerRef = BaseAccordionTriggerRef;
+type TriggerRef = PressableRefUniversal;
 
 export type { ContentProps, HeaderProps, ItemProps, RootProps, TriggerProps, TriggerRef };

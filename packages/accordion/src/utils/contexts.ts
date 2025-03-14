@@ -1,7 +1,7 @@
 import * as React from 'react';
-import type { BaseAccordionItemContext, BaseAccordionRootContext } from '../base-types';
+import type { BaseItemContext, BaseRootContext } from '../base-types';
 
-const RootContext = React.createContext<BaseAccordionRootContext>(null);
+const RootContext = React.createContext<BaseRootContext>(null);
 function useRootContext() {
   const context = React.useContext(RootContext);
   if (!context) {
@@ -14,7 +14,7 @@ function useRootContext() {
 
 type RootContextReturnType = ReturnType<typeof useRootContext>;
 
-const ItemContext = React.createContext<BaseAccordionItemContext | null>(null);
+const ItemContext = React.createContext<BaseItemContext | null>(null);
 
 function useItemContext() {
   const context = React.useContext(ItemContext);
@@ -28,6 +28,6 @@ function useItemContext() {
 
 type ItemContextReturnType = ReturnType<typeof useItemContext>;
 
-export { ItemContext, useItemContext, RootContext, useRootContext };
+export { ItemContext, RootContext, useItemContext, useRootContext };
 
 export type { ItemContextReturnType, RootContextReturnType };

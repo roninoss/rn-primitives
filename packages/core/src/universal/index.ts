@@ -1,4 +1,16 @@
 export { Image, Pressable, Text, View } from './components';
 export { Platform } from './platform';
 
-export type { ImageProps, PressableProps, PressableRef, TextProps, ViewProps } from './types';
+export type {
+  ElementTag,
+  ImageProps,
+  ImagePropsUniversal,
+  PressableProps,
+  PressablePropsUniversal,
+  PressableRef,
+  PressableRefUniversal,
+  TextProps,
+  TextPropsUniversal,
+  ViewProps,
+  ViewPropsUniversal,
+} from './types';

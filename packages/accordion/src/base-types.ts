@@ -1,73 +1,52 @@
+import type { Prettify } from '@rn-primitives/types';
 import type {
-  AccordionContentProps,
-  AccordionHeaderProps,
-  AccordionItemProps,
-  AccordionTriggerProps,
-  AccordionMultipleProps as BaseAccordionMultipleProps,
-  AccordionSingleProps as BaseAccordionSingleProps,
-} from '@radix-ui/react-accordion';
-import type { Prettify, PropsWithoutHTML } from '@rn-primitives/types';
+  ContentProps as ContentPropsWeb,
+  HeaderProps as HeaderPropsWeb,
+  ItemProps as ItemPropsWeb,
+  RootProps as RootPropsWeb,
+  TriggerProps as TriggerPropsWeb,
+} from './web/types';
 
-// TODO: consider using Pick method instead of PropsWithoutHTML
-
-type AccordionRootProps = BaseAccordionMultipleProps | BaseAccordionSingleProps;
-
-type BaseAccordionRootProps = Prettify<
-  PropsWithoutHTML<AccordionRootProps, HTMLDivElement> & {
-    collapsible?: boolean;
-    defaultValue?: string | string[];
-    dir?: 'ltr' | 'rtl';
-  }
->;
-
-type BaseAccordionContentProps = PropsWithoutHTML<AccordionContentProps, HTMLDivElement>;
-
-type BaseAccordionHeaderProps = PropsWithoutHTML<AccordionHeaderProps, HTMLHeadingElement>;
-
-type BaseAccordionItemProps = PropsWithoutHTML<AccordionItemProps, HTMLDivElement>;
-
-type BaseAccordionTriggerProps = Omit<
-  PropsWithoutHTML<AccordionTriggerProps, HTMLButtonElement>,
-  | 'form'
-  | 'formAction'
-  | 'formEncType'
-  | 'formMethod'
-  | 'formNoValidate'
-  | 'formTarget'
-  | 'name'
+type BaseRootProps = Pick<
+  RootPropsWeb,
   | 'type'
   | 'value'
+  | 'defaultValue'
+  | 'onValueChange'
+  | 'value'
+  | 'collapsible'
   | 'disabled'
+  | 'asChild'
 >;
 
-type BaseAccordionTriggerRef = { trigger: () => void };
+type BaseContentProps = Pick<ContentPropsWeb, 'forceMount' | 'asChild'>;
 
-type BaseAccordionRootContext = Prettify<
-  Omit<
-    BaseAccordionRootProps,
-    'asChild' | 'defaultValue' | 'children' | 'value' | 'onValueChange' | 'key'
-  > & {
-    rootValue: BaseAccordionRootProps['value'];
-    onRootValueChange: BaseAccordionRootProps['onValueChange'];
+type BaseHeaderProps = Pick<HeaderPropsWeb, 'asChild'>;
+
+type BaseItemProps = Pick<ItemPropsWeb, 'disabled' | 'value' | 'asChild'>;
+
+type BaseTriggerProps = Pick<TriggerPropsWeb, 'asChild'>;
+
+type BaseRootContext = Prettify<
+  Omit<BaseRootProps, 'asChild' | 'defaultValue' | 'value' | 'onValueChange'> & {
+    rootValue: BaseRootProps['value'];
+    onRootValueChange: BaseRootProps['onValueChange'];
   }
 > | null;
 
-type BaseAccordionItemContext = Prettify<
-  Omit<BaseAccordionItemProps, 'asChild' | 'children' | 'value' | 'key'> & {
-    itemValue: BaseAccordionItemProps['value'];
+type BaseItemContext = Prettify<
+  Omit<BaseItemProps, 'asChild' | 'value'> & {
+    itemValue: BaseItemProps['value'];
     isExpanded: boolean;
   }
 > | null;
 
 export type {
-  BaseAccordionContentProps,
-  BaseAccordionHeaderProps,
-  BaseAccordionItemContext,
-  BaseAccordionItemProps,
-  BaseAccordionMultipleProps,
-  BaseAccordionRootContext,
-  BaseAccordionRootProps,
-  BaseAccordionSingleProps,
-  BaseAccordionTriggerProps,
-  BaseAccordionTriggerRef,
+  BaseContentProps,
+  BaseHeaderProps,
+  BaseItemContext,
+  BaseItemProps,
+  BaseRootContext,
+  BaseRootProps,
+  BaseTriggerProps,
 };

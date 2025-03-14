@@ -17,7 +17,7 @@ export default function AccordionScreen() {
       <Button
         className='absolute top-4 right-4'
         onPress={() => {
-          ref.current?.trigger?.();
+          ref.current?.press();
         }}
       >
         <Text>Trigger Item 1</Text>

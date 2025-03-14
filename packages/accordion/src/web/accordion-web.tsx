@@ -4,18 +4,27 @@ import type { ItemContextReturnType, RootContextReturnType } from '../utils/cont
 import type { ItemProps, ItemRef, RootProps, RootRef, TriggerProps, TriggerRef } from './types';
 
 const Root = React.forwardRef<RootRef, RootProps>(() => {
+  if (process.env.NODE_ENV === 'development') {
+    console.log('`Root`, from @rn-primitives/accordion/web is only supported on web.');
+  }
   return null;
 });
 
 Root.displayName = 'AccordionRootWeb';
 
 const Item = React.forwardRef<ItemRef, ItemProps>(() => {
+  if (process.env.NODE_ENV === 'development') {
+    console.log('`Item`, from @rn-primitives/accordion/web is only supported on web.');
+  }
   return null;
 });
 
 Item.displayName = 'AccordionItemWeb';
 
 const Trigger = React.forwardRef<TriggerRef, TriggerProps>(() => {
+  if (process.env.NODE_ENV === 'development') {
+    console.log('`Trigger`, from @rn-primitives/accordion/web is only supported on web.');
+  }
   return null;
 });
 

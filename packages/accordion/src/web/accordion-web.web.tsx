@@ -7,11 +7,19 @@ import {
 } from '@radix-ui/react-accordion';
 import { useControllableState } from '@rn-primitives/hooks';
 import * as React from 'react';
-import type { BaseAccordionMultipleProps, BaseAccordionSingleProps } from '../base-types';
 import { ItemContext, RootContext, useItemContext, useRootContext } from '../utils/contexts';
 import { getDefaultValue } from '../utils/get-default-value';
 import { isItemExpanded } from '../utils/is-item-expanded';
-import type { ItemProps, ItemRef, RootProps, RootRef, TriggerProps, TriggerRef } from './types';
+import type {
+  ItemProps,
+  ItemRef,
+  MultipleProps,
+  RootProps,
+  RootRef,
+  SingleProps,
+  TriggerProps,
+  TriggerRef,
+} from './types';
 
 const Root = React.forwardRef<RootRef, RootProps>(
   (
@@ -33,8 +41,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
           collapsible: collapsible,
           rootValue,
           onRootValueChange,
-          dir: props.dir,
-          orientation: props.orientation,
         }}
       >
         <Accordion
@@ -45,7 +51,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
             defaultValue,
             onValueChange: onRootValueChange,
             collapsible: collapsible?.toString(), // fixes radix-ui/accordion console error
-          } as BaseAccordionSingleProps | BaseAccordionMultipleProps)}
+          } as SingleProps | MultipleProps)}
         />
       </RootContext.Provider>
     );
@@ -73,23 +79,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>((props, ref) => {
 Item.displayName = 'AccordionItemWeb';
 
 const Trigger = React.forwardRef<TriggerRef, TriggerProps>((props, ref) => {
-  const triggerRef = React.useRef<TriggerRef>(null);
-
-  React.useImperativeHandle(
-    ref,
-    () =>
-      triggerRef.current
-        ? {
-            ...triggerRef.current,
-            trigger: () => {
-              triggerRef.current?.click();
-            },
-          }
-        : ({} as TriggerRef),
-    []
-  );
-
-  return <AccordionTrigger ref={triggerRef} {...props} />;
+  return <AccordionTrigger ref={ref} {...props} />;
 });
 
 Trigger.displayName = 'AccordionTriggerWeb';

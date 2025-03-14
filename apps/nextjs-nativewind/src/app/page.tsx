@@ -1,4 +1,3 @@
-import { Pressable } from 'react-native';
 import { CheckboxExample } from '~/components/CheckboxExample';
 import { CollapsibleExample } from '~/components/CollapsibleExample';
 import { ContextMenuExample } from '~/components/ContextMenuExample';
@@ -139,6 +138,10 @@ function AccordionExample() {
     <Accordion type='multiple' collapsible defaultValue={'item-1'}>
       <AccordionItem value='item-1'>
         <AccordionTrigger>
+          {/* {
+            // Need "use client" to use Pressable function children with state
+            ({ pressed }) => <Text>Is it accessible? {pressed ? 'pressed' : 'not pressed'}</Text>
+          } */}
           <Text>Is it accessible?</Text>
         </AccordionTrigger>
         <AccordionContent>
@@ -172,13 +175,11 @@ function AlertDialogExample() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        {/* <Button variant='outline'> */}
-        <Pressable>
+        <Button variant='outline'>
           <Text className='mx-auto'>
             Show Alert Dialog (won't work with asChild trigger to React Native Pressable)
           </Text>
-        </Pressable>
-        {/* </Button> */}
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogTrigger asChild>
         <button>

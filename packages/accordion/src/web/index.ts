@@ -8,12 +8,15 @@ export {
   useRootContext,
 } from './accordion-web';
 
-// TODO: export ref types
 export type {
   ContentProps,
+  ContentRef,
   HeaderProps,
+  HeaderRef,
   ItemProps,
+  ItemRef,
   RootProps,
+  RootRef,
   TriggerProps,
   TriggerRef,
 } from './types';

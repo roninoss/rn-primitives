@@ -217,6 +217,9 @@ importers:
       '@rn-primitives/context-menu':
         specifier: workspace:*
         version: link:../../packages/context-menu
+      '@rn-primitives/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@rn-primitives/dialog':
         specifier: workspace:*
         version: link:../../packages/dialog
@@ -398,6 +401,9 @@ importers:
       '@rn-primitives/context-menu':
         specifier: workspace:*
         version: link:../../packages/context-menu
+      '@rn-primitives/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@rn-primitives/dialog':
         specifier: workspace:*
         version: link:../../packages/dialog
@@ -694,9 +700,21 @@ importers:
 
   apps/nextjs-no-rn:
     dependencies:
+      '@rn-primitives/accordion':
+        specifier: workspace:*
+        version: link:../../packages/accordion
       '@rn-primitives/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@rn-primitives/slot':
+        specifier: workspace:*
+        version: link:../../packages/slot
+      '@rn-primitives/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@rn-primitives/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -746,9 +764,9 @@ importers:
       '@radix-ui/react-accordion':
         specifier: ^1.2.3
         version: 1.2.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/animatable':
+      '@rn-primitives/core':
         specifier: workspace:*
-        version: link:../animatable
+        version: link:../core
       '@rn-primitives/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -764,9 +782,6 @@ importers:
       react-native-reanimated:
         specifier: '*'
         version: 3.16.2(@babel/core@7.26.0)(react-native@0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
-      react-native-web:
-        specifier: '*'
-        version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@tsconfig/react-native':
         specifier: ^1.0.1
