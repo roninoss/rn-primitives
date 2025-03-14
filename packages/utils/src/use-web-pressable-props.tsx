@@ -1,25 +1,12 @@
 import * as React from 'react';
-import type { PressableProps, PressableStateCallbackType } from 'react-native';
+import type { PressableProps } from 'react-native';
 import { rnStyleToWebStyle } from './style/rn-style-to-web-style';
 
-type Element =
-  | 'article'
-  | 'header'
-  | 'button'
-  | 'aside'
-  | 'footer'
-  | 'figure'
-  | 'form'
-  | 'ul'
-  | 'li'
-  | 'main'
-  | 'nav'
-  | 'section'
-  | 'div';
+type Element = keyof HTMLElementTagNameMap;
 
-type WebPressableProps<T extends Element> = Pick<
+type WebPressableProps<T extends keyof HTMLElementTagNameMap> = Pick<
   React.ComponentPropsWithoutRef<T>,
-  'onFocus' | 'onBlur' | 'onMouseEnter' | 'onMouseLeave' | 'onMouseDown' | 'onMouseUp'
+  'onMouseDown' | 'onMouseUp' | 'onTouchStart' | 'onTouchEnd'
 >;
 
 export function useWebPressableProps<T extends Element>({
@@ -35,27 +22,25 @@ export function useWebPressableProps<T extends Element>({
   onPressInProp?: () => void;
   onPressOutProp?: () => void;
 }) {
-  const [focused, setFocused] = React.useState(false);
-  const [hovered, setHovered] = React.useState(false);
   const [pressed, setPressed] = React.useState(false);
 
   const events = React.useMemo(() => {
     return {
-      onFocus: (ev: any) => {
-        setFocused(true);
-        webProps?.onFocus?.(ev);
+      onTouchStart: (ev: any) => {
+        setPressed(true);
+        if (webProps?.onTouchStart) {
+          webProps.onTouchStart?.(ev);
+          return;
+        }
+        onPressInProp?.();
       },
-      onBlur: (ev: any) => {
-        setFocused(false);
-        webProps?.onBlur?.(ev);
-      },
-      onMouseEnter: (ev: any) => {
-        setHovered(true);
-        webProps?.onMouseEnter?.(ev);
-      },
-      onMouseLeave: (ev: any) => {
-        setHovered(false);
-        webProps?.onMouseLeave?.(ev);
+      onTouchEnd: (ev: any) => {
+        setPressed(false);
+        if (webProps?.onTouchEnd) {
+          webProps?.onTouchEnd?.(ev);
+          return;
+        }
+        onPressOutProp?.();
       },
       onMouseDown: (ev: any) => {
         setPressed(true);
@@ -75,10 +60,8 @@ export function useWebPressableProps<T extends Element>({
       },
     };
   }, [
-    webProps?.onFocus,
-    webProps?.onBlur,
-    webProps?.onMouseEnter,
-    webProps?.onMouseLeave,
+    webProps?.onTouchStart,
+    webProps?.onTouchEnd,
     webProps?.onMouseDown,
     webProps?.onMouseUp,
     onPressInProp,
@@ -89,19 +72,12 @@ export function useWebPressableProps<T extends Element>({
     if (!styleProp) {
       return;
     }
-    return rnStyleToWebStyle(
-      typeof styleProp === 'function'
-        ? styleProp({ focused, hovered, pressed } as PressableStateCallbackType)
-        : styleProp
-    );
-  }, [styleProp, focused, hovered, pressed]);
+    return rnStyleToWebStyle(typeof styleProp === 'function' ? styleProp({ pressed }) : styleProp);
+  }, [styleProp, pressed]);
 
   return {
     style,
     events,
-    children:
-      typeof childrenProp === 'function'
-        ? childrenProp({ focused, hovered, pressed } as PressableStateCallbackType)
-        : childrenProp,
+    children: typeof childrenProp === 'function' ? childrenProp({ pressed }) : childrenProp,
   };
 }
