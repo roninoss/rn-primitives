@@ -10,12 +10,17 @@ import Animated, {
 } from 'react-native-reanimated';
 import { cn } from '~/lib/utils';
 
-const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & {
-    indicatorClassName?: string;
-  }
->(({ className, value, indicatorClassName, ...props }, ref) => {
+const Progress = ({
+  ref,
+  className,
+  value,
+  indicatorClassName,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & {
+  indicatorClassName?: string;
+} & {
+  ref?: React.RefObject<React.ElementRef<typeof ProgressPrimitive.Root>>;
+}) => {
   return (
     <ProgressPrimitive.Root
       ref={ref}
@@ -25,7 +30,7 @@ const Progress = React.forwardRef<
       <Indicator value={value} className={indicatorClassName} />
     </ProgressPrimitive.Root>
   );
-});
+};
 Progress.displayName = ProgressPrimitive.Root.displayName;
 
 export { Progress };

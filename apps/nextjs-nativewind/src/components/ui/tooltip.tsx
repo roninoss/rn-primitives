@@ -10,10 +10,16 @@ import { cn } from '~/lib/utils';
 const Tooltip = TooltipPrimitive.Root;
 const TooltipTrigger = TooltipPrimitive.Trigger;
 
-const TooltipContent = React.forwardRef<
-  React.ElementRef<typeof TooltipPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content> & { portalHost?: string }
->(({ className, sideOffset = 4, portalHost, ...props }, ref) => (
+const TooltipContent = ({
+  ref,
+  className,
+  sideOffset = 4,
+  portalHost,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content> & {
+  portalHost?: string;
+  ref?: React.RefObject<React.ElementRef<typeof TooltipPrimitive.Content>>;
+}) => (
   <TooltipPrimitive.Portal hostName={portalHost}>
     <TooltipPrimitive.Overlay style={Platform.OS !== 'web' ? StyleSheet.absoluteFill : undefined}>
       <Animated.View
@@ -34,7 +40,7 @@ const TooltipContent = React.forwardRef<
       </Animated.View>
     </TooltipPrimitive.Overlay>
   </TooltipPrimitive.Portal>
-));
+);
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
 export { Tooltip, TooltipContent, TooltipTrigger };

@@ -9,10 +9,18 @@ const Popover = PopoverPrimitive.Root;
 
 const PopoverTrigger = PopoverPrimitive.Trigger;
 
-const PopoverContent = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & { portalHost?: string }
->(({ className, align = 'center', sideOffset = 4, portalHost, ...props }, ref) => {
+const PopoverContent = ({
+  ref,
+  className,
+  align = 'center',
+  sideOffset = 4,
+  portalHost,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & {
+  ref?: React.RefObject<React.ElementRef<typeof PopoverPrimitive.Content>>;
+} & {
+  portalHost?: string;
+}) => {
   return (
     <PopoverPrimitive.Portal hostName={portalHost}>
       <PopoverPrimitive.Overlay style={Platform.OS !== 'web' ? StyleSheet.absoluteFill : undefined}>
@@ -33,7 +41,7 @@ const PopoverContent = React.forwardRef<
       </PopoverPrimitive.Overlay>
     </PopoverPrimitive.Portal>
   );
-});
+};
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 export { Popover, PopoverContent, PopoverTrigger };

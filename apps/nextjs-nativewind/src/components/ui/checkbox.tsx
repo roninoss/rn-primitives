@@ -6,10 +6,13 @@ import { Platform } from 'react-native';
 import { Check } from '~/lib/icons/Check';
 import { cn } from '~/lib/utils';
 
-const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
->(({ className, ...props }, ref) => {
+const Checkbox = ({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> & {
+  ref?: React.RefObject<React.ElementRef<typeof CheckboxPrimitive.Root>>;
+}) => {
   return (
     <CheckboxPrimitive.Root
       ref={ref}
@@ -29,7 +32,7 @@ const Checkbox = React.forwardRef<
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );
-});
+};
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
 export { Checkbox };

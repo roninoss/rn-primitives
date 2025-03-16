@@ -153,10 +153,15 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-const ListItem = React.forwardRef<
-  TextRef,
-  React.ComponentPropsWithoutRef<typeof Text> & { title: string; href: string }
->(({ className, title, children, ...props }, ref) => {
+const ListItem = ({
+  ref,
+  className,
+  title,
+  children,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof Text> & { title: string; href: string } & {
+  ref?: React.RefObject<React.ElementRef<typeof Text>>;
+}) => {
   return (
     <View role='listitem'>
       <NavigationMenuLink
@@ -176,5 +181,5 @@ const ListItem = React.forwardRef<
       </NavigationMenuLink>
     </View>
   );
-});
+};
 ListItem.displayName = 'ListItem';

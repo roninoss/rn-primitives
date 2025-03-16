@@ -123,20 +123,26 @@ function AlertDialogDescription({ className, ...props }: AlertDialogPrimitive.De
   );
 }
 
-const AlertDialogAction = React.forwardRef<
-  AlertDialogPrimitive.ActionRef,
-  AlertDialogPrimitive.ActionProps
->(({ className, ...props }, ref) => (
+const AlertDialogAction = ({
+  ref,
+  className,
+  ...props
+}: AlertDialogPrimitive.ActionProps & {
+  ref?: React.RefObject<AlertDialogPrimitive.ActionRef>;
+}) => (
   <TextClassContext.Provider value={buttonTextVariants({ className })}>
     <AlertDialogPrimitive.Action ref={ref} className={cn(buttonVariants(), className)} {...props} />
   </TextClassContext.Provider>
-));
+);
 AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName;
 
-const AlertDialogCancel = React.forwardRef<
-  AlertDialogPrimitive.CancelRef,
-  AlertDialogPrimitive.CancelProps
->(({ className, ...props }, ref) => (
+const AlertDialogCancel = ({
+  ref,
+  className,
+  ...props
+}: AlertDialogPrimitive.CancelProps & {
+  ref?: React.RefObject<AlertDialogPrimitive.CancelRef>;
+}) => (
   <TextClassContext.Provider value={buttonTextVariants({ className, variant: 'outline' })}>
     <AlertDialogPrimitive.Cancel
       ref={ref}
@@ -144,7 +150,7 @@ const AlertDialogCancel = React.forwardRef<
       {...props}
     />
   </TextClassContext.Provider>
-));
+);
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
 
 export {
