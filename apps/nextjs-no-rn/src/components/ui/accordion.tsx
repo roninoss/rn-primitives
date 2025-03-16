@@ -34,10 +34,14 @@ function AccordionItem({ className, value, ...props }: AccordionPrimitive.ItemPr
   );
 }
 
-const AccordionTrigger = React.forwardRef<
-  AccordionPrimitive.TriggerRef,
-  AccordionPrimitive.TriggerProps
->(({ className, children, ...props }, ref) => {
+const AccordionTrigger = ({
+  ref,
+  className,
+  children,
+  ...props
+}: AccordionPrimitive.TriggerProps & {
+  ref?: React.RefObject<AccordionPrimitive.TriggerRef>;
+}) => {
   return (
     <TextClassContext.Provider value='native:text-lg font-medium'>
       <AccordionPrimitive.Header className='flex'>
@@ -75,7 +79,7 @@ const AccordionTrigger = React.forwardRef<
       </AccordionPrimitive.Header>
     </TextClassContext.Provider>
   );
-});
+};
 
 function AccordionContent({ className, children, ...props }: AccordionPrimitive.ContentProps) {
   return (
