@@ -1,7 +1,7 @@
 {
   "name": "@rn-primitives/alert-dialog",
-  "version": "1.1.0",
-  "description": "Primitive alert dialog",
+  "version": "2.0.0-alpha.1",
+  "description": "Primitive alert-dialog",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -13,11 +13,17 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./dist/alert-dialog": {
-      "import": "./dist/alert-dialog.mjs",
-      "require": "./dist/alert-dialog.js",
-      "types": "./dist/alert-dialog.d.ts",
-      "default": "./dist/alert-dialog.js"
+    "./native": {
+      "import": "./dist/native/index.mjs",
+      "require": "./dist/native/index.js",
+      "types": "./dist/native/index.d.ts",
+      "default": "./dist/native/index.js"
+    },
+    "./web": {
+      "import": "./dist/web/index.mjs",
+      "require": "./dist/web/index.js",
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
     }
   },
   "files": [
@@ -32,13 +38,16 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-alert-dialog": "^1.1.1",
+    "@radix-ui/react-alert-dialog": "^1.1.6",
+    "@rn-primitives/animatable": "workspace:*",
+    "@rn-primitives/core": "workspace:*",
     "@rn-primitives/hooks": "workspace:*",
+    "@rn-primitives/portal": "workspace:*",
     "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/utils": "workspace:*"
   },
   "devDependencies": {
-    "@rn-primitives/portal": "workspace:*",
     "@tsconfig/react-native": "^1.0.1",
     "@types/react": "~18.3.12",
     "react": "18.3.1",
@@ -46,7 +55,6 @@
     "tsup": "^8.1.0"
   },
   "peerDependencies": {
-    "@rn-primitives/portal": "*",
     "react": "*",
     "react-native": "*",
     "react-native-web": "*"

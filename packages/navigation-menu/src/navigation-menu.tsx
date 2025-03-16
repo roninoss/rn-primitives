@@ -120,6 +120,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
     const { value, onValueChange, setTriggerPosition } = useRootContext();
     const { value: menuValue } = useItemContext();
 
+    // TODO: double check that the ref passed to this component has all the correct methods
     React.useImperativeHandle(
       ref,
       () => {

@@ -13,6 +13,7 @@ export {
 
 export type {
   ActionProps,
+  ActionRef,
   CancelProps,
   CancelRef,
   ContentProps,

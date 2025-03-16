@@ -15,6 +15,8 @@ import type {
 import type { Prettify } from './helper';
 export * from './rn-platform-specific';
 
+// TODO: revise the types
+
 type PropsWithout<T, U> = Omit<T, keyof U>;
 type PropsWithoutHTML<T, U> = PropsWithout<T, React.HTMLAttributes<U>>;
 

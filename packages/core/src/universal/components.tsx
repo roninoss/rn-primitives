@@ -15,6 +15,8 @@ import type {
   ViewProps,
 } from './types';
 
+// TODO: update to react 19 and remove the forwardRef
+
 function Image({ src, web: _web, native, ...props }: ImageProps) {
   return <ImageNative source={{ uri: src }} {...props} {...native} />;
 }

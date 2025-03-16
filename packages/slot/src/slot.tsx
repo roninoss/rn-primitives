@@ -33,9 +33,27 @@ function SlotImplementation<T extends React.ElementType>(
     return null;
   }
 
+  if (children.type === React.Fragment) {
+    return (
+      <>
+        {React.Children.toArray((children.props as any).children).map((child): any =>
+          React.isValidElement(child)
+            ? SlotImplementation({ ...restOfProps, children: child } as any, forwardedRef)
+            : child
+        )}
+      </>
+    );
+  }
+
   return React.cloneElement(children, {
     ...mergeProps(restOfProps, children.props as any),
-    ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
+    ...(children.type === 'function'
+      ? {}
+      : {
+          ref: forwardedRef
+            ? composeRefs(forwardedRef, (children as any).ref)
+            : (children as any).ref,
+        }),
   } as unknown as Partial<React.ComponentProps<T>>);
 }
 

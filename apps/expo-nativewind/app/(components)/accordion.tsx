@@ -1,3 +1,4 @@
+import { Pressable } from '@rn-primitives/core';
 import * as React from 'react';
 import { View } from 'react-native';
 import {
@@ -30,16 +31,18 @@ export default function AccordionScreen() {
       >
         <AccordionItem value='item-1'>
           <AccordionTrigger ref={ref}>
-            {({ pressed }) => <Text>Is it accessible? {pressed ? 'pressed' : 'not pressed'}</Text>}
+            {(state) => <Text>Show Alert Dialog - state: {state.pressed.toString()}</Text>}
           </AccordionTrigger>
           <AccordionContent>
             <Text>Yes. It adheres to the WAI-ARIA design pattern.</Text>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value='item-2'>
-          <AccordionTrigger>
-            <Text>What are universal components?</Text>
-          </AccordionTrigger>
+          <Pressable asChild>
+            <AccordionTrigger>
+              <Text>What are universal components?</Text>
+            </AccordionTrigger>
+          </Pressable>
           <AccordionContent>
             <Text>
               In the world of React Native, universal components are components that work on both

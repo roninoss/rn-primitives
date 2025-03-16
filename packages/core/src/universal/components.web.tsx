@@ -40,12 +40,13 @@ function PressableImpl<T extends ElementTag>(
   React.useImperativeHandle(
     ref,
     () => {
-      return {
-        ...augmentedRef.current,
+      if (!augmentedRef.current) return null as unknown as PressableRef;
+
+      return Object.assign(augmentedRef.current, {
         press: () => {
           augmentedRef.current?.click();
         },
-      } as PressableRef;
+      });
     },
     [augmentedRef.current]
   );

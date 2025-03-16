@@ -24,6 +24,7 @@ const AnimatablePressable = React.forwardRef<AnimatablePressableRef, AnimatableP
 
     const triggerRef = useAugmentedRef({ ref, methods });
 
+    // TODO: if pressable, pass the state to the Slot if possible?
     if (asChild) {
       return <Slot ref={triggerRef} {...props} />;
     }

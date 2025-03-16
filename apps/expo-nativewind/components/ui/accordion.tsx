@@ -64,12 +64,13 @@ const AccordionTrigger = React.forwardRef<
             'flex flex-row items-center justify-between py-4',
             Platform.select({
               web: 'flex-1 hover:underline transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-muted-foreground [&[data-state=open]>svg]:rotate-180',
+              native: 'active:opacity-50',
             }),
             className
           )}
           {...props}
         >
-          {renderPressableChildren(children, (children, state) => {
+          {renderPressableChildren(children, (children) => {
             return (
               <>
                 {children}
@@ -84,8 +85,7 @@ const AccordionTrigger = React.forwardRef<
                     size={18}
                     className={cn(
                       'text-foreground shrink-0',
-                      Platform.select({ web: 'transition-transform duration-200' }),
-                      state?.pressed && 'opacity-50'
+                      Platform.select({ web: 'transition-transform duration-200' })
                     )}
                   />
                 </View>

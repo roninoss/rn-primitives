@@ -106,7 +106,7 @@ export default function Home() {
         <Core />
         <AccordionExample />
         <AlertDialogExample />
-        <AspectRatioExample />
+        {/* <AspectRatioExample />
         <AvatarExample />
         <CheckboxExample />
         <CollapsibleExample />
@@ -127,7 +127,7 @@ export default function Home() {
         <TabsExample />
         <ToggleExample />
         <ToggleGroupExample />
-        <TooltipExample />
+        <TooltipExample /> */}
       </main>
     </div>
   );
@@ -181,10 +181,10 @@ function AlertDialogExample() {
           </Text>
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogTrigger asChild>
-        <button>
-          <Text>Show Alert Dialog</Text>
-        </button>
+      <AlertDialogTrigger>
+        {/* <button> */}
+        <Text>Show Alert Dialog</Text>
+        {/* </button> */}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

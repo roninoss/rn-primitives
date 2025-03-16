@@ -1,3 +1,5 @@
+import { PressableRef } from '@rn-primitives/core';
+import * as React from 'react';
 import { View } from 'react-native';
 import {
   AlertDialog,
@@ -14,12 +16,21 @@ import { Button } from '~/components/ui/button';
 import { Text } from '~/components/ui/text';
 
 export default function AlertDialogScreen() {
+  const ref = React.useRef<PressableRef>(null);
   return (
     <View className='flex-1 justify-center items-center'>
+      <Button
+        className='absolute top-4 right-4'
+        onPress={() => {
+          ref.current?.press();
+        }}
+      >
+        <Text>Press Trigger</Text>
+      </Button>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant='outline'>
-            <Text>Show Alert Dialog</Text>
+          <Button ref={ref} variant='outline'>
+            {(state) => <Text>Show Alert Dialog - state: {state.pressed.toString()}</Text>}
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>

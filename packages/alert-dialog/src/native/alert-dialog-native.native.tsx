@@ -1,7 +1,6 @@
-import { AnimatablePressable, AnimatableText, AnimatableView } from '@rn-primitives/animatable';
-import { useAugmentedRef, useControllableState } from '@rn-primitives/hooks';
+import { Pressable, Text, View } from '@rn-primitives/core/dist/native';
+import { useControllableState } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
-import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { BackHandler, type GestureResponderEvent } from 'react-native';
 import { RootContext, useRootContext } from '../utils/contexts';
@@ -58,17 +57,8 @@ function useRootInternalContext() {
 }
 
 const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+  ({ onPress: onPressProp, disabled, ...props }, ref) => {
     const { open: value, onOpenChange } = useRootContext();
-    const methods = React.useMemo(() => {
-      return {
-        trigger: () => {
-          onOpenChange(!value);
-        },
-      };
-    }, [onOpenChange, value]);
-
-    const triggerRef = useAugmentedRef({ ref, methods });
 
     const onPress = React.useCallback(
       (ev: GestureResponderEvent) => {
@@ -80,14 +70,13 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       [onOpenChange, onPressProp, value]
     );
 
-    const Component = asChild ? Slot : AnimatablePressable;
     return (
-      <Component
-        ref={triggerRef}
-        aria-disabled={!!disabled}
+      <Pressable
+        ref={ref}
+        aria-disabled={!disabled ? undefined : true}
         role='button'
         onPress={onPress}
-        disabled={!!disabled}
+        disabled={!disabled ? undefined : true}
         {...props}
       />
     );
@@ -116,7 +105,7 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
 }
 
 const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, onAccessibilityEscape: onAccessibilityEscapeProp, ...props }, ref) => {
+  ({ forceMount, onAccessibilityEscape: onAccessibilityEscapeProp, ...props }, ref) => {
     const { open: value, onOpenChange } = useRootContext();
 
     const onAccessibilityEscape = React.useCallback(() => {
@@ -132,14 +121,8 @@ const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
       }
     }
 
-    const Component = asChild ? Slot : AnimatableView;
     return (
-      <Component
-        ref={ref}
-        aria-modal={true}
-        onAccessibilityEscape={onAccessibilityEscape}
-        {...props}
-      />
+      <View ref={ref} aria-modal={true} onAccessibilityEscape={onAccessibilityEscape} {...props} />
     );
   }
 );
@@ -147,7 +130,7 @@ const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
 Overlay.displayName = 'AlertDialogOverlayNative';
 
 const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, onAccessibilityEscape: onAccessibilityEscapeProp, ...props }, ref) => {
+  ({ forceMount, onAccessibilityEscape: onAccessibilityEscapeProp, ...props }, ref) => {
     const { open: value, onOpenChange } = useRootContext();
     const { nativeID } = useRootInternalContext();
 
@@ -175,9 +158,8 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       }
     }
 
-    const Component = asChild ? Slot : AnimatableView;
     return (
-      <Component
+      <View
         ref={ref}
         role='alertdialog'
         nativeID={nativeID}
@@ -194,7 +176,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
 Content.displayName = 'AlertDialogContentNative';
 
 const Cancel = React.forwardRef<CancelRef, CancelProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+  ({ onPress: onPressProp, disabled, ...props }, ref) => {
     const { onOpenChange } = useRootContext();
 
     const onPress = React.useCallback(
@@ -207,14 +189,13 @@ const Cancel = React.forwardRef<CancelRef, CancelProps>(
       [onOpenChange, onPressProp]
     );
 
-    const Component = asChild ? Slot : AnimatablePressable;
     return (
-      <Component
+      <Pressable
         ref={ref}
-        aria-disabled={!!disabled}
+        aria-disabled={!disabled ? undefined : true}
         role='button'
         onPress={onPress}
-        disabled={!!disabled}
+        disabled={!disabled ? undefined : true}
         {...props}
       />
     );
@@ -224,7 +205,7 @@ const Cancel = React.forwardRef<CancelRef, CancelProps>(
 Cancel.displayName = 'AlertDialogCloseNative';
 
 const Action = React.forwardRef<ActionRef, ActionProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+  ({ onPress: onPressProp, disabled, ...props }, ref) => {
     const { onOpenChange } = useRootContext();
 
     const onPress = React.useCallback(
@@ -237,14 +218,13 @@ const Action = React.forwardRef<ActionRef, ActionProps>(
       [onOpenChange, onPressProp]
     );
 
-    const Component = asChild ? Slot : AnimatablePressable;
     return (
-      <Component
+      <Pressable
         ref={ref}
-        aria-disabled={!!disabled}
+        aria-disabled={!disabled ? undefined : true}
         role='button'
         onPress={onPress}
-        disabled={!!disabled}
+        disabled={!disabled ? undefined : true}
         {...props}
       />
     );
@@ -253,21 +233,17 @@ const Action = React.forwardRef<ActionRef, ActionProps>(
 
 Action.displayName = 'AlertDialogActionNative';
 
-const Title = React.forwardRef<TitleRef, TitleProps>(({ asChild, ...props }, ref) => {
+const Title = React.forwardRef<TitleRef, TitleProps>((props, ref) => {
   const { nativeID } = useRootInternalContext();
-  const Component = asChild ? Slot : AnimatableText;
-  return <Component ref={ref} role='heading' nativeID={`${nativeID}_title`} {...props} />;
+  return <Text ref={ref} role='heading' nativeID={`${nativeID}_title`} {...props} />;
 });
 
 Title.displayName = 'AlertDialogTitleNative';
 
-const Description = React.forwardRef<DescriptionRef, DescriptionProps>(
-  ({ asChild, ...props }, ref) => {
-    const { nativeID } = useRootInternalContext();
-    const Component = asChild ? Slot : AnimatableText;
-    return <Component ref={ref} nativeID={`${nativeID}_description`} {...props} />;
-  }
-);
+const Description = React.forwardRef<DescriptionRef, DescriptionProps>((props, ref) => {
+  const { nativeID } = useRootInternalContext();
+  return <Text ref={ref} nativeID={`${nativeID}_description`} {...props} />;
+});
 
 Description.displayName = 'AlertDialogDescriptionNative';
 

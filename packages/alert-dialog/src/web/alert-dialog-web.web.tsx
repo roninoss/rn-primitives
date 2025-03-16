@@ -56,23 +56,7 @@ function Root({
 }
 
 const Trigger = React.forwardRef<TriggerRef, TriggerProps>((props, ref) => {
-  const triggerRef = React.useRef<TriggerRef>(null);
-
-  React.useImperativeHandle(
-    ref,
-    () =>
-      triggerRef.current
-        ? {
-            ...triggerRef.current,
-            trigger: () => {
-              triggerRef.current?.click();
-            },
-          }
-        : ({} as TriggerRef),
-    [triggerRef.current]
-  );
-
-  return <AlertDialogTrigger ref={triggerRef} {...props} />;
+  return <AlertDialogTrigger ref={ref} {...props} />;
 });
 
 Trigger.displayName = 'AlertDialogTriggerWeb';
@@ -90,22 +74,7 @@ const Action = React.forwardRef<ActionRef, ActionProps>((props, ref) => {
 Action.displayName = 'AlertDialogActionWeb';
 
 const Cancel = React.forwardRef<CancelRef, CancelProps>((props, ref) => {
-  const triggerRef = React.useRef<TriggerRef>(null);
-  React.useImperativeHandle(
-    ref,
-    () =>
-      triggerRef.current
-        ? {
-            ...triggerRef.current,
-            cancel: () => {
-              triggerRef.current?.click();
-            },
-          }
-        : ({} as CancelRef),
-    []
-  );
-
-  return <AlertDialogCancel ref={triggerRef} {...props} />;
+  return <AlertDialogCancel ref={ref} {...props} />;
 });
 
 Cancel.displayName = 'AlertDialogCancelWeb';

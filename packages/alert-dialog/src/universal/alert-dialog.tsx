@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
   Action as ActionNative,
+  ActionRef as ActionNativeRef,
   Cancel as CancelNative,
   type CancelRef as CancelNativeRef,
   Content as ContentNative,
@@ -15,6 +16,7 @@ import {
 } from '../native';
 import type {
   ActionProps,
+  ActionRef,
   CancelProps,
   CancelRef,
   ContentProps,
@@ -30,11 +32,9 @@ import type {
 function Root(props: RootProps) {
   return <RootNative {...props} />;
 }
-
-function Content({ web: _web, native, ...props }: ContentProps) {
-  return <ContentNative {...props} {...native} />;
-}
-
+const Content = React.forwardRef<any, ContentProps>(({ web: _web, native, ...props }, ref) => {
+  return <ContentNative ref={ref} {...props} {...native} />;
+});
 function Description({ web: _web, native, ...props }: DescriptionProps) {
   return <DescriptionNative {...props} {...native} />;
 }
@@ -61,9 +61,11 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
 
 Trigger.displayName = 'AlertDialogTriggerUniversal';
 
-function Action({ web: _web, native, ...props }: ActionProps) {
-  return <ActionNative {...props} {...native} />;
-}
+const Action = React.forwardRef<ActionRef, ActionProps>(({ web: _web, native, ...props }, ref) => {
+  return <ActionNative ref={ref as React.ForwardedRef<ActionNativeRef>} {...props} {...native} />;
+});
+
+Action.displayName = 'AlertDialogActionUniversal';
 
 const Cancel = React.forwardRef<CancelRef, CancelProps>(({ web: _web, native, ...props }, ref) => {
   return <CancelNative ref={ref as React.ForwardedRef<CancelNativeRef>} {...props} {...native} />;

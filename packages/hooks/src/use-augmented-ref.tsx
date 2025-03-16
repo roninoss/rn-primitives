@@ -12,10 +12,10 @@ export function useAugmentedRef<T>({ ref, methods, deps = [] }: AugmentRefProps<
   React.useImperativeHandle(
     ref,
     () => {
-      return {
-        ...augmentedRef.current,
+      if (!augmentedRef.current) return null as unknown as T;
+      return Object.assign(augmentedRef.current, {
         ...methods,
-      } as T;
+      });
     },
     [augmentedRef.current, methods]
   );

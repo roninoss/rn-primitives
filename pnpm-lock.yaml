@@ -546,9 +546,6 @@ importers:
       '@rn-primitives/alert-dialog':
         specifier: workspace:*
         version: link:../../packages/alert-dialog
-      '@rn-primitives/alert-dialog-new':
-        specifier: workspace:*
-        version: link:../../packages/alert-dialog-new
       '@rn-primitives/aspect-ratio':
         specifier: workspace:*
         version: link:../../packages/aspect-ratio
@@ -802,48 +799,14 @@ importers:
   packages/alert-dialog:
     dependencies:
       '@radix-ui/react-alert-dialog':
-        specifier: ^1.1.1
-        version: 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rn-primitives/hooks':
-        specifier: workspace:*
-        version: link:../hooks
-      '@rn-primitives/slot':
-        specifier: workspace:*
-        version: link:../slot
-      '@rn-primitives/types':
-        specifier: workspace:*
-        version: link:../types
-      react-native-web:
-        specifier: '*'
-        version: 0.19.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-    devDependencies:
-      '@rn-primitives/portal':
-        specifier: workspace:*
-        version: link:../portal
-      '@tsconfig/react-native':
-        specifier: ^1.0.1
-        version: 1.0.5
-      '@types/react':
-        specifier: ~18.3.12
-        version: 18.3.12
-      react:
-        specifier: 18.3.1
-        version: 18.3.1
-      react-native:
-        specifier: 0.76.3
-        version: 0.76.3(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(react@18.3.1)
-      tsup:
-        specifier: ^8.1.0
-        version: 8.3.5(jiti@1.21.6)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1)
-
-  packages/alert-dialog-new:
-    dependencies:
-      '@radix-ui/react-alert-dialog':
         specifier: ^1.1.6
         version: 1.1.6(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rn-primitives/animatable':
         specifier: workspace:*
         version: link:../animatable
+      '@rn-primitives/core':
+        specifier: workspace:*
+        version: link:../core
       '@rn-primitives/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -3435,19 +3398,6 @@ packages:
 
   '@radix-ui/react-accordion@1.2.3':
     resolution: {integrity: sha512-RIQ15mrcvqIkDARJeERSuXSry2N8uYnxkdDetpfmalT/+0ntOXLkFOsh9iwlAsCv+qcmhZjbdJogIm6WBa6c4A==}
-    peerDependencies:
-      '@types/react': '*'
-      '@types/react-dom': '*'
-      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
-      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      '@types/react-dom':
-        optional: true
-
-  '@radix-ui/react-alert-dialog@1.1.2':
-    resolution: {integrity: sha512-eGSlLzPhKO+TErxkiGcCZGuvbVMnLA1MTnyBksGOeGRGkxHiiJUujsjmNTdWTm4iHVSRaUao9/4Ur671auMghQ==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -11081,20 +11031,6 @@ snapshots:
       '@radix-ui/react-id': 1.1.0(@types/react@18.3.12)(react@18.3.1)
       '@radix-ui/react-primitive': 2.0.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-use-controllable-state': 1.1.0(@types/react@18.3.12)(react@18.3.1)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    optionalDependencies:
-      '@types/react': 18.3.12
-      '@types/react-dom': 18.3.1
-
-  '@radix-ui/react-alert-dialog@1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@radix-ui/primitive': 1.1.0
-      '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.12)(react@18.3.1)
-      '@radix-ui/react-context': 1.1.1(@types/react@18.3.12)(react@18.3.1)
-      '@radix-ui/react-dialog': 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-slot': 1.1.0(@types/react@18.3.12)(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     optionalDependencies:
