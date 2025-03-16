@@ -23,19 +23,17 @@ function Image({ web, native: _native, style, ...props }: ImageProps) {
   return <ImageWeb {...props} {...web} />;
 }
 
-function PressableImpl<T extends ElementTag>(
-  {
-    native: _native,
-    web: webProps,
-    children: childrenProp,
-    onPress: onPressProp,
-    onPressIn: onPressInProp,
-    onPressOut: onPressOutProp,
-    style: styleProp,
-    ...props
-  }: PressableProps<T>,
-  ref: React.Ref<PressableRef>
-) {
+function Pressable<T extends ElementTag>({
+  native: _native,
+  web: webProps,
+  children: childrenProp,
+  onPress: onPressProp,
+  onPressIn: onPressInProp,
+  onPressOut: onPressOutProp,
+  style: styleProp,
+  ref,
+  ...props
+}: PressableProps<T>) {
   const augmentedRef = React.useRef<HTMLElementTagNameMap[T]>(null);
   React.useImperativeHandle(
     ref,
@@ -71,10 +69,6 @@ function PressableImpl<T extends ElementTag>(
     />
   );
 }
-
-const Pressable = React.forwardRef(PressableImpl) as <T extends ElementTag>(
-  props: PressableProps<T> & { ref?: React.Ref<PressableRef> }
-) => JSX.Element;
 
 function TextWithStyle<T extends ElementTag>({
   web,

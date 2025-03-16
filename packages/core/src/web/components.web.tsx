@@ -3,44 +3,34 @@
 import { Slot } from '@rn-primitives/slot';
 import type { Slottable } from '@rn-primitives/types';
 import * as React from 'react';
-import type { DivProps, Element, ElementTag } from './types';
+import type { DivProps, ElementTag } from './types';
 
 function createDivElement(type: 'pressable' | 'view') {
-  function DivImpl<T extends ElementTag = 'div'>(
-    { asChild, as, ...props }: DivProps<T>,
-    ref?: React.Ref<Element<T>>
-  ) {
+  function DivImpl<T extends ElementTag = 'div'>({ asChild, as, ...props }: DivProps<T>) {
     if (asChild) {
-      return <Slot ref={ref} {...props} />;
+      return <Slot {...props} />;
     }
 
     return React.createElement(as ?? 'div', {
-      ref,
       'data-rn-primitives': type,
       ...props,
     });
   }
 
-  return React.forwardRef(DivImpl) as <T extends ElementTag = 'div'>(
-    props: DivProps<T> & { ref?: React.Ref<Element<T>> }
-  ) => JSX.Element;
+  return DivImpl;
 }
 
 const HasAncestorContext = React.createContext(false);
 
 function createTextElement() {
-  function DivImpl<T extends ElementTag = 'div'>(
-    { asChild, as, ...props }: DivProps<T>,
-    ref?: React.Ref<Element<T>>
-  ) {
+  function DivImpl<T extends ElementTag = 'div'>({ asChild, as, ...props }: DivProps<T>) {
     const hasAncestor = React.useContext(HasAncestorContext);
 
     if (asChild) {
-      return <Slot ref={ref} {...props} />;
+      return <Slot {...props} />;
     }
 
     const element = React.createElement(!as ? (hasAncestor ? 'span' : 'div') : as, {
-      ref,
       'data-rn-primitives': 'text',
       ...props,
     });
@@ -52,9 +42,7 @@ function createTextElement() {
     return <HasAncestorContext.Provider value={true}>{element}</HasAncestorContext.Provider>;
   }
 
-  return React.forwardRef(DivImpl) as <T extends ElementTag = 'div'>(
-    props: DivProps<T> & { ref?: React.Ref<Element<T>> }
-  ) => JSX.Element;
+  return DivImpl;
 }
 
 const Pressable = createDivElement('pressable');
@@ -63,14 +51,12 @@ const View = createDivElement('view');
 
 const Text = createTextElement();
 
-const Image = React.forwardRef<HTMLImageElement, Slottable<React.ComponentPropsWithoutRef<'img'>>>(
-  ({ asChild, ...props }, ref) => {
-    if (asChild) {
-      return <Slot ref={ref} {...props} />;
-    }
-    return <img data-rn-primitives='image' ref={ref} {...props} />;
+function Image({ asChild, ...props }: Slottable<React.ComponentProps<'img'>>) {
+  if (asChild) {
+    return <Slot {...props} />;
   }
-);
+  return <img data-rn-primitives='image' {...props} />;
+}
 
 Image.displayName = 'ImageWeb';
 

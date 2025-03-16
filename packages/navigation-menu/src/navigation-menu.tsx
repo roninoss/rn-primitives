@@ -123,6 +123,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
     // TODO: double check that the ref passed to this component has all the correct methods
     React.useImperativeHandle(
       ref,
+      // @ts-expect-error
       () => {
         if (!triggerRef.current) {
           return new View({});
@@ -282,7 +283,7 @@ const Link = React.forwardRef<LinkRef, LinkProps>(({ asChild, ...props }, ref) =
 Link.displayName = 'LinkNativeNavigationMenu';
 
 const Viewport = React.forwardRef<ViewportRef, ViewportProps>((props, ref) => {
-  return <View ref={ref} {...props} />;
+  return <View ref={ref as any} {...props} />;
 });
 
 Viewport.displayName = 'ViewportNativeNavigationMenu';

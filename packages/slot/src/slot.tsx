@@ -17,11 +17,8 @@ import {
 
 // TODO: test the slot component
 // TODO: if all works, remove other slots
-function SlotImplementation<T extends React.ElementType>(
-  props: React.ComponentPropsWithoutRef<T>,
-  forwardedRef: React.Ref<React.ElementRef<T>>
-) {
-  const { children, ...restOfProps } = props;
+function Slot<T extends React.ElementType>(props: React.ComponentProps<T>) {
+  const { children, ref: forwardedRef, ...restOfProps } = props;
 
   if (!React.isValidElement(children)) {
     console.log('Slot - Invalid asChild element', children);
@@ -38,7 +35,7 @@ function SlotImplementation<T extends React.ElementType>(
       <>
         {React.Children.toArray((children.props as any).children).map((child): any =>
           React.isValidElement(child)
-            ? SlotImplementation({ ...restOfProps, children: child } as any, forwardedRef)
+            ? Slot({ ...restOfProps, ref: forwardedRef, children: child } as any)
             : child
         )}
       </>
@@ -57,14 +54,10 @@ function SlotImplementation<T extends React.ElementType>(
   } as unknown as Partial<React.ComponentProps<T>>);
 }
 
-const Slot = React.forwardRef(SlotImplementation) as <T extends React.ElementType>(
-  props: React.ComponentPropsWithoutRef<T> & { ref?: React.Ref<React.ElementRef<T>> }
-) => React.ReactElement | null;
-
-(Slot as React.NamedExoticComponent<any>).displayName = 'Slot';
+Slot.displayName = 'Slot';
 
 /**
- * Deprecated: Use Slot instead
+ * @deprecated: Use Slot instead
  */
 const Pressable = React.forwardRef<React.ElementRef<typeof RNPressable>, RNPressableProps>(
   (props, forwardedRef) => {
@@ -79,7 +72,7 @@ const Pressable = React.forwardRef<React.ElementRef<typeof RNPressable>, RNPress
       React.ComponentPropsWithoutRef<typeof RNPressable>,
       React.Component<Omit<PressableProps & React.RefAttributes<RNView>, 'ref'>, any, any>
     >(isTextChildren(children) ? <></> : children, {
-      ...mergeProps(pressableSlotProps, children.props),
+      ...mergeProps(pressableSlotProps, children.props as any),
       ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
     });
   }
@@ -88,7 +81,7 @@ const Pressable = React.forwardRef<React.ElementRef<typeof RNPressable>, RNPress
 Pressable.displayName = 'SlotPressable';
 
 /**
- * Deprecated: Use Slot instead
+ * @deprecated: Use Slot instead
  */
 const View = React.forwardRef<React.ElementRef<typeof RNView>, RNViewProps>(
   (props, forwardedRef) => {
@@ -103,7 +96,7 @@ const View = React.forwardRef<React.ElementRef<typeof RNView>, RNViewProps>(
       React.ComponentPropsWithoutRef<typeof RNView>,
       React.ElementRef<typeof RNView>
     >(isTextChildren(children) ? <></> : children, {
-      ...mergeProps(viewSlotProps, children.props),
+      ...mergeProps(viewSlotProps, children.props as any),
       ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
     });
   }
@@ -112,7 +105,7 @@ const View = React.forwardRef<React.ElementRef<typeof RNView>, RNViewProps>(
 View.displayName = 'SlotView';
 
 /**
- * Deprecated: Use Slot instead
+ * @deprecated: Use Slot instead
  */
 const Text = React.forwardRef<React.ElementRef<typeof RNText>, RNTextProps>(
   (props, forwardedRef) => {
@@ -127,7 +120,7 @@ const Text = React.forwardRef<React.ElementRef<typeof RNText>, RNTextProps>(
       React.ComponentPropsWithoutRef<typeof RNText>,
       React.ElementRef<typeof RNText>
     >(isTextChildren(children) ? <></> : children, {
-      ...mergeProps(textSlotProps, children.props),
+      ...mergeProps(textSlotProps, children.props as any),
       ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
     });
   }
@@ -140,7 +133,7 @@ type ImageSlotProps = RNImageProps & {
 };
 
 /**
- * Deprecated: Use Slot instead
+ * @deprecated: Use Slot instead
  */
 const Image = React.forwardRef<React.ElementRef<typeof RNImage>, ImageSlotProps>(
   (props, forwardedRef) => {
@@ -155,7 +148,7 @@ const Image = React.forwardRef<React.ElementRef<typeof RNImage>, ImageSlotProps>
       React.ComponentPropsWithoutRef<typeof RNImage>,
       React.ElementRef<typeof RNImage>
     >(isTextChildren(children) ? <></> : children, {
-      ...mergeProps(imageSlotProps, children.props),
+      ...mergeProps(imageSlotProps, children.props as any),
       ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
     });
   }
@@ -175,7 +168,7 @@ function composeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
       if (typeof ref === 'function') {
         ref(node);
       } else if (ref != null) {
-        (ref as React.MutableRefObject<T>).current = node;
+        (ref as React.RefObject<T>).current = node;
       }
     });
 }

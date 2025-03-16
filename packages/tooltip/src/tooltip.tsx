@@ -85,49 +85,47 @@ function useTooltipContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
-    const { open, onOpenChange, setTriggerPosition } = useTooltipContext();
+function Trigger({ asChild, onPress: onPressProp, disabled = false, ref, ...props }: TriggerProps) {
+  const { open, onOpenChange, setTriggerPosition } = useTooltipContext();
 
-    const augmentedRef = useAugmentedRef({
-      ref,
-      methods: {
-        open: () => {
-          onOpenChange(true);
-          augmentedRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
-            setTriggerPosition({ width, pageX, pageY: pageY, height });
-          });
-        },
-        close: () => {
-          setTriggerPosition(null);
-          onOpenChange(false);
-        },
+  const augmentedRef = useAugmentedRef({
+    ref,
+    methods: {
+      open: () => {
+        onOpenChange(true);
+        augmentedRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+          setTriggerPosition({ width, pageX, pageY: pageY, height });
+        });
       },
+      close: () => {
+        setTriggerPosition(null);
+        onOpenChange(false);
+      },
+    },
+  });
+
+  function onPress(ev: GestureResponderEvent) {
+    if (disabled) return;
+    augmentedRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+      setTriggerPosition({ width, pageX, pageY: pageY, height });
     });
-
-    function onPress(ev: GestureResponderEvent) {
-      if (disabled) return;
-      augmentedRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
-        setTriggerPosition({ width, pageX, pageY: pageY, height });
-      });
-      const newValue = !open;
-      onOpenChange(newValue);
-      onPressProp?.(ev);
-    }
-
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <Component
-        ref={augmentedRef}
-        aria-disabled={disabled ?? undefined}
-        role='button'
-        onPress={onPress}
-        disabled={disabled ?? undefined}
-        {...props}
-      />
-    );
+    const newValue = !open;
+    onOpenChange(newValue);
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <Component
+      ref={augmentedRef}
+      aria-disabled={disabled ?? undefined}
+      role='button'
+      onPress={onPress}
+      disabled={disabled ?? undefined}
+      {...props}
+    />
+  );
+}
 
 Trigger.displayName = 'TriggerNativeTooltip';
 

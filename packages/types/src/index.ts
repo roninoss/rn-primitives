@@ -2,7 +2,6 @@ import type {
   Image,
   ImageProps,
   ImageStyle,
-  Pressable,
   PressableProps,
   StyleProp,
   Text,
@@ -58,10 +57,10 @@ type BaseSlottableImageProps = Slottable<{
   className?: string;
 }>;
 
-type ViewRef = React.ElementRef<typeof View>;
-type PressableRef = React.ElementRef<typeof Pressable>;
-type TextRef = React.ElementRef<typeof Text>;
-type ImageRef = React.ElementRef<typeof Image>;
+type ViewRef = React.RefObject<View>;
+type PressableRef = React.RefObject<View>;
+type TextRef = React.RefObject<Text>;
+type ImageRef = React.RefObject<Image>;
 
 type BasicPressEvents = {
   onPress?: () => void;

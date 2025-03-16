@@ -26,9 +26,6 @@
         "expo-modules-*",
         "typescript"
       ]
-    },
-    "patchedDependencies": {
-      "@react-native/assets-registry@0.76.3": "patches/@react-native__assets-registry@0.76.3.patch"
     }
   },
   "prettier": {

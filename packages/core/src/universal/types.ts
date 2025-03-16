@@ -54,6 +54,7 @@ type PressablePropsUniversal = Prettify<
     onPressIn?: () => void;
     onPressOut?: () => void;
   } & {
+    ref?: React.RefObject<PressableRef>;
     className?: string;
     role?: RNRole;
     asChild?: boolean | undefined;

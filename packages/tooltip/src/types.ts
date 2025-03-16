@@ -50,7 +50,7 @@ type ContentProps = SlottableViewProps &
     side?: 'top' | 'right' | 'bottom' | 'left';
   };
 
-type TriggerProps = SlottablePressableProps;
+type TriggerProps = SlottablePressableProps & { ref?: TriggerRef };
 
 type RootRef = ViewRef;
 type ContentRef = ViewRef;

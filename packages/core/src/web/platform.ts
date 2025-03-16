@@ -13,8 +13,13 @@ const PlatformImpl: Platform = {
       patch: 0,
     },
   },
-  select(specifics: Record<'ios' | 'android' | 'macos' | 'windows' | 'web' | 'native', unknown>) {
-    return specifics.web;
+  select(
+    specifics: Record<
+      'ios' | 'android' | 'macos' | 'windows' | 'web' | 'native' | 'default',
+      unknown
+    >
+  ) {
+    return specifics.web ?? specifics.default;
   },
 };
 

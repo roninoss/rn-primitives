@@ -1,1 +1,4 @@
-export * from './slot';
+export { Slot } from './slot';
+
+// Deprecated
+export { Image, Pressable, Text, View } from './slot';

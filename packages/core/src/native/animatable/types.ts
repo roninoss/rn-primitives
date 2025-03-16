@@ -1,6 +1,7 @@
 import type {
   AndroidOnlyViewPropKeys,
   AndroidOnlyViewStyleKeys,
+  ImageRef,
   IosOnlyViewPropKeys,
   IosOnlyViewStyleKeys,
   PressableRef,
@@ -11,6 +12,8 @@ import type {
   RemoveIosOnlyTextProps,
   RemoveIosOnlyViewProps,
   Slottable,
+  TextRef,
+  ViewRef,
 } from '@rn-primitives/types';
 import type {
   ImageProps,
@@ -21,11 +24,15 @@ import type {
   View,
   ViewProps,
   ViewStyle,
+  Image,
 } from 'react-native';
 import type Animated from 'react-native-reanimated';
+import type { AnimatedProps, SharedValue } from 'react-native-reanimated';
 
-type AnimatedImageProps = Slottable<React.ComponentPropsWithoutRef<typeof Animated.Image>>;
-type RNImageProps = Slottable<ImageProps>;
+type AnimatedImageProps = Slottable<React.ComponentProps<typeof Animated.Image>> & {
+  ref?: React.RefObject<Animated.Image>;
+};
+type RNImageProps = Slottable<ImageProps> & { ref?: React.RefObject<Image> };
 
 type AnimatableImageProps =
   | (RNImageProps & { isAnimated?: false | undefined })
@@ -33,26 +40,32 @@ type AnimatableImageProps =
 
 type AnimatableImageIosProps =
   | (RemoveAndroidOnlyImageProps<RNImageProps> & { isAnimated?: false | undefined })
-  | (RemoveAndroidOnlyImageProps<AnimatedImageProps> & { isAnimated: true });
+  | (RemoveAndroidOnlyImageProps<AnimatedImageProps> & {
+      isAnimated: true;
+    });
 
 type AnimatableImageAndroidProps =
   | (RemoveIosOnlyImageProps<RNImageProps> & { isAnimated?: false | undefined })
-  | (RemoveIosOnlyImageProps<AnimatedImageProps> & { isAnimated: true });
+  | (RemoveIosOnlyImageProps<AnimatedImageProps> & {
+      isAnimated: true;
+    });
+
+type AnimatablePressableRef = PressableRef & { press: () => void };
 
 type AnimatedPressableProps = Slottable<
-  React.ComponentPropsWithoutRef<
-    React.FunctionComponent<Animated.AnimateProps<PressableProps & React.RefAttributes<View>>>
+  React.ComponentProps<
+    React.FunctionComponent<AnimatedProps<PressableProps & React.RefAttributes<View>>>
   > & {
     key?: React.Key | null | undefined;
+    ref?: AnimatablePressableRef;
   }
 >;
 
-type RNPressableProps = Slottable<PressableProps>;
+type RNPressableProps = Slottable<PressableProps & { ref?: AnimatablePressableRef }>;
 
 type AnimatablePressableProps =
   | (AnimatedPressableProps & { isAnimated: true })
   | (RNPressableProps & { isAnimated?: false | undefined });
-type AnimatablePressableRef = PressableRef & { press: () => void };
 type AnimatedPressableStyle = AnimatedPressableProps['style'];
 type AnimatedPressableCbStyle = Exclude<AnimatedPressableStyle, StyleProp<ViewStyle>>;
 
@@ -92,11 +105,12 @@ type AnimatablePressableAndroidProps =
   | (RNPressableAndroidProps & { isAnimated?: false | undefined });
 
 type AnimatedTextProps = Slottable<
-  Omit<React.ComponentPropsWithoutRef<typeof Animated.Text>, 'children'> & {
-    children?: React.ReactNode | Animated.SharedValue<React.ReactNode>;
-  }
+  Omit<React.ComponentProps<typeof Animated.Text>, 'children'> & {
+    children?: React.ReactNode | SharedValue<React.ReactNode>;
+  } & { ref?: React.RefObject<Animated.Text> }
 >;
-type RNTextProps = Slottable<TextProps>;
+
+type RNTextProps = Slottable<TextProps & { ref?: TextRef }>;
 
 type AnimatableTextProps =
   | (RNTextProps & { isAnimated?: false | undefined })
@@ -110,8 +124,10 @@ type AnimatableTextAndroidProps =
   | (RemoveIosOnlyTextProps<RNTextProps> & { isAnimated?: false | undefined })
   | (RemoveIosOnlyTextProps<AnimatedTextProps> & { isAnimated: true });
 
-type AnimatedViewProps = Slottable<React.ComponentPropsWithoutRef<typeof Animated.View>>;
-type RNViewProps = Slottable<ViewProps>;
+type AnimatedViewProps = Slottable<React.ComponentProps<typeof Animated.View>> & {
+  ref?: React.RefObject<Animated.View>;
+};
+type RNViewProps = Slottable<ViewProps & { ref?: ViewRef }>;
 
 type AnimatableViewProps =
   | (RNViewProps & { isAnimated?: false | undefined })
