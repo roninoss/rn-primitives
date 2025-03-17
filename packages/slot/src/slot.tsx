@@ -30,26 +30,28 @@ function Slot<T extends React.ElementType>(props: React.ComponentProps<T>) {
     return null;
   }
 
+  const childrenProps = (children.props as Record<string, any>) ?? {};
+
   if (children.type === React.Fragment) {
     return (
       <>
-        {React.Children.toArray((children.props as any).children).map((child): any =>
+        {React.Children.toArray(childrenProps.children).map((child): any =>
           React.isValidElement(child)
-            ? Slot({ ...restOfProps, ref: forwardedRef, children: child } as any)
+            ? Slot({ ...restOfProps, ref: forwardedRef, children: child })
             : child
         )}
       </>
     );
   }
 
+  const { ref: childRef, ...childProps } = childrenProps;
+
   return React.cloneElement(children, {
-    ...mergeProps(restOfProps, children.props as any),
+    ...mergeProps(restOfProps, childProps),
     ...(children.type === 'function'
       ? {}
       : {
-          ref: forwardedRef
-            ? composeRefs(forwardedRef, (children as any).ref)
-            : (children as any).ref,
+          ref: forwardedRef ? composeRefs(forwardedRef, childRef) : childRef,
         }),
   } as unknown as Partial<React.ComponentProps<T>>);
 }
@@ -59,14 +61,12 @@ Slot.displayName = 'Slot';
 /**
  * @deprecated: Use Slot instead
  */
-const Pressable = (
-  {
-    ref: forwardedRef,
-    ...props
-  }: RNPressableProps & {
-    ref: React.RefObject<React.ElementRef<typeof RNPressable>>;
-  }
-) => {
+const Pressable = ({
+  ref: forwardedRef,
+  ...props
+}: RNPressableProps & {
+  ref: React.RefObject<React.ElementRef<typeof RNPressable>>;
+}) => {
   const { children, ...pressableSlotProps } = props;
 
   if (!React.isValidElement(children)) {
@@ -88,14 +88,12 @@ Pressable.displayName = 'SlotPressable';
 /**
  * @deprecated: Use Slot instead
  */
-const View = (
-  {
-    ref: forwardedRef,
-    ...props
-  }: RNViewProps & {
-    ref: React.RefObject<React.ElementRef<typeof RNView>>;
-  }
-) => {
+const View = ({
+  ref: forwardedRef,
+  ...props
+}: RNViewProps & {
+  ref: React.RefObject<React.ElementRef<typeof RNView>>;
+}) => {
   const { children, ...viewSlotProps } = props;
 
   if (!React.isValidElement(children)) {
@@ -117,14 +115,12 @@ View.displayName = 'SlotView';
 /**
  * @deprecated: Use Slot instead
  */
-const Text = (
-  {
-    ref: forwardedRef,
-    ...props
-  }: RNTextProps & {
-    ref: React.RefObject<React.ElementRef<typeof RNText>>;
-  }
-) => {
+const Text = ({
+  ref: forwardedRef,
+  ...props
+}: RNTextProps & {
+  ref: React.RefObject<React.ElementRef<typeof RNText>>;
+}) => {
   const { children, ...textSlotProps } = props;
 
   if (!React.isValidElement(children)) {
@@ -150,14 +146,12 @@ type ImageSlotProps = RNImageProps & {
 /**
  * @deprecated: Use Slot instead
  */
-const Image = (
-  {
-    ref: forwardedRef,
-    ...props
-  }: ImageSlotProps & {
-    ref: React.RefObject<React.ElementRef<typeof RNImage>>;
-  }
-) => {
+const Image = ({
+  ref: forwardedRef,
+  ...props
+}: ImageSlotProps & {
+  ref: React.RefObject<React.ElementRef<typeof RNImage>>;
+}) => {
   const { children, ...imageSlotProps } = props;
 
   if (!React.isValidElement(children)) {

@@ -1,6 +1,5 @@
 import type {
   PressablePropsUniversal,
-  PressableRefUniversal,
   TextPropsUniversal,
   ViewPropsUniversal,
 } from '@rn-primitives/core';

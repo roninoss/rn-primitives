@@ -1,28 +1,18 @@
-import { Pressable } from '@rn-primitives/core';
+import { Pressable, View } from '@rn-primitives/core';
 import * as React from 'react';
-import { View } from 'react-native';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  AccordionTriggerRef,
 } from '~/components/ui/accordion';
 import { Button } from '~/components/ui/button';
 import { Text } from '~/components/ui/text';
 
 export default function AccordionScreen() {
-  const ref = React.useRef<AccordionTriggerRef>(null);
+  const ref = React.useRef<React.ComponentRef<typeof AccordionTrigger>>(null);
   return (
-    <View className='flex-1 justify-center items-center p-6'>
-      <Button
-        className='absolute top-4 right-4'
-        onPress={() => {
-          ref.current?.press();
-        }}
-      >
-        <Text>Trigger Item 1</Text>
-      </Button>
+    <View className='flex-1 justify-between items-center px-6 pb-safe'>
       <Accordion
         type='multiple'
         collapsible
@@ -59,6 +49,13 @@ export default function AccordionScreen() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+      <Button
+        onPress={() => {
+          ref.current?.press();
+        }}
+      >
+        <Text>Trigger Item 1</Text>
+      </Button>
     </View>
   );
 }

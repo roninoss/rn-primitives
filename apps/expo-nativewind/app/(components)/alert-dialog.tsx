@@ -1,4 +1,3 @@
-import { PressableRef } from '@rn-primitives/core';
 import * as React from 'react';
 import { View } from 'react-native';
 import {
@@ -16,7 +15,7 @@ import { Button } from '~/components/ui/button';
 import { Text } from '~/components/ui/text';
 
 export default function AlertDialogScreen() {
-  const ref = React.useRef<PressableRef>(null);
+  const ref = React.useRef<React.ComponentRef<typeof Button>>(null);
   return (
     <View className='flex-1 justify-center items-center'>
       <Button

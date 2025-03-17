@@ -26,6 +26,9 @@
         "expo-modules-*",
         "typescript"
       ]
+    },
+    "overrides": {
+      "react": "19.0.0"
     }
   },
   "prettier": {

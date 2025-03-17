@@ -12,25 +12,23 @@ import { TextClassContext } from '~/components/ui/text';
 import { ChevronDown } from '~/lib/icons/ChevronDown';
 import { cn } from '~/lib/utils';
 
-type AccordionTriggerRef = AccordionPrimitive.TriggerRef;
+const WEB_AS_CHILD_PROPS = { asChild: true };
 
-const WEB_AS_CHILD = { asChild: true };
-
-const NATIVE_ROOT = {
+const NATIVE_ROOT_PROPS = {
   isAnimated: true,
   layout: LinearTransition,
 };
 
-const INNER_NATIVE = {
+const INNER_NATIVE_PROPS = {
   isAnimated: true,
-  layout: Platform.select({ native: LinearTransition.duration(200) }),
+  layout: LinearTransition.duration(200),
 };
 
 function Accordion({ children, ...props }: AccordionPrimitive.RootProps) {
   return (
     <LayoutAnimationConfig skipEntering>
-      <AccordionPrimitive.Root native={NATIVE_ROOT} {...props}>
-        <View web={WEB_AS_CHILD} native={INNER_NATIVE}>
+      <AccordionPrimitive.Root native={NATIVE_ROOT_PROPS} {...props}>
+        <View web={WEB_AS_CHILD_PROPS} native={INNER_NATIVE_PROPS}>
           <>{children}</>
         </View>
       </AccordionPrimitive.Root>
@@ -49,21 +47,13 @@ function AccordionItem({ className, value, ...props }: AccordionPrimitive.ItemPr
   );
 }
 
-const AccordionTrigger = ({
-  ref,
-  className,
-  children,
-  ...props
-}: AccordionPrimitive.TriggerProps & {
-  ref?: React.RefObject<AccordionPrimitive.TriggerRef>;
-}) => {
+const AccordionTrigger = ({ className, children, ...props }: AccordionPrimitive.TriggerProps) => {
   const { isExpanded } = AccordionPrimitive.useItemContext();
 
   return (
     <TextClassContext.Provider value='native:text-lg font-medium'>
       <AccordionPrimitive.Header className='flex'>
         <AccordionPrimitive.Trigger
-          ref={ref}
           className={cn(
             'flex flex-row items-center justify-between py-4',
             Platform.select({
@@ -83,7 +73,7 @@ const AccordionTrigger = ({
                     isAnimated: true,
                     style: { transform: [{ rotate: isExpanded ? '180deg' : '0deg' }] },
                   }}
-                  web={WEB_AS_CHILD}
+                  web={WEB_AS_CHILD_PROPS}
                 >
                   <ChevronDown
                     size={18}
@@ -126,5 +116,3 @@ function AccordionContent({ className, children, ...props }: AccordionPrimitive.
 }
 
 export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };
-
-export type { AccordionTriggerRef };
