@@ -20,7 +20,14 @@ interface IRootContext extends RootProps {
 
 const RootContext = React.createContext<IRootContext | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(({ asChild, alt, ...viewProps }, ref) => {
+const Root = ({
+  ref,
+  asChild,
+  alt,
+  ...viewProps
+}: RootProps & {
+  ref?: React.RefObject<RootRef>;
+}) => {
   const [status, setStatus] = React.useState<AvatarState>('error');
   const Component = asChild ? Slot : View;
   return (
@@ -28,7 +35,7 @@ const Root = React.forwardRef<RootRef, RootProps>(({ asChild, alt, ...viewProps 
       <Component ref={ref} {...viewProps} />
     </RootContext.Provider>
   );
-});
+};
 
 Root.displayName = 'RootAvatar';
 
@@ -40,53 +47,63 @@ function useRootContext() {
   return context;
 }
 
-const Image = React.forwardRef<ImageRef, ImageProps>(
-  (
-    { asChild, onLoad: onLoadProps, onError: onErrorProps, onLoadingStatusChange, ...props },
-    ref
-  ) => {
-    const { alt, setStatus, status } = useRootContext();
+const Image = ({
+  ref,
+  asChild,
+  onLoad: onLoadProps,
+  onError: onErrorProps,
+  onLoadingStatusChange,
+  ...props
+}: ImageProps & {
+  ref?: React.RefObject<ImageRef>;
+}) => {
+  const { alt, setStatus, status } = useRootContext();
 
-    useIsomorphicLayoutEffect(() => {
-      if (isValidSource(props?.source)) {
-        setStatus('loading');
-      }
-
-      return () => {
-        setStatus('error');
-      };
-    }, [props?.source]);
-
-    const onLoad = React.useCallback(
-      (e: NativeSyntheticEvent<ImageLoadEventData>) => {
-        setStatus('loaded');
-        onLoadingStatusChange?.('loaded');
-        onLoadProps?.(e);
-      },
-      [onLoadProps]
-    );
-
-    const onError = React.useCallback(
-      (e: NativeSyntheticEvent<ImageErrorEventData>) => {
-        setStatus('error');
-        onLoadingStatusChange?.('error');
-        onErrorProps?.(e);
-      },
-      [onErrorProps]
-    );
-
-    if (status === 'error') {
-      return null;
+  useIsomorphicLayoutEffect(() => {
+    if (isValidSource(props?.source)) {
+      setStatus('loading');
     }
 
-    const Component = asChild ? Slot : RNImage;
-    return <Component ref={ref} alt={alt} onLoad={onLoad} onError={onError} {...props} />;
+    return () => {
+      setStatus('error');
+    };
+  }, [props?.source]);
+
+  const onLoad = React.useCallback(
+    (e: NativeSyntheticEvent<ImageLoadEventData>) => {
+      setStatus('loaded');
+      onLoadingStatusChange?.('loaded');
+      onLoadProps?.(e);
+    },
+    [onLoadProps]
+  );
+
+  const onError = React.useCallback(
+    (e: NativeSyntheticEvent<ImageErrorEventData>) => {
+      setStatus('error');
+      onLoadingStatusChange?.('error');
+      onErrorProps?.(e);
+    },
+    [onErrorProps]
+  );
+
+  if (status === 'error') {
+    return null;
   }
-);
+
+  const Component = asChild ? Slot : RNImage;
+  return <Component ref={ref} alt={alt} onLoad={onLoad} onError={onError} {...props} />;
+};
 
 Image.displayName = 'ImageAvatar';
 
-const Fallback = React.forwardRef<FallbackRef, FallbackProps>(({ asChild, ...props }, ref) => {
+const Fallback = ({
+  ref,
+  asChild,
+  ...props
+}: FallbackProps & {
+  ref?: React.RefObject<FallbackRef>;
+}) => {
   const { alt, status } = useRootContext();
 
   if (status !== 'error') {
@@ -94,7 +111,7 @@ const Fallback = React.forwardRef<FallbackRef, FallbackProps>(({ asChild, ...pro
   }
   const Component = asChild ? Slot : View;
   return <Component ref={ref} role={'img'} aria-label={alt} {...props} />;
-});
+};
 
 Fallback.displayName = 'FallbackAvatar';
 

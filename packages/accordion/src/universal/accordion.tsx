@@ -5,18 +5,11 @@ import {
   Item as ItemNative,
   Root as RootNative,
   Trigger as TriggerNative,
-  TriggerRef as TriggerNativeRef,
+  type TriggerProps as TriggerPropsNative,
   useItemContext,
   useRootContext,
 } from '../native';
-import type {
-  ContentProps,
-  HeaderProps,
-  ItemProps,
-  RootProps,
-  TriggerProps,
-  TriggerRef,
-} from './types';
+import type { ContentProps, HeaderProps, ItemProps, RootProps, TriggerProps } from './types';
 
 function Root({ web: _web, native, ...props }: RootProps) {
   return <RootNative {...props} {...native} />;
@@ -34,12 +27,8 @@ function Item({ web: _web, native, ...props }: ItemProps) {
   return <ItemNative {...props} {...native} />;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ web: _web, native, ...props }, ref) => {
-    return (
-      <TriggerNative ref={ref as React.ForwardedRef<TriggerNativeRef>} {...props} {...native} />
-    );
-  }
-);
+function Trigger({ ref, web: _web, native, ...props }: TriggerProps) {
+  return <TriggerNative ref={ref as TriggerPropsNative['ref']} {...props} {...native} />;
+}
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };

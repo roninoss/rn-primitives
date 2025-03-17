@@ -1,37 +1,38 @@
 'use client';
 
 import type {
-  AnimatableImageProps,
-  AnimatablePressableProps,
-  AnimatableTextProps,
-  AnimatableViewProps,
-} from './animatable/types';
-function Image(_props: AnimatableImageProps) {
+  AnimatableImage,
+  AnimatablePressable,
+  AnimatableText,
+  AnimatableView,
+} from './animatable';
+
+const Image = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Image` from @rn-primitives/core/native is only supported on native.');
   }
   return null;
-}
+}) as unknown as typeof AnimatableImage;
 
-function Pressable(_props: AnimatablePressableProps) {
+const Pressable = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Pressable` from @rn-primitives/core/native is only supported on native.');
   }
   return null;
-}
+}) as unknown as typeof AnimatablePressable;
 
-function Text(_props: AnimatableTextProps) {
+const Text = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Text` from @rn-primitives/core/native is only supported on native.');
   }
   return null;
-}
+}) as unknown as typeof AnimatableText;
 
-function View(_props: AnimatableViewProps) {
+const View = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`View` from @rn-primitives/core/native is only supported on native.');
   }
   return null;
-}
+}) as unknown as typeof AnimatableView;
 
 export { Image, Pressable, Text, View };

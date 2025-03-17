@@ -1,34 +1,27 @@
 import { Content, Header } from '@radix-ui/react-accordion';
-import * as React from 'react';
 import type { ItemContextReturnType, RootContextReturnType } from '../utils/contexts';
-import type { ItemProps, ItemRef, RootProps, RootRef, TriggerProps, TriggerRef } from './types';
+import type { ItemProps, RootProps, TriggerProps } from './types';
 
-const Root = React.forwardRef<RootRef, RootProps>(() => {
+function Root(props: RootProps) {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Root` from @rn-primitives/accordion/web is only supported on web.');
   }
   return null;
-});
+}
 
-Root.displayName = 'AccordionRootWeb';
-
-const Item = React.forwardRef<ItemRef, ItemProps>(() => {
+function Item(props: ItemProps) {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Item` from @rn-primitives/accordion/web is only supported on web.');
   }
   return null;
-});
+}
 
-Item.displayName = 'AccordionItemWeb';
-
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(() => {
+function Trigger(props: TriggerProps) {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Trigger` from @rn-primitives/accordion/web is only supported on web.');
   }
   return null;
-});
-
-Trigger.displayName = 'AccordionTriggerWeb';
+}
 
 const useRootContext = () => {
   throw new Error(

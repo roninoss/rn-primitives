@@ -7,61 +7,67 @@ import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
 
 const CheckboxContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    { asChild, disabled, checked, onCheckedChange, onPress: onPressProp, role: _role, ...props },
-    ref
-  ) => {
-    const augmentedRef = useAugmentedRef({ ref });
+const Root = ({
+  ref,
+  asChild,
+  disabled,
+  checked,
+  onCheckedChange,
+  onPress: onPressProp,
+  role: _role,
+  ...props
+}: RootProps & {
+  ref?: React.RefObject<RootRef>;
+}) => {
+  const augmentedRef = useAugmentedRef({ ref });
 
-    function onPress(ev: GestureResponderEvent) {
-      onPressProp?.(ev);
-      onCheckedChange(!checked);
-    }
-
-    useIsomorphicLayoutEffect(() => {
-      if (augmentedRef.current) {
-        const augRef = augmentedRef.current as unknown as HTMLButtonElement;
-        augRef.dataset.state = checked ? 'checked' : 'unchecked';
-        augRef.value = checked ? 'on' : 'off';
-      }
-    }, [checked]);
-
-    useIsomorphicLayoutEffect(() => {
-      if (augmentedRef.current) {
-        const augRef = augmentedRef.current as unknown as HTMLButtonElement;
-        augRef.type = 'button';
-        augRef.role = 'checkbox';
-
-        if (disabled) {
-          augRef.dataset.disabled = 'true';
-        } else {
-          augRef.dataset.disabled = undefined;
-        }
-      }
-    }, [disabled]);
-
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <CheckboxContext.Provider value={{ checked, disabled, onCheckedChange }}>
-        <Checkbox.Root
-          checked={checked}
-          onCheckedChange={onCheckedChange}
-          disabled={disabled}
-          asChild
-        >
-          <Component
-            ref={augmentedRef}
-            role='button'
-            onPress={onPress}
-            disabled={disabled}
-            {...props}
-          />
-        </Checkbox.Root>
-      </CheckboxContext.Provider>
-    );
+  function onPress(ev: GestureResponderEvent) {
+    onPressProp?.(ev);
+    onCheckedChange(!checked);
   }
-);
+
+  useIsomorphicLayoutEffect(() => {
+    if (augmentedRef.current) {
+      const augRef = augmentedRef.current as unknown as HTMLButtonElement;
+      augRef.dataset.state = checked ? 'checked' : 'unchecked';
+      augRef.value = checked ? 'on' : 'off';
+    }
+  }, [checked]);
+
+  useIsomorphicLayoutEffect(() => {
+    if (augmentedRef.current) {
+      const augRef = augmentedRef.current as unknown as HTMLButtonElement;
+      augRef.type = 'button';
+      augRef.role = 'checkbox';
+
+      if (disabled) {
+        augRef.dataset.disabled = 'true';
+      } else {
+        augRef.dataset.disabled = undefined;
+      }
+    }
+  }, [disabled]);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <CheckboxContext.Provider value={{ checked, disabled, onCheckedChange }}>
+      <Checkbox.Root
+        checked={checked}
+        onCheckedChange={onCheckedChange}
+        disabled={disabled}
+        asChild
+      >
+        <Component
+          ref={augmentedRef}
+          role='button'
+          onPress={onPress}
+          disabled={disabled}
+          {...props}
+        />
+      </Checkbox.Root>
+    </CheckboxContext.Provider>
+  );
+};
 
 Root.displayName = 'RootWebCheckbox';
 
@@ -75,37 +81,42 @@ function useCheckboxContext() {
   return context;
 }
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
-    const { checked, disabled } = useCheckboxContext();
-    const augmentedRef = useAugmentedRef({ ref });
+const Indicator = ({
+  ref,
+  asChild,
+  forceMount,
+  ...props
+}: IndicatorProps & {
+  ref?: React.RefObject<IndicatorRef>;
+}) => {
+  const { checked, disabled } = useCheckboxContext();
+  const augmentedRef = useAugmentedRef({ ref });
 
-    useIsomorphicLayoutEffect(() => {
-      if (augmentedRef.current) {
-        const augRef = augmentedRef.current as unknown as HTMLDivElement;
-        augRef.dataset.state = checked ? 'checked' : 'unchecked';
+  useIsomorphicLayoutEffect(() => {
+    if (augmentedRef.current) {
+      const augRef = augmentedRef.current as unknown as HTMLDivElement;
+      augRef.dataset.state = checked ? 'checked' : 'unchecked';
+    }
+  }, [checked]);
+
+  useIsomorphicLayoutEffect(() => {
+    if (augmentedRef.current) {
+      const augRef = augmentedRef.current as unknown as HTMLDivElement;
+      if (disabled) {
+        augRef.dataset.disabled = 'true';
+      } else {
+        augRef.dataset.disabled = undefined;
       }
-    }, [checked]);
+    }
+  }, [disabled]);
 
-    useIsomorphicLayoutEffect(() => {
-      if (augmentedRef.current) {
-        const augRef = augmentedRef.current as unknown as HTMLDivElement;
-        if (disabled) {
-          augRef.dataset.disabled = 'true';
-        } else {
-          augRef.dataset.disabled = undefined;
-        }
-      }
-    }, [disabled]);
-
-    const Component = asChild ? Slot : View;
-    return (
-      <Checkbox.Indicator forceMount={forceMount} asChild>
-        <Component ref={ref} {...props} />
-      </Checkbox.Indicator>
-    );
-  }
-);
+  const Component = asChild ? Slot : View;
+  return (
+    <Checkbox.Indicator forceMount={forceMount} asChild>
+      <Component ref={ref} {...props} />
+    </Checkbox.Indicator>
+  );
+};
 
 Indicator.displayName = 'IndicatorWebCheckbox';
 

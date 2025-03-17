@@ -9,41 +9,55 @@ import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
 
 const DEFAULT_MAX = 100;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    { asChild, value: valueProp, max: maxProp, getValueLabel = defaultGetValueLabel, ...props },
-    ref
-  ) => {
-    const max = maxProp ?? DEFAULT_MAX;
-    const value = isValidValueNumber(valueProp, max) ? valueProp : 0;
-
-    const Component = asChild ? Slot : View;
-    return (
-      <Component
-        role='progressbar'
-        ref={ref}
-        aria-valuemax={max}
-        aria-valuemin={0}
-        aria-valuenow={value}
-        aria-valuetext={getValueLabel(value, max)}
-        accessibilityValue={{
-          min: 0,
-          max,
-          now: value,
-          text: getValueLabel(value, max),
-        }}
-        {...props}
-      />
-    );
+const Root = (
+  {
+    ref,
+    asChild,
+    value: valueProp,
+    max: maxProp,
+    getValueLabel = defaultGetValueLabel,
+    ...props
+  }: RootProps & {
+    ref: React.RefObject<RootRef>;
   }
-);
+) => {
+  const max = maxProp ?? DEFAULT_MAX;
+  const value = isValidValueNumber(valueProp, max) ? valueProp : 0;
+
+  const Component = asChild ? Slot : View;
+  return (
+    <Component
+      role='progressbar'
+      ref={ref}
+      aria-valuemax={max}
+      aria-valuemin={0}
+      aria-valuenow={value}
+      aria-valuetext={getValueLabel(value, max)}
+      accessibilityValue={{
+        min: 0,
+        max,
+        now: value,
+        text: getValueLabel(value, max),
+      }}
+      {...props}
+    />
+  );
+};
 
 Root.displayName = 'RootProgress';
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
+const Indicator = (
+  {
+    ref,
+    asChild,
+    ...props
+  }: IndicatorProps & {
+    ref: React.RefObject<IndicatorRef>;
+  }
+) => {
   const Component = asChild ? Slot : View;
   return <Component ref={ref} role='presentation' {...props} />;
-});
+};
 
 Indicator.displayName = 'IndicatorProgress';
 

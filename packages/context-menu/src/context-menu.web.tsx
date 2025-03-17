@@ -47,25 +47,32 @@ const ContextMenuContext = React.createContext<{
   onOpenChange: (open: boolean) => void;
 } | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
-    const [open, setOpen] = React.useState(false);
-
-    function onOpenChange(value: boolean) {
-      setOpen(value);
-      onOpenChangeProp?.(value);
-    }
-
-    const Component = asChild ? Slot : View;
-    return (
-      <ContextMenuContext.Provider value={{ open, onOpenChange }}>
-        <ContextMenu.Root onOpenChange={onOpenChange}>
-          <Component ref={ref} {...viewProps} />
-        </ContextMenu.Root>
-      </ContextMenuContext.Provider>
-    );
+const Root = (
+  {
+    ref,
+    asChild,
+    onOpenChange: onOpenChangeProp,
+    ...viewProps
+  }: RootProps & {
+    ref: React.RefObject<RootRef>;
   }
-);
+) => {
+  const [open, setOpen] = React.useState(false);
+
+  function onOpenChange(value: boolean) {
+    setOpen(value);
+    onOpenChangeProp?.(value);
+  }
+
+  const Component = asChild ? Slot : View;
+  return (
+    <ContextMenuContext.Provider value={{ open, onOpenChange }}>
+      <ContextMenu.Root onOpenChange={onOpenChange}>
+        <Component ref={ref} {...viewProps} />
+      </ContextMenu.Root>
+    </ContextMenuContext.Provider>
+  );
+};
 
 Root.displayName = 'RootWebContextMenu';
 
@@ -79,47 +86,54 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, disabled = false, ...props }, ref) => {
-    const { open } = useRootContext();
-    const augmentedRef = useAugmentedRef({
-      ref,
-      methods: {
-        open() {
-          console.warn('Warning: `open()` is only for Native platforms');
-        },
-        close() {
-          console.warn('Warning: `close()` is only for Native platforms');
-        },
-      },
-    });
-
-    useIsomorphicLayoutEffect(() => {
-      if (augmentedRef.current) {
-        const augRef = augmentedRef.current as unknown as HTMLDivElement;
-        augRef.dataset.state = open ? 'open' : 'closed';
-      }
-    }, [open]);
-
-    useIsomorphicLayoutEffect(() => {
-      if (augmentedRef.current) {
-        const augRef = augmentedRef.current as unknown as HTMLDivElement;
-        if (disabled) {
-          augRef.dataset.disabled = 'true';
-        } else {
-          augRef.dataset.disabled = undefined;
-        }
-      }
-    }, [disabled]);
-
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <ContextMenu.Trigger disabled={disabled ?? undefined} asChild>
-        <Component ref={augmentedRef} disabled={disabled} {...props} />
-      </ContextMenu.Trigger>
-    );
+const Trigger = (
+  {
+    ref,
+    asChild,
+    disabled = false,
+    ...props
+  }: TriggerProps & {
+    ref: React.RefObject<TriggerRef>;
   }
-);
+) => {
+  const { open } = useRootContext();
+  const augmentedRef = useAugmentedRef({
+    ref,
+    methods: {
+      open() {
+        console.warn('Warning: `open()` is only for Native platforms');
+      },
+      close() {
+        console.warn('Warning: `close()` is only for Native platforms');
+      },
+    },
+  });
+
+  useIsomorphicLayoutEffect(() => {
+    if (augmentedRef.current) {
+      const augRef = augmentedRef.current as unknown as HTMLDivElement;
+      augRef.dataset.state = open ? 'open' : 'closed';
+    }
+  }, [open]);
+
+  useIsomorphicLayoutEffect(() => {
+    if (augmentedRef.current) {
+      const augRef = augmentedRef.current as unknown as HTMLDivElement;
+      if (disabled) {
+        augRef.dataset.disabled = 'true';
+      } else {
+        augRef.dataset.disabled = undefined;
+      }
+    }
+  }, [disabled]);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <ContextMenu.Trigger disabled={disabled ?? undefined} asChild>
+      <Component ref={augmentedRef} disabled={disabled} {...props} />
+    </ContextMenu.Trigger>
+  );
+};
 
 Trigger.displayName = 'TriggerWebContextMenu';
 
@@ -127,10 +141,18 @@ function Portal({ forceMount, container, children }: PortalProps) {
   return <ContextMenu.Portal forceMount={forceMount} container={container} children={children} />;
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(({ asChild, ...props }, ref) => {
+const Overlay = (
+  {
+    ref,
+    asChild,
+    ...props
+  }: OverlayProps & {
+    ref: React.RefObject<OverlayRef>;
+  }
+) => {
   const Component = asChild ? Slot : Pressable;
   return <Component ref={ref} {...props} />;
-});
+};
 
 Overlay.displayName = 'OverlayWebContextMenu';
 
@@ -138,68 +160,68 @@ const ContextMenuContentContext = React.createContext<{
   close: () => void;
 } | null>(null);
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
-      forceMount,
-      align: _align,
-      side: _side,
-      sideOffset: _sideOffset,
-      alignOffset = 0,
-      avoidCollisions = true,
-      insets,
-      loop = true,
-      onCloseAutoFocus,
-      onEscapeKeyDown,
-      onPointerDownOutside,
-      onFocusOutside,
-      onInteractOutside,
-      collisionBoundary,
-      sticky,
-      hideWhenDetached,
-      ...props
-    },
-    ref
-  ) => {
-    const itemRef = React.useRef<HTMLDivElement>(null);
-
-    function close() {
-      itemRef.current?.click();
-    }
-
-    const Component = asChild ? Slot : View;
-    return (
-      <ContextMenuContentContext.Provider value={{ close }}>
-        <ContextMenu.Content
-          forceMount={forceMount}
-          alignOffset={alignOffset}
-          avoidCollisions={avoidCollisions}
-          collisionPadding={insets}
-          loop={loop}
-          onCloseAutoFocus={onCloseAutoFocus}
-          onEscapeKeyDown={onEscapeKeyDown}
-          onPointerDownOutside={onPointerDownOutside}
-          onFocusOutside={onFocusOutside}
-          onInteractOutside={onInteractOutside}
-          collisionBoundary={collisionBoundary}
-          sticky={sticky}
-          hideWhenDetached={hideWhenDetached}
-        >
-          <Component ref={ref} {...props} />
-          <ContextMenu.Item
-            ref={itemRef}
-            aria-hidden
-            style={{ position: 'fixed', top: 0, left: 0, zIndex: -999999999 }}
-            aria-disabled
-            tabIndex={-1}
-            hidden
-          />
-        </ContextMenu.Content>
-      </ContextMenuContentContext.Provider>
-    );
+const Content = (
+  {
+    ref,
+    asChild = false,
+    forceMount,
+    align: _align,
+    side: _side,
+    sideOffset: _sideOffset,
+    alignOffset = 0,
+    avoidCollisions = true,
+    insets,
+    loop = true,
+    onCloseAutoFocus,
+    onEscapeKeyDown,
+    onPointerDownOutside,
+    onFocusOutside,
+    onInteractOutside,
+    collisionBoundary,
+    sticky,
+    hideWhenDetached,
+    ...props
+  }: ContentProps & {
+    ref: React.RefObject<ContentRef>;
   }
-);
+) => {
+  const itemRef = React.useRef<HTMLDivElement>(null);
+
+  function close() {
+    itemRef.current?.click();
+  }
+
+  const Component = asChild ? Slot : View;
+  return (
+    <ContextMenuContentContext.Provider value={{ close }}>
+      <ContextMenu.Content
+        forceMount={forceMount}
+        alignOffset={alignOffset}
+        avoidCollisions={avoidCollisions}
+        collisionPadding={insets}
+        loop={loop}
+        onCloseAutoFocus={onCloseAutoFocus}
+        onEscapeKeyDown={onEscapeKeyDown}
+        onPointerDownOutside={onPointerDownOutside}
+        onFocusOutside={onFocusOutside}
+        onInteractOutside={onInteractOutside}
+        collisionBoundary={collisionBoundary}
+        sticky={sticky}
+        hideWhenDetached={hideWhenDetached}
+      >
+        <Component ref={ref} {...props} />
+        <ContextMenu.Item
+          ref={itemRef}
+          aria-hidden
+          style={{ position: 'fixed', top: 0, left: 0, zIndex: -999999999 }}
+          aria-disabled
+          tabIndex={-1}
+          hidden
+        />
+      </ContextMenu.Content>
+    </ContextMenuContentContext.Provider>
+  );
+};
 
 Content.displayName = 'ContentWebContextMenu';
 
@@ -213,122 +235,147 @@ function useContextMenuContentContext() {
   return context;
 }
 
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  ({ asChild, textValue, closeOnPress = true, onPress: onPressProp, ...props }, ref) => {
-    const { close } = useContextMenuContentContext();
+const Item = (
+  {
+    ref,
+    asChild,
+    textValue,
+    closeOnPress = true,
+    onPress: onPressProp,
+    ...props
+  }: ItemProps & {
+    ref: React.RefObject<ItemRef>;
+  }
+) => {
+  const { close } = useContextMenuContentContext();
 
-    function onKeyDown(ev: React.KeyboardEvent) {
-      if (ev.key === 'Enter' || ev.key === ' ') {
-        onPressProp?.(EmptyGestureResponderEvent);
-        if (closeOnPress) {
-          close();
-        }
-      }
-    }
-
-    function onPress(ev: GestureResponderEvent) {
-      onPressProp?.(ev);
+  function onKeyDown(ev: React.KeyboardEvent) {
+    if (ev.key === 'Enter' || ev.key === ' ') {
+      onPressProp?.(EmptyGestureResponderEvent);
       if (closeOnPress) {
         close();
       }
     }
-
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <ContextMenu.Item
-        textValue={textValue}
-        disabled={props.disabled ?? undefined}
-        onSelect={closeOnPress ? undefined : onSelected}
-        asChild
-      >
-        <Component ref={ref} role='button' onPress={onPress} onKeyDown={onKeyDown} {...props} />
-      </ContextMenu.Item>
-    );
   }
-);
+
+  function onPress(ev: GestureResponderEvent) {
+    onPressProp?.(ev);
+    if (closeOnPress) {
+      close();
+    }
+  }
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <ContextMenu.Item
+      textValue={textValue}
+      disabled={props.disabled ?? undefined}
+      onSelect={closeOnPress ? undefined : onSelected}
+      asChild
+    >
+      <Component ref={ref} role='button' onPress={onPress} onKeyDown={onKeyDown} {...props} />
+    </ContextMenu.Item>
+  );
+};
 
 Item.displayName = 'ItemWebContextMenu';
 
-const Group = React.forwardRef<GroupRef, GroupProps>(({ asChild, ...props }, ref) => {
+const Group = (
+  {
+    ref,
+    asChild,
+    ...props
+  }: GroupProps & {
+    ref: React.RefObject<GroupRef>;
+  }
+) => {
   const Component = asChild ? Slot : View;
   return (
     <ContextMenu.Group asChild>
       <Component ref={ref} {...props} />
     </ContextMenu.Group>
   );
-});
+};
 
 Group.displayName = 'GroupWebContextMenu';
 
-const Label = React.forwardRef<LabelRef, LabelProps>(({ asChild, ...props }, ref) => {
+const Label = (
+  {
+    ref,
+    asChild,
+    ...props
+  }: LabelProps & {
+    ref: React.RefObject<LabelRef>;
+  }
+) => {
   const Component = asChild ? Slot : Text;
   return (
     <ContextMenu.Label asChild>
       <Component ref={ref} {...props} />
     </ContextMenu.Label>
   );
-});
+};
 
 Label.displayName = 'LabelWebContextMenu';
 
-const CheckboxItem = React.forwardRef<CheckboxItemRef, CheckboxItemProps>(
-  (
-    {
-      asChild,
-      checked,
-      onCheckedChange,
-      textValue,
-      disabled = false,
-      closeOnPress = true,
-      onPress: onPressProp,
-      onKeyDown: onKeyDownProp,
-      ...props
-    },
-    ref
-  ) => {
-    const { close } = useContextMenuContentContext();
+const CheckboxItem = (
+  {
+    ref,
+    asChild,
+    checked,
+    onCheckedChange,
+    textValue,
+    disabled = false,
+    closeOnPress = true,
+    onPress: onPressProp,
+    onKeyDown: onKeyDownProp,
+    ...props
+  }: CheckboxItemProps & {
+    ref: React.RefObject<CheckboxItemRef>;
+  }
+) => {
+  const { close } = useContextMenuContentContext();
 
-    function onKeyDown(ev: React.KeyboardEvent) {
-      onKeyDownProp?.(ev);
-      if (ev.key === 'Enter' || ev.key === ' ') {
-        onPressProp?.(EmptyGestureResponderEvent);
-        onCheckedChange?.(!checked);
-        if (closeOnPress) {
-          close();
-        }
-      }
-    }
-
-    function onPress(ev: GestureResponderEvent) {
-      onPressProp?.(ev);
+  function onKeyDown(ev: React.KeyboardEvent) {
+    onKeyDownProp?.(ev);
+    if (ev.key === 'Enter' || ev.key === ' ') {
+      onPressProp?.(EmptyGestureResponderEvent);
       onCheckedChange?.(!checked);
       if (closeOnPress) {
         close();
       }
     }
-
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <ContextMenu.CheckboxItem
-        textValue={textValue}
-        checked={checked}
-        onCheckedChange={onCheckedChange}
-        onSelect={closeOnPress ? undefined : onSelected}
-        disabled={disabled ?? undefined}
-        asChild
-      >
-        <Component
-          ref={ref}
-          disabled={disabled}
-          onKeyDown={onKeyDown}
-          onPress={onPress}
-          role='button'
-          {...props}
-        />
-      </ContextMenu.CheckboxItem>
-    );
   }
-);
+
+  function onPress(ev: GestureResponderEvent) {
+    onPressProp?.(ev);
+    onCheckedChange?.(!checked);
+    if (closeOnPress) {
+      close();
+    }
+  }
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <ContextMenu.CheckboxItem
+      textValue={textValue}
+      checked={checked}
+      onCheckedChange={onCheckedChange}
+      onSelect={closeOnPress ? undefined : onSelected}
+      disabled={disabled ?? undefined}
+      asChild
+    >
+      <Component
+        ref={ref}
+        disabled={disabled}
+        onKeyDown={onKeyDown}
+        onPress={onPress}
+        role='button'
+        {...props}
+      />
+    </ContextMenu.CheckboxItem>
+  );
+};
 
 CheckboxItem.displayName = 'CheckboxItemWebContextMenu';
 
@@ -337,18 +384,26 @@ const ContextMenuRadioGroupContext = React.createContext<{
   onValueChange?: (value: string) => void;
 } | null>(null);
 
-const RadioGroup = React.forwardRef<RadioGroupRef, RadioGroupProps>(
-  ({ asChild, value, onValueChange, ...props }, ref) => {
-    const Component = asChild ? Slot : View;
-    return (
-      <ContextMenuRadioGroupContext.Provider value={{ value, onValueChange }}>
-        <ContextMenu.RadioGroup value={value} onValueChange={onValueChange} asChild>
-          <Component ref={ref} {...props} />
-        </ContextMenu.RadioGroup>
-      </ContextMenuRadioGroupContext.Provider>
-    );
+const RadioGroup = (
+  {
+    ref,
+    asChild,
+    value,
+    onValueChange,
+    ...props
+  }: RadioGroupProps & {
+    ref: React.RefObject<RadioGroupRef>;
   }
-);
+) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <ContextMenuRadioGroupContext.Provider value={{ value, onValueChange }}>
+      <ContextMenu.RadioGroup value={value} onValueChange={onValueChange} asChild>
+        <Component ref={ref} {...props} />
+      </ContextMenu.RadioGroup>
+    </ContextMenuRadioGroupContext.Provider>
+  );
+};
 
 RadioGroup.displayName = 'RadioGroupWebContextMenu';
 
@@ -362,80 +417,94 @@ function useContextMenuRadioGroupContext() {
   return context;
 }
 
-const RadioItem = React.forwardRef<RadioItemRef, RadioItemProps>(
-  (
-    {
-      asChild,
-      value,
-      textValue,
-      closeOnPress = true,
-      onPress: onPressProp,
-      onKeyDown: onKeyDownProp,
-      ...props
-    },
-    ref
-  ) => {
-    const { onValueChange } = useContextMenuRadioGroupContext();
-    const { close } = useContextMenuContentContext();
+const RadioItem = (
+  {
+    ref,
+    asChild,
+    value,
+    textValue,
+    closeOnPress = true,
+    onPress: onPressProp,
+    onKeyDown: onKeyDownProp,
+    ...props
+  }: RadioItemProps & {
+    ref: React.RefObject<RadioItemRef>;
+  }
+) => {
+  const { onValueChange } = useContextMenuRadioGroupContext();
+  const { close } = useContextMenuContentContext();
 
-    function onKeyDown(ev: React.KeyboardEvent) {
-      onKeyDownProp?.(ev);
-      if (ev.key === 'Enter' || ev.key === ' ') {
-        onValueChange?.(value);
-        onPressProp?.(EmptyGestureResponderEvent);
-        if (closeOnPress) {
-          close();
-        }
-      }
-    }
-
-    function onPress(ev: GestureResponderEvent) {
+  function onKeyDown(ev: React.KeyboardEvent) {
+    onKeyDownProp?.(ev);
+    if (ev.key === 'Enter' || ev.key === ' ') {
       onValueChange?.(value);
-      onPressProp?.(ev);
+      onPressProp?.(EmptyGestureResponderEvent);
       if (closeOnPress) {
         close();
       }
     }
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <ContextMenu.RadioItem
-        value={value}
-        textValue={textValue}
-        disabled={props.disabled ?? undefined}
-        onSelect={closeOnPress ? undefined : onSelected}
-        asChild
-      >
-        <Component ref={ref} onKeyDown={onKeyDown} onPress={onPress} {...props} />
-      </ContextMenu.RadioItem>
-    );
   }
-);
+
+  function onPress(ev: GestureResponderEvent) {
+    onValueChange?.(value);
+    onPressProp?.(ev);
+    if (closeOnPress) {
+      close();
+    }
+  }
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <ContextMenu.RadioItem
+      value={value}
+      textValue={textValue}
+      disabled={props.disabled ?? undefined}
+      onSelect={closeOnPress ? undefined : onSelected}
+      asChild
+    >
+      <Component ref={ref} onKeyDown={onKeyDown} onPress={onPress} {...props} />
+    </ContextMenu.RadioItem>
+  );
+};
 
 RadioItem.displayName = 'RadioItemWebContextMenu';
 
-const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
-    const Component = asChild ? Slot : View;
-    return (
-      <ContextMenu.ItemIndicator forceMount={forceMount} asChild>
-        <Component ref={ref} {...props} />
-      </ContextMenu.ItemIndicator>
-    );
+const ItemIndicator = (
+  {
+    ref,
+    asChild,
+    forceMount,
+    ...props
+  }: ItemIndicatorProps & {
+    ref: React.RefObject<ItemIndicatorRef>;
   }
-);
+) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <ContextMenu.ItemIndicator forceMount={forceMount} asChild>
+      <Component ref={ref} {...props} />
+    </ContextMenu.ItemIndicator>
+  );
+};
 
 ItemIndicator.displayName = 'ItemIndicatorWebContextMenu';
 
-const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
-  ({ asChild, decorative, ...props }, ref) => {
-    const Component = asChild ? Slot : View;
-    return (
-      <ContextMenu.Separator asChild>
-        <Component ref={ref} {...props} />
-      </ContextMenu.Separator>
-    );
+const Separator = (
+  {
+    ref,
+    asChild,
+    decorative,
+    ...props
+  }: SeparatorProps & {
+    ref: React.RefObject<SeparatorRef>;
   }
-);
+) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <ContextMenu.Separator asChild>
+      <Component ref={ref} {...props} />
+    </ContextMenu.Separator>
+  );
+};
 
 Separator.displayName = 'SeparatorWebContextMenu';
 
@@ -444,24 +513,33 @@ const ContextMenuSubContext = React.createContext<{
   onOpenChange: (open: boolean) => void;
 } | null>(null);
 
-const Sub = React.forwardRef<SubRef, SubProps>(
-  ({ asChild, defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, ...props }, ref) => {
-    const [open = false, onOpenChange] = useControllableState({
-      prop: openProp,
-      defaultProp: defaultOpen,
-      onChange: onOpenChangeProp,
-    });
-
-    const Component = asChild ? Slot : View;
-    return (
-      <ContextMenuSubContext.Provider value={{ open, onOpenChange }}>
-        <ContextMenu.Sub open={open} onOpenChange={onOpenChange}>
-          <Component ref={ref} {...props} />
-        </ContextMenu.Sub>
-      </ContextMenuSubContext.Provider>
-    );
+const Sub = (
+  {
+    ref,
+    asChild,
+    defaultOpen,
+    open: openProp,
+    onOpenChange: onOpenChangeProp,
+    ...props
+  }: SubProps & {
+    ref: React.RefObject<SubRef>;
   }
-);
+) => {
+  const [open = false, onOpenChange] = useControllableState({
+    prop: openProp,
+    defaultProp: defaultOpen,
+    onChange: onOpenChangeProp,
+  });
+
+  const Component = asChild ? Slot : View;
+  return (
+    <ContextMenuSubContext.Provider value={{ open, onOpenChange }}>
+      <ContextMenu.Sub open={open} onOpenChange={onOpenChange}>
+        <Component ref={ref} {...props} />
+      </ContextMenu.Sub>
+    </ContextMenuSubContext.Provider>
+  );
+};
 
 Sub.displayName = 'SubWebContextMenu';
 
@@ -475,38 +553,54 @@ function useSubContext() {
   return context;
 }
 
-const SubTrigger = React.forwardRef<SubTriggerRef, SubTriggerProps>(
-  ({ asChild, textValue, disabled = false, onPress: onPressProp, ...props }, ref) => {
-    const { onOpenChange } = useSubContext();
-
-    function onPress(ev: GestureResponderEvent) {
-      onOpenChange(true);
-      onPressProp?.(ev);
-    }
-
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <ContextMenu.SubTrigger disabled={disabled ?? undefined} textValue={textValue} asChild>
-        <Component ref={ref} onPress={onPress} {...props} />
-      </ContextMenu.SubTrigger>
-    );
+const SubTrigger = (
+  {
+    ref,
+    asChild,
+    textValue,
+    disabled = false,
+    onPress: onPressProp,
+    ...props
+  }: SubTriggerProps & {
+    ref: React.RefObject<SubTriggerRef>;
   }
-);
+) => {
+  const { onOpenChange } = useSubContext();
+
+  function onPress(ev: GestureResponderEvent) {
+    onOpenChange(true);
+    onPressProp?.(ev);
+  }
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <ContextMenu.SubTrigger disabled={disabled ?? undefined} textValue={textValue} asChild>
+      <Component ref={ref} onPress={onPress} {...props} />
+    </ContextMenu.SubTrigger>
+  );
+};
 
 SubTrigger.displayName = 'SubTriggerWebContextMenu';
 
-const SubContent = React.forwardRef<SubContentRef, SubContentProps>(
-  ({ asChild = false, forceMount, ...props }, ref) => {
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <ContextMenu.Portal>
-        <ContextMenu.SubContent forceMount={forceMount}>
-          <Component ref={ref} {...props} />
-        </ContextMenu.SubContent>
-      </ContextMenu.Portal>
-    );
+const SubContent = (
+  {
+    ref,
+    asChild = false,
+    forceMount,
+    ...props
+  }: SubContentProps & {
+    ref: React.RefObject<SubContentRef>;
   }
-);
+) => {
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <ContextMenu.Portal>
+      <ContextMenu.SubContent forceMount={forceMount}>
+        <Component ref={ref} {...props} />
+      </ContextMenu.SubContent>
+    </ContextMenu.Portal>
+  );
+};
 
 Content.displayName = 'ContentWebContextMenu';
 

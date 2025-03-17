@@ -10,12 +10,18 @@ type RootProps = Omit<SlottableViewProps, 'style'> & {
 
 type RootRef = ViewRef;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, ratio = 1, style, ...props }, ref) => {
-    const Component = asChild ? Slot : View;
-    return <Component ref={ref} style={[style, { aspectRatio: ratio }]} {...props} />;
-  }
-);
+const Root = ({
+  ref,
+  asChild,
+  ratio = 1,
+  style,
+  ...props
+}: RootProps & {
+  ref?: React.RefObject<RootRef>;
+}) => {
+  const Component = asChild ? Slot : View;
+  return <Component ref={ref} style={[style, { aspectRatio: ratio }]} {...props} />;
+};
 
 Root.displayName = 'RootAspectRatio';
 

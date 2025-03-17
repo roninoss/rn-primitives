@@ -58,7 +58,6 @@ type TriggerProps = Prettify<
       web?: TriggerPropsWebOnly;
     }
 >;
-type TriggerRef = PressableRefUniversal;
 
 type ActionProps = Prettify<
   BaseAlertDialogActionProps &
@@ -68,8 +67,6 @@ type ActionProps = Prettify<
     }
 >;
 
-type ActionRef = PressableRefUniversal;
-
 type CancelProps = Prettify<
   BaseAlertDialogCancelProps &
     PressablePropsUniversal & {
@@ -77,7 +74,6 @@ type CancelProps = Prettify<
       web?: CancelPropsWebOnly;
     }
 >;
-type CancelRef = PressableRefUniversal;
 
 type DescriptionProps = Prettify<
   BaseAlertDialogDescriptionProps &
@@ -112,9 +108,7 @@ type TitleProps = Prettify<
 
 export type {
   ActionProps,
-  ActionRef,
   CancelProps,
-  CancelRef,
   ContentProps,
   DescriptionProps,
   OverlayProps,
@@ -122,5 +116,4 @@ export type {
   RootProps,
   TitleProps,
   TriggerProps,
-  TriggerRef,
 };

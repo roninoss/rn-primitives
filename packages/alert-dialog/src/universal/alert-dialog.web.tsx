@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   Action as ActionWeb,
   Cancel as CancelWeb,
-  ContentRef,
   Content as ContentWeb,
   Description as DescriptionWeb,
   Overlay as OverlayWeb,
@@ -15,9 +14,7 @@ import {
 } from '../web';
 import type {
   ActionProps,
-  ActionRef,
   CancelProps,
-  CancelRef,
   ContentProps,
   DescriptionProps,
   OverlayProps,
@@ -25,25 +22,22 @@ import type {
   RootProps,
   TitleProps,
   TriggerProps,
-  TriggerRef,
 } from './types';
 
 function Root(props: RootProps) {
   return <RootWeb {...props} />;
 }
 
-const Content = React.forwardRef<any, ContentProps>(
-  ({ web, native: _native, style, ...props }, ref) => {
-    if (style) {
-      return (
-        <View style={style} asChild>
-          <ContentWeb ref={ref} {...props} {...web} />
-        </View>
-      );
-    }
-    return <ContentWeb ref={ref} {...props} {...web} />;
+const Content = ({ web, native: _native, style, ...props }: ContentProps) => {
+  if (style) {
+    return (
+      <View style={style} asChild>
+        <ContentWeb {...props} {...web} />
+      </View>
+    );
   }
-);
+  return <ContentWeb {...props} {...web} />;
+};
 
 Content.displayName = 'AlertDialogContentUniversal';
 
@@ -85,37 +79,31 @@ function Title({ web, native: _native, style, ...props }: TitleProps) {
   return <TitleWeb {...props} {...web} />;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ native: _native, web, ...props }, ref) => {
-    return (
-      <TriggerWeb asChild>
-        <Pressable web={{ as: 'button', ...web }} ref={ref} {...props} />
-      </TriggerWeb>
-    );
-  }
-);
+const Trigger = ({ native: _native, web, ...props }: TriggerProps) => {
+  return (
+    <TriggerWeb asChild>
+      <Pressable web={{ as: 'button', ...web }} {...props} />
+    </TriggerWeb>
+  );
+};
 
 Trigger.displayName = 'AlertDialogTriggerUniversal';
 
-const Action = React.forwardRef<ActionRef, ActionProps>(
-  ({ native: _native, web, ...props }, ref) => {
-    return (
-      <ActionWeb asChild>
-        <Pressable web={{ as: 'button', ...web }} ref={ref} {...props} />
-      </ActionWeb>
-    );
-  }
-);
+const Action = ({ native: _native, web, ...props }: ActionProps) => {
+  return (
+    <ActionWeb asChild>
+      <Pressable web={{ as: 'button', ...web }} {...props} />
+    </ActionWeb>
+  );
+};
 
-const Cancel = React.forwardRef<CancelRef, CancelProps>(
-  ({ native: _native, web, ...props }, ref) => {
-    return (
-      <CancelWeb asChild>
-        <Pressable web={{ as: 'button', ...web }} ref={ref} {...props} />
-      </CancelWeb>
-    );
-  }
-);
+const Cancel = ({ native: _native, web, ...props }: CancelProps) => {
+  return (
+    <CancelWeb asChild>
+      <Pressable web={{ as: 'button', ...web }} {...props} />
+    </CancelWeb>
+  );
+};
 
 Cancel.displayName = 'AlertDialogCancelUniversal';
 

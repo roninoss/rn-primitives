@@ -5,22 +5,31 @@ import type { IndicatorProps, IndicatorRef, ItemProps, ItemRef, RootProps, RootR
 
 const RadioGroupContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, value, onValueChange, disabled = false, ...viewProps }, ref) => {
-    const Component = asChild ? Slot : View;
-    return (
-      <RadioGroupContext.Provider
-        value={{
-          value,
-          disabled,
-          onValueChange,
-        }}
-      >
-        <Component ref={ref} role='radiogroup' {...viewProps} />
-      </RadioGroupContext.Provider>
-    );
+const Root = (
+  {
+    ref,
+    asChild,
+    value,
+    onValueChange,
+    disabled = false,
+    ...viewProps
+  }: RootProps & {
+    ref: React.RefObject<RootRef>;
   }
-);
+) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <RadioGroupContext.Provider
+      value={{
+        value,
+        disabled,
+        onValueChange,
+      }}
+    >
+      <Component ref={ref} role='radiogroup' {...viewProps} />
+    </RadioGroupContext.Provider>
+  );
+};
 
 Root.displayName = 'RootRadioGroup';
 
@@ -40,42 +49,48 @@ interface RadioItemContext {
 
 const RadioItemContext = React.createContext<RadioItemContext | null>(null);
 
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  (
-    { asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props },
-    ref
-  ) => {
-    const { disabled, value, onValueChange } = useRadioGroupContext();
-
-    function onPress(ev: GestureResponderEvent) {
-      if (disabled || disabledProp) return;
-      onValueChange(itemValue);
-      onPressProp?.(ev);
-    }
-
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <RadioItemContext.Provider
-        value={{
-          itemValue: itemValue,
-        }}
-      >
-        <Component
-          ref={ref}
-          role='radio'
-          onPress={onPress}
-          aria-checked={value === itemValue}
-          disabled={(disabled || disabledProp) ?? false}
-          accessibilityState={{
-            disabled: (disabled || disabledProp) ?? false,
-            checked: value === itemValue,
-          }}
-          {...props}
-        />
-      </RadioItemContext.Provider>
-    );
+const Item = (
+  {
+    ref,
+    asChild,
+    value: itemValue,
+    disabled: disabledProp = false,
+    onPress: onPressProp,
+    ...props
+  }: ItemProps & {
+    ref: React.RefObject<ItemRef>;
   }
-);
+) => {
+  const { disabled, value, onValueChange } = useRadioGroupContext();
+
+  function onPress(ev: GestureResponderEvent) {
+    if (disabled || disabledProp) return;
+    onValueChange(itemValue);
+    onPressProp?.(ev);
+  }
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <RadioItemContext.Provider
+      value={{
+        itemValue: itemValue,
+      }}
+    >
+      <Component
+        ref={ref}
+        role='radio'
+        onPress={onPress}
+        aria-checked={value === itemValue}
+        disabled={(disabled || disabledProp) ?? false}
+        accessibilityState={{
+          disabled: (disabled || disabledProp) ?? false,
+          checked: value === itemValue,
+        }}
+        {...props}
+      />
+    </RadioItemContext.Provider>
+  );
+};
 
 Item.displayName = 'ItemRadioGroup';
 
@@ -89,20 +104,27 @@ function useRadioItemContext() {
   return context;
 }
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
-    const { value } = useRadioGroupContext();
-    const { itemValue } = useRadioItemContext();
-
-    if (!forceMount) {
-      if (value !== itemValue) {
-        return null;
-      }
-    }
-    const Component = asChild ? Slot : View;
-    return <Component ref={ref} role='presentation' {...props} />;
+const Indicator = (
+  {
+    ref,
+    asChild,
+    forceMount,
+    ...props
+  }: IndicatorProps & {
+    ref: React.RefObject<IndicatorRef>;
   }
-);
+) => {
+  const { value } = useRadioGroupContext();
+  const { itemValue } = useRadioItemContext();
+
+  if (!forceMount) {
+    if (value !== itemValue) {
+      return null;
+    }
+  }
+  const Component = asChild ? Slot : View;
+  return <Component ref={ref} role='presentation' {...props} />;
+};
 
 Indicator.displayName = 'IndicatorRadioGroup';
 

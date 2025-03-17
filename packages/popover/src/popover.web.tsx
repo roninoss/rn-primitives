@@ -22,24 +22,22 @@ const RootContext = React.createContext<{
   onOpenChange: (open: boolean) => void;
 } | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps & { onOpenChange?: (open: boolean) => void }>(
-  ({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
-    const [open, setOpen] = React.useState(false);
+const Root = ({ ref, asChild, onOpenChange: onOpenChangeProp, ...viewProps }: RootProps) => {
+  const [open, setOpen] = React.useState(false);
 
-    function onOpenChange(value: boolean) {
-      setOpen(value);
-      onOpenChangeProp?.(value);
-    }
-    const Component = asChild ? Slot : View;
-    return (
-      <RootContext.Provider value={{ open, onOpenChange }}>
-        <Popover.Root open={open} onOpenChange={onOpenChange}>
-          <Component ref={ref} {...viewProps} />
-        </Popover.Root>
-      </RootContext.Provider>
-    );
+  function onOpenChange(value: boolean) {
+    setOpen(value);
+    onOpenChangeProp?.(value);
   }
-);
+  const Component = asChild ? Slot : View;
+  return (
+    <RootContext.Provider value={{ open, onOpenChange }}>
+      <Popover.Root open={open} onOpenChange={onOpenChange}>
+        <Component ref={ref} {...viewProps} />
+      </Popover.Root>
+    </RootContext.Provider>
+  );
+};
 
 Root.displayName = 'RootWebPopover';
 
@@ -51,49 +49,56 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, role: _role, disabled, ...props }, ref) => {
-    const { onOpenChange, open } = useRootContext();
-    const augmentedRef = useAugmentedRef({
-      ref,
-      methods: {
-        open() {
-          onOpenChange(true);
-        },
-        close() {
-          onOpenChange(false);
-        },
+const Trigger = ({
+  ref,
+  asChild,
+  onPress: onPressProp,
+  role: _role,
+  disabled,
+  ...props
+}: TriggerProps & {
+  ref: React.RefObject<TriggerRef>;
+}) => {
+  const { onOpenChange, open } = useRootContext();
+  const augmentedRef = useAugmentedRef({
+    ref,
+    methods: {
+      open() {
+        onOpenChange(true);
       },
-    });
-    function onPress(ev: GestureResponderEvent) {
-      if (onPressProp) {
-        onPressProp(ev);
-      }
-      onOpenChange(!open);
+      close() {
+        onOpenChange(false);
+      },
+    },
+  });
+  function onPress(ev: GestureResponderEvent) {
+    if (onPressProp) {
+      onPressProp(ev);
     }
-
-    useIsomorphicLayoutEffect(() => {
-      if (augmentedRef.current) {
-        const augRef = augmentedRef.current as unknown as HTMLButtonElement;
-        augRef.dataset.state = open ? 'open' : 'closed';
-        augRef.type = 'button';
-      }
-    }, [open]);
-
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <Popover.Trigger disabled={disabled ?? undefined} asChild>
-        <Component
-          ref={augmentedRef}
-          onPress={onPress}
-          role='button'
-          disabled={disabled}
-          {...props}
-        />
-      </Popover.Trigger>
-    );
+    onOpenChange(!open);
   }
-);
+
+  useIsomorphicLayoutEffect(() => {
+    if (augmentedRef.current) {
+      const augRef = augmentedRef.current as unknown as HTMLButtonElement;
+      augRef.dataset.state = open ? 'open' : 'closed';
+      augRef.type = 'button';
+    }
+  }, [open]);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <Popover.Trigger disabled={disabled ?? undefined} asChild>
+      <Component
+        ref={augmentedRef}
+        onPress={onPress}
+        role='button'
+        disabled={disabled}
+        {...props}
+      />
+    </Popover.Trigger>
+  );
+};
 
 Trigger.displayName = 'TriggerWebPopover';
 
@@ -101,94 +106,103 @@ function Portal({ forceMount, container, children }: PortalProps) {
   return <Popover.Portal forceMount={forceMount} children={children} container={container} />;
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
-    const Component = asChild ? Slot : Pressable;
-    return <Component ref={ref} {...props} />;
-  }
-);
+const Overlay = ({
+  ref,
+  asChild,
+  forceMount,
+  ...props
+}: OverlayProps & {
+  ref: React.RefObject<OverlayRef>;
+}) => {
+  const Component = asChild ? Slot : Pressable;
+  return <Component ref={ref} {...props} />;
+};
 
 Overlay.displayName = 'OverlayWebPopover';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
-      forceMount,
-      align = 'start',
-      side = 'bottom',
-      sideOffset = 0,
-      alignOffset = 0,
-      avoidCollisions = true,
-      insets: _insets,
-      disablePositioningStyle: _disablePositioningStyle,
-      onCloseAutoFocus,
-      onEscapeKeyDown,
-      onInteractOutside,
-      onPointerDownOutside,
-      onOpenAutoFocus,
-      ...props
-    },
-    ref
-  ) => {
-    const Component = asChild ? Slot : View;
-    return (
-      <Popover.Content
-        onCloseAutoFocus={onCloseAutoFocus}
-        onEscapeKeyDown={onEscapeKeyDown}
-        onInteractOutside={onInteractOutside}
-        onPointerDownOutside={onPointerDownOutside}
-        forceMount={forceMount}
-        align={align}
-        side={side}
-        sideOffset={sideOffset}
-        alignOffset={alignOffset}
-        avoidCollisions={avoidCollisions}
-        onOpenAutoFocus={onOpenAutoFocus}
-      >
-        <Component ref={ref} {...props} />
-      </Popover.Content>
-    );
-  }
-);
+const Content = ({
+  ref,
+  asChild = false,
+  forceMount,
+  align = 'start',
+  side = 'bottom',
+  sideOffset = 0,
+  alignOffset = 0,
+  avoidCollisions = true,
+  insets: _insets,
+  disablePositioningStyle: _disablePositioningStyle,
+  onCloseAutoFocus,
+  onEscapeKeyDown,
+  onInteractOutside,
+  onPointerDownOutside,
+  onOpenAutoFocus,
+  ...props
+}: ContentProps & {
+  ref: React.RefObject<ContentRef>;
+}) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <Popover.Content
+      onCloseAutoFocus={onCloseAutoFocus}
+      onEscapeKeyDown={onEscapeKeyDown}
+      onInteractOutside={onInteractOutside}
+      onPointerDownOutside={onPointerDownOutside}
+      forceMount={forceMount}
+      align={align}
+      side={side}
+      sideOffset={sideOffset}
+      alignOffset={alignOffset}
+      avoidCollisions={avoidCollisions}
+      onOpenAutoFocus={onOpenAutoFocus}
+    >
+      <Component ref={ref} {...props} />
+    </Popover.Content>
+  );
+};
 
 Content.displayName = 'ContentWebPopover';
 
-const Close = React.forwardRef<CloseRef, CloseProps>(
-  ({ asChild, onPress: onPressProp, disabled, ...props }, ref) => {
-    const augmentedRef = useAugmentedRef({ ref });
-    const { onOpenChange, open } = useRootContext();
+const Close = ({
+  ref,
+  asChild,
+  onPress: onPressProp,
+  disabled,
+  ...props
+}: CloseProps & {
+  ref: React.RefObject<CloseRef>;
+}) => {
+  const augmentedRef = useAugmentedRef({ ref });
+  const { onOpenChange, open } = useRootContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      if (onPressProp) {
-        onPressProp(ev);
-      }
-      onOpenChange(!open);
+  function onPress(ev: GestureResponderEvent) {
+    if (onPressProp) {
+      onPressProp(ev);
     }
-
-    useIsomorphicLayoutEffect(() => {
-      if (augmentedRef.current) {
-        const augRef = augmentedRef.current as unknown as HTMLButtonElement;
-        augRef.type = 'button';
-      }
-    }, []);
-
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <>
-        <Popover.Close disabled={disabled ?? undefined} asChild>
-          <Component
-            ref={augmentedRef}
-            onPress={onPress}
-            role='button'
-            disabled={disabled}
-            {...props}
-          />
-        </Popover.Close>
-      </>
-    );
+    onOpenChange(!open);
   }
-);
+
+  useIsomorphicLayoutEffect(() => {
+    if (augmentedRef.current) {
+      const augRef = augmentedRef.current as unknown as HTMLButtonElement;
+      augRef.type = 'button';
+    }
+  }, []);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <>
+      <Popover.Close disabled={disabled ?? undefined} asChild>
+        <Component
+          ref={augmentedRef}
+          onPress={onPress}
+          role='button'
+          disabled={disabled}
+          {...props}
+        />
+      </Popover.Close>
+    </>
+  );
+};
 
 Close.displayName = 'CloseWebPopover';
 

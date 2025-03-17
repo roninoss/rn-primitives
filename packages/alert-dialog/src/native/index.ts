@@ -13,19 +13,12 @@ export {
 
 export type {
   ActionProps,
-  ActionRef,
   CancelProps,
-  CancelRef,
   ContentProps,
-  ContentRef,
   DescriptionProps,
-  DescriptionRef,
   OverlayProps,
-  OverlayRef,
   PortalProps,
   RootProps,
   TitleProps,
-  TitleRef,
   TriggerProps,
-  TriggerRef,
 } from './types';

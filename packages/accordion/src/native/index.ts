@@ -8,15 +8,4 @@ export {
   useRootContext,
 } from './accordion-native';
 
-export type {
-  ContentProps,
-  ContentRef,
-  HeaderProps,
-  HeaderRef,
-  ItemProps,
-  ItemRef,
-  RootProps,
-  RootRef,
-  TriggerProps,
-  TriggerRef,
-} from './types';
+export type { ContentProps, HeaderProps, ItemProps, RootProps, TriggerProps } from './types';

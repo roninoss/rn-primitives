@@ -3,17 +3,33 @@ import * as React from 'react';
 import { Pressable, Text as RNText } from 'react-native';
 import type { RootProps, RootRef, TextProps, TextRef } from './types';
 
-const Root = React.forwardRef<RootRef, RootProps>(({ asChild, ...props }, ref) => {
+const Root = (
+  {
+    ref,
+    asChild,
+    ...props
+  }: RootProps & {
+    ref: React.RefObject<RootRef>;
+  }
+) => {
   const Component = asChild ? Slot : Pressable;
   return <Component ref={ref} {...props} />;
-});
+};
 
 Root.displayName = 'RootNativeLabel';
 
-const Text = React.forwardRef<TextRef, TextProps>(({ asChild, ...props }, ref) => {
+const Text = (
+  {
+    ref,
+    asChild,
+    ...props
+  }: TextProps & {
+    ref: React.RefObject<TextRef>;
+  }
+) => {
   const Component = asChild ? Slot : RNText;
   return <Component ref={ref} {...props} />;
-});
+};
 
 Text.displayName = 'TextNativeLabel';
 

@@ -13,62 +13,97 @@ import type {
   TrackRef,
 } from './types';
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    { asChild, value, disabled, min, max, dir, inverted, step = 1, onValueChange, ...props },
-    ref
-  ) => {
-    const Component = asChild ? Slot : View;
-    return (
-      <Slider.Root
-        dir={dir}
-        inverted={inverted}
-        value={[value]}
-        disabled={disabled}
-        min={min}
-        max={max}
-        step={step}
-        onValueChange={onValueChange}
-        asChild
-      >
-        <Component ref={ref} {...props} />
-      </Slider.Root>
-    );
+const Root = (
+  {
+    ref,
+    asChild,
+    value,
+    disabled,
+    min,
+    max,
+    dir,
+    inverted,
+    step = 1,
+    onValueChange,
+    ...props
+  }: RootProps & {
+    ref: React.RefObject<RootRef>;
   }
-);
+) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <Slider.Root
+      dir={dir}
+      inverted={inverted}
+      value={[value]}
+      disabled={disabled}
+      min={min}
+      max={max}
+      step={step}
+      onValueChange={onValueChange}
+      asChild
+    >
+      <Component ref={ref} {...props} />
+    </Slider.Root>
+  );
+};
 
 Root.displayName = 'RootWebSlider';
 
-const Track = React.forwardRef<TrackRef, TrackProps>(({ asChild, ...props }, ref) => {
+const Track = (
+  {
+    ref,
+    asChild,
+    ...props
+  }: TrackProps & {
+    ref: React.RefObject<TrackRef>;
+  }
+) => {
   const Component = asChild ? Slot : View;
   return (
     <Slider.Track asChild>
       <Component ref={ref} {...props} />
     </Slider.Track>
   );
-});
+};
 
 Track.displayName = 'TrackWebSlider';
 
-const Range = React.forwardRef<RangeRef, RangeProps>(({ asChild, ...props }, ref) => {
+const Range = (
+  {
+    ref,
+    asChild,
+    ...props
+  }: RangeProps & {
+    ref: React.RefObject<RangeRef>;
+  }
+) => {
   const Component = asChild ? Slot : View;
   return (
     <Slider.Range asChild>
       <Component ref={ref} {...props} />
     </Slider.Range>
   );
-});
+};
 
 Range.displayName = 'RangeWebSlider';
 
-const Thumb = React.forwardRef<ThumbRef, ThumbProps>(({ asChild, ...props }, ref) => {
+const Thumb = (
+  {
+    ref,
+    asChild,
+    ...props
+  }: ThumbProps & {
+    ref: React.RefObject<ThumbRef>;
+  }
+) => {
   const Component = asChild ? Slot : View;
   return (
     <Slider.Thumb asChild>
       <Component ref={ref} {...props} />
     </Slider.Thumb>
   );
-});
+};
 
 Thumb.displayName = 'ThumbWebSlider';
 

@@ -14,30 +14,41 @@ import type {
 } from './types';
 
 const TabsContext = React.createContext<RootProps | null>(null);
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, value, onValueChange, orientation, dir, activationMode, ...viewProps }, ref) => {
-    const Component = asChild ? Slot : View;
-    return (
-      <TabsContext.Provider
-        value={{
-          value,
-          onValueChange,
-        }}
-      >
-        <Tabs.Root
-          value={value}
-          onValueChange={onValueChange}
-          orientation={orientation}
-          dir={dir}
-          activationMode={activationMode}
-          asChild
-        >
-          <Component ref={ref} {...viewProps} />
-        </Tabs.Root>
-      </TabsContext.Provider>
-    );
+const Root = (
+  {
+    ref,
+    asChild,
+    value,
+    onValueChange,
+    orientation,
+    dir,
+    activationMode,
+    ...viewProps
+  }: RootProps & {
+    ref: React.RefObject<RootRef>;
   }
-);
+) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <TabsContext.Provider
+      value={{
+        value,
+        onValueChange,
+      }}
+    >
+      <Tabs.Root
+        value={value}
+        onValueChange={onValueChange}
+        orientation={orientation}
+        dir={dir}
+        activationMode={activationMode}
+        asChild
+      >
+        <Component ref={ref} {...viewProps} />
+      </Tabs.Root>
+    </TabsContext.Provider>
+  );
+};
 
 Root.displayName = 'RootWebTabs';
 
@@ -49,30 +60,45 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...props }, ref) => {
+const List = (
+  {
+    ref,
+    asChild,
+    ...props
+  }: ListProps & {
+    ref: React.RefObject<ListRef>;
+  }
+) => {
   const Component = asChild ? Slot : View;
   return (
     <Tabs.List asChild>
       <Component ref={ref} {...props} />
     </Tabs.List>
   );
-});
+};
 
 List.displayName = 'ListWebTabs';
 
 const TriggerContext = React.createContext<{ value: string } | null>(null);
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, value: tabValue, ...props }, ref) => {
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <TriggerContext.Provider value={{ value: tabValue }}>
-        <Tabs.Trigger value={tabValue} asChild>
-          <Component ref={ref} {...props} />
-        </Tabs.Trigger>
-      </TriggerContext.Provider>
-    );
+const Trigger = (
+  {
+    ref,
+    asChild,
+    value: tabValue,
+    ...props
+  }: TriggerProps & {
+    ref: React.RefObject<TriggerRef>;
   }
-);
+) => {
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <TriggerContext.Provider value={{ value: tabValue }}>
+      <Tabs.Trigger value={tabValue} asChild>
+        <Component ref={ref} {...props} />
+      </Tabs.Trigger>
+    </TriggerContext.Provider>
+  );
+};
 
 Trigger.displayName = 'TriggerWebTabs';
 
@@ -86,16 +112,25 @@ function useTriggerContext() {
   return context;
 }
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, value, tabIndex = -1, ...props }, ref) => {
-    const Component = asChild ? Slot : View;
-    return (
-      <Tabs.Content value={value} asChild>
-        <Component ref={ref} {...props} tabIndex={tabIndex} />
-      </Tabs.Content>
-    );
+const Content = (
+  {
+    ref,
+    asChild,
+    forceMount,
+    value,
+    tabIndex = -1,
+    ...props
+  }: ContentProps & {
+    ref: React.RefObject<ContentRef>;
   }
-);
+) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <Tabs.Content value={value} asChild>
+      <Component ref={ref} {...props} tabIndex={tabIndex} />
+    </Tabs.Content>
+  );
+};
 
 Content.displayName = 'ContentWebTabs';
 

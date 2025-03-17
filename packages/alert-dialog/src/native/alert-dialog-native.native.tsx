@@ -6,21 +6,14 @@ import { BackHandler, type GestureResponderEvent } from 'react-native';
 import { RootContext, useRootContext } from '../utils/contexts';
 import type {
   ActionProps,
-  ActionRef,
   CancelProps,
-  CancelRef,
   ContentProps,
-  ContentRef,
   DescriptionProps,
-  DescriptionRef,
   OverlayProps,
-  OverlayRef,
   PortalProps,
   RootProps,
   TitleProps,
-  TitleRef,
   TriggerProps,
-  TriggerRef,
 } from './types';
 
 const RootInternalContext = React.createContext<{ nativeID: string } | null>(null);
@@ -56,32 +49,29 @@ function useRootInternalContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ onPress: onPressProp, disabled, ...props }, ref) => {
-    const { open: value, onOpenChange } = useRootContext();
+const Trigger = ({ onPress: onPressProp, disabled, ...props }: TriggerProps) => {
+  const { open: value, onOpenChange } = useRootContext();
 
-    const onPress = React.useCallback(
-      (ev: GestureResponderEvent) => {
-        onOpenChange(!value);
-        if (typeof onPressProp === 'function') {
-          onPressProp(ev);
-        }
-      },
-      [onOpenChange, onPressProp, value]
-    );
+  const onPress = React.useCallback(
+    (ev: GestureResponderEvent) => {
+      onOpenChange(!value);
+      if (typeof onPressProp === 'function') {
+        onPressProp(ev);
+      }
+    },
+    [onOpenChange, onPressProp, value]
+  );
 
-    return (
-      <Pressable
-        ref={ref}
-        aria-disabled={!disabled ? undefined : true}
-        role='button'
-        onPress={onPress}
-        disabled={!disabled ? undefined : true}
-        {...props}
-      />
-    );
-  }
-);
+  return (
+    <Pressable
+      aria-disabled={!disabled ? undefined : true}
+      role='button'
+      onPress={onPress}
+      disabled={!disabled ? undefined : true}
+      {...props}
+    />
+  );
+};
 
 Trigger.displayName = 'AlertDialogTriggerNative';
 
@@ -104,146 +94,141 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ forceMount, onAccessibilityEscape: onAccessibilityEscapeProp, ...props }, ref) => {
-    const { open: value, onOpenChange } = useRootContext();
+const Overlay = ({
+  forceMount,
+  onAccessibilityEscape: onAccessibilityEscapeProp,
+  ...props
+}: OverlayProps) => {
+  const { open: value, onOpenChange } = useRootContext();
 
-    const onAccessibilityEscape = React.useCallback(() => {
-      if (typeof onAccessibilityEscape === 'function') {
-        onAccessibilityEscape();
-      }
-      onOpenChange(false);
-    }, [onAccessibilityEscapeProp, onOpenChange]);
-
-    if (!forceMount) {
-      if (!value) {
-        return null;
-      }
+  const onAccessibilityEscape = React.useCallback(() => {
+    if (typeof onAccessibilityEscape === 'function') {
+      onAccessibilityEscape();
     }
+    onOpenChange(false);
+  }, [onAccessibilityEscapeProp, onOpenChange]);
 
-    return (
-      <View ref={ref} aria-modal={true} onAccessibilityEscape={onAccessibilityEscape} {...props} />
-    );
+  if (!forceMount) {
+    if (!value) {
+      return null;
+    }
   }
-);
+
+  return <View aria-modal={true} onAccessibilityEscape={onAccessibilityEscape} {...props} />;
+};
 
 Overlay.displayName = 'AlertDialogOverlayNative';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ forceMount, onAccessibilityEscape: onAccessibilityEscapeProp, ...props }, ref) => {
-    const { open: value, onOpenChange } = useRootContext();
-    const { nativeID } = useRootInternalContext();
+const Content = ({
+  forceMount,
+  onAccessibilityEscape: onAccessibilityEscapeProp,
+  ...props
+}: ContentProps) => {
+  const { open: value, onOpenChange } = useRootContext();
+  const { nativeID } = useRootInternalContext();
 
-    React.useEffect(() => {
-      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-        onOpenChange(false);
-        return true;
-      });
-
-      return () => {
-        backHandler.remove();
-      };
-    }, []);
-
-    const onAccessibilityEscape = React.useCallback(() => {
-      if (typeof onAccessibilityEscapeProp === 'function') {
-        onAccessibilityEscapeProp();
-      }
+  React.useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       onOpenChange(false);
-    }, [onAccessibilityEscapeProp, onOpenChange]);
+      return true;
+    });
 
-    if (!forceMount) {
-      if (!value) {
-        return null;
-      }
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
+
+  const onAccessibilityEscape = React.useCallback(() => {
+    if (typeof onAccessibilityEscapeProp === 'function') {
+      onAccessibilityEscapeProp();
     }
+    onOpenChange(false);
+  }, [onAccessibilityEscapeProp, onOpenChange]);
 
-    return (
-      <View
-        ref={ref}
-        role='alertdialog'
-        nativeID={nativeID}
-        aria-labelledby={`${nativeID}_title`}
-        aria-describedby={`${nativeID}_description`}
-        aria-live='assertive'
-        onAccessibilityEscape={onAccessibilityEscape}
-        {...props}
-      />
-    );
+  if (!forceMount) {
+    if (!value) {
+      return null;
+    }
   }
-);
+
+  return (
+    <View
+      role='alertdialog'
+      nativeID={nativeID}
+      aria-labelledby={`${nativeID}_title`}
+      aria-describedby={`${nativeID}_description`}
+      aria-live='assertive'
+      onAccessibilityEscape={onAccessibilityEscape}
+      {...props}
+    />
+  );
+};
 
 Content.displayName = 'AlertDialogContentNative';
 
-const Cancel = React.forwardRef<CancelRef, CancelProps>(
-  ({ onPress: onPressProp, disabled, ...props }, ref) => {
-    const { onOpenChange } = useRootContext();
+const Cancel = ({ onPress: onPressProp, disabled, ...props }: CancelProps) => {
+  const { onOpenChange } = useRootContext();
 
-    const onPress = React.useCallback(
-      (ev: GestureResponderEvent) => {
-        onOpenChange(false);
-        if (typeof onPressProp === 'function') {
-          onPressProp(ev);
-        }
-      },
-      [onOpenChange, onPressProp]
-    );
+  const onPress = React.useCallback(
+    (ev: GestureResponderEvent) => {
+      onOpenChange(false);
+      if (typeof onPressProp === 'function') {
+        onPressProp(ev);
+      }
+    },
+    [onOpenChange, onPressProp]
+  );
 
-    return (
-      <Pressable
-        ref={ref}
-        aria-disabled={!disabled ? undefined : true}
-        role='button'
-        onPress={onPress}
-        disabled={!disabled ? undefined : true}
-        {...props}
-      />
-    );
-  }
-);
+  return (
+    <Pressable
+      aria-disabled={!disabled ? undefined : true}
+      role='button'
+      onPress={onPress}
+      disabled={!disabled ? undefined : true}
+      {...props}
+    />
+  );
+};
 
 Cancel.displayName = 'AlertDialogCloseNative';
 
-const Action = React.forwardRef<ActionRef, ActionProps>(
-  ({ onPress: onPressProp, disabled, ...props }, ref) => {
-    const { onOpenChange } = useRootContext();
+const Action = ({ onPress: onPressProp, disabled, ...props }: ActionProps) => {
+  const { onOpenChange } = useRootContext();
 
-    const onPress = React.useCallback(
-      (ev: GestureResponderEvent) => {
-        onOpenChange(false);
-        if (typeof onPressProp === 'function') {
-          onPressProp(ev);
-        }
-      },
-      [onOpenChange, onPressProp]
-    );
+  const onPress = React.useCallback(
+    (ev: GestureResponderEvent) => {
+      onOpenChange(false);
+      if (typeof onPressProp === 'function') {
+        onPressProp(ev);
+      }
+    },
+    [onOpenChange, onPressProp]
+  );
 
-    return (
-      <Pressable
-        ref={ref}
-        aria-disabled={!disabled ? undefined : true}
-        role='button'
-        onPress={onPress}
-        disabled={!disabled ? undefined : true}
-        {...props}
-      />
-    );
-  }
-);
+  return (
+    <Pressable
+      aria-disabled={!disabled ? undefined : true}
+      role='button'
+      onPress={onPress}
+      disabled={!disabled ? undefined : true}
+      {...props}
+    />
+  );
+};
 
 Action.displayName = 'AlertDialogActionNative';
 
-const Title = React.forwardRef<TitleRef, TitleProps>((props, ref) => {
+const Title = (props: TitleProps) => {
   const { nativeID } = useRootInternalContext();
-  return <Text ref={ref} role='heading' nativeID={`${nativeID}_title`} {...props} />;
-});
+  return <Text role='heading' nativeID={`${nativeID}_title`} {...props} />;
+};
 
 Title.displayName = 'AlertDialogTitleNative';
 
-const Description = React.forwardRef<DescriptionRef, DescriptionProps>((props, ref) => {
+const Description = ({ ...props }: DescriptionProps) => {
   const { nativeID } = useRootInternalContext();
-  return <Text ref={ref} nativeID={`${nativeID}_description`} {...props} />;
-});
+  return <Text nativeID={`${nativeID}_description`} {...props} />;
+};
 
 Description.displayName = 'AlertDialogDescriptionNative';
 

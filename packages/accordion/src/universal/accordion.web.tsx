@@ -9,14 +9,7 @@ import {
   useItemContext,
   useRootContext,
 } from '../web';
-import type {
-  ContentProps,
-  HeaderProps,
-  ItemProps,
-  RootProps,
-  TriggerProps,
-  TriggerRef,
-} from './types';
+import type { ContentProps, HeaderProps, ItemProps, RootProps, TriggerProps } from './types';
 
 function Root({ native: _native, web, style, ...props }: RootProps) {
   return (
@@ -50,14 +43,12 @@ function Item({ native: _native, style, web, ...props }: ItemProps) {
   );
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ native: _native, web, ...props }, ref) => {
-    return (
-      <TriggerWeb asChild>
-        <Pressable web={{ as: 'button', ...web }} ref={ref} {...props} />
-      </TriggerWeb>
-    );
-  }
-);
+function Trigger({ native: _native, web, ...props }: TriggerProps) {
+  return (
+    <TriggerWeb asChild>
+      <Pressable web={{ as: 'button', ...web }} {...props} />
+    </TriggerWeb>
+  );
+}
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };

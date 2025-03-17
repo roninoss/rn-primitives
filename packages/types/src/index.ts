@@ -21,10 +21,11 @@ type PropsWithoutHTML<T, U> = PropsWithout<T, React.HTMLAttributes<U>>;
 
 type Slottable<T> = Prettify<T & { asChild?: boolean | undefined }>;
 
-type SlottableViewProps = Slottable<ViewProps>;
+type SlottableViewProps = Slottable<ViewProps> & { ref?: ViewRef };
 
 // TODO: remove the web only props
 type SlottablePressableProps = Slottable<PressableProps> & {
+  ref?: PressableRef;
   /**
    * Platform: WEB ONLY
    */
@@ -34,8 +35,8 @@ type SlottablePressableProps = Slottable<PressableProps> & {
    */
   onKeyUp?: (ev: React.KeyboardEvent) => void;
 };
-type SlottableTextProps = Slottable<TextProps>;
-type SlottableImageProps = Slottable<ImageProps>;
+type SlottableTextProps = Slottable<TextProps> & { ref?: TextRef };
+type SlottableImageProps = Slottable<ImageProps> & { ref?: ImageRef };
 
 type BaseSlottableTextProps = Slottable<{
   children?: React.ReactNode;

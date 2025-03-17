@@ -1,8 +1,4 @@
-import {
-  PressablePropsUniversal,
-  PressableRefUniversal,
-  ViewPropsUniversal,
-} from '@rn-primitives/core';
+import { PressablePropsUniversal, ViewPropsUniversal } from '@rn-primitives/core';
 import type { Prettify } from '@rn-primitives/types';
 import type {
   BaseContentProps,
@@ -60,6 +56,4 @@ type TriggerProps = BaseWithPlatformProps<
 > &
   PressablePropsUniversal;
 
-type TriggerRef = PressableRefUniversal;
-
-export type { ContentProps, HeaderProps, ItemProps, RootProps, TriggerProps, TriggerRef };
+export type { ContentProps, HeaderProps, ItemProps, RootProps, TriggerProps };

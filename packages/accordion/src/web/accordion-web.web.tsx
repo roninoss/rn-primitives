@@ -10,57 +10,48 @@ import * as React from 'react';
 import { ItemContext, RootContext, useItemContext, useRootContext } from '../utils/contexts';
 import { getDefaultValue } from '../utils/get-default-value';
 import { isItemExpanded } from '../utils/is-item-expanded';
-import type {
-  ItemProps,
-  ItemRef,
-  MultipleProps,
-  RootProps,
-  RootRef,
-  SingleProps,
-  TriggerProps,
-  TriggerRef,
-} from './types';
+import type { ItemProps, MultipleProps, RootProps, SingleProps, TriggerProps } from './types';
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    { value: valueProp, onValueChange: onValueChangeProps, defaultValue, collapsible, ...props },
-    ref
-  ) => {
-    const [rootValue = props.type === 'multiple' ? [] : undefined, onRootValueChange] =
-      useControllableState<(string | undefined) | string[]>({
-        prop: valueProp,
-        defaultProp: getDefaultValue(defaultValue, props.type),
-        onChange: onValueChangeProps as (state: string | string[] | undefined) => void,
-      });
+function Root({
+  value: valueProp,
+  onValueChange: onValueChangeProps,
+  defaultValue,
+  collapsible,
+  ...props
+}: RootProps) {
+  const [rootValue = props.type === 'multiple' ? [] : undefined, onRootValueChange] =
+    useControllableState<(string | undefined) | string[]>({
+      prop: valueProp,
+      defaultProp: getDefaultValue(defaultValue, props.type),
+      onChange: onValueChangeProps as (state: string | string[] | undefined) => void,
+    });
 
-    return (
-      <RootContext.Provider
-        value={{
-          type: props.type,
-          disabled: props.disabled,
-          collapsible: collapsible,
-          rootValue,
-          onRootValueChange,
-        }}
-      >
-        <Accordion
-          ref={ref}
-          {...({
-            ...props,
-            value: rootValue,
-            defaultValue,
-            onValueChange: onRootValueChange,
-            collapsible: collapsible?.toString(), // fixes radix-ui/accordion console error
-          } as SingleProps | MultipleProps)}
-        />
-      </RootContext.Provider>
-    );
-  }
-);
+  return (
+    <RootContext.Provider
+      value={{
+        type: props.type,
+        disabled: props.disabled,
+        collapsible: collapsible,
+        rootValue,
+        onRootValueChange,
+      }}
+    >
+      <Accordion
+        {...({
+          ...props,
+          value: rootValue,
+          defaultValue,
+          onValueChange: onRootValueChange,
+          collapsible: collapsible?.toString(), // fixes radix-ui/accordion console error
+        } as SingleProps | MultipleProps)}
+      />
+    </RootContext.Provider>
+  );
+}
 
 Root.displayName = 'AccordionRootWeb';
 
-const Item = React.forwardRef<ItemRef, ItemProps>((props, ref) => {
+const Item = (props: ItemProps) => {
   const { rootValue } = useRootContext();
 
   return (
@@ -71,16 +62,16 @@ const Item = React.forwardRef<ItemRef, ItemProps>((props, ref) => {
         isExpanded: isItemExpanded(rootValue, props.value),
       }}
     >
-      <AccordionItem ref={ref} {...props} />
+      <AccordionItem {...props} />
     </ItemContext.Provider>
   );
-});
+};
 
 Item.displayName = 'AccordionItemWeb';
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>((props, ref) => {
-  return <AccordionTrigger ref={ref} {...props} />;
-});
+const Trigger = ({ ref, ...props }: TriggerProps) => {
+  return <AccordionTrigger ref={ref as React.Ref<HTMLButtonElement> | undefined} {...props} />;
+};
 
 Trigger.displayName = 'AccordionTriggerWeb';
 

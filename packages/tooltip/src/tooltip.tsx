@@ -34,46 +34,46 @@ interface IRootContext {
 
 const RootContext = React.createContext<IRootContext | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
-      delayDuration: _delayDuration,
-      skipDelayDuration: _skipDelayDuration,
-      disableHoverableContent: _disableHoverableContent,
-      onOpenChange: onOpenChangeProp,
-      ...viewProps
-    },
-    ref
-  ) => {
-    const nativeID = React.useId();
-    const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
-    const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
-    const [open, setOpen] = React.useState(false);
-
-    function onOpenChange(value: boolean) {
-      setOpen(value);
-      onOpenChangeProp?.(value);
-    }
-
-    const Component = asChild ? Slot : View;
-    return (
-      <RootContext.Provider
-        value={{
-          open,
-          onOpenChange,
-          contentLayout,
-          nativeID,
-          setContentLayout,
-          setTriggerPosition,
-          triggerPosition,
-        }}
-      >
-        <Component ref={ref} {...viewProps} />
-      </RootContext.Provider>
-    );
+const Root = (
+  {
+    ref,
+    asChild,
+    delayDuration: _delayDuration,
+    skipDelayDuration: _skipDelayDuration,
+    disableHoverableContent: _disableHoverableContent,
+    onOpenChange: onOpenChangeProp,
+    ...viewProps
+  }: RootProps & {
+    ref: React.RefObject<RootRef>;
   }
-);
+) => {
+  const nativeID = React.useId();
+  const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
+  const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
+  const [open, setOpen] = React.useState(false);
+
+  function onOpenChange(value: boolean) {
+    setOpen(value);
+    onOpenChangeProp?.(value);
+  }
+
+  const Component = asChild ? Slot : View;
+  return (
+    <RootContext.Provider
+      value={{
+        open,
+        onOpenChange,
+        contentLayout,
+        nativeID,
+        setContentLayout,
+        setTriggerPosition,
+        triggerPosition,
+      }}
+    >
+      <Component ref={ref} {...viewProps} />
+    </RootContext.Provider>
+  );
+};
 
 Root.displayName = 'RootNativeTooltip';
 
@@ -152,115 +152,124 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props }, ref) => {
-    const { open, onOpenChange, setContentLayout, setTriggerPosition } = useTooltipContext();
-
-    function onPress(ev: GestureResponderEvent) {
-      if (closeOnPress) {
-        setTriggerPosition(null);
-        setContentLayout(null);
-        onOpenChange(false);
-      }
-      OnPressProp?.(ev);
-    }
-
-    if (!forceMount) {
-      if (!open) {
-        return null;
-      }
-    }
-
-    const Component = asChild ? Slot : Pressable;
-    return <Component ref={ref} onPress={onPress} {...props} />;
+const Overlay = (
+  {
+    ref,
+    asChild,
+    forceMount,
+    onPress: OnPressProp,
+    closeOnPress = true,
+    ...props
+  }: OverlayProps & {
+    ref: React.RefObject<OverlayRef>;
   }
-);
+) => {
+  const { open, onOpenChange, setContentLayout, setTriggerPosition } = useTooltipContext();
+
+  function onPress(ev: GestureResponderEvent) {
+    if (closeOnPress) {
+      setTriggerPosition(null);
+      setContentLayout(null);
+      onOpenChange(false);
+    }
+    OnPressProp?.(ev);
+  }
+
+  if (!forceMount) {
+    if (!open) {
+      return null;
+    }
+  }
+
+  const Component = asChild ? Slot : Pressable;
+  return <Component ref={ref} onPress={onPress} {...props} />;
+};
 
 Overlay.displayName = 'OverlayNativeTooltip';
 
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior on native by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
-      forceMount,
-      align = 'center',
-      side = 'top',
-      sideOffset = 0,
-      alignOffset = 0,
-      avoidCollisions = true,
-      onLayout: onLayoutProp,
-      insets,
-      style,
-      disablePositioningStyle,
-      ...props
-    },
-    ref
-  ) => {
-    const {
-      open,
-      onOpenChange,
-      nativeID,
-      contentLayout,
-      setContentLayout,
-      setTriggerPosition,
-      triggerPosition,
-    } = useTooltipContext();
+const Content = (
+  {
+    ref,
+    asChild = false,
+    forceMount,
+    align = 'center',
+    side = 'top',
+    sideOffset = 0,
+    alignOffset = 0,
+    avoidCollisions = true,
+    onLayout: onLayoutProp,
+    insets,
+    style,
+    disablePositioningStyle,
+    ...props
+  }: ContentProps & {
+    ref: React.RefObject<ContentRef>;
+  }
+) => {
+  const {
+    open,
+    onOpenChange,
+    nativeID,
+    contentLayout,
+    setContentLayout,
+    setTriggerPosition,
+    triggerPosition,
+  } = useTooltipContext();
 
-    React.useEffect(() => {
-      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-        setTriggerPosition(null);
-        setContentLayout(null);
-        onOpenChange(false);
-        return true;
-      });
-
-      return () => {
-        setContentLayout(null);
-        backHandler.remove();
-      };
-    }, []);
-
-    const positionStyle = useRelativePosition({
-      align,
-      avoidCollisions,
-      triggerPosition,
-      contentLayout,
-      alignOffset,
-      insets,
-      sideOffset,
-      side: getNativeSide(side),
-      disablePositioningStyle,
+  React.useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      setTriggerPosition(null);
+      setContentLayout(null);
+      onOpenChange(false);
+      return true;
     });
 
-    function onLayout(event: LayoutChangeEvent) {
-      setContentLayout(event.nativeEvent.layout);
-      onLayoutProp?.(event);
-    }
+    return () => {
+      setContentLayout(null);
+      backHandler.remove();
+    };
+  }, []);
 
-    if (!forceMount) {
-      if (!open) {
-        return null;
-      }
-    }
+  const positionStyle = useRelativePosition({
+    align,
+    avoidCollisions,
+    triggerPosition,
+    contentLayout,
+    alignOffset,
+    insets,
+    sideOffset,
+    side: getNativeSide(side),
+    disablePositioningStyle,
+  });
 
-    const Component = asChild ? Slot : View;
-    return (
-      <Component
-        ref={ref}
-        role='tooltip'
-        nativeID={nativeID}
-        aria-modal={true}
-        style={[positionStyle, style]}
-        onLayout={onLayout}
-        onStartShouldSetResponder={onStartShouldSetResponder}
-        {...props}
-      />
-    );
+  function onLayout(event: LayoutChangeEvent) {
+    setContentLayout(event.nativeEvent.layout);
+    onLayoutProp?.(event);
   }
-);
+
+  if (!forceMount) {
+    if (!open) {
+      return null;
+    }
+  }
+
+  const Component = asChild ? Slot : View;
+  return (
+    <Component
+      ref={ref}
+      role='tooltip'
+      nativeID={nativeID}
+      aria-modal={true}
+      style={[positionStyle, style]}
+      onLayout={onLayout}
+      onStartShouldSetResponder={onStartShouldSetResponder}
+      {...props}
+    />
+  );
+};
 
 Content.displayName = 'ContentNativeTooltip';
 

@@ -6,39 +6,39 @@ import type { ItemProps, ItemRef, RootProps, RootRef } from './types';
 
 const ToggleGroupContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
-      type,
-      value,
-      onValueChange,
-      disabled = false,
-      rovingFocus: _rovingFocus,
-      orientation: _orientation,
-      dir: _dir,
-      loop: _loop,
-      ...viewProps
-    },
-    ref
-  ) => {
-    const Component = asChild ? Slot : View;
-    return (
-      <ToggleGroupContext.Provider
-        value={
-          {
-            type,
-            value,
-            disabled,
-            onValueChange,
-          } as RootProps
-        }
-      >
-        <Component ref={ref} role='group' {...viewProps} />
-      </ToggleGroupContext.Provider>
-    );
+const Root = (
+  {
+    ref,
+    asChild,
+    type,
+    value,
+    onValueChange,
+    disabled = false,
+    rovingFocus: _rovingFocus,
+    orientation: _orientation,
+    dir: _dir,
+    loop: _loop,
+    ...viewProps
+  }: RootProps & {
+    ref: React.RefObject<RootRef>;
   }
-);
+) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <ToggleGroupContext.Provider
+      value={
+        {
+          type,
+          value,
+          disabled,
+          onValueChange,
+        } as RootProps
+      }
+    >
+      <Component ref={ref} role='group' {...viewProps} />
+    </ToggleGroupContext.Provider>
+  );
+};
 
 Root.displayName = 'RootToggleGroup';
 
@@ -54,52 +54,58 @@ function useRootContext() {
 
 const ItemContext = React.createContext<ItemProps | null>(null);
 
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  (
-    { asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props },
-    ref
-  ) => {
-    const id = React.useId();
-    const { type, disabled, value, onValueChange } = useRootContext();
-
-    function onPress(ev: GestureResponderEvent) {
-      if (disabled || disabledProp) return;
-      if (type === 'single') {
-        onValueChange(ToggleGroupUtils.getNewSingleValue(value, itemValue));
-      }
-      if (type === 'multiple') {
-        onValueChange(ToggleGroupUtils.getNewMultipleValue(value, itemValue));
-      }
-      onPressProp?.(ev);
-    }
-
-    const isChecked =
-      type === 'single' ? ToggleGroupUtils.getIsSelected(value, itemValue) : undefined;
-    const isSelected =
-      type === 'multiple' ? ToggleGroupUtils.getIsSelected(value, itemValue) : undefined;
-
-    const Component = asChild ? Slot : Pressable;
-    return (
-      <ItemContext.Provider value={{ value: itemValue }}>
-        <Component
-          ref={ref}
-          aria-disabled={disabled}
-          role={type === 'single' ? 'radio' : 'checkbox'}
-          onPress={onPress}
-          aria-checked={isChecked}
-          aria-selected={isSelected}
-          disabled={(disabled || disabledProp) ?? false}
-          accessibilityState={{
-            disabled: (disabled || disabledProp) ?? false,
-            checked: isChecked,
-            selected: isSelected,
-          }}
-          {...props}
-        />
-      </ItemContext.Provider>
-    );
+const Item = (
+  {
+    ref,
+    asChild,
+    value: itemValue,
+    disabled: disabledProp = false,
+    onPress: onPressProp,
+    ...props
+  }: ItemProps & {
+    ref: React.RefObject<ItemRef>;
   }
-);
+) => {
+  const id = React.useId();
+  const { type, disabled, value, onValueChange } = useRootContext();
+
+  function onPress(ev: GestureResponderEvent) {
+    if (disabled || disabledProp) return;
+    if (type === 'single') {
+      onValueChange(ToggleGroupUtils.getNewSingleValue(value, itemValue));
+    }
+    if (type === 'multiple') {
+      onValueChange(ToggleGroupUtils.getNewMultipleValue(value, itemValue));
+    }
+    onPressProp?.(ev);
+  }
+
+  const isChecked =
+    type === 'single' ? ToggleGroupUtils.getIsSelected(value, itemValue) : undefined;
+  const isSelected =
+    type === 'multiple' ? ToggleGroupUtils.getIsSelected(value, itemValue) : undefined;
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <ItemContext.Provider value={{ value: itemValue }}>
+      <Component
+        ref={ref}
+        aria-disabled={disabled}
+        role={type === 'single' ? 'radio' : 'checkbox'}
+        onPress={onPress}
+        aria-checked={isChecked}
+        aria-selected={isSelected}
+        disabled={(disabled || disabledProp) ?? false}
+        accessibilityState={{
+          disabled: (disabled || disabledProp) ?? false,
+          checked: isChecked,
+          selected: isSelected,
+        }}
+        {...props}
+      />
+    </ItemContext.Provider>
+  );
+};
 
 Item.displayName = 'ItemToggleGroup';
 

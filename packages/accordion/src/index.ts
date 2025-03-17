@@ -14,5 +14,4 @@ export type {
   ItemProps,
   RootProps,
   TriggerProps,
-  TriggerRef,
 } from './universal/types';

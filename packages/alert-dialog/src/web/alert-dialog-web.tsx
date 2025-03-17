@@ -1,100 +1,78 @@
-import * as React from 'react';
-import type { RootContextReturnType } from '../utils/contexts';
 import type {
-  ActionProps,
-  ActionRef,
-  CancelProps,
-  CancelRef,
-  ContentProps,
-  ContentRef,
-  DescriptionProps,
-  DescriptionRef,
-  OverlayProps,
-  OverlayRef,
-  PortalProps,
-  RootProps,
-  TitleProps,
-  TitleRef,
-  TriggerProps,
-  TriggerRef,
-} from './types';
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogOverlay,
+  AlertDialogPortal,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@radix-ui/react-alert-dialog';
+import type { RootContextReturnType } from '../utils/contexts';
 
-function Root(_props: RootProps) {
+const Root = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Root` from @rn-primitives/alert-dialog/web is only supported on web.');
   }
   return null;
-}
+}) as typeof AlertDialog;
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(() => {
+const Trigger = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Trigger` from @rn-primitives/alert-dialog/web is only supported on web.');
   }
   return null;
-});
+}) as unknown as typeof AlertDialogTrigger;
 
-Trigger.displayName = 'AlertDialogTriggerWeb';
-
-const Content = React.forwardRef<ContentRef, ContentProps>(() => {
+const Content = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Portal` from @rn-primitives/alert-dialog/web is only supported on web.');
   }
   return null;
-});
+}) as unknown as typeof AlertDialogContent;
 
-Content.displayName = 'AlertDialogContentWeb';
-
-const Action = React.forwardRef<ActionRef, ActionProps>(() => {
+const Action = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Overlay` from @rn-primitives/alert-dialog/web is only supported on web.');
   }
   return null;
-});
+}) as unknown as typeof AlertDialogAction;
 
-Action.displayName = 'AlertDialogActionWeb';
-
-const Cancel = React.forwardRef<CancelRef, CancelProps>(() => {
+const Cancel = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Content` from @rn-primitives/alert-dialog/web is only supported on web.');
   }
   return null;
-});
+}) as unknown as typeof AlertDialogCancel;
 
-Cancel.displayName = 'AlertDialogCancelWeb';
-
-const Description = React.forwardRef<DescriptionRef, DescriptionProps>(() => {
+const Description = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Cancel` from @rn-primitives/alert-dialog/web is only supported on web.');
   }
   return null;
-});
+}) as unknown as typeof AlertDialogDescription;
 
-Description.displayName = 'AlertDialogDescriptionWeb';
-
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(() => {
+const Overlay = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Action` from @rn-primitives/alert-dialog/web is only supported on web.');
   }
   return null;
-});
+}) as unknown as typeof AlertDialogOverlay;
 
-Overlay.displayName = 'AlertDialogOverlayWeb';
-
-function Portal(_props: PortalProps) {
+const Portal = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Title` from @rn-primitives/alert-dialog/web is only supported on web.');
   }
   return null;
-}
+}) as unknown as typeof AlertDialogPortal;
 
-const Title = React.forwardRef<TitleRef, TitleProps>(() => {
+const Title = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Description` from @rn-primitives/alert-dialog/web is only supported on web.');
   }
   return null;
-});
-
-Title.displayName = 'AlertDialogTitleWeb';
+}) as unknown as typeof AlertDialogTitle;
 
 const useRootContext = () => {
   throw new Error(
