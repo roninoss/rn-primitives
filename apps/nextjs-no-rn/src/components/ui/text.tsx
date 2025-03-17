@@ -6,11 +6,7 @@ import { cn } from '~/lib/utils';
 
 const TextClassContext = React.createContext<string | undefined>(undefined);
 
-function Text({
-  className,
-  asChild = false,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof RNPText>) {
+function Text({ className, ...props }: React.ComponentProps<typeof RNPText>) {
   const textClass = React.useContext(TextClassContext);
   return (
     <RNPText

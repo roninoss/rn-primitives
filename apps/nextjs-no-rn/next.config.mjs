@@ -41,10 +41,6 @@ const nextConfig = {
     // '@rn-primitives/types',
     // '@rn-primitives/core',
   ],
-
-  experimental: {
-    forceSwcTransforms: true,
-  },
 };
 
 export default withRNPrimitives(nextConfig);
@@ -63,5 +59,11 @@ function withRNPrimitives(nextConfig) {
 
       return config;
     },
+    // Turbopack not working even with this:
+    // experimental: {
+    //   turbo: {
+    //     resolveExtensions: ['.web.js', '.web.jsx', '.web.ts', '.web.tsx'],
+    //   },
+    // },
   };
 }

@@ -40,10 +40,6 @@ const nextConfig = {
     '@rn-primitives/tooltip',
     '@rn-primitives/types',
   ],
-
-  experimental: {
-    forceSwcTransforms: true,
-  },
 };
 
 export default withExpo(nextConfig);

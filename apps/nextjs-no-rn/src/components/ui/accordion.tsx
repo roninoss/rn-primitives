@@ -4,21 +4,8 @@ import * as AccordionPrimitive from '@rn-primitives/accordion';
 import { renderPressableChildren } from '@rn-primitives/utils';
 import * as React from 'react';
 import { Platform, View } from '@rn-primitives/core';
-// import Animated, {
-//   Extrapolation,
-//   FadeIn,
-//   FadeOutUp,
-//   LayoutAnimationConfig,
-//   LinearTransition,
-//   interpolate,
-//   useAnimatedStyle,
-//   useDerivedValue,
-//   withTiming,
-// } from 'react-native-reanimated';
 import { TextClassContext } from '~/components/ui/text';
 import { cn } from '~/lib/utils';
-
-type AccordionTriggerRef = AccordionPrimitive.TriggerRef;
 
 function Accordion(props: AccordionPrimitive.RootProps) {
   return <AccordionPrimitive.Root {...props} />;
@@ -39,9 +26,7 @@ const AccordionTrigger = ({
   className,
   children,
   ...props
-}: AccordionPrimitive.TriggerProps & {
-  ref?: React.RefObject<AccordionPrimitive.TriggerRef>;
-}) => {
+}: AccordionPrimitive.TriggerProps) => {
   return (
     <TextClassContext.Provider value='native:text-lg font-medium'>
       <AccordionPrimitive.Header className='flex'>
@@ -65,9 +50,9 @@ const AccordionTrigger = ({
                   viewBox='0 0 24 24'
                   fill='none'
                   stroke='currentColor'
-                  stroke-width='2'
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
                   className='lucide lucide-chevron-down size-4 transition-transform'
                 >
                   <path d='m6 9 6 6 6-6' />
@@ -104,5 +89,3 @@ function InnerContent({ children, className }: { children: React.ReactNode; clas
 }
 
 export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };
-
-export type { AccordionTriggerRef };

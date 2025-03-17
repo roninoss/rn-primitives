@@ -831,37 +831,6 @@ importers:
         specifier: ^8.1.0
         version: 8.3.5(jiti@1.21.6)(postcss@8.5.3)(typescript@5.7.2)(yaml@2.6.1)
 
-  packages/animatable:
-    dependencies:
-      '@rn-primitives/slot':
-        specifier: workspace:*
-        version: link:../slot
-      '@rn-primitives/types':
-        specifier: workspace:*
-        version: link:../types
-      react-native-reanimated:
-        specifier: '*'
-        version: 3.16.2(@babel/core@7.26.0)(react-native@0.78.0(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
-      react-native-web:
-        specifier: '*'
-        version: 0.19.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-    devDependencies:
-      '@tsconfig/react-native':
-        specifier: ^1.0.1
-        version: 1.0.5
-      '@types/react':
-        specifier: 19.0.10
-        version: 19.0.10
-      react:
-        specifier: 19.0.0
-        version: 19.0.0
-      react-native:
-        specifier: 0.78.0
-        version: 0.78.0(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@19.0.10)(react@19.0.0)
-      tsup:
-        specifier: ^8.1.0
-        version: 8.3.5(jiti@1.21.6)(postcss@8.5.3)(typescript@5.7.2)(yaml@2.6.1)
-
   packages/aspect-ratio:
     dependencies:
       '@rn-primitives/slot':
