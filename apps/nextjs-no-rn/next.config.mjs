@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   transpilePackages: [
     // 'react-native',
     // 'react-native-web',
@@ -48,22 +47,35 @@ export default withRNPrimitives(nextConfig);
 function withRNPrimitives(nextConfig) {
   return {
     ...nextConfig,
-    webpack(config) {
-      config.resolve.extensions = [
-        '.web.js',
-        '.web.jsx',
-        '.web.ts',
-        '.web.tsx',
-        ...(config.resolve?.extensions ?? []),
-      ];
+    // webpack(config) {
+    //   config.resolve.extensions = [
+    //     '.web.js',
+    //     '.web.jsx',
+    //     '.web.ts',
+    //     '.web.tsx',
+    //     ...(config.resolve?.extensions ?? []),
+    //   ];
 
-      return config;
-    },
-    // Turbopack not working even with this:
-    // experimental: {
-    //   turbo: {
-    //     resolveExtensions: ['.web.js', '.web.jsx', '.web.ts', '.web.tsx'],
-    //   },
+    //   return config;
     // },
+    experimental: {
+      turbo: {
+        resolveExtensions: [
+          '.web.mjs',
+          '.mjs',
+          '.web.js',
+          '.js',
+          '.web.mts',
+          '.mts',
+          '.web.ts',
+          '.ts',
+          '.web.jsx',
+          '.jsx',
+          '.web.tsx',
+          '.tsx',
+          '.json',
+        ],
+      },
+    },
   };
 }
