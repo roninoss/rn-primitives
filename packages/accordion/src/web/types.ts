@@ -12,20 +12,20 @@ type RootProps = React.ComponentProps<typeof Root> & {
   collapsible?: boolean;
 };
 
-type RootPropsWebOnly = React.ComponentPropsWithRef<'div'>;
+type RootPropsWebOnly = React.ComponentProps<'div'>;
 
 type ItemProps = React.ComponentProps<typeof Item>;
-type ItemPropsWebOnly = React.ComponentPropsWithRef<'div'>;
+type ItemPropsWebOnly = React.ComponentProps<'div'>;
 
 type HeaderProps = React.ComponentProps<typeof Header>;
-type HeaderPropsWebOnly = React.ComponentPropsWithRef<'h1'>;
+type HeaderPropsWebOnly = React.ComponentProps<'h1'>;
 
-type TriggerPropsWebOnly = React.ComponentPropsWithRef<'button'>;
+type TriggerPropsWebOnly = React.ComponentProps<'button'>;
 type TriggerRef = React.ComponentRef<typeof Trigger> & { press: () => void };
 type TriggerProps = Omit<React.ComponentProps<typeof Trigger>, 'ref'> & { ref?: TriggerRef };
 
 type ContentProps = React.ComponentProps<typeof Content>;
-type ContentPropsWebOnly = React.ComponentPropsWithRef<'div'>;
+type ContentPropsWebOnly = React.ComponentProps<'div'>;
 
 export type {
   ContentProps,

@@ -12,35 +12,47 @@ import {
 import type { ContentProps, HeaderProps, ItemProps, RootProps, TriggerProps } from './types';
 
 function Root({ native: _native, web, style, ...props }: RootProps) {
-  return (
-    <View style={style} asChild>
-      <RootWeb {...props} {...(web as any)} />
-    </View>
-  );
+  if (style) {
+    return (
+      <View style={style} asChild>
+        <RootWeb {...props} {...(web as any)} />
+      </View>
+    );
+  }
+  return <RootWeb {...props} {...(web as any)} />;
 }
 
 function Content({ native: _native, style, web, ...props }: ContentProps) {
-  return (
-    <View style={style} asChild>
-      <ContentWeb {...props} {...web} />
-    </View>
-  );
+  if (style) {
+    return (
+      <View style={style} asChild>
+        <ContentWeb {...props} {...web} />
+      </View>
+    );
+  }
+  return <ContentWeb {...props} {...web} />;
 }
 
 function Header({ native: _native, style, web, ...props }: HeaderProps) {
-  return (
-    <View style={style} asChild>
-      <HeaderWeb {...props} {...web} />
-    </View>
-  );
+  if (style) {
+    return (
+      <View style={style} asChild>
+        <HeaderWeb {...props} {...web} />
+      </View>
+    );
+  }
+  return <HeaderWeb {...props} {...web} />;
 }
 
 function Item({ native: _native, style, web, ...props }: ItemProps) {
-  return (
-    <View style={style} asChild>
-      <ItemWeb {...props} {...web} />
-    </View>
-  );
+  if (style) {
+    return (
+      <View style={style} asChild>
+        <ItemWeb {...props} {...web} />
+      </View>
+    );
+  }
+  return <ItemWeb {...props} {...web} />;
 }
 
 function Trigger({ native: _native, web, ...props }: TriggerProps) {

@@ -56,4 +56,6 @@ type TriggerProps = BaseWithPlatformProps<
 > &
   PressablePropsUniversal;
 
-export type { ContentProps, HeaderProps, ItemProps, RootProps, TriggerProps };
+type TriggerRef = TriggerProps['ref'];
+
+export type { ContentProps, HeaderProps, ItemProps, RootProps, TriggerProps, TriggerRef };

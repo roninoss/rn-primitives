@@ -23,6 +23,8 @@ type TriggerPropsNativeOnly = PressableProps;
 type ContentProps = Prettify<ViewProps & BaseContentProps>;
 type ContentPropsNativeOnly = ViewProps;
 
+type TriggerRef = TriggerProps['ref'];
+
 export type {
   ContentProps,
   ContentPropsNativeOnly,
@@ -34,4 +36,5 @@ export type {
   RootPropsNativeOnly,
   TriggerProps,
   TriggerPropsNativeOnly,
+  TriggerRef,
 };

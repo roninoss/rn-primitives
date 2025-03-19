@@ -5,7 +5,7 @@ import {
   Item as ItemNative,
   Root as RootNative,
   Trigger as TriggerNative,
-  type TriggerProps as TriggerPropsNative,
+  type TriggerRef as TriggerRefNative,
   useItemContext,
   useRootContext,
 } from '../native';
@@ -28,7 +28,7 @@ function Item({ web: _web, native, ...props }: ItemProps) {
 }
 
 function Trigger({ ref, web: _web, native, ...props }: TriggerProps) {
-  return <TriggerNative ref={ref as TriggerPropsNative['ref']} {...props} {...native} />;
+  return <TriggerNative ref={ref as TriggerRefNative} {...props} {...native} />;
 }
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };
