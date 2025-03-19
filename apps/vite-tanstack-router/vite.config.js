@@ -10,6 +10,7 @@ export default defineConfig({
   plugins: [
     {
       name: 'treat-mjs-js-as-jsx',
+      apply: 'serve',
       async transform(code, id) {
         if (id.endsWith('.mjs') || id.endsWith('.js')) {
           const result = await esbuild.transform(code, {
@@ -20,6 +21,36 @@ export default defineConfig({
             code: result.code,
             map: result.map,
           };
+        }
+        return null;
+      },
+    },
+    {
+      name: 'treat-mjs-js-as-jsx-build',
+      apply: 'build', // Only runs in build mode
+      enforce: 'pre', // Runs before other plugins
+      async load(id) {
+        // Ignore virtual modules
+        if (id.startsWith('\x00')) {
+          return null;
+        }
+
+        if (id.endsWith('.mjs') || id.endsWith('.js')) {
+          const fs = await import('fs/promises');
+          try {
+            const code = await fs.readFile(id, 'utf8');
+            const result = await esbuild.transform(code, {
+              loader: 'jsx',
+              jsx: 'automatic',
+            });
+            return {
+              code: result.code,
+              map: result.map,
+            };
+          } catch (err) {
+            console.error(`Error processing ${id}:`, err);
+            return null;
+          }
         }
         return null;
       },
