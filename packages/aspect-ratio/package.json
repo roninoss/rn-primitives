@@ -32,6 +32,7 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
+    "@radix-ui/react-aspect-ratio": "^1.1.2",
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*"
   },
@@ -43,7 +44,7 @@
     "tsup": "^8.1.0"
   },
   "peerDependencies": {
-    "react": "*",
+    "react": ">=19.0.0",
     "react-native": "*",
     "react-native-web": "*"
   },

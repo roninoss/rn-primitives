@@ -53,9 +53,8 @@
     "tsup": "^8.1.0"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*",
-    "react-native-reanimated": "*"
+    "react": ">=19.0.0",
+    "react-native": "*"
   },
   "peerDependenciesMeta": {
     "react-native": {

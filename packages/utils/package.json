@@ -33,6 +33,6 @@
     "tsup": "^8.1.0"
   },
   "peerDependencies": {
-    "react": "*"
+    "react": ">=19.0.0"
   }
 }
