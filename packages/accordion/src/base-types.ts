@@ -1,10 +1,8 @@
 import type { Prettify } from '@rn-primitives/types';
 import type {
   ContentProps as ContentPropsWeb,
-  HeaderProps as HeaderPropsWeb,
   ItemProps as ItemPropsWeb,
   RootProps as RootPropsWeb,
-  TriggerProps as TriggerPropsWeb,
 } from './web/types';
 
 type BaseRootProps = Pick<
