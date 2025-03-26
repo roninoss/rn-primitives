@@ -49,9 +49,7 @@ function Root({
   );
 }
 
-Root.displayName = 'AccordionRootWeb';
-
-const Item = (props: ItemProps) => {
+function Item(props: ItemProps) {
   const { rootValue } = useRootContext();
 
   return (
@@ -65,14 +63,10 @@ const Item = (props: ItemProps) => {
       <AccordionItem {...props} />
     </ItemContext.Provider>
   );
-};
+}
 
-Item.displayName = 'AccordionItemWeb';
-
-const Trigger = ({ ref, ...props }: TriggerProps) => {
+function Trigger({ ref, ...props }: TriggerProps) {
   return <AccordionTrigger ref={ref as React.Ref<HTMLButtonElement> | undefined} {...props} />;
-};
-
-Trigger.displayName = 'AccordionTriggerWeb';
+}
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };

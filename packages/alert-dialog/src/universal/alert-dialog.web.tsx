@@ -28,7 +28,7 @@ function Root(props: RootProps) {
   return <RootWeb {...props} />;
 }
 
-const Content = ({ web, native: _native, style, ...props }: ContentProps) => {
+function Content({ web, native: _native, style, ...props }: ContentProps) {
   if (style) {
     return (
       <View style={style} asChild>
@@ -37,9 +37,7 @@ const Content = ({ web, native: _native, style, ...props }: ContentProps) => {
     );
   }
   return <ContentWeb {...props} {...web} />;
-};
-
-Content.displayName = 'AlertDialogContentUniversal';
+}
 
 function Description({ web, native: _native, style, ...props }: DescriptionProps) {
   if (style) {
@@ -79,33 +77,29 @@ function Title({ web, native: _native, style, ...props }: TitleProps) {
   return <TitleWeb {...props} {...web} />;
 }
 
-const Trigger = ({ native: _native, web, ...props }: TriggerProps) => {
+function Trigger({ native: _native, web, ...props }: TriggerProps) {
   return (
     <TriggerWeb asChild>
       <Pressable web={{ as: 'button', ...web }} {...props} />
     </TriggerWeb>
   );
-};
+}
 
-Trigger.displayName = 'AlertDialogTriggerUniversal';
-
-const Action = ({ native: _native, web, ...props }: ActionProps) => {
+function Action({ native: _native, web, ...props }: ActionProps) {
   return (
     <ActionWeb asChild>
       <Pressable web={{ as: 'button', ...web }} {...props} />
     </ActionWeb>
   );
-};
+}
 
-const Cancel = ({ native: _native, web, ...props }: CancelProps) => {
+function Cancel({ native: _native, web, ...props }: CancelProps) {
   return (
     <CancelWeb asChild>
       <Pressable web={{ as: 'button', ...web }} {...props} />
     </CancelWeb>
   );
-};
-
-Cancel.displayName = 'AlertDialogCancelUniversal';
+}
 
 export {
   Action,

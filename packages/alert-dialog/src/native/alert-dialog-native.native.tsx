@@ -49,7 +49,7 @@ function useRootInternalContext() {
   return context;
 }
 
-const Trigger = ({ onPress: onPressProp, disabled, ...props }: TriggerProps) => {
+function Trigger({ onPress: onPressProp, disabled, ...props }: TriggerProps) {
   const { open: value, onOpenChange } = useRootContext();
 
   const onPress = React.useCallback(
@@ -71,9 +71,7 @@ const Trigger = ({ onPress: onPressProp, disabled, ...props }: TriggerProps) => 
       {...props}
     />
   );
-};
-
-Trigger.displayName = 'AlertDialogTriggerNative';
+}
 
 function Portal({ forceMount, hostName, children }: PortalProps) {
   const internalValue = useRootInternalContext();
@@ -94,11 +92,11 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
   );
 }
 
-const Overlay = ({
+function Overlay({
   forceMount,
   onAccessibilityEscape: onAccessibilityEscapeProp,
   ...props
-}: OverlayProps) => {
+}: OverlayProps) {
   const { open: value, onOpenChange } = useRootContext();
 
   const onAccessibilityEscape = React.useCallback(() => {
@@ -115,15 +113,13 @@ const Overlay = ({
   }
 
   return <View aria-modal={true} onAccessibilityEscape={onAccessibilityEscape} {...props} />;
-};
+}
 
-Overlay.displayName = 'AlertDialogOverlayNative';
-
-const Content = ({
+function Content({
   forceMount,
   onAccessibilityEscape: onAccessibilityEscapeProp,
   ...props
-}: ContentProps) => {
+}: ContentProps) {
   const { open: value, onOpenChange } = useRootContext();
   const { nativeID } = useRootInternalContext();
 
@@ -162,11 +158,9 @@ const Content = ({
       {...props}
     />
   );
-};
+}
 
-Content.displayName = 'AlertDialogContentNative';
-
-const Cancel = ({ onPress: onPressProp, disabled, ...props }: CancelProps) => {
+function Cancel({ onPress: onPressProp, disabled, ...props }: CancelProps) {
   const { onOpenChange } = useRootContext();
 
   const onPress = React.useCallback(
@@ -188,11 +182,9 @@ const Cancel = ({ onPress: onPressProp, disabled, ...props }: CancelProps) => {
       {...props}
     />
   );
-};
+}
 
-Cancel.displayName = 'AlertDialogCloseNative';
-
-const Action = ({ onPress: onPressProp, disabled, ...props }: ActionProps) => {
+function Action({ onPress: onPressProp, disabled, ...props }: ActionProps) {
   const { onOpenChange } = useRootContext();
 
   const onPress = React.useCallback(
@@ -214,23 +206,17 @@ const Action = ({ onPress: onPressProp, disabled, ...props }: ActionProps) => {
       {...props}
     />
   );
-};
+}
 
-Action.displayName = 'AlertDialogActionNative';
-
-const Title = (props: TitleProps) => {
+function Title(props: TitleProps) {
   const { nativeID } = useRootInternalContext();
   return <Text role='heading' nativeID={`${nativeID}_title`} {...props} />;
-};
+}
 
-Title.displayName = 'AlertDialogTitleNative';
-
-const Description = ({ ...props }: DescriptionProps) => {
+function Description({ ...props }: DescriptionProps) {
   const { nativeID } = useRootInternalContext();
   return <Text nativeID={`${nativeID}_description`} {...props} />;
-};
-
-Description.displayName = 'AlertDialogDescriptionNative';
+}
 
 export {
   Action,

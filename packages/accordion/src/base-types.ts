@@ -19,23 +19,23 @@ type BaseRootProps = Pick<
   | 'asChild'
 >;
 
-type BaseContentProps = Pick<ContentPropsWeb, 'forceMount' | 'asChild'>;
+type BaseContentProps = Pick<ContentPropsWeb, 'forceMount'>;
 
-type BaseHeaderProps = Pick<HeaderPropsWeb, 'asChild'>;
+type BaseHeaderProps = {};
 
-type BaseItemProps = Pick<ItemPropsWeb, 'disabled' | 'value' | 'asChild'>;
+type BaseItemProps = Pick<ItemPropsWeb, 'disabled' | 'value'>;
 
-type BaseTriggerProps = Pick<TriggerPropsWeb, 'asChild'>;
+type BaseTriggerProps = {};
 
 type BaseRootContext = Prettify<
-  Omit<BaseRootProps, 'asChild' | 'defaultValue' | 'value' | 'onValueChange'> & {
+  Pick<BaseRootProps, 'type' | 'collapsible' | 'disabled'> & {
     rootValue: BaseRootProps['value'];
     onRootValueChange: BaseRootProps['onValueChange'];
   }
 > | null;
 
 type BaseItemContext = Prettify<
-  Omit<BaseItemProps, 'asChild' | 'value'> & {
+  Pick<BaseItemProps, 'disabled'> & {
     itemValue: BaseItemProps['value'];
     isExpanded: boolean;
   }

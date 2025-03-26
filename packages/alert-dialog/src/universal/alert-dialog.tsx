@@ -29,9 +29,11 @@ import type {
 function Root(props: RootProps) {
   return <RootNative {...props} />;
 }
-const Content = ({ web: _web, native, ...props }: ContentProps) => {
+
+function Content({ web: _web, native, ...props }: ContentProps) {
   return <ContentNative {...props} {...native} />;
-};
+}
+
 function Description({ web: _web, native, ...props }: DescriptionProps) {
   return <DescriptionNative {...props} {...native} />;
 }
@@ -52,19 +54,13 @@ function Trigger({ ref, web: _web, native, ...props }: TriggerProps) {
   return <TriggerNative ref={ref as TriggerPropsNative['ref']} {...props} {...native} />;
 }
 
-Trigger.displayName = 'AlertDialogTriggerUniversal';
-
 function Action({ ref, web: _web, native, ...props }: ActionProps) {
   return <ActionNative ref={ref as ActionPropsNative['ref']} {...props} {...native} />;
 }
 
-Action.displayName = 'AlertDialogActionUniversal';
-
 function Cancel({ ref, web: _web, native, ...props }: CancelProps) {
   return <CancelNative ref={ref as CancelPropsNative['ref']} {...props} {...native} />;
 }
-
-Cancel.displayName = 'AlertDialogCancelUniversal';
 
 export {
   Action,

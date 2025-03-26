@@ -38,8 +38,6 @@ function Root({
   );
 }
 
-Root.displayName = 'AccordionRootNative';
-
 const ItemInternalContext = React.createContext<{ nativeID: string } | null>(null);
 
 function Item({ value: itemValue, disabled, ...viewProps }: ItemProps) {
@@ -61,8 +59,6 @@ function Item({ value: itemValue, disabled, ...viewProps }: ItemProps) {
   );
 }
 
-Item.displayName = 'AccordionItemNative';
-
 function useItemInternalContext() {
   const context = React.useContext(ItemInternalContext);
   if (!context) {
@@ -73,7 +69,7 @@ function useItemInternalContext() {
   return context;
 }
 
-const Header = (props: HeaderProps) => {
+function Header(props: HeaderProps) {
   const { disabled: rootDisabled } = useRootContext();
   const { disabled: itemDisabled, isExpanded } = useItemContext();
 
@@ -85,11 +81,9 @@ const Header = (props: HeaderProps) => {
       {...props}
     />
   );
-};
+}
 
-Header.displayName = 'AccordionHeaderNative';
-
-const Trigger = ({ onPress: onPressProp, disabled: disabledProp, ...props }: TriggerProps) => {
+function Trigger({ onPress: onPressProp, disabled: disabledProp, ...props }: TriggerProps) {
   const {
     disabled: rootDisabled,
     type,
@@ -139,11 +133,9 @@ const Trigger = ({ onPress: onPressProp, disabled: disabledProp, ...props }: Tri
       {...props}
     />
   );
-};
+}
 
-Trigger.displayName = 'AccordionTriggerNative';
-
-const Content = ({ forceMount, ...props }: ContentProps) => {
+function Content({ forceMount, ...props }: ContentProps) {
   const { type } = useRootContext();
   const { isExpanded } = useItemContext();
   const { nativeID } = useItemInternalContext();
@@ -162,9 +154,7 @@ const Content = ({ forceMount, ...props }: ContentProps) => {
       {...props}
     />
   );
-};
-
-Content.displayName = 'AccordionContentNative';
+}
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };
 
