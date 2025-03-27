@@ -856,9 +856,6 @@ importers:
       '@rn-primitives/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
-        specifier: workspace:*
-        version: link:../slot
       '@rn-primitives/types':
         specifier: workspace:*
         version: link:../types
@@ -896,9 +893,6 @@ importers:
       '@rn-primitives/portal':
         specifier: workspace:*
         version: link:../portal
-      '@rn-primitives/slot':
-        specifier: workspace:*
-        version: link:../slot
       '@rn-primitives/types':
         specifier: workspace:*
         version: link:../types

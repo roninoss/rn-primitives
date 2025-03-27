@@ -41,7 +41,8 @@
     "@radix-ui/react-accordion": "^1.2.3",
     "@rn-primitives/core": "workspace:*",
     "@rn-primitives/hooks": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/utils": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",

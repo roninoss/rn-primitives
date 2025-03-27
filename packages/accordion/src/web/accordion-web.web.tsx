@@ -1,11 +1,12 @@
 import {
   Accordion,
+  AccordionContent,
+  AccordionHeader,
   AccordionItem,
   AccordionTrigger,
-  Content,
-  Header,
 } from '@radix-ui/react-accordion';
 import { useControllableState } from '@rn-primitives/hooks';
+import { withRNPrimitives } from '@rn-primitives/utils';
 import * as React from 'react';
 import { ItemContext, RootContext, useItemContext, useRootContext } from '../utils/contexts';
 import { getDefaultValue } from '../utils/get-default-value';
@@ -37,6 +38,7 @@ function Root({
       }}
     >
       <Accordion
+        data-rn-primitives='view'
         {...({
           ...props,
           value: rootValue,
@@ -60,13 +62,22 @@ function Item(props: ItemProps) {
         isExpanded: isItemExpanded(rootValue, props.value),
       }}
     >
-      <AccordionItem {...props} />
+      <AccordionItem data-rn-primitives='view' {...props} />
     </ItemContext.Provider>
   );
 }
 
 function Trigger({ ref, ...props }: TriggerProps) {
-  return <AccordionTrigger ref={ref as React.Ref<HTMLButtonElement> | undefined} {...props} />;
+  return (
+    <AccordionTrigger
+      ref={ref as React.Ref<HTMLButtonElement> | undefined}
+      data-rn-primitives='pressable'
+      {...props}
+    />
+  );
 }
+
+const Content = withRNPrimitives(AccordionContent, 'view');
+const Header = withRNPrimitives(AccordionHeader, 'view');
 
 export { Content, Header, Item, Root, Trigger, useItemContext, useRootContext };
