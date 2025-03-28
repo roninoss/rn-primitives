@@ -1,4 +1,5 @@
-import { Text, View } from '@rn-primitives/core';
+import { Text } from '~/components/ui/text';
+import { View } from '@rn-primitives/core';
 import { Core } from '~/components/core';
 import {
   Accordion,
@@ -6,6 +7,19 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '~/components/ui/accordion';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '~/components/ui/alert-dialog';
+import { AspectRatio } from '~/components/ui/aspect-ratio';
+import { Button } from '~/components/ui/button';
 
 export default function Home() {
   return (
@@ -14,12 +28,12 @@ export default function Home() {
         <h1>@rn-primitives</h1>
         <View>
           <p className='font-medium'>Styled with Tailwind</p>
-          <Text web={{ as: 'p' }} className='text-sm'>
-            No react-native/react-native
-          </Text>
+          <Text className='text-sm'>No react-native/react-native</Text>
         </View>
         <Core />
         <AccordionExample />
+        <AlertDialogExample />
+        <AspectRatioExample />
       </main>
     </div>
   );
@@ -60,5 +74,45 @@ function AccordionExample() {
         </AccordionContent>
       </AccordionItem>
     </Accordion>
+  );
+}
+
+function AlertDialogExample() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant='outline' className='mx-auto'>
+          <Text>Show Alert Dialog</Text>
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your account and remove your
+            data from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>
+            <Text>Cancel</Text>
+          </AlertDialogCancel>
+          <AlertDialogAction>
+            <Text>Continue</Text>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
+function AspectRatioExample() {
+  return (
+    <AspectRatio ratio={16 / 9}>
+      <View className='bg-blue-500 h-full w-full rounded-lg flex flex-col gap-2 justify-center items-center'>
+        <Text className='text-white text-7xl font-bold'>16 / 9</Text>
+        <Text className='text-white text-sm'>Aspect-ratio</Text>
+      </View>
+    </AspectRatio>
   );
 }

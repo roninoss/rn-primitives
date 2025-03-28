@@ -1,3 +1,4 @@
+import { View } from '@rn-primitives/core';
 import { CheckboxExample } from '~/components/CheckboxExample';
 import { CollapsibleExample } from '~/components/CollapsibleExample';
 import { ContextMenuExample } from '~/components/ContextMenuExample';
@@ -106,8 +107,8 @@ export default function Home() {
         <Core />
         <AccordionExample />
         <AlertDialogExample />
-        {/* <AspectRatioExample />
-        <AvatarExample />
+        <AspectRatioExample />
+        {/* <AvatarExample />
         <CheckboxExample />
         <CollapsibleExample />
         <ContextMenuExample />
@@ -210,10 +211,10 @@ function AlertDialogExample() {
 function AspectRatioExample() {
   return (
     <AspectRatio ratio={16 / 9}>
-      <div className='bg-blue-500 h-full w-full rounded-lg flex flex-col gap-2 justify-center items-center'>
+      <View className='bg-blue-500 h-full w-full rounded-lg flex flex-col gap-2 justify-center items-center'>
         <Typography.H1 className='text-white'>16:9</Typography.H1>
         <Typography.Small className='text-white'>Aspect-ratio</Typography.Small>
-      </div>
+      </View>
     </AspectRatio>
   );
 }

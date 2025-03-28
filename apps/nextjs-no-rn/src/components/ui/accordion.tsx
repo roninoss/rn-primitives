@@ -1,41 +1,70 @@
 'use client';
 
 import * as AccordionPrimitive from '@rn-primitives/accordion';
+import { Platform, View } from '@rn-primitives/core';
+import {
+  FadeIn,
+  FadeOutUp,
+  LayoutAnimationConfig,
+  LinearTransition,
+} from '@rn-primitives/core/native-only-reanimated';
 import { renderPressableChildren } from '@rn-primitives/utils';
 import * as React from 'react';
-import { Platform, View } from '@rn-primitives/core';
 import { TextClassContext } from '~/components/ui/text';
 import { cn } from '~/lib/utils';
 
-function Accordion(props: AccordionPrimitive.RootProps) {
-  return <AccordionPrimitive.Root {...props} />;
+const WEB_AS_CHILD_PROPS = { asChild: true };
+
+const ROOT_NATIVE_PROPS = {
+  isAnimated: true,
+  layout: LinearTransition,
+};
+
+const ROOT_INNER_NATIVE_PROPS = {
+  isAnimated: true,
+  layout: LinearTransition.duration(200),
+};
+
+function Accordion({ children, ...props }: AccordionPrimitive.RootProps) {
+  return (
+    <LayoutAnimationConfig skipEntering>
+      <AccordionPrimitive.Root native={ROOT_NATIVE_PROPS} {...props}>
+        <View web={WEB_AS_CHILD_PROPS} native={ROOT_INNER_NATIVE_PROPS}>
+          <>{children}</>
+        </View>
+      </AccordionPrimitive.Root>
+    </LayoutAnimationConfig>
+  );
 }
+
+const ITEM_NATIVE_PROPS = {
+  isAnimated: true,
+  layout: LinearTransition.duration(200),
+};
 
 function AccordionItem({ className, value, ...props }: AccordionPrimitive.ItemProps) {
   return (
     <AccordionPrimitive.Item
       className={cn('border-b border-border', className)}
+      native={ITEM_NATIVE_PROPS}
       value={value}
       {...props}
     />
   );
 }
 
-const AccordionTrigger = ({
-  ref,
-  className,
-  children,
-  ...props
-}: AccordionPrimitive.TriggerProps) => {
+const AccordionTrigger = ({ className, children, ...props }: AccordionPrimitive.TriggerProps) => {
+  const { isExpanded } = AccordionPrimitive.useItemContext();
+
   return (
     <TextClassContext.Provider value='native:text-lg font-medium'>
       <AccordionPrimitive.Header className='flex'>
         <AccordionPrimitive.Trigger
-          ref={ref}
           className={cn(
             'flex flex-row items-center justify-between py-4',
             Platform.select({
-              web: 'flex-1 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-muted-foreground transition-all [&[data-state=open]>svg]:rotate-180',
+              web: 'flex-1 hover:underline transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-muted-foreground [&[data-state=open]>svg]:rotate-180',
+              native: 'active:opacity-50',
             }),
             className
           )}
@@ -45,18 +74,26 @@ const AccordionTrigger = ({
             return (
               <>
                 {children}
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  className='lucide lucide-chevron-down size-4 transition-transform'
+                <View
+                  native={{
+                    isAnimated: true,
+                    style: { transform: [{ rotate: isExpanded ? '180deg' : '0deg' }] },
+                  }}
+                  web={WEB_AS_CHILD_PROPS}
                 >
-                  <path d='m6 9 6 6 6-6' />
-                </svg>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    strokeWidth='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    className='lucide lucide-chevron-down size-4 transition-transform'
+                  >
+                    <path d='m6 9 6 6 6-6' />
+                  </svg>
+                </View>
               </>
             );
           })}
@@ -64,6 +101,12 @@ const AccordionTrigger = ({
       </AccordionPrimitive.Header>
     </TextClassContext.Provider>
   );
+};
+
+const CONTENT_NATIVE_PROPS = {
+  isAnimated: true,
+  entering: FadeIn,
+  exiting: FadeOutUp.duration(200),
 };
 
 function AccordionContent({ className, children, ...props }: AccordionPrimitive.ContentProps) {
@@ -78,14 +121,12 @@ function AccordionContent({ className, children, ...props }: AccordionPrimitive.
         )}
         {...props}
       >
-        <InnerContent className={cn('pb-4', className)}>{children}</InnerContent>
+        <View native={CONTENT_NATIVE_PROPS} className={cn('pb-4', className)}>
+          {children}
+        </View>
       </AccordionPrimitive.Content>
     </TextClassContext.Provider>
   );
-}
-
-function InnerContent({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <View className={cn('pb-4', className)}>{children}</View>;
 }
 
 export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };

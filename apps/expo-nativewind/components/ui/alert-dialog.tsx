@@ -1,10 +1,10 @@
 import * as AlertDialogPrimitive from '@rn-primitives/alert-dialog';
 import { Platform, View } from '@rn-primitives/core';
 import { FadeIn, FadeOut, ZoomIn, ZoomOut } from '@rn-primitives/core/dist/native/reanimated';
+import { mergeProps } from '@rn-primitives/utils';
 import * as React from 'react';
 import { buttonTextVariants, buttonVariants } from '~/components/ui/button';
 import { TextClassContext } from '~/components/ui/text';
-import { mergeProps } from '~/lib/merge-props';
 import { cn } from '~/lib/utils';
 
 const AlertDialog = AlertDialogPrimitive.Root;

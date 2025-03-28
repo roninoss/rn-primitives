@@ -698,6 +698,12 @@ importers:
       '@rn-primitives/accordion':
         specifier: workspace:*
         version: link:../../packages/accordion
+      '@rn-primitives/alert-dialog':
+        specifier: workspace:*
+        version: link:../../packages/alert-dialog
+      '@rn-primitives/aspect-ratio':
+        specifier: workspace:*
+        version: link:../../packages/aspect-ratio
       '@rn-primitives/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -921,15 +927,12 @@ importers:
       '@radix-ui/react-aspect-ratio':
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@rn-primitives/slot':
+      '@rn-primitives/core':
         specifier: workspace:*
-        version: link:../slot
-      '@rn-primitives/types':
+        version: link:../core
+      '@rn-primitives/utils':
         specifier: workspace:*
-        version: link:../types
-      react-native-web:
-        specifier: '*'
-        version: 0.19.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: link:../utils
     devDependencies:
       '@tsconfig/react-native':
         specifier: ^1.0.1
