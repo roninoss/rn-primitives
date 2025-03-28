@@ -1,1 +1,2 @@
-export * from './aspect-ratio';
+export { Root } from './universal';
+export type { RootProps } from './universal';
