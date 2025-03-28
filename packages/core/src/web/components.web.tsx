@@ -20,26 +20,48 @@ function createDivElement(type: 'pressable' | 'view') {
   return DivImpl;
 }
 
-const HasAncestorContext = React.createContext(false);
+const TextAncestorContext = React.createContext<string | null>(null);
+
+const NON_NESTABLE_TEXT_ELEMENTS = [
+  'p',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'address',
+  'pre',
+  'blockquote',
+];
 
 function createTextElement() {
   function DivImpl<T extends ElementTag = 'div'>({ asChild, as, ...props }: DivProps<T>) {
-    const hasAncestor = React.useContext(HasAncestorContext);
+    const textAncestor = React.useContext(TextAncestorContext);
 
     if (asChild) {
       return <Slot {...props} />;
     }
 
-    const element = React.createElement(!as ? (hasAncestor ? 'span' : 'div') : as, {
+    const adjustedAs =
+      textAncestor &&
+      NON_NESTABLE_TEXT_ELEMENTS.includes(textAncestor) &&
+      NON_NESTABLE_TEXT_ELEMENTS.includes(as ?? '')
+        ? 'span'
+        : (as ?? (textAncestor ? 'span' : 'div'));
+
+    const element = React.createElement(adjustedAs, {
       'data-rn-primitives': 'text',
       ...props,
     });
 
-    if (hasAncestor) {
+    if (textAncestor) {
       return element;
     }
 
-    return <HasAncestorContext.Provider value={true}>{element}</HasAncestorContext.Provider>;
+    return (
+      <TextAncestorContext.Provider value={adjustedAs}>{element}</TextAncestorContext.Provider>
+    );
   }
 
   return DivImpl;
