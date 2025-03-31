@@ -1,16 +1,15 @@
-import type { Portal } from '@radix-ui/react-alert-dialog';
-import type { Slottable } from '@rn-primitives/types';
 import type {
-  BaseAlertDialogActionProps,
-  BaseAlertDialogCancelProps,
-  BaseAlertDialogContentProps,
-  BaseAlertDialogDescriptionProps,
-  BaseAlertDialogOverlayProps,
-  BaseAlertDialogPortalProps,
-  BaseAlertDialogRootProps,
-  BaseAlertDialogTitleProps,
-  BaseAlertDialogTriggerProps,
-} from '../base-types';
+  AlertDialogActionProps,
+  AlertDialogCancelProps,
+  AlertDialogContentProps,
+  AlertDialogDescriptionProps,
+  AlertDialogOverlayProps,
+  AlertDialogPortalProps,
+  AlertDialogProps,
+  AlertDialogTitleProps,
+  AlertDialogTriggerProps,
+  Portal,
+} from '@radix-ui/react-alert-dialog';
 
 type ContentPropsWebOnly = React.ComponentProps<'div'>;
 
@@ -28,23 +27,23 @@ type PortalPropsWebOnly = Pick<React.ComponentProps<typeof Portal>, 'container'>
 
 type TitlePropsWebOnly = React.ComponentProps<'h1'>;
 
-type RootProps = BaseAlertDialogRootProps & { children?: React.ReactNode };
+type RootProps = AlertDialogProps;
 
-type ActionProps = Slottable<BaseAlertDialogActionProps & ActionPropsWebOnly>;
+type ActionProps = AlertDialogActionProps;
 
-type CancelProps = Slottable<BaseAlertDialogCancelProps & CancelPropsWebOnly>;
+type CancelProps = AlertDialogCancelProps;
 
-type DescriptionProps = Slottable<BaseAlertDialogDescriptionProps & DescriptionPropsWebOnly>;
+type DescriptionProps = AlertDialogDescriptionProps;
 
-type OverlayProps = Slottable<BaseAlertDialogOverlayProps & OverlayPropsWebOnly>;
+type OverlayProps = AlertDialogOverlayProps;
 
-type PortalProps = BaseAlertDialogPortalProps & PortalPropsWebOnly;
+type PortalProps = AlertDialogPortalProps;
 
-type TitleProps = Slottable<BaseAlertDialogTitleProps & TitlePropsWebOnly>;
+type TitleProps = AlertDialogTitleProps;
 
-type TriggerProps = Slottable<BaseAlertDialogTriggerProps & TriggerPropsWebOnly>;
+type TriggerProps = AlertDialogTriggerProps;
 
-type ContentProps = Slottable<BaseAlertDialogContentProps & ContentPropsWebOnly>;
+type ContentProps = AlertDialogContentProps;
 
 export type {
   ActionProps,

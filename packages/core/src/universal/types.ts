@@ -38,10 +38,11 @@ type ImagePropsUniversal = Prettify<
     className?: string;
   }
 > & {
-  src: string;
   role?: RNRole;
-  asChild?: boolean | undefined;
-};
+} & (
+    | { asChild?: undefined | false; src: string }
+    | { asChild: true; children: React.ReactNode; src?: string }
+  );
 
 type ImageProps = ImagePropsUniversal & {
   native?: ImagePropsNative;

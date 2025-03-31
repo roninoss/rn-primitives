@@ -108,8 +108,8 @@ export default function Home() {
         <AccordionExample />
         <AlertDialogExample />
         <AspectRatioExample />
-        {/* <AvatarExample />
-        <CheckboxExample />
+        <AvatarExample />
+        {/*<CheckboxExample />
         <CollapsibleExample />
         <ContextMenuExample />
         <DialogExample />
@@ -224,7 +224,7 @@ const GITHUB_AVATAR_URI = 'https://github.com/mrzachnugent.png';
 function AvatarExample() {
   return (
     <Avatar alt="Zach Nugent's Avatar">
-      <AvatarImage source={{ uri: GITHUB_AVATAR_URI }} />
+      <AvatarImage src={GITHUB_AVATAR_URI} />
       <AvatarFallback>
         <Text>ZN</Text>
       </AvatarFallback>

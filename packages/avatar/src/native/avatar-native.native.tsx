@@ -1,43 +1,30 @@
 import { useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
-import { Slot } from '@rn-primitives/slot';
+import { View, Image as RNPImage } from '@rn-primitives/core/dist/native';
 import * as React from 'react';
 import {
   type ImageErrorEventData,
   type ImageLoadEventData,
-  type ImageSourcePropType,
   type NativeSyntheticEvent,
-  Image as RNImage,
-  View,
 } from 'react-native';
-import type { FallbackProps, FallbackRef, ImageProps, ImageRef, RootProps, RootRef } from './types';
+import type { FallbackProps, ImageProps, RootProps } from './types';
 
-type AvatarState = 'loading' | 'error' | 'loaded';
+type AvatarState = 'idle' | 'loading' | 'error' | 'loaded';
 
-interface IRootContext extends RootProps {
+type IRootContext = RootProps & {
   status: AvatarState;
   setStatus: (status: AvatarState) => void;
-}
+};
 
 const RootContext = React.createContext<IRootContext | null>(null);
 
-const Root = ({
-  ref,
-  asChild,
-  alt,
-  ...viewProps
-}: RootProps & {
-  ref?: React.RefObject<RootRef>;
-}) => {
-  const [status, setStatus] = React.useState<AvatarState>('error');
-  const Component = asChild ? Slot : View;
+function Root({ alt, ...props }: RootProps) {
+  const [status, setStatus] = React.useState<AvatarState>('idle');
   return (
     <RootContext.Provider value={{ alt, status, setStatus }}>
-      <Component ref={ref} {...viewProps} />
+      <View {...props} />
     </RootContext.Provider>
   );
-};
-
-Root.displayName = 'RootAvatar';
+}
 
 function useRootContext() {
   const context = React.useContext(RootContext);
@@ -47,33 +34,30 @@ function useRootContext() {
   return context;
 }
 
-const Image = ({
+function Image({
   ref,
   asChild,
   onLoad: onLoadProps,
   onError: onErrorProps,
   onLoadingStatusChange,
   ...props
-}: ImageProps & {
-  ref?: React.RefObject<ImageRef>;
-}) => {
+}: ImageProps) {
   const { alt, setStatus, status } = useRootContext();
 
   useIsomorphicLayoutEffect(() => {
-    if (isValidSource(props?.source)) {
+    if (status === 'idle' && isValidSource(props.src, props?.source)) {
       setStatus('loading');
+      onLoadingStatusChange?.('loading');
     }
-
-    return () => {
-      setStatus('error');
-    };
-  }, [props?.source]);
+  }, [props?.source, status]);
 
   const onLoad = React.useCallback(
     (e: NativeSyntheticEvent<ImageLoadEventData>) => {
       setStatus('loaded');
       onLoadingStatusChange?.('loaded');
-      onLoadProps?.(e);
+      if (typeof onLoadProps === 'function') {
+        onLoadProps(e);
+      }
     },
     [onLoadProps]
   );
@@ -82,7 +66,9 @@ const Image = ({
     (e: NativeSyntheticEvent<ImageErrorEventData>) => {
       setStatus('error');
       onLoadingStatusChange?.('error');
-      onErrorProps?.(e);
+      if (typeof onErrorProps === 'function') {
+        onErrorProps(e);
+      }
     },
     [onErrorProps]
   );
@@ -91,33 +77,39 @@ const Image = ({
     return null;
   }
 
-  const Component = asChild ? Slot : RNImage;
-  return <Component ref={ref} alt={alt} onLoad={onLoad} onError={onError} {...props} />;
-};
+  return <RNPImage alt={alt} onLoad={onLoad} onError={onError} {...props} />;
+}
 
-Image.displayName = 'ImageAvatar';
-
-const Fallback = ({
-  ref,
-  asChild,
-  ...props
-}: FallbackProps & {
-  ref?: React.RefObject<FallbackRef>;
-}) => {
+function Fallback({ asChild, delayMs, ...props }: FallbackProps) {
   const { alt, status } = useRootContext();
+  const [canShow, setCanShow] = React.useState(delayMs === undefined);
 
-  if (status !== 'error') {
+  React.useEffect(() => {
+    if (delayMs === undefined) {
+      return;
+    }
+    const timeout = setTimeout(() => {
+      setCanShow(true);
+    }, delayMs);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [delayMs]);
+
+  if (status === 'loaded' || !canShow) {
     return null;
   }
-  const Component = asChild ? Slot : View;
-  return <Component ref={ref} role={'img'} aria-label={alt} {...props} />;
-};
 
-Fallback.displayName = 'FallbackAvatar';
+  return <View aria-label={alt} {...props} />;
+}
 
 export { Fallback, Image, Root };
 
-function isValidSource(source?: ImageSourcePropType) {
+function isValidSource(src?: ImageProps['src'], source?: ImageProps['source']) {
+  if (src) {
+    return true;
+  }
   if (!source) {
     return false;
   }
@@ -128,5 +120,5 @@ function isValidSource(source?: ImageSourcePropType) {
   if (Array.isArray(source)) {
     return source.some((source) => !!source.uri);
   }
-  return !!source.uri;
+  return !!(source as any)?.uri;
 }

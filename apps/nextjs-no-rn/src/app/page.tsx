@@ -20,6 +20,7 @@ import {
 } from '~/components/ui/alert-dialog';
 import { AspectRatio } from '~/components/ui/aspect-ratio';
 import { Button } from '~/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 
 export default function Home() {
   return (
@@ -34,6 +35,7 @@ export default function Home() {
         <AccordionExample />
         <AlertDialogExample />
         <AspectRatioExample />
+        <AvatarExample />
       </main>
     </div>
   );
@@ -114,5 +116,17 @@ function AspectRatioExample() {
         <Text className='text-white text-sm'>Aspect-ratio</Text>
       </View>
     </AspectRatio>
+  );
+}
+
+const GITHUB_AVATAR_URI = 'https://github.com/mrzachnugent.png';
+function AvatarExample() {
+  return (
+    <Avatar alt="Zach Nugent's Avatar">
+      <AvatarImage src={GITHUB_AVATAR_URI} />
+      <AvatarFallback>
+        <Text>ZN</Text>
+      </AvatarFallback>
+    </Avatar>
   );
 }
