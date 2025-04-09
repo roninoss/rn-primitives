@@ -1,5 +1,3 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { Text, View } from '@rn-primitives/core';
 import { Core } from '@/components/core';
 import {
   Accordion,
@@ -7,6 +5,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Text } from '@/components/ui/text';
+import { View } from '@rn-primitives/core';
+import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -25,6 +37,10 @@ export function App() {
         </View>
         <Core />
         <AccordionExample />
+        <AspectRatioExample />
+        <AvatarExample />
+        <CardExample />
+        <ButtonExample />
       </main>
     </div>
   );
@@ -61,5 +77,58 @@ function AccordionExample() {
         </AccordionContent>
       </AccordionItem>
     </Accordion>
+  );
+}
+
+function AspectRatioExample() {
+  return (
+    <View className='flex-1 justify-center items-center'>
+      <View className='w-1/2'>
+        <AspectRatio ratio={16 / 9}>
+          <View className='bg-blue-500 h-full w-full rounded-lg flex justify-center items-center'>
+            <Text className='text-white text-2xl font-bold'>16:9</Text>
+          </View>
+        </AspectRatio>
+      </View>
+    </View>
+  );
+}
+
+const GITHUB_AVATAR_URI = 'https://github.com/mrzachnugent.png';
+
+function AvatarExample() {
+  return (
+    <View className='flex-1 justify-center items-center p-6 gap-12'>
+      <Avatar alt="Zach Nugent's Avatar">
+        <AvatarImage src={GITHUB_AVATAR_URI} />
+        <AvatarFallback>
+          <Text>ZN</Text>
+        </AvatarFallback>
+      </Avatar>
+    </View>
+  );
+}
+
+function CardExample() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card Title</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <CardDescription>Card Content</CardDescription>
+      </CardContent>
+      <CardFooter>
+        <Text>Card Footer</Text>
+      </CardFooter>
+    </Card>
+  );
+}
+
+function ButtonExample() {
+  return (
+    <Button>
+      <Text>Button</Text>
+    </Button>
   );
 }

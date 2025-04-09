@@ -1,7 +1,8 @@
-import { Text, TextClassContext } from '~/components/ui/text';
-import { cn } from '~/lib/utils';
+import { Text, TextClassContext } from '@/components/ui/text';
+import { cn } from '@/lib/utils';
 import { View } from '@rn-primitives/core';
 import { mergeProps } from '@rn-primitives/utils';
+import * as React from 'react';
 
 function Card({ className, ...props }: React.ComponentProps<typeof View>) {
   return (
@@ -44,7 +45,7 @@ function CardDescription({ className, ...props }: React.ComponentProps<typeof Te
 function CardContent({ className, ...props }: React.ComponentProps<typeof View>) {
   return (
     <TextClassContext.Provider value='text-card-foreground'>
-      <View className={cn('flex flex-col p-6 pt-0', className)} {...props} />
+      <View className={cn('p-6 pt-0', className)} {...props} />
     </TextClassContext.Provider>
   );
 }

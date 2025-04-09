@@ -44,7 +44,7 @@ function CardDescription({ className, ...props }: React.ComponentProps<typeof Te
 function CardContent({ className, ...props }: React.ComponentProps<typeof View>) {
   return (
     <TextClassContext.Provider value='text-card-foreground'>
-      <View className={cn('flex flex-col p-6 pt-0', className)} {...props} />
+      <View className={cn('p-6 pt-0', className)} {...props} />
     </TextClassContext.Provider>
   );
 }

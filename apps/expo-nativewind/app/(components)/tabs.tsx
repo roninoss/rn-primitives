@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View } from '@rn-primitives/core';
 import { Button } from '~/components/ui/button';
 import {
   Card,
@@ -17,7 +17,7 @@ import { Text } from '~/components/ui/text';
 export default function TabsScreen() {
   const [value, setValue] = React.useState('account');
   return (
-    <View className='flex-1 justify-center p-6'>
+    <View className='flex-1 flex flex-col justify-center p-6'>
       <Tabs
         value={value}
         onValueChange={setValue}
@@ -40,11 +40,11 @@ export default function TabsScreen() {
               </CardDescription>
             </CardHeader>
             <CardContent className='gap-4 native:gap-2'>
-              <View className='gap-1'>
+              <View className='flex flex-col gap-1'>
                 <Label nativeID='name'>Name</Label>
                 <Input aria-aria-labelledby='name' defaultValue='Pedro Duarte' />
               </View>
-              <View className='gap-1'>
+              <View className='flex flex-col gap-1'>
                 <Label nativeID='username'>Username</Label>
                 <Input id='username' defaultValue='@peduarte' />
               </View>
@@ -65,11 +65,11 @@ export default function TabsScreen() {
               </CardDescription>
             </CardHeader>
             <CardContent className='gap-4 native:gap-2'>
-              <View className='gap-1'>
+              <View className='flex flex-col gap-1'>
                 <Label nativeID='current'>Current password</Label>
                 <Input placeholder='********' aria-labelledby='current' secureTextEntry />
               </View>
-              <View className='gap-1'>
+              <View className='flex flex-col gap-1'>
                 <Label nativeID='new'>New password</Label>
                 <Input placeholder='********' aria-labelledby='new' secureTextEntry />
               </View>

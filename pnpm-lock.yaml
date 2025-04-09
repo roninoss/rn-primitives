@@ -768,6 +768,12 @@ importers:
       '@rn-primitives/accordion':
         specifier: workspace:*
         version: link:../../packages/accordion
+      '@rn-primitives/aspect-ratio':
+        specifier: workspace:*
+        version: link:../../packages/aspect-ratio
+      '@rn-primitives/avatar':
+        specifier: workspace:*
+        version: link:../../packages/avatar
       '@rn-primitives/core':
         specifier: workspace:*
         version: link:../../packages/core
