@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/checkbox",
-  "version": "1.1.0",
+  "version": "2.0.0-alpha.1",
   "description": "Primitive checkbox",
   "license": "MIT",
   "main": "dist/index.js",
@@ -13,11 +13,17 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./dist/checkbox": {
-      "import": "./dist/checkbox.mjs",
-      "require": "./dist/checkbox.js",
-      "types": "./dist/checkbox.d.ts",
-      "default": "./dist/checkbox.js"
+    "./native": {
+      "import": "./dist/native/index.mjs",
+      "require": "./dist/native/index.js",
+      "types": "./dist/native/index.d.ts",
+      "default": "./dist/native/index.js"
+    },
+    "./web": {
+      "import": "./dist/web/index.mjs",
+      "require": "./dist/web/index.js",
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
     }
   },
   "files": [
@@ -32,10 +38,11 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-checkbox": "^1.1.1",
+    "@radix-ui/react-checkbox": "^1.1.5",
+    "@rn-primitives/core": "workspace:*",
     "@rn-primitives/hooks": "workspace:*",
-    "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/utils": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",

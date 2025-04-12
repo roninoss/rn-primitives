@@ -1,2 +1,2 @@
-export * from './checkbox';
-export * from './types';
+export { Indicator, Root } from './universal';
+export type { IndicatorProps, RootProps } from './universal/types';

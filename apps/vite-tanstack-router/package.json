@@ -16,6 +16,7 @@
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/aspect-ratio": "workspace:*",
     "@rn-primitives/avatar": "workspace:*",
+    "@rn-primitives/checkbox": "workspace:*",
     "@rn-primitives/types": "workspace:*",
     "@rn-primitives/utils": "workspace:*",
     "@tanstack/react-router": "^1.114.3",

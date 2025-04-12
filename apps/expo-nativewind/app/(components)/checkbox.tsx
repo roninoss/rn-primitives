@@ -9,7 +9,7 @@ export default function CheckboxScreen() {
     <View className='flex-1 justify-center items-center p-6 gap-12'>
       <View className='flex-row gap-3 items-center'>
         <Checkbox
-          id='checkbox'
+          web={{ id: 'checkbox' }}
           aria-labelledby='terms'
           checked={checked}
           onCheckedChange={setChecked}

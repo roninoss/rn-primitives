@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import type { PressableProps } from 'react-native';
 import { rnStyleToWebStyle } from './style/rn-style-to-web-style';

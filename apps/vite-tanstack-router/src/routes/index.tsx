@@ -16,6 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Text } from '@/components/ui/text';
 import { View } from '@rn-primitives/core';
 import { createFileRoute } from '@tanstack/react-router';
@@ -41,6 +42,7 @@ export function App() {
         <AvatarExample />
         <CardExample />
         <ButtonExample />
+        <CheckboxExample />
       </main>
     </div>
   );
@@ -130,5 +132,14 @@ function ButtonExample() {
     <Button>
       <Text>Button</Text>
     </Button>
+  );
+}
+
+function CheckboxExample() {
+  return (
+    <View className='flex flex-row gap-3 items-center'>
+      <Checkbox web={{ id: 'checkbox' }} aria-labelledby='terms' />
+      <label htmlFor='checkbox'>Accept terms and conditions</label>
+    </View>
   );
 }

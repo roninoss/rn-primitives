@@ -21,6 +21,7 @@ import {
 import { AspectRatio } from '~/components/ui/aspect-ratio';
 import { Button } from '~/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import { Checkbox } from '~/components/ui/checkbox';
 
 export default function Home() {
   return (
@@ -36,6 +37,7 @@ export default function Home() {
         <AlertDialogExample />
         <AspectRatioExample />
         <AvatarExample />
+        <CheckboxExample />
       </main>
     </div>
   );
@@ -128,5 +130,14 @@ function AvatarExample() {
         <Text>ZN</Text>
       </AvatarFallback>
     </Avatar>
+  );
+}
+
+function CheckboxExample() {
+  return (
+    <View className='flex flex-row gap-3 items-center'>
+      <Checkbox web={{ id: 'checkbox' }} aria-labelledby='terms' />
+      <label htmlFor='checkbox'>Accept terms and conditions</label>
+    </View>
   );
 }

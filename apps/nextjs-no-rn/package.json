@@ -14,6 +14,7 @@
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/utils": "workspace:*",
     "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/checkbox": "workspace:*",
     "@rn-primitives/core": "workspace:*",
     "@rn-primitives/alert-dialog": "workspace:*",
     "@rn-primitives/aspect-ratio": "workspace:*",
