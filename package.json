@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "turbo": "^2.0.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.8.3"
   },
   "pnpm": {
     "peerDependencyRules": {

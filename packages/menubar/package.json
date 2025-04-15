@@ -43,7 +43,7 @@
     "@tsconfig/react-native": "^1.0.1",
     "@types/react": "19.0.10",
     "react": "19.0.0",
-    "react-native": "0.79.0-rc.0",
+    "react-native": "0.79.0",
     "tsup": "^8.1.0"
   },
   "peerDependencies": {

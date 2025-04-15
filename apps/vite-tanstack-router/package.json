@@ -40,7 +40,7 @@
     "autoprefixer": "^10.4.21",
     "jsdom": "^26.0.0",
     "postcss": "^8",
-    "typescript": "^5.3.3",
+    "typescript": "^5.8.3",
     "vite": "^6.1.0",
     "vite-plugin-react-native-web": "^2.1.1",
     "vitest": "^3.0.5",
