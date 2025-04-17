@@ -1467,6 +1467,9 @@ importers:
       '@radix-ui/react-progress':
         specifier: ^1.1.0
         version: 1.1.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@rn-primitives/core':
+        specifier: workspace:*
+        version: link:../core
       '@rn-primitives/slot':
         specifier: workspace:*
         version: link:../slot
