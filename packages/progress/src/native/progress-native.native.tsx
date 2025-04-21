@@ -19,12 +19,6 @@ function Root({
       aria-valuemin={0}
       aria-valuenow={value}
       aria-valuetext={getValueLabel(value, max)}
-      accessibilityValue={{
-        min: 0,
-        max,
-        now: value,
-        text: getValueLabel(value, max),
-      }}
       {...props}
     />
   );
