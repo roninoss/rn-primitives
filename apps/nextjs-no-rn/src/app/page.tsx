@@ -22,7 +22,7 @@ import { AspectRatio } from '~/components/ui/aspect-ratio';
 import { Button } from '~/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Checkbox } from '~/components/ui/checkbox';
-
+import { Progress } from '~/components/ui/progress';
 export default function Home() {
   return (
     <div className='py-24 px-4 min-h-svh'>
@@ -38,6 +38,7 @@ export default function Home() {
         <AspectRatioExample />
         <AvatarExample />
         <CheckboxExample />
+        <ProgressExample />
       </main>
     </div>
   );
@@ -140,4 +141,8 @@ function CheckboxExample() {
       <label htmlFor='checkbox'>Accept terms and conditions</label>
     </View>
   );
+}
+
+function ProgressExample() {
+  return <Progress value={50} />;
 }

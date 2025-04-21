@@ -41,7 +41,8 @@
     "@radix-ui/react-progress": "^1.1.0",
     "@rn-primitives/core": "workspace:*",
     "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/utils": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",

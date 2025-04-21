@@ -11,19 +11,15 @@ import Animated, {
 import { cn } from '~/lib/utils';
 
 const Progress = ({
-  ref,
   className,
   value,
   indicatorClassName,
   ...props
-}: React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & {
+}: ProgressPrimitive.RootProps & {
   indicatorClassName?: string;
-} & {
-  ref?: React.RefObject<React.ElementRef<typeof ProgressPrimitive.Root>>;
 }) => {
   return (
     <ProgressPrimitive.Root
-      ref={ref}
       className={cn('relative h-4 w-full overflow-hidden rounded-full bg-secondary', className)}
       {...props}
     >
@@ -31,7 +27,6 @@ const Progress = ({
     </ProgressPrimitive.Root>
   );
 };
-Progress.displayName = ProgressPrimitive.Root.displayName;
 
 export { Progress };
 

@@ -109,6 +109,7 @@ export default function Home() {
         <AlertDialogExample />
         <AspectRatioExample />
         <AvatarExample />
+        <ProgressExample />
         {/*<CheckboxExample />
         <CollapsibleExample />
         <ContextMenuExample />
@@ -455,4 +456,8 @@ function TableExample() {
       </TableFooter>
     </Table>
   );
+}
+
+function ProgressExample() {
+  return <Progress value={50} />;
 }

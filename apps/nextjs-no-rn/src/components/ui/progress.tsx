@@ -1,7 +1,5 @@
-'use client';
-
 import * as ProgressPrimitive from '@rn-primitives/progress';
-import { View } from 'react-native';
+import { View } from '@rn-primitives/core';
 import { cn } from '~/lib/utils';
 
 const Progress = ({
