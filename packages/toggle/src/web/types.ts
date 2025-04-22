@@ -1,6 +1,6 @@
-import { Root } from '@radix-ui/react-toggle';
+import type { ToggleProps } from '@radix-ui/react-toggle';
 
-type RootProps = React.ComponentProps<typeof Root>;
+type RootProps = ToggleProps;
 
 type RootPropsWebOnly = React.ComponentProps<'button'>;
 
