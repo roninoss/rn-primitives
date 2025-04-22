@@ -110,6 +110,7 @@ export default function Home() {
         <AspectRatioExample />
         <AvatarExample />
         <ProgressExample />
+        <ToggleExample />
         {/*<CheckboxExample />
         <CollapsibleExample />
         <ContextMenuExample />
@@ -119,7 +120,6 @@ export default function Home() {
         <MenubarExample />
         <NavigationMenuExample />
         <PopoverExample />
-        <Progress value={50} />
         <RadioGroupExample />
         <SelectExample />
         <Separator />
@@ -127,7 +127,6 @@ export default function Home() {
         <SwitchExample />
         <TableExample />
         <TabsExample />
-        <ToggleExample />
         <ToggleGroupExample />
         <TooltipExample /> */}
       </main>

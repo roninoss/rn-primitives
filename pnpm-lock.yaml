@@ -734,6 +734,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      lucide-react:
+        specifier: ^0.503.0
+        version: 0.503.0(react@19.0.0)
       next:
         specifier: 15.2.2
         version: 15.2.2(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -795,6 +798,9 @@ importers:
       '@rn-primitives/slot':
         specifier: workspace:*
         version: link:../../packages/slot
+      '@rn-primitives/toggle':
+        specifier: workspace:*
+        version: link:../../packages/toggle
       '@rn-primitives/types':
         specifier: workspace:*
         version: link:../../packages/types
@@ -6126,6 +6132,11 @@ packages:
 
   lucide-react@0.476.0:
     resolution: {integrity: sha512-x6cLTk8gahdUPje0hSgLN1/MgiJH+Xl90Xoxy9bkPAsMPOUiyRSKR4JCDPGVCEpyqnZXH3exFWNItcvra9WzUQ==}
+    peerDependencies:
+      react: 19.0.0
+
+  lucide-react@0.503.0:
+    resolution: {integrity: sha512-HGGkdlPWQ0vTF8jJ5TdIqhQXZi6uh3LnNgfZ8MHiuxFfX3RZeA79r2MW2tHAZKlAVfoNE8esm3p+O6VkIvpj6w==}
     peerDependencies:
       react: 19.0.0
 
@@ -13417,6 +13428,10 @@ snapshots:
       react-native-svg: 15.11.2(react-native@0.79.0(@babel/core@7.26.10)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
 
   lucide-react@0.476.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+
+  lucide-react@0.503.0(react@19.0.0):
     dependencies:
       react: 19.0.0
 

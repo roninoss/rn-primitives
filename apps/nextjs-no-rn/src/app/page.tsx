@@ -150,5 +150,5 @@ function ProgressExample() {
 }
 
 function ToggleExample() {
-  return <Toggle pressed={false} onPressedChange={() => {}} />;
+  return <Toggle />;
 }

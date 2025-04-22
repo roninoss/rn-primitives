@@ -19,6 +19,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
 import { Text } from '@/components/ui/text';
+import { Toggle } from '@/components/ui/toggle';
 import { View } from '@rn-primitives/core';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -45,6 +46,7 @@ export function App() {
         <ButtonExample />
         <CheckboxExample />
         <ProgressExample />
+        <ToggleExample />
       </main>
     </div>
   );
@@ -148,4 +150,8 @@ function CheckboxExample() {
 
 function ProgressExample() {
   return <Progress value={50} />;
+}
+
+function ToggleExample() {
+  return <Toggle />;
 }
