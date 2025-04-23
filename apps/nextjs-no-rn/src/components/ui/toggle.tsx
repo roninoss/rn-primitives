@@ -54,7 +54,6 @@ const Toggle = ({
   size,
   ...props
 }: TogglePrimitive.RootProps & VariantProps<typeof toggleVariants>) => {
-  const [pressed, setPressed] = React.useState(props.pressed);
   return (
     <TextClassContext.Provider
       value={cn(
@@ -71,8 +70,6 @@ const Toggle = ({
           className
         )}
         {...props}
-        pressed={pressed}
-        onPressedChange={setPressed}
       >
         <ToggleIcon icon={Bold} size={18} />
       </TogglePrimitive.Root>
