@@ -1,11 +1,10 @@
-'use client';
-
 import { cva, type VariantProps } from 'class-variance-authority';
-import type { LucideIcon } from 'lucide-react-native';
+import type { LucideIcon } from 'lucide-react';
+import { Bold } from 'lucide-react';
 import * as React from 'react';
-import { TextClassContext } from '~/components/ui/text';
+import { TextClassContext } from '@/components/ui/text';
 import * as TogglePrimitive from '@rn-primitives/toggle';
-import { cn } from '~/lib/utils';
+import { cn } from '@/lib/utils';
 
 const toggleVariants = cva(
   'web:group web:inline-flex items-center justify-center rounded-md web:ring-offset-background web:transition-colors web:hover:bg-muted active:bg-muted web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2',
@@ -52,25 +51,32 @@ const Toggle = ({
   variant,
   size,
   ...props
-}: TogglePrimitive.RootProps & VariantProps<typeof toggleVariants>) => (
-  <TextClassContext.Provider
-    value={cn(
-      toggleTextVariants({ variant, size }),
-      props.pressed ? 'text-accent-foreground' : 'web:group-hover:text-muted-foreground',
-      className
-    )}
-  >
-    <TogglePrimitive.Root
-      className={cn(
-        toggleVariants({ variant, size }),
-        props.disabled && 'web:pointer-events-none opacity-50',
-        props.pressed && 'bg-accent',
+}: TogglePrimitive.RootProps & VariantProps<typeof toggleVariants>) => {
+  const [pressed, setPressed] = React.useState(props.pressed);
+  return (
+    <TextClassContext.Provider
+      value={cn(
+        toggleTextVariants({ variant, size }),
+        props.pressed ? 'text-accent-foreground' : 'web:group-hover:text-muted-foreground',
         className
       )}
-      {...props}
-    />
-  </TextClassContext.Provider>
-);
+    >
+      <TogglePrimitive.Root
+        className={cn(
+          toggleVariants({ variant, size }),
+          props.disabled && 'web:pointer-events-none opacity-50',
+          props.pressed && 'bg-accent',
+          className
+        )}
+        {...props}
+        pressed={pressed}
+        onPressedChange={setPressed}
+      >
+        <ToggleIcon icon={Bold} size={18} />
+      </TogglePrimitive.Root>
+    </TextClassContext.Provider>
+  );
+};
 
 function ToggleIcon({
   className,

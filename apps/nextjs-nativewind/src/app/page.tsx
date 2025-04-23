@@ -109,6 +109,8 @@ export default function Home() {
         <AlertDialogExample />
         <AspectRatioExample />
         <AvatarExample />
+        <ProgressExample />
+        <ToggleExample />
         {/*<CheckboxExample />
         <CollapsibleExample />
         <ContextMenuExample />
@@ -118,7 +120,6 @@ export default function Home() {
         <MenubarExample />
         <NavigationMenuExample />
         <PopoverExample />
-        <Progress value={50} />
         <RadioGroupExample />
         <SelectExample />
         <Separator />
@@ -126,7 +127,6 @@ export default function Home() {
         <SwitchExample />
         <TableExample />
         <TabsExample />
-        <ToggleExample />
         <ToggleGroupExample />
         <TooltipExample /> */}
       </main>
@@ -455,4 +455,8 @@ function TableExample() {
       </TableFooter>
     </Table>
   );
+}
+
+function ProgressExample() {
+  return <Progress value={50} />;
 }

@@ -46,15 +46,11 @@ const toggleTextVariants = cva('text-sm native:text-base text-foreground font-me
 });
 
 const Toggle = ({
-  ref,
   className,
   variant,
   size,
   ...props
-}: React.ComponentPropsWithoutRef<typeof TogglePrimitive.Root> &
-  VariantProps<typeof toggleVariants> & {
-    ref?: React.RefObject<React.ElementRef<typeof TogglePrimitive.Root>>;
-  }) => (
+}: TogglePrimitive.RootProps & VariantProps<typeof toggleVariants>) => (
   <TextClassContext.Provider
     value={cn(
       toggleTextVariants({ variant, size }),
@@ -63,7 +59,6 @@ const Toggle = ({
     )}
   >
     <TogglePrimitive.Root
-      ref={ref}
       className={cn(
         toggleVariants({ variant, size }),
         props.disabled && 'web:pointer-events-none opacity-50',
@@ -74,8 +69,6 @@ const Toggle = ({
     />
   </TextClassContext.Provider>
 );
-
-Toggle.displayName = TogglePrimitive.Root.displayName;
 
 function ToggleIcon({
   className,

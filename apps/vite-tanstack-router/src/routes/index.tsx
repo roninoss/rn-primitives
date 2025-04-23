@@ -17,7 +17,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Progress } from '@/components/ui/progress';
 import { Text } from '@/components/ui/text';
+import { Toggle } from '@/components/ui/toggle';
 import { View } from '@rn-primitives/core';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -43,6 +45,8 @@ export function App() {
         <CardExample />
         <ButtonExample />
         <CheckboxExample />
+        <ProgressExample />
+        <ToggleExample />
       </main>
     </div>
   );
@@ -142,4 +146,12 @@ function CheckboxExample() {
       <label htmlFor='checkbox'>Accept terms and conditions</label>
     </View>
   );
+}
+
+function ProgressExample() {
+  return <Progress value={50} />;
+}
+
+function ToggleExample() {
+  return <Toggle />;
 }

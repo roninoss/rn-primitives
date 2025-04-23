@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/progress",
-  "version": "1.1.0",
+  "version": "2.0.0-alpha.1",
   "description": "Primitive progress",
   "license": "MIT",
   "main": "dist/index.js",
@@ -13,11 +13,17 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./dist/progress": {
-      "import": "./dist/progress.mjs",
-      "require": "./dist/progress.js",
-      "types": "./dist/progress.d.ts",
-      "default": "./dist/progress.js"
+    "./native": {
+      "import": "./dist/native/index.mjs",
+      "require": "./dist/native/index.js",
+      "types": "./dist/native/index.d.ts",
+      "default": "./dist/native/index.js"
+    },
+    "./web": {
+      "import": "./dist/web/index.mjs",
+      "require": "./dist/web/index.js",
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
     }
   },
   "files": [
@@ -33,8 +39,10 @@
   },
   "dependencies": {
     "@radix-ui/react-progress": "^1.1.0",
+    "@rn-primitives/core": "workspace:*",
     "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/utils": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",

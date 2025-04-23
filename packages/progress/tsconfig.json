@@ -1,8 +1,6 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
-  "include": [
-    "./src/**/*"
-  ],
+  "include": ["./src/**/*"],
   "compilerOptions": {
     "lib": [
       "dom",
@@ -19,11 +17,7 @@
       "es2022.array",
       "es2022.object",
       "es2022.string"
-    ],
+    ]
   },
-  "exclude": [
-    "dist",
-    "build",
-    "node_modules"
-  ],
+  "exclude": ["dist", "build", "node_modules"]
 }
