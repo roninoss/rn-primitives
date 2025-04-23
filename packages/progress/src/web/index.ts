@@ -1,3 +1,3 @@
-export { Root, Indicator } from './progress-web';
+export { Indicator, Root } from './progress-web';
 
-export type { RootProps, IndicatorProps } from './types';
+export type { IndicatorProps, RootProps } from './types';

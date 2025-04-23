@@ -4,4 +4,4 @@ import { withRNPrimitives } from '@rn-primitives/utils';
 const Root = withRNPrimitives(Progress, 'view');
 const Indicator = withRNPrimitives(ProgressIndicator, 'view');
 
-export { Root, Indicator };
+export { Indicator, Root };
