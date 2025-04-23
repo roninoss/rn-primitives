@@ -1,3 +1,6 @@
+'use client';
+
+import * as React from 'react';
 import * as CheckboxPrimitive from '@rn-primitives/checkbox';
 import { Platform } from '@rn-primitives/core';
 import { mergeProps } from '@rn-primitives/utils';
@@ -8,6 +11,7 @@ const CHECKBOX_NATIVE_PROPS = {
 };
 
 function Checkbox({ className, native, ...props }: CheckboxPrimitive.RootProps) {
+  const [checked, setChecked] = React.useState(false);
   return (
     <CheckboxPrimitive.Root
       className={cn(
@@ -20,6 +24,8 @@ function Checkbox({ className, native, ...props }: CheckboxPrimitive.RootProps) 
       )}
       native={mergeProps(CHECKBOX_NATIVE_PROPS, native)}
       {...props}
+      checked={checked}
+      onCheckedChange={setChecked}
     >
       <CheckboxPrimitive.Indicator
         className={cn('flex items-center justify-center h-full w-full bg-primary')}
