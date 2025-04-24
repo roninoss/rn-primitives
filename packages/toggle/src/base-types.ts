@@ -1,8 +1,8 @@
 import type { RootProps as RootPropsWeb } from './web/types';
 
-type BaseRootProps = Pick<
+type BaseToggleRootProps = Pick<
   RootPropsWeb,
   'defaultPressed' | 'pressed' | 'onPressedChange' | 'disabled' | 'asChild'
 >;
 
-export type { BaseRootProps };
+export type { BaseToggleRootProps };

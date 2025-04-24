@@ -1,2 +1,2 @@
-export * from './toggle-group';
-export * from './types';
+export { Root } from './universal/toggle-group';
+export type { RootProps, RootRef } from './universal/types';
