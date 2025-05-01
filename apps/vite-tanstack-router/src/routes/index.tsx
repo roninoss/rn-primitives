@@ -20,6 +20,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
 import { Text } from '@/components/ui/text';
 import { Toggle } from '@/components/ui/toggle';
+import { ToggleGroup } from '@/components/ui/toggle-group';
 import { View } from '@rn-primitives/core';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -47,6 +48,7 @@ export function App() {
         <CheckboxExample />
         <ProgressExample />
         <ToggleExample />
+        <ToggleGroupExample />
       </main>
     </div>
   );
@@ -153,5 +155,13 @@ function ProgressExample() {
 }
 
 function ToggleExample() {
-  return <Toggle />;
+  return (
+    <View className='flex-1 justify-center items-center'>
+      <Toggle variant='outline' />
+    </View>
+  );
+}
+
+function ToggleGroupExample() {
+  return <ToggleGroup type='multiple' variant='outline' />;
 }

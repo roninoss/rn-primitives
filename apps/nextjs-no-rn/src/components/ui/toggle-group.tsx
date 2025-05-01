@@ -7,6 +7,7 @@ import { toggleTextVariants, toggleVariants } from '~/components/ui/toggle';
 import { TextClassContext } from '~/components/ui/text';
 import * as ToggleGroupPrimitive from '@rn-primitives/toggle-group';
 import { cn } from '~/lib/utils';
+import { Bold, Italic, Underline } from 'lucide-react';
 
 const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants> | null>(null);
 
@@ -22,7 +23,17 @@ const ToggleGroup = ({
     className={cn('flex flex-row items-center justify-center gap-1', className)}
     {...props}
   >
-    <ToggleGroupContext.Provider value={{ variant, size }}>{children}</ToggleGroupContext.Provider>
+    <ToggleGroupContext.Provider value={{ variant, size }}>
+      <ToggleGroupItem value='bold' aria-label='Toggle bold'>
+        <ToggleGroupIcon icon={Bold} size={18} />
+      </ToggleGroupItem>
+      <ToggleGroupItem value='italic' aria-label='Toggle italic'>
+        <ToggleGroupIcon icon={Italic} size={18} />
+      </ToggleGroupItem>
+      <ToggleGroupItem value='underline' aria-label='Toggle underline'>
+        <ToggleGroupIcon icon={Underline} size={18} />
+      </ToggleGroupItem>
+    </ToggleGroupContext.Provider>
   </ToggleGroupPrimitive.Root>
 );
 

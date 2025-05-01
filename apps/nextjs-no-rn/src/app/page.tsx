@@ -24,6 +24,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Checkbox } from '~/components/ui/checkbox';
 import { Progress } from '~/components/ui/progress';
 import { Toggle } from '~/components/ui/toggle';
+import { ToggleGroup } from '~/components/ui/toggle-group';
+
 export default function Home() {
   return (
     <div className='py-24 px-4 min-h-svh'>
@@ -41,6 +43,7 @@ export default function Home() {
         <CheckboxExample />
         <ProgressExample />
         <ToggleExample />
+        <ToggleGroupExample />
       </main>
     </div>
   );
@@ -150,5 +153,13 @@ function ProgressExample() {
 }
 
 function ToggleExample() {
-  return <Toggle />;
+  return (
+    <View className='flex-1 justify-center items-center'>
+      <Toggle variant='outline' />
+    </View>
+  );
+}
+
+function ToggleGroupExample() {
+  return <ToggleGroup type='multiple' variant='outline' />;
 }

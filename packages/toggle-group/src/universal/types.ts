@@ -12,8 +12,6 @@ type RootProps = Prettify<
     }
 >;
 
-type RootRef = RootProps['ref'];
-
 type ItemProps = Prettify<
   BaseItemProps &
     PressablePropsUniversal & {
@@ -22,6 +20,4 @@ type ItemProps = Prettify<
     }
 >;
 
-type ItemRef = ItemProps['ref'];
-
-export type { ItemProps, ItemRef, RootProps, RootRef };
+export type { ItemProps, RootProps };
