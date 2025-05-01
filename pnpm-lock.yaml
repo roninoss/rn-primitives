@@ -1832,6 +1832,9 @@ importers:
       '@rn-primitives/core':
         specifier: workspace:*
         version: link:../core
+      '@rn-primitives/hooks':
+        specifier: workspace:*
+        version: link:../hooks
       '@rn-primitives/slot':
         specifier: workspace:*
         version: link:../slot

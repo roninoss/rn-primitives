@@ -40,6 +40,7 @@
   "dependencies": {
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@rn-primitives/core": "workspace:*",
+    "@rn-primitives/hooks": "workspace:*",
     "@rn-primitives/utils": "workspace:*",
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*"

@@ -1,19 +1,19 @@
-import type { RootProps, ItemProps } from './types';
+import type { ToggleGroup, ToggleGroupItem } from '@radix-ui/react-toggle-group';
 import type { RootContextReturnType, ItemContextReturnType } from '../utils/contexts';
 
-const Root = (props: RootProps) => {
+const Root = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Root` from @rn-primitives/toggle-group/web is only supported on web.');
   }
   return null;
-};
+}) as unknown as typeof ToggleGroup;
 
-const Item = (props: ItemProps) => {
+const Item = (() => {
   if (process.env.NODE_ENV === 'development') {
     console.log('`Item` from @rn-primitives/toggle-group/web is only supported on web.');
   }
   return null;
-};
+}) as unknown as typeof ToggleGroupItem;
 
 const useRootContext = () => {
   throw new Error(

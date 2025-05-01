@@ -2,12 +2,15 @@ import type { RootProps as RootPropsWeb, ItemProps as ItemPropsWeb } from './web
 
 type BaseRootProps = Pick<
   RootPropsWeb,
-  'type' | 'value' | 'onValueChange' | 'disabled' | 'asChild'
+  'type' | 'value' | 'defaultValue' | 'onValueChange' | 'disabled' | 'asChild'
 >;
 
-type BaseItemProps = Pick<ItemPropsWeb, 'value' | 'asChild'>;
+type BaseItemProps = Pick<ItemPropsWeb, 'value' | 'disabled' | 'asChild'>;
 
-type BaseRootContext = Pick<RootPropsWeb, 'type' | 'value' | 'onValueChange' | 'disabled'> | null;
+type BaseRootContext = Pick<
+  RootPropsWeb,
+  'type' | 'value' | 'defaultValue' | 'onValueChange' | 'disabled'
+> | null;
 
 type BaseItemContext = Pick<ItemPropsWeb, 'value'> | null;
 
