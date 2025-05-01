@@ -25,7 +25,7 @@ const useRootContext = () => {
 
 const useItemContext = () => {
   throw new Error(
-    'Cannot access the native useItemContext on the web. Please import from `@rn-primitives/accordion` or `@rn-primitives/accordion/native`'
+    'Cannot access the native useItemContext on the web. Please import from `@rn-primitives/toggle-group` or `@rn-primitives/toggle-group/native`'
   );
   return {} as ItemContextReturnType;
 };
