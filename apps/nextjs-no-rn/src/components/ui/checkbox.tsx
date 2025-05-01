@@ -1,4 +1,3 @@
-import * as React from 'react';
 import * as CheckboxPrimitive from '@rn-primitives/checkbox';
 import { Platform } from '@rn-primitives/core';
 import { mergeProps } from '@rn-primitives/utils';
