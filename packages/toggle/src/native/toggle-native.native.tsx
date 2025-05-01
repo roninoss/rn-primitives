@@ -1,39 +1,41 @@
 import { Pressable } from '@rn-primitives/core/dist/native';
+import { useControllableState } from '@rn-primitives/hooks';
 import * as React from 'react';
 import type { GestureResponderEvent } from 'react-native';
 import type { RootProps } from './types';
 
 const Root = ({
   asChild,
-  pressed,
-  onPressedChange,
+  pressed: pressedProp,
+  onPressedChange: onPressedChangeProp,
   disabled,
   onPress: onPressProp,
+  defaultPressed,
   ...props
 }: RootProps) => {
-  const onPress = (ev: GestureResponderEvent) => {
-    if (disabled) return;
+  const [pressed = false, onPressedChange] = useControllableState({
+    prop: pressedProp,
+    defaultProp: defaultPressed,
+    onChange: onPressedChangeProp,
+  });
 
-    if (typeof onPressedChange === 'function') {
-      const newValue = !pressed;
-      onPressedChange(newValue);
-    }
+  const onPress = React.useCallback(
+    (ev: GestureResponderEvent) => {
+      onPressedChange((prev) => !prev);
 
-    if (typeof onPressProp === 'function') {
-      onPressProp(ev);
-    }
-  };
+      if (typeof onPressProp === 'function') {
+        onPressProp(ev);
+      }
+    },
+    [onPressedChange, onPressProp]
+  );
 
   return (
     <Pressable
       aria-disabled={disabled}
-      role='switch'
-      aria-selected={pressed}
+      accessibilityRole='togglebutton'
+      aria-checked={pressed}
       onPress={onPress}
-      accessibilityState={{
-        selected: pressed,
-        disabled,
-      }}
       disabled={disabled}
       {...props}
     />

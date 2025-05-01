@@ -1,8 +1,8 @@
-import { ViewPropsUniversal } from '@rn-primitives/core';
+import type { ViewPropsUniversal } from '@rn-primitives/core';
 import type { Prettify } from '@rn-primitives/types';
-import type { BaseRootProps, BaseIndicatorProps } from '../base-types';
-import type { RootPropsNativeOnly, IndicatorPropsNativeOnly } from '../native/types';
-import type { RootPropsWebOnly, IndicatorPropsWebOnly } from '../web/types';
+import type { BaseIndicatorProps, BaseRootProps } from '../base-types';
+import type { IndicatorPropsNativeOnly, RootPropsNativeOnly } from '../native/types';
+import type { IndicatorPropsWebOnly, RootPropsWebOnly } from '../web/types';
 
 type BaseWithPlatformProps<B, N, W> = Prettify<
   B & {
@@ -21,4 +21,4 @@ type IndicatorProps = BaseWithPlatformProps<
 > &
   ViewPropsUniversal;
 
-export type { RootProps, IndicatorProps };
+export type { IndicatorProps, RootProps };

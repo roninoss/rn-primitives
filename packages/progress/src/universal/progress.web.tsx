@@ -6,11 +6,11 @@ function Root({ native: _native, web, style, ...props }: RootProps) {
   if (style) {
     return (
       <View style={style} asChild>
-        <RootWeb {...props} {...(web as any)} />
+        <RootWeb {...props} {...web} />
       </View>
     );
   }
-  return <RootWeb {...props} {...(web as any)} />;
+  return <RootWeb {...props} {...web} />;
 }
 
 function Indicator({ native: _native, web, style, ...props }: IndicatorProps) {

@@ -1,7 +1,7 @@
-import type { IndicatorProps as IndicatorPropsWeb, RootProps as RootPropsWeb } from './web/types';
+import type { RootProps as RootPropsWeb } from './web/types';
 
-type BaseRootProps = Pick<RootPropsWeb, 'value' | 'max' | 'getValueLabel' | 'asChild'>;
+type BaseRootProps = Pick<RootPropsWeb, 'value' | 'max' | 'getValueLabel'>;
 
-type BaseIndicatorProps = Pick<IndicatorPropsWeb, 'asChild'>;
+type BaseIndicatorProps = {};
 
-export type { BaseRootProps, BaseIndicatorProps };
+export type { BaseIndicatorProps, BaseRootProps };

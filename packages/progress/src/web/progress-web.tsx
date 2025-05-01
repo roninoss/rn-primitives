@@ -1,4 +1,4 @@
-import type { RootProps, IndicatorProps } from './types';
+import type { IndicatorProps, RootProps } from './types';
 
 function Root(props: RootProps) {
   if (process.env.NODE_ENV === 'development') {
@@ -14,4 +14,4 @@ function Indicator(props: IndicatorProps) {
   return null;
 }
 
-export { Root, Indicator };
+export { Indicator, Root };

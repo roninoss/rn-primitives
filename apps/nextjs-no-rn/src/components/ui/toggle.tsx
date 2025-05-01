@@ -54,12 +54,13 @@ const Toggle = ({
   size,
   ...props
 }: TogglePrimitive.RootProps & VariantProps<typeof toggleVariants>) => {
-  const [pressed, setPressed] = React.useState(props.pressed);
+  const [pressed, setPressed] = React.useState(!!props.pressed);
+
   return (
     <TextClassContext.Provider
       value={cn(
         toggleTextVariants({ variant, size }),
-        props.pressed ? 'text-accent-foreground' : 'web:group-hover:text-muted-foreground',
+        pressed ? 'text-accent-foreground' : 'web:group-hover:text-muted-foreground',
         className
       )}
     >
@@ -67,12 +68,12 @@ const Toggle = ({
         className={cn(
           toggleVariants({ variant, size }),
           props.disabled && 'web:pointer-events-none opacity-50',
-          props.pressed && 'bg-accent',
+          pressed && 'bg-accent',
           className
         )}
-        {...props}
         pressed={pressed}
         onPressedChange={setPressed}
+        {...props}
       >
         <ToggleIcon icon={Bold} size={18} />
       </TogglePrimitive.Root>

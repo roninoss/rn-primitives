@@ -38,8 +38,9 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-toggle": "^1.1.0",
+    "@radix-ui/react-toggle": "^1.1.6",
     "@rn-primitives/core": "workspace:*",
+    "@rn-primitives/hooks": "workspace:*",
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*",
     "@rn-primitives/utils": "workspace:*"
@@ -53,14 +54,10 @@
   },
   "peerDependencies": {
     "react": ">=19.0.0",
-    "react-native": "*",
-    "react-native-web": "*"
+    "react-native": "*"
   },
   "peerDependenciesMeta": {
     "react-native": {
-      "optional": true
-    },
-    "react-native-web": {
       "optional": true
     }
   }

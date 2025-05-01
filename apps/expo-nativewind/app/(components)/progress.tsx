@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View } from '@rn-primitives/core';
 import { Button } from '~/components/ui/button';
 import { Progress } from '~/components/ui/progress';
 import { Text } from '~/components/ui/text';
