@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View } from '@rn-primitives/core';
 import { Toggle, ToggleIcon } from '~/components/ui/toggle';
 import { Bold } from '~/lib/icons/Bold';
 

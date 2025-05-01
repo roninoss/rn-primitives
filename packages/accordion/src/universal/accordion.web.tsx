@@ -1,4 +1,5 @@
 import { Pressable, View } from '@rn-primitives/core';
+import { mergeProps } from '@rn-primitives/utils';
 import * as React from 'react';
 import {
   Content as ContentWeb,
@@ -55,10 +56,12 @@ function Item({ native: _native, style, web, ...props }: ItemProps) {
   return <ItemWeb {...props} {...web} />;
 }
 
+const DEFAULT_PRESSABLE_WEB = { as: 'button' } as const;
+
 function Trigger({ native: _native, web, ...props }: TriggerProps) {
   return (
     <TriggerWeb asChild>
-      <Pressable web={{ as: 'button', ...web }} {...props} />
+      <Pressable web={mergeProps(DEFAULT_PRESSABLE_WEB, web)} {...props} />
     </TriggerWeb>
   );
 }

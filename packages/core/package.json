@@ -19,13 +19,31 @@
       "types": "./dist/native/index.d.ts",
       "default": "./dist/native/index.js"
     },
+    "./dist/native": {
+      "import": "./dist/native/index.mjs",
+      "require": "./dist/native/index.js",
+      "types": "./dist/native/index.d.ts",
+      "default": "./dist/native/index.js"
+    },
     "./native-only-reanimated": {
       "import": "./dist/native/reanimated/index.mjs",
       "require": "./dist/native/reanimated/index.js",
       "types": "./dist/native/reanimated/index.d.ts",
       "default": "./dist/native/reanimated/index.js"
     },
+    "./dist/native/reanimated": {
+      "import": "./dist/native/reanimated/index.mjs",
+      "require": "./dist/native/reanimated/index.js",
+      "types": "./dist/native/reanimated/index.d.ts",
+      "default": "./dist/native/reanimated/index.js"
+    },
     "./web": {
+      "import": "./dist/web/index.mjs",
+      "require": "./dist/web/index.js",
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
+    },
+    "./dist/web": {
       "import": "./dist/web/index.mjs",
       "require": "./dist/web/index.js",
       "types": "./dist/web/index.d.ts",

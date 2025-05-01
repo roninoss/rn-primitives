@@ -1,5 +1,5 @@
 import { Indicator as IndicatorNative, Root as RootNative } from '../native';
-import type { RootProps, IndicatorProps } from './types';
+import type { IndicatorProps, RootProps } from './types';
 
 function Root({ web: _web, native, ...props }: RootProps) {
   return <RootNative {...props} {...native} />;
