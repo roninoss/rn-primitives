@@ -1,7 +1,4 @@
-export function getNewMultipleValue(
-  originalValue: string | string[] | undefined,
-  itemValue: string
-) {
+function getNewMultipleValue(originalValue: string | string[] | undefined, itemValue: string) {
   if (originalValue === undefined) {
     return [itemValue];
   }
@@ -13,3 +10,5 @@ export function getNewMultipleValue(
   }
   return [...originalValue, itemValue];
 }
+
+export { getNewMultipleValue };

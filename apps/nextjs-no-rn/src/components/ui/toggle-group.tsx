@@ -1,13 +1,12 @@
 'use client';
 
 import { VariantProps } from 'class-variance-authority';
-import type { LucideIcon } from 'lucide-react-native';
 import * as React from 'react';
 import { toggleTextVariants, toggleVariants } from '~/components/ui/toggle';
 import { TextClassContext } from '~/components/ui/text';
 import * as ToggleGroupPrimitive from '@rn-primitives/toggle-group';
 import { cn } from '~/lib/utils';
-import { Bold, Italic, Underline } from 'lucide-react';
+import { Bold, Italic, type LucideIcon, type LucideProps, Underline } from 'lucide-react';
 
 const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants> | null>(null);
 
@@ -17,7 +16,7 @@ const ToggleGroup = ({
   size,
   children,
   ...props
-}: React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> &
+}: React.ComponentProps<typeof ToggleGroupPrimitive.Root> &
   VariantProps<typeof toggleVariants>) => (
   <ToggleGroupPrimitive.Root
     className={cn('flex flex-row items-center justify-center gap-1', className)}
@@ -53,7 +52,7 @@ const ToggleGroupItem = ({
   variant,
   size,
   ...props
-}: React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> &
+}: React.ComponentProps<typeof ToggleGroupPrimitive.Item> &
   VariantProps<typeof toggleVariants>) => {
   const context = useToggleGroupContext();
   const { value } = ToggleGroupPrimitive.useRootContext();
@@ -89,7 +88,7 @@ function ToggleGroupIcon({
   className,
   icon: Icon,
   ...props
-}: React.ComponentPropsWithoutRef<LucideIcon> & {
+}: LucideProps & {
   icon: LucideIcon;
 }) {
   const textClass = React.useContext(TextClassContext);

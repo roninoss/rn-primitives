@@ -1,8 +1,8 @@
 import type {
-  ToggleGroupItemProps,
   ToggleGroupMultipleProps as MultipleProps,
-  ToggleGroupSingleProps as SingleProps,
   Root,
+  ToggleGroupSingleProps as SingleProps,
+  ToggleGroupItemProps,
 } from '@radix-ui/react-toggle-group';
 
 type RootProps = React.ComponentProps<typeof Root>;
@@ -15,8 +15,8 @@ type ItemPropsWebOnly = React.ComponentProps<'button'>;
 export type {
   ItemProps,
   ItemPropsWebOnly,
+  MultipleProps,
   RootProps,
   RootPropsWebOnly,
-  MultipleProps,
   SingleProps,
 };

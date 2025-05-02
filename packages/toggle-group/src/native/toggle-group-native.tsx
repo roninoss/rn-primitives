@@ -1,5 +1,4 @@
-import { ItemContextReturnType } from '../utils/contexts';
-import { RootContextReturnType } from '../utils/contexts';
+import { ItemContextReturnType, RootContextReturnType } from '../utils/contexts';
 import type { ItemProps, RootProps } from './types';
 
 function Root(props: RootProps) {
@@ -18,7 +17,7 @@ function Item(props: ItemProps) {
 
 const useRootContext = () => {
   throw new Error(
-    'Cannot access the native useRootContext on the web. Please import from `@rn-primitives/toggle-group` or `@rn-primitives/accordion/native`'
+    'Cannot access the native useRootContext on the web. Please import from `@rn-primitives/toggle-group` or `@rn-primitives/toggle-group/native`'
   );
   return {} as RootContextReturnType;
 };
@@ -30,4 +29,4 @@ const useItemContext = () => {
   return {} as ItemContextReturnType;
 };
 
-export { Root, Item, useItemContext, useRootContext };
+export { Item, Root, useItemContext, useRootContext };

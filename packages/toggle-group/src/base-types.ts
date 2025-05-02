@@ -1,11 +1,11 @@
-import type { RootProps as RootPropsWeb, ItemProps as ItemPropsWeb } from './web/types';
+import type { ItemProps as ItemPropsWeb, RootProps as RootPropsWeb } from './web/types';
 
 type BaseRootProps = Pick<
   RootPropsWeb,
-  'type' | 'value' | 'defaultValue' | 'onValueChange' | 'disabled' | 'asChild'
+  'type' | 'value' | 'defaultValue' | 'onValueChange' | 'disabled'
 >;
 
-type BaseItemProps = Pick<ItemPropsWeb, 'value' | 'disabled' | 'asChild'>;
+type BaseItemProps = Pick<ItemPropsWeb, 'value' | 'disabled'>;
 
 type BaseRootContext = Pick<
   RootPropsWeb,
@@ -14,4 +14,4 @@ type BaseRootContext = Pick<
 
 type BaseItemContext = Pick<ItemPropsWeb, 'value'> | null;
 
-export type { BaseRootProps, BaseItemProps, BaseRootContext, BaseItemContext };
+export type { BaseItemContext, BaseItemProps, BaseRootContext, BaseRootProps };
