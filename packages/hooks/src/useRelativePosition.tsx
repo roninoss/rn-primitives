@@ -5,6 +5,7 @@ import { Dimensions, type LayoutRectangle, type ScaledSize, type ViewStyle } fro
 const HIDDEN_CONTENT: ViewStyle = {
   position: 'absolute',
   opacity: 0,
+  top: 9999999,
   zIndex: -9999999,
 };
 
