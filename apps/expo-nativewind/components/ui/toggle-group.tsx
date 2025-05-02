@@ -9,26 +9,20 @@ import { cn } from '~/lib/utils';
 const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants> | null>(null);
 
 const ToggleGroup = ({
-  ref,
   className,
   variant,
   size,
   children,
   ...props
 }: React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> &
-  VariantProps<typeof toggleVariants> & {
-    ref?: React.RefObject<React.ElementRef<typeof ToggleGroupPrimitive.Root>>;
-  }) => (
+  VariantProps<typeof toggleVariants>) => (
   <ToggleGroupPrimitive.Root
-    ref={ref}
     className={cn('flex flex-row items-center justify-center gap-1', className)}
     {...props}
   >
     <ToggleGroupContext.Provider value={{ variant, size }}>{children}</ToggleGroupContext.Provider>
   </ToggleGroupPrimitive.Root>
 );
-
-ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName;
 
 function useToggleGroupContext() {
   const context = React.useContext(ToggleGroupContext);
@@ -41,16 +35,13 @@ function useToggleGroupContext() {
 }
 
 const ToggleGroupItem = ({
-  ref,
   className,
   children,
   variant,
   size,
   ...props
 }: React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> &
-  VariantProps<typeof toggleVariants> & {
-    ref?: React.RefObject<React.ElementRef<typeof ToggleGroupPrimitive.Item>>;
-  }) => {
+  VariantProps<typeof toggleVariants>) => {
   const context = useToggleGroupContext();
   const { value } = ToggleGroupPrimitive.useRootContext();
 
@@ -58,20 +49,19 @@ const ToggleGroupItem = ({
     <TextClassContext.Provider
       value={cn(
         toggleTextVariants({ variant, size }),
-        ToggleGroupPrimitive.utils.getIsSelected(value, props.value)
+        ToggleGroupPrimitive.getIsSelected(value, props.value)
           ? 'text-accent-foreground'
           : 'web:group-hover:text-muted-foreground'
       )}
     >
       <ToggleGroupPrimitive.Item
-        ref={ref}
         className={cn(
           toggleVariants({
             variant: context.variant || variant,
             size: context.size || size,
           }),
           props.disabled && 'web:pointer-events-none opacity-50',
-          ToggleGroupPrimitive.utils.getIsSelected(value, props.value) && 'bg-accent',
+          ToggleGroupPrimitive.getIsSelected(value, props.value) && 'bg-accent',
           className
         )}
         {...props}
@@ -81,8 +71,6 @@ const ToggleGroupItem = ({
     </TextClassContext.Provider>
   );
 };
-
-ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName;
 
 function ToggleGroupIcon({
   className,

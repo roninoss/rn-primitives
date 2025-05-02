@@ -19,6 +19,7 @@
     "@rn-primitives/checkbox": "workspace:*",
     "@rn-primitives/progress": "workspace:*",
     "@rn-primitives/toggle": "workspace:*",
+    "@rn-primitives/toggle-group": "workspace:*",
     "@rn-primitives/types": "workspace:*",
     "@rn-primitives/utils": "workspace:*",
     "@tanstack/react-router": "^1.114.3",

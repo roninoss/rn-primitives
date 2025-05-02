@@ -111,6 +111,7 @@ export default function Home() {
         <AvatarExample />
         <ProgressExample />
         <ToggleExample />
+        <ToggleGroupExample />
         {/*<CheckboxExample />
         <CollapsibleExample />
         <ContextMenuExample />
@@ -127,7 +128,6 @@ export default function Home() {
         <SwitchExample />
         <TableExample />
         <TabsExample />
-        <ToggleGroupExample />
         <TooltipExample /> */}
       </main>
     </div>
