@@ -16,6 +16,7 @@
     "clean": "turbo clean && rm -rf .turbo node_modules"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.2",
     "turbo": "^2.0.1",
     "typescript": "^5.3.3"
   },
