@@ -1,2 +1,2 @@
-export { Root, Item, useItemContext, useRootContext } from './toggle-group-web';
-export type { RootProps, ItemProps } from './types';
+export { Item, Root, useItemContext, useRootContext } from './toggle-group-web';
+export type { ItemProps, RootProps } from './types';

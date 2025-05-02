@@ -1,7 +1,4 @@
-export function getDefaultValue(
-  defaultValue: string | string[] | undefined,
-  type: 'multiple' | 'single'
-) {
+function getDefaultValue(defaultValue: string | string[] | undefined, type: 'multiple' | 'single') {
   if (!defaultValue) {
     return undefined;
   }
@@ -16,3 +13,5 @@ export function getDefaultValue(
 
   return defaultValue;
 }
+
+export { getDefaultValue };

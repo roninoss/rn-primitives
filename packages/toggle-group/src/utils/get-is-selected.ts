@@ -1,4 +1,4 @@
-export function getIsSelected(value: string | string[] | undefined, itemValue: string) {
+function getIsSelected(value: string | string[] | undefined, itemValue: string) {
   if (value === undefined) {
     return false;
   }
@@ -7,3 +7,5 @@ export function getIsSelected(value: string | string[] | undefined, itemValue: s
   }
   return value.includes(itemValue);
 }
+
+export { getIsSelected };

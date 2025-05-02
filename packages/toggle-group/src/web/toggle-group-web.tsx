@@ -1,5 +1,5 @@
 import type { ToggleGroup, ToggleGroupItem } from '@radix-ui/react-toggle-group';
-import type { RootContextReturnType, ItemContextReturnType } from '../utils/contexts';
+import type { ItemContextReturnType, RootContextReturnType } from '../utils/contexts';
 
 const Root = (() => {
   if (process.env.NODE_ENV === 'development') {
@@ -17,14 +17,14 @@ const Item = (() => {
 
 const useRootContext = () => {
   throw new Error(
-    'Cannot access the web useRootContext on a native platform. Please import from `@rn-primitives/toggle-group` or `@rn-primitives/toggle-group/native`'
+    'Cannot access the web useRootContext on a native platform. Please import from `@rn-primitives/toggle-group` or `@rn-primitives/toggle-group/web`'
   );
   return {} as RootContextReturnType;
 };
 
 const useItemContext = () => {
   throw new Error(
-    'Cannot access the web useItemContext on a native platform. Please import from `@rn-primitives/toggle-group` or `@rn-primitives/toggle-group/native`'
+    'Cannot access the web useItemContext on a native platform. Please import from `@rn-primitives/toggle-group` or `@rn-primitives/toggle-group/web`'
   );
   return {} as ItemContextReturnType;
 };

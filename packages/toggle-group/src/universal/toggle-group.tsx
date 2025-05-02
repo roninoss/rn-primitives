@@ -1,7 +1,7 @@
 import {
   Item as ItemNative,
-  Root as RootNative,
   ItemProps as ItemPropsNative,
+  Root as RootNative,
   useItemContext,
   useRootContext,
 } from '../native';
@@ -11,8 +11,10 @@ function Root({ web: _web, native, ...props }: RootProps) {
   return <RootNative {...props} {...native} />;
 }
 
-function Item({ web: _web, native, ref, ...props }: ItemProps) {
-  return <ItemNative ref={ref as ItemPropsNative['ref']} {...props} {...native} />;
+function Item({ web: _web, native, ref, disabled, ...props }: ItemProps) {
+  return (
+    <ItemNative ref={ref as ItemPropsNative['ref']} {...props} {...native} disabled={disabled} />
+  );
 }
 
 export { Item, Root, useItemContext, useRootContext };

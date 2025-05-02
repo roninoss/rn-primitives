@@ -2,14 +2,14 @@ import { ToggleGroup, ToggleGroupItem } from '@radix-ui/react-toggle-group';
 import { useControllableState } from '@rn-primitives/hooks';
 import { ItemContext, RootContext, useItemContext, useRootContext } from '../utils/contexts';
 import { getDefaultValue } from '../utils/get-default-value';
-import type { ItemProps, RootProps, MultipleProps, SingleProps } from './types';
+import type { ItemProps, MultipleProps, RootProps, SingleProps } from './types';
 
-const Root = ({
+function Root({
   value: valueProp,
   onValueChange: onValueChangeProps,
   defaultValue,
   ...props
-}: RootProps) => {
+}: RootProps) {
   const [rootValue = props.type === 'multiple' ? [] : undefined, onRootValueChange] =
     useControllableState<(string | undefined) | string[]>({
       prop: valueProp,
@@ -37,14 +37,14 @@ const Root = ({
       />
     </RootContext.Provider>
   );
-};
+}
 
-const Item = ({ value: itemValue, ...props }: ItemProps) => {
+function Item(props: ItemProps) {
   return (
-    <ItemContext.Provider value={{ value: itemValue }}>
-      <ToggleGroupItem data-rn-primitives='pressable' value={itemValue} {...props} />
+    <ItemContext.Provider value={{ value: props.value }}>
+      <ToggleGroupItem data-rn-primitives='pressable' {...props} />
     </ItemContext.Provider>
   );
-};
+}
 
 export { Item, Root, useItemContext, useRootContext };

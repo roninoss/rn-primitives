@@ -1,7 +1,7 @@
 import { Pressable, View } from '@rn-primitives/core';
 import { mergeProps } from '@rn-primitives/utils';
-import { Root as RootWeb, Item as ItemWeb, useRootContext, useItemContext } from '../web';
-import type { RootProps, ItemProps } from './types';
+import { Item as ItemWeb, Root as RootWeb, useItemContext, useRootContext } from '../web';
+import type { ItemProps, RootProps } from './types';
 
 const DEFAULT_PRESSABLE_WEB = { as: 'button' } as const;
 
@@ -24,4 +24,4 @@ function Item({ native: _native, web, value, ...props }: ItemProps) {
   );
 }
 
-export { Item, Root, useRootContext, useItemContext };
+export { Item, Root, useItemContext, useRootContext };
