@@ -1,13 +1,6 @@
 import type { Insets } from '@rn-primitives/types';
 import * as React from 'react';
-import { Dimensions, type LayoutRectangle, type ScaledSize, type ViewStyle } from 'react-native';
-
-const HIDDEN_CONTENT: ViewStyle = {
-  position: 'absolute',
-  opacity: 0,
-  top: 9999999,
-  zIndex: -9999999,
-};
+import { Dimensions, type LayoutRectangle, type ScaledSize } from 'react-native';
 
 type UseRelativePositionArgs = Omit<
   GetContentStyleArgs,
@@ -36,7 +29,12 @@ export function useRelativePosition({
       return {};
     }
     if (!triggerPosition || !contentLayout) {
-      return HIDDEN_CONTENT;
+      return {
+        position: 'absolute',
+        opacity: 0,
+        top: dimensions.height,
+        zIndex: -9999999,
+      } as const;
     }
     return getContentStyle({
       align,
