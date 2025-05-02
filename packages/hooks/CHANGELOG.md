@@ -4,4 +4,4 @@
 
 ### Minor Changes
 
-- (chore): update zustand
+- chore(hooks): move element out of view when hidden (#63 by @bryanmylee)

@@ -4,4 +4,4 @@
 
 ### Minor Changes
 
-- (fix): initial positioning in useRelativePosition hook
+- fix(portal): bump zustand to v5.0.4 (#123 by @haypho)
