@@ -110,6 +110,7 @@ export default function Home() {
         <AspectRatioExample />
         <AvatarExample />
         <ProgressExample />
+        <Separator />
         <ToggleExample />
         <ToggleGroupExample />
         {/*<CheckboxExample />
@@ -123,7 +124,6 @@ export default function Home() {
         <PopoverExample />
         <RadioGroupExample />
         <SelectExample />
-        <Separator />
         <SliderExample />
         <SwitchExample />
         <TableExample />

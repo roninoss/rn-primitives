@@ -23,6 +23,7 @@ import { Button } from '~/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Checkbox } from '~/components/ui/checkbox';
 import { Progress } from '~/components/ui/progress';
+import { Separator } from '~/components/ui/separator';
 import { Toggle } from '~/components/ui/toggle';
 import { ToggleGroup } from '~/components/ui/toggle-group';
 
@@ -42,6 +43,7 @@ export default function Home() {
         <AvatarExample />
         <CheckboxExample />
         <ProgressExample />
+        <SeparatorExample />
         <ToggleExample />
         <ToggleGroupExample />
       </main>
@@ -150,6 +152,22 @@ function CheckboxExample() {
 
 function ProgressExample() {
   return <Progress value={50} />;
+}
+
+function SeparatorExample() {
+  return (
+    <View className='flex flex-col gap-3'>
+      <Text>RN Primitive Separator</Text>
+      <Separator orientation='horizontal' />
+      <View className='flex flex-row gap-3 h-5 items-center'>
+        <Text>Blog</Text>
+        <Separator orientation='vertical' />
+        <Text>Docs</Text>
+        <Separator orientation='vertical' />
+        <Text>Source</Text>
+      </View>
+    </View>
+  );
 }
 
 function ToggleExample() {

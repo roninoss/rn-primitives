@@ -1,2 +1,2 @@
-export * from './separator';
-export * from './types';
+export { Root } from './universal/separator';
+export type { RootProps } from './universal/types';

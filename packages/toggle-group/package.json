@@ -42,7 +42,6 @@
     "@rn-primitives/core": "workspace:*",
     "@rn-primitives/hooks": "workspace:*",
     "@rn-primitives/utils": "workspace:*",
-    "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*"
   },
   "devDependencies": {
