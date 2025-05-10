@@ -38,7 +38,7 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-separator": "^1.1.0",
+    "@radix-ui/react-separator": "^1.1.6",
     "@rn-primitives/core": "workspace:*",
     "@rn-primitives/types": "workspace:*",
     "@rn-primitives/utils": "workspace:*"
