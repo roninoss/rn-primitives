@@ -18,6 +18,7 @@
     "@rn-primitives/avatar": "workspace:*",
     "@rn-primitives/checkbox": "workspace:*",
     "@rn-primitives/progress": "workspace:*",
+    "@rn-primitives/separator": "workspace:*",
     "@rn-primitives/toggle": "workspace:*",
     "@rn-primitives/toggle-group": "workspace:*",
     "@rn-primitives/types": "workspace:*",

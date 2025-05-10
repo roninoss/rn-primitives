@@ -41,7 +41,6 @@
     "@radix-ui/react-toggle": "^1.1.6",
     "@rn-primitives/core": "workspace:*",
     "@rn-primitives/hooks": "workspace:*",
-    "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*",
     "@rn-primitives/utils": "workspace:*"
   },

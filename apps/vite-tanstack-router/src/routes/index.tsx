@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
+import { Separator } from '@/components/ui/separator';
 import { Text } from '@/components/ui/text';
 import { Toggle } from '@/components/ui/toggle';
 import { ToggleGroup } from '@/components/ui/toggle-group';
@@ -47,6 +48,7 @@ export function App() {
         <ButtonExample />
         <CheckboxExample />
         <ProgressExample />
+        <SeparatorExample />
         <ToggleExample />
         <ToggleGroupExample />
       </main>
@@ -152,6 +154,22 @@ function CheckboxExample() {
 
 function ProgressExample() {
   return <Progress value={50} />;
+}
+
+function SeparatorExample() {
+  return (
+    <View className='flex flex-col gap-3'>
+      <Text>RN Primitive Separator</Text>
+      <Separator orientation='horizontal' />
+      <View className='flex flex-row gap-3 h-5 items-center'>
+        <Text>Blog</Text>
+        <Separator orientation='vertical' />
+        <Text>Docs</Text>
+        <Separator orientation='vertical' />
+        <Text>Source</Text>
+      </View>
+    </View>
+  );
 }
 
 function ToggleExample() {

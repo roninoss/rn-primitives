@@ -20,6 +20,7 @@
     "@rn-primitives/aspect-ratio": "workspace:*",
     "@rn-primitives/avatar": "workspace:*",
     "@rn-primitives/progress": "workspace:*",
+    "@rn-primitives/separator": "workspace:*",
     "@rn-primitives/toggle": "workspace:*",
     "@rn-primitives/toggle-group": "workspace:*",
     "class-variance-authority": "^0.7.1",
