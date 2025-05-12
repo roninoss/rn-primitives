@@ -1,4 +1,3 @@
-import { Text } from '~/components/ui/text';
 import { View } from '@rn-primitives/core';
 import { Core } from '~/components/core';
 import {
@@ -19,11 +18,13 @@ import {
   AlertDialogTrigger,
 } from '~/components/ui/alert-dialog';
 import { AspectRatio } from '~/components/ui/aspect-ratio';
-import { Button } from '~/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import { Button } from '~/components/ui/button';
 import { Checkbox } from '~/components/ui/checkbox';
+import { Label } from '~/components/ui/label';
 import { Progress } from '~/components/ui/progress';
 import { Separator } from '~/components/ui/separator';
+import { Text } from '~/components/ui/text';
 import { Toggle } from '~/components/ui/toggle';
 import { ToggleGroup } from '~/components/ui/toggle-group';
 
@@ -42,6 +43,7 @@ export default function Home() {
         <AspectRatioExample />
         <AvatarExample />
         <CheckboxExample />
+        <LabelExample />
         <ProgressExample />
         <SeparatorExample />
         <ToggleExample />
@@ -146,6 +148,15 @@ function CheckboxExample() {
     <View className='flex flex-row gap-3 items-center'>
       <Checkbox web={{ id: 'checkbox' }} aria-labelledby='terms' />
       <label htmlFor='checkbox'>Accept terms and conditions</label>
+    </View>
+  );
+}
+
+function LabelExample() {
+  return (
+    <View className='flex flex-row gap-3 items-center'>
+      <Label web={{ htmlFor: 'input' }}>Name</Label>
+      <input id='input' className='border border-gray-300 rounded-md p-2' />
     </View>
   );
 }

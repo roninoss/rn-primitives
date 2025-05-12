@@ -1,2 +1,2 @@
-export * from './label';
-export * from './types';
+export { Root, Text } from './universal';
+export type { RootProps, TextProps } from './universal/types';
