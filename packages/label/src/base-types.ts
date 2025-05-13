@@ -1,8 +1,5 @@
-import type { ViewStyle } from 'react-native';
-
 type BaseRootProps = {
-  children: React.ReactNode;
-  style?: ViewStyle;
+  for?: string;
 };
 
 type BaseTextProps = {};

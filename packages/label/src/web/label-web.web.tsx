@@ -1,15 +1,29 @@
 import { Label } from '@radix-ui/react-label';
-import { withRNPrimitives } from '@rn-primitives/utils';
-import type { RootProps } from './types';
+import { Pressable } from '@rn-primitives/core/dist/web';
+import * as React from 'react';
+import type { RootProps, TextProps } from './types';
 
-const Root = ({ children, tabIndex = -1, ...props }: RootProps) => {
+const RootInternalContext = React.createContext<{ forProp?: string } | null>(null);
+
+const Root = ({ children, for: forProp, tabIndex = -1, ...props }: RootProps) => {
   return (
-    <div tabIndex={tabIndex} {...props}>
-      {children}
-    </div>
+    <RootInternalContext.Provider value={{ forProp }}>
+      <Pressable data-rn-primitives='pressable' tabIndex={tabIndex} {...props}>
+        {children}
+      </Pressable>
+    </RootInternalContext.Provider>
   );
 };
 
-const Text = withRNPrimitives(Label, 'text');
+const Text = ({ children, ...props }: TextProps) => {
+  const context = React.useContext(RootInternalContext);
+  const forProp = context?.forProp;
+
+  return (
+    <Label htmlFor={forProp} {...props}>
+      {children}
+    </Label>
+  );
+};
 
 export { Root, Text };
