@@ -6,8 +6,8 @@ export default function LabelScreen() {
   return (
     <View className='flex-row gap-4 w-full p-6 justify-center items-center'>
       <Label
+        for='input'
         native={{
-          isAnimated: false,
           onPress: () => {
             console.log('onPress');
           },
@@ -24,7 +24,7 @@ export default function LabelScreen() {
       >
         Label
       </Label>
-      <Input className='flex-1' />
+      <Input nativeID='input' className='flex-1' />
     </View>
   );
 }

@@ -1,7 +1,10 @@
 import * as LabelPrimitive from '@rn-primitives/label';
 import { cn } from '~/lib/utils';
 
-const Label = ({ className, ...props }: LabelPrimitive.TextProps) => (
+const Label = ({
+  className,
+  ...props
+}: Pick<LabelPrimitive.RootProps, 'for'> & LabelPrimitive.TextProps) => (
   <LabelPrimitive.Root className='web:cursor-default'>
     <LabelPrimitive.Text
       className={cn(

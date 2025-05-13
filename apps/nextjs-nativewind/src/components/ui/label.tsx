@@ -6,7 +6,7 @@ import { cn } from '~/lib/utils';
 const Label = ({
   className,
   ...props
-}: Pick<LabelPrimitive.RootProps, 'web'> & LabelPrimitive.TextProps) => (
+}: Pick<LabelPrimitive.RootProps, 'for'> & LabelPrimitive.TextProps) => (
   <LabelPrimitive.Root className='web:cursor-default'>
     <LabelPrimitive.Text
       className={cn(

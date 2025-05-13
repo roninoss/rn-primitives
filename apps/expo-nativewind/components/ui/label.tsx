@@ -6,7 +6,7 @@ const Label = ({
   className,
   native,
   ...props
-}: Pick<LabelPrimitive.RootProps, 'native'> & LabelPrimitive.TextProps) => (
+}: Pick<LabelPrimitive.RootProps, 'for' | 'native'> & LabelPrimitive.TextProps) => (
   <LabelPrimitive.Root className='web:cursor-default' native={native}>
     <LabelPrimitive.Text
       className={cn(

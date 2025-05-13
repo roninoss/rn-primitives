@@ -157,7 +157,7 @@ function CheckboxExample() {
 function LabelExample() {
   return (
     <View className='flex flex-row gap-3 items-center'>
-      <Label web={{ htmlFor: 'input' }}>Name</Label>
+      <Label for='input'>Name</Label>
       <input id='input' className='border border-gray-300 rounded-md p-2' />
     </View>
   );
