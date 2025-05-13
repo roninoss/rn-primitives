@@ -7,8 +7,6 @@ import type { RootPropsWebOnly, TextPropsWebOnly } from '../web/types';
 type RootProps = Prettify<
   BaseRootProps &
     PressablePropsUniversal & {
-      children?: React.ReactNode;
-    } & {
       native?: RootPropsNativeOnly;
       web?: RootPropsWebOnly;
     }

@@ -8,9 +8,7 @@ const RootInternalContext = React.createContext<{ forProp?: string } | null>(nul
 const Root = ({ children, for: forProp, tabIndex = -1, ...props }: RootProps) => {
   return (
     <RootInternalContext.Provider value={{ forProp }}>
-      <Pressable data-rn-primitives='pressable' tabIndex={tabIndex} {...props}>
-        {children}
-      </Pressable>
+      <Pressable data-rn-primitives='pressable' tabIndex={tabIndex} {...props} />
     </RootInternalContext.Provider>
   );
 };
@@ -19,11 +17,7 @@ const Text = ({ children, ...props }: TextProps) => {
   const context = React.useContext(RootInternalContext);
   const forProp = context?.forProp;
 
-  return (
-    <Label htmlFor={forProp} {...props}>
-      {children}
-    </Label>
-  );
+  return <Label htmlFor={forProp} {...props} />;
 };
 
 export { Root, Text };
