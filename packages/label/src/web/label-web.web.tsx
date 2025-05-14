@@ -5,7 +5,7 @@ import type { RootProps, TextProps } from './types';
 
 const RootInternalContext = React.createContext<{ forProp?: string } | null>(null);
 
-const Root = ({ children, for: forProp, tabIndex = -1, ...props }: RootProps) => {
+const Root = ({ for: forProp, tabIndex = -1, ...props }: RootProps) => {
   return (
     <RootInternalContext.Provider value={{ forProp }}>
       <Pressable data-rn-primitives='pressable' tabIndex={tabIndex} {...props} />
@@ -13,7 +13,7 @@ const Root = ({ children, for: forProp, tabIndex = -1, ...props }: RootProps) =>
   );
 };
 
-const Text = ({ children, ...props }: TextProps) => {
+const Text = (props: TextProps) => {
   const context = React.useContext(RootInternalContext);
   const forProp = context?.forProp;
 
