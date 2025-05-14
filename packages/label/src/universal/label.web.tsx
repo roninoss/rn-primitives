@@ -1,9 +1,16 @@
+import { Pressable, View } from '@rn-primitives/core';
+import { mergeProps } from '@rn-primitives/utils';
 import { Root as RootWeb, Text as TextWeb } from '../web';
 import { RootProps, TextProps } from './types';
-import { View } from '@rn-primitives/core';
 
-function Root({ ref, web, native: _native, ...props }: RootProps) {
-  return <RootWeb {...props} {...web} />;
+const DEFAULT_PRESSABLE_WEB = { as: 'div' } as const;
+
+function Root({ for: forProp, native: _native, web, ...props }: RootProps) {
+  return (
+    <RootWeb for={forProp} asChild>
+      <Pressable web={mergeProps(DEFAULT_PRESSABLE_WEB, web)} {...props} />
+    </RootWeb>
+  );
 }
 
 function Text({ web, native: _native, style, ...props }: TextProps) {

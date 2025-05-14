@@ -2,10 +2,11 @@ import * as LabelPrimitive from '@rn-primitives/label';
 import { cn } from '@/lib/utils';
 
 const Label = ({
+  for: forProp,
   className,
   ...props
 }: Pick<LabelPrimitive.RootProps, 'for'> & LabelPrimitive.TextProps) => (
-  <LabelPrimitive.Root className='web:cursor-default'>
+  <LabelPrimitive.Root className='web:cursor-default' for={forProp}>
     <LabelPrimitive.Text
       className={cn(
         'text-sm text-foreground font-medium leading-none web:peer-disabled:cursor-not-allowed web:peer-disabled:opacity-70',

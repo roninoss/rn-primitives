@@ -3,7 +3,7 @@ import type { PressableProps } from '@rn-primitives/core/dist/web';
 import type { BaseRootProps, BaseTextProps } from '../base-types';
 
 type RootProps = BaseRootProps & PressableProps<'div'>;
-type RootPropsWebOnly = { tabIndex?: number } & React.ComponentProps<'div'>;
+type RootPropsWebOnly = React.ComponentProps<'div'>;
 
 type TextProps = BaseTextProps & React.ComponentProps<typeof Root>;
 type TextPropsWebOnly = React.ComponentProps<'label'>;

@@ -8,7 +8,7 @@ const RootInternalContext = React.createContext<{ forProp?: string } | null>(nul
 const Root = ({ for: forProp, tabIndex = -1, ...props }: RootProps) => {
   return (
     <RootInternalContext.Provider value={{ forProp }}>
-      <Pressable data-rn-primitives='pressable' tabIndex={tabIndex} {...props} />
+      <Pressable tabIndex={tabIndex} {...props} />
     </RootInternalContext.Provider>
   );
 };
