@@ -1,0 +1,23 @@
+import { Label } from '@radix-ui/react-label';
+import { Pressable } from '@rn-primitives/core/dist/web';
+import * as React from 'react';
+import type { RootProps, TextProps } from './types';
+
+const RootInternalContext = React.createContext<{ forProp?: string } | null>(null);
+
+const Root = ({ for: forProp, tabIndex = -1, ...props }: RootProps) => {
+  return (
+    <RootInternalContext.Provider value={{ forProp }}>
+      <Pressable tabIndex={tabIndex} {...props} />
+    </RootInternalContext.Provider>
+  );
+};
+
+const Text = (props: TextProps) => {
+  const context = React.useContext(RootInternalContext);
+  const forProp = context?.forProp;
+
+  return <Label htmlFor={forProp} {...props} />;
+};
+
+export { Root, Text };

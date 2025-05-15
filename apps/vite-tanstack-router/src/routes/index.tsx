@@ -17,6 +17,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
 import { Text } from '@/components/ui/text';
@@ -47,6 +48,7 @@ export function App() {
         <CardExample />
         <ButtonExample />
         <CheckboxExample />
+        <LabelExample />
         <ProgressExample />
         <SeparatorExample />
         <ToggleExample />
@@ -148,6 +150,15 @@ function CheckboxExample() {
     <View className='flex flex-row gap-3 items-center'>
       <Checkbox web={{ id: 'checkbox' }} aria-labelledby='terms' />
       <label htmlFor='checkbox'>Accept terms and conditions</label>
+    </View>
+  );
+}
+
+function LabelExample() {
+  return (
+    <View className='flex flex-row gap-3 items-center'>
+      <Label for='input'>Name</Label>
+      <input id='input' className='border border-gray-300 rounded-md p-2' />
     </View>
   );
 }
