@@ -1,4 +1,4 @@
-import { PressablePropsUniversal, TextPropsUniversal } from '@rn-primitives/core';
+import type { PressablePropsUniversal, TextPropsUniversal } from '@rn-primitives/core';
 import type { Prettify } from '@rn-primitives/types';
 import type { BaseRootProps, BaseTextProps } from '../base-types';
 import type { RootPropsNativeOnly, TextPropsNativeOnly } from '../native/types';

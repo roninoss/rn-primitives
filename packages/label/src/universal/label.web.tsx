@@ -1,7 +1,7 @@
 import { Pressable, View } from '@rn-primitives/core';
 import { mergeProps } from '@rn-primitives/utils';
 import { Root as RootWeb, Text as TextWeb } from '../web';
-import { RootProps, TextProps } from './types';
+import type { RootProps, TextProps } from './types';
 
 const DEFAULT_PRESSABLE_WEB = { as: 'div' } as const;
 

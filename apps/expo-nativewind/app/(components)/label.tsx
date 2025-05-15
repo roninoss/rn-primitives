@@ -24,7 +24,7 @@ export default function LabelScreen() {
       >
         Label
       </Label>
-      <Input nativeID='input' className='flex-1' />
+      <Input id='input' className='flex-1' />
     </View>
   );
 }

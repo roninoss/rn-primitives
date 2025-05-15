@@ -3,19 +3,18 @@ import { Pressable } from '@rn-primitives/core/dist/web';
 import * as React from 'react';
 import type { RootProps, TextProps } from './types';
 
-const RootInternalContext = React.createContext<{ forProp?: string } | null>(null);
+const RootInternalForPropContext = React.createContext<string | undefined>(undefined);
 
 const Root = ({ for: forProp, tabIndex = -1, ...props }: RootProps) => {
   return (
-    <RootInternalContext.Provider value={{ forProp }}>
+    <RootInternalForPropContext.Provider value={forProp}>
       <Pressable tabIndex={tabIndex} {...props} />
-    </RootInternalContext.Provider>
+    </RootInternalForPropContext.Provider>
   );
 };
 
 const Text = (props: TextProps) => {
-  const context = React.useContext(RootInternalContext);
-  const forProp = context?.forProp;
+  const forProp = React.useContext(RootInternalForPropContext);
 
   return <Label htmlFor={forProp} {...props} />;
 };

@@ -1,4 +1,8 @@
-import { Root as RootNative, RootProps as RootPropsNative, Text as TextNative } from '../native';
+import {
+  Root as RootNative,
+  type RootProps as RootPropsNative,
+  Text as TextNative,
+} from '../native';
 import type { RootProps, TextProps } from './types';
 
 function Root({ web: _web, native, ref, ...props }: RootProps) {
