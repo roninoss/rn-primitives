@@ -74,13 +74,14 @@ function LabelledInput({
 
   return (
     <View className='web:grid web:grid-cols-3 flex-row items-center gap-4'>
-      <Label nativeID={id} onPress={onPress} className='w-24'>
+      <Label for={id} native={{ onPress }} className='w-24'>
         {label}
       </Label>
       <Input
         ref={inputRef}
         autoFocus={autoFocus}
         aria-labelledby={id}
+        id={id}
         defaultValue='25px'
         className='web:col-span-2 flex-1 h-8'
       />

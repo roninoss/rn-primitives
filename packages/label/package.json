@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/label",
-  "version": "1.1.0",
+  "version": "2.0.0-alpha.1",
   "description": "Primitive label",
   "license": "MIT",
   "main": "dist/index.js",
@@ -13,11 +13,17 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./dist/label": {
-      "import": "./dist/label.mjs",
-      "require": "./dist/label.js",
-      "types": "./dist/label.d.ts",
-      "default": "./dist/label.js"
+    "./native": {
+      "import": "./dist/native/index.mjs",
+      "require": "./dist/native/index.js",
+      "types": "./dist/native/index.d.ts",
+      "default": "./dist/native/index.js"
+    },
+    "./web": {
+      "import": "./dist/web/index.mjs",
+      "require": "./dist/web/index.js",
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
     }
   },
   "files": [
@@ -32,9 +38,10 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-label": "^2.1.0",
-    "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@radix-ui/react-label": "^2.1.6",
+    "@rn-primitives/core": "workspace:*",
+    "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/utils": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",

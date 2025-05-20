@@ -20,6 +20,7 @@
     "@rn-primitives/alert-dialog": "workspace:*",
     "@rn-primitives/aspect-ratio": "workspace:*",
     "@rn-primitives/avatar": "workspace:*",
+    "@rn-primitives/label": "workspace:*",
     "@rn-primitives/progress": "workspace:*",
     "@rn-primitives/separator": "workspace:*",
     "@rn-primitives/toggle": "workspace:*",

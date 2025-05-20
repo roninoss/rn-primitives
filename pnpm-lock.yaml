@@ -716,6 +716,9 @@ importers:
       '@rn-primitives/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@rn-primitives/label':
+        specifier: workspace:*
+        version: link:../../packages/label
       '@rn-primitives/progress':
         specifier: workspace:*
         version: link:../../packages/progress
@@ -804,6 +807,9 @@ importers:
       '@rn-primitives/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@rn-primitives/label':
+        specifier: workspace:*
+        version: link:../../packages/label
       '@rn-primitives/progress':
         specifier: workspace:*
         version: link:../../packages/progress
@@ -1328,14 +1334,17 @@ importers:
   packages/label:
     dependencies:
       '@radix-ui/react-label':
-        specifier: ^2.1.0
-        version: 2.1.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@rn-primitives/slot':
+        specifier: ^2.1.6
+        version: 2.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@rn-primitives/core':
         specifier: workspace:*
-        version: link:../slot
+        version: link:../core
       '@rn-primitives/types':
         specifier: workspace:*
         version: link:../types
+      '@rn-primitives/utils':
+        specifier: workspace:*
+        version: link:../utils
       react-native-web:
         specifier: '*'
         version: 0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -3414,8 +3423,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@radix-ui/react-label@2.1.3':
-    resolution: {integrity: sha512-zwSQ1NzSKG95yA0tvBMgv6XPHoqapJCcg9nsUBaQQ66iRBhZNhlpaQG2ERYYX4O4stkYFK5rxj5NsWfO9CS+Hg==}
+  '@radix-ui/react-label@2.1.6':
+    resolution: {integrity: sha512-S/hv1mTlgcPX2gCTJrWuTjSXf7ER3Zf7zWGtOprxhIIY93Qin3n5VgNA0Ez9AgrK/lEtlYgzLd4f5x6AVar4Yw==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -10349,9 +10358,9 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.10
 
-  '@radix-ui/react-label@2.1.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@radix-ui/react-label@2.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@radix-ui/react-primitive': 2.0.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@radix-ui/react-primitive': 2.1.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
     optionalDependencies:

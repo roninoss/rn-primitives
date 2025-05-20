@@ -10,11 +10,13 @@ export function SwitchExample() {
 
   return (
     <View className='flex-row items-center gap-2'>
-      <Switch checked={checked} onCheckedChange={setChecked} nativeID='airplane-mode' />
+      <Switch checked={checked} onCheckedChange={setChecked} id='airplane-mode' />
       <Label
-        nativeID='airplane-mode'
-        onPress={() => {
-          setChecked((prev) => !prev);
+        for='airplane-mode'
+        native={{
+          onPress: () => {
+            setChecked((prev) => !prev);
+          },
         }}
       >
         Airplane Mode

@@ -36,11 +36,11 @@ export function TabsExample() {
             </CardHeader>
             <CardContent className='gap-4 native:gap-2'>
               <View className='gap-1'>
-                <Label nativeID='name'>Name</Label>
-                <Input aria-labelledby='name' defaultValue='Pedro Duarte' />
+                <Label for='name'>Name</Label>
+                <Input aria-labelledby='name' id={'name'} defaultValue='Pedro Duarte' />
               </View>
               <View className='gap-1'>
-                <Label nativeID='username'>Username</Label>
+                <Label for='username'>Username</Label>
                 <Input id='username' defaultValue='@peduarte' />
               </View>
             </CardContent>
@@ -61,12 +61,17 @@ export function TabsExample() {
             </CardHeader>
             <CardContent className='gap-4 native:gap-2'>
               <View className='gap-1'>
-                <Label nativeID='current'>Current password</Label>
-                <Input placeholder='********' aria-labelledby='current' secureTextEntry />
+                <Label for='current'>Current password</Label>
+                <Input
+                  placeholder='********'
+                  aria-labelledby='current'
+                  id={'current'}
+                  secureTextEntry
+                />
               </View>
               <View className='gap-1'>
-                <Label nativeID='new'>New password</Label>
-                <Input placeholder='********' aria-labelledby='new' secureTextEntry />
+                <Label for='new'>New password</Label>
+                <Input placeholder='********' aria-labelledby='new' id={'new'} secureTextEntry />
               </View>
             </CardContent>
             <CardFooter>

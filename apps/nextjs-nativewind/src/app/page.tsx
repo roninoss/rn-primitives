@@ -1,14 +1,5 @@
 import { View } from '@rn-primitives/core';
-import { CheckboxExample } from '~/components/CheckboxExample';
-import { CollapsibleExample } from '~/components/CollapsibleExample';
-import { ContextMenuExample } from '~/components/ContextMenuExample';
 import { Core } from '~/components/core';
-import { MenubarExample } from '~/components/MenubarExample';
-import { NavigationMenuExample } from '~/components/NavigationMenuExample';
-import { RadioGroupExample } from '~/components/RadioGroupExample';
-import { SliderExample } from '~/components/SliderExample';
-import { SwitchExample } from '~/components/SwitchExample';
-import { TabsExample } from '~/components/TabsExample';
 import { ToggleExample } from '~/components/ToggleExample';
 import { ToggleGroupExample } from '~/components/ToggleGroupExample';
 import {
@@ -55,6 +46,7 @@ import {
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '~/components/ui/hover-card';
+import { Label } from '~/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover';
 import { Progress } from '~/components/ui/progress';
 import {
@@ -110,6 +102,7 @@ export default function Home() {
         <AspectRatioExample />
         <AvatarExample />
         <CollapsibleExample />
+        <LabelExample />
         <ProgressExample />
         <Separator />
         <ToggleExample />
@@ -454,6 +447,15 @@ function TableExample() {
         </TableRow>
       </TableFooter>
     </Table>
+  );
+}
+
+function LabelExample() {
+  return (
+    <View className='flex flex-row gap-3 items-center'>
+      <Label for='input'>Name</Label>
+      <input id='input' className='border border-gray-300 rounded-md p-2' />
+    </View>
   );
 }
 

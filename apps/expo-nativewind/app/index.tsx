@@ -74,6 +74,7 @@ const COMPONENTS = [
   'dialog',
   'dropdown-menu',
   'hover-card',
+  'label',
   'menubar',
   'navigation-menu',
   'popover',

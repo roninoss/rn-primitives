@@ -10,11 +10,13 @@ export default function SwitchScreen() {
     <>
       <View className='flex-1 justify-center items-center p-6 gap-12'>
         <View className='flex-row items-center gap-2'>
-          <Switch checked={checked} onCheckedChange={setChecked} nativeID='airplane-mode' />
+          <Switch checked={checked} onCheckedChange={setChecked} id='airplane-mode' />
           <Label
-            nativeID='airplane-mode'
-            onPress={() => {
-              setChecked((prev) => !prev);
+            for='airplane-mode'
+            native={{
+              onPress: () => {
+                setChecked((prev) => !prev);
+              },
             }}
           >
             Airplane Mode

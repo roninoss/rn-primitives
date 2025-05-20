@@ -31,8 +31,8 @@ function RadioGroupItemWithLabel({
 }) {
   return (
     <View className={'flex-row gap-2 items-center'}>
-      <RadioGroupItem aria-labelledby={`label-for-${value}`} value={value} />
-      <Label nativeID={`label-for-${value}`} onPress={onLabelPress}>
+      <RadioGroupItem aria-labelledby={`${value}`} id={`${value}`} value={value} />
+      <Label for={`${value}`} native={{ onPress: onLabelPress }}>
         {value}
       </Label>
     </View>

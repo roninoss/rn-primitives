@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
 import { Text } from '@/components/ui/text';
@@ -50,6 +51,7 @@ export function App() {
         <ButtonExample />
         <CheckboxExample />
         <CollapsibleExample />
+        <LabelExample />
         <ProgressExample />
         <SeparatorExample />
         <ToggleExample />
@@ -185,6 +187,15 @@ function CollapsibleExample() {
         </View>
       </View>
     </Collapsible>
+  );
+}
+
+function LabelExample() {
+  return (
+    <View className='flex flex-row gap-3 items-center'>
+      <Label for='input'>Name</Label>
+      <input id='input' className='border border-gray-300 rounded-md p-2' />
+    </View>
   );
 }
 
