@@ -16,7 +16,7 @@ function Trigger(props: TriggerProps) {
 
 function Content(props: ContentProps) {
   if (process.env.NODE_ENV === 'development') {
-    console.log('`Trigger` from @rn-primitives/collapsible/web is only supported on web.');
+    console.log('`Content` from @rn-primitives/collapsible/web is only supported on web.');
   }
   return null;
 }
