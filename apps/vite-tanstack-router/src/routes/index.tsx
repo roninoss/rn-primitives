@@ -24,10 +24,10 @@ import { Separator } from '@/components/ui/separator';
 import { Text } from '@/components/ui/text';
 import { Toggle } from '@/components/ui/toggle';
 import { ToggleGroup } from '@/components/ui/toggle-group';
+import { cn } from '@/lib/utils';
 import { View } from '@rn-primitives/core';
 import { createFileRoute } from '@tanstack/react-router';
 import { ChevronsUpDown } from 'lucide-react';
-
 export const Route = createFileRoute('/')({
   component: App,
 });
@@ -161,7 +161,7 @@ function CollapsibleExample() {
   return (
     <Collapsible asChild>
       <View>
-        <View className='w-full gap-2'>
+        <View className='w-full flex flex-col gap-2'>
           <View className='flex flex-row items-center justify-between space-x-4 px-4'>
             <Text className='text-foreground text-sm native:text-lg font-semibold'>
               @peduarte starred 3 repositories
@@ -176,7 +176,7 @@ function CollapsibleExample() {
           <View className='rounded-md border border-border px-4 py-3 '>
             <Text className='text-foreground text-sm native:text-lg'>@radix-ui/primitives</Text>
           </View>
-          <CollapsibleContent className='gap-2'>
+          <CollapsibleContent className={cn('flex flex-col gap-2')}>
             <View className='rounded-md border border-border px-4 py-3'>
               <Text className='text-foreground text-sm'>@radix-ui/react</Text>
             </View>

@@ -17,7 +17,7 @@ type RootProps = Prettify<
 >;
 
 type ContentProps = Prettify<
-  BaseRootProps &
+  BaseContentProps &
     ViewPropsUniversal & {
       native?: ContentPropsNativeOnly;
       web?: ContentPropsWebOnly;
