@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/dropdown-menu",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Primitive dropdown menu",
   "license": "MIT",
   "main": "dist/index.js",
@@ -32,7 +32,7 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-dropdown-menu": "^2.1.1",
+    "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@rn-primitives/hooks": "workspace:*",
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*",
@@ -41,9 +41,9 @@
   "devDependencies": {
     "@rn-primitives/portal": "workspace:*",
     "@tsconfig/react-native": "^1.0.1",
-    "@types/react": "~18.3.12",
-    "react": "18.3.1",
-    "react-native": "0.76.3",
+    "@types/react": "~19.0.14",
+    "react": "19.0.0",
+    "react-native": "0.79.2",
     "tsup": "^8.1.0"
   },
   "peerDependencies": {

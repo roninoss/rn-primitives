@@ -1,13 +1,12 @@
 import react from '@astrojs/react';
 import starlight from '@astrojs/starlight';
 import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/static';
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  adapters: [vercel()],
+  adapters: [],
   integrations: [
     starlight({
       favicon: '/favicon.png',
@@ -17,9 +16,9 @@ export default defineConfig({
         ThemeSelect: './src/components/ThemeSelect.astro',
         Head: './src/components/Head.astro',
       },
-      social: {
-        github: 'https://github.com/roninoss/rn-primitives',
-      },
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/roninoss/rn-primitives' },
+      ],
       sidebar: [
         {
           label: 'Introduction',

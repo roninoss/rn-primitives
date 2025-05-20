@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/switch",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Primitive switch",
   "license": "MIT",
   "main": "dist/index.js",
@@ -32,15 +32,15 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-switch": "^1.1.0",
+    "@radix-ui/react-switch": "^1.2.5",
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",
-    "@types/react": "~18.3.12",
-    "react": "18.3.1",
-    "react-native": "0.76.3",
+    "@types/react": "~19.0.14",
+    "react": "19.0.0",
+    "react-native": "0.79.2",
     "tsup": "^8.1.0"
   },
   "peerDependencies": {

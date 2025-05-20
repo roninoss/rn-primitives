@@ -7,6 +7,7 @@
     "dev:expo-nativewind": "turbo dev --filter=./apps/expo-nativewind",
     "dev:nextjs-nativewind": "turbo dev --filter=./apps/nextjs-nativewind",
     "dev:docs": "turbo dev --filter=./apps/docs",
+    "version-bump": "npx changeset && npx changeset version",
     "lint": "turbo lint",
     "test": "turbo test",
     "build": "turbo build --filter=./packages/*",
@@ -18,7 +19,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.29.2",
     "turbo": "^2.0.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.8.3"
   },
   "pnpm": {
     "peerDependencyRules": {
@@ -27,9 +28,6 @@
         "expo-modules-*",
         "typescript"
       ]
-    },
-    "patchedDependencies": {
-      "@react-native/assets-registry@0.76.3": "patches/@react-native__assets-registry@0.76.3.patch"
     }
   },
   "prettier": {
