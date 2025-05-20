@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/switch",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Primitive switch",
   "license": "MIT",
   "main": "dist/index.js",

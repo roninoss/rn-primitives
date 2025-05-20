@@ -7,6 +7,7 @@
     "dev:expo-nativewind": "turbo dev --filter=./apps/expo-nativewind",
     "dev:nextjs-nativewind": "turbo dev --filter=./apps/nextjs-nativewind",
     "dev:docs": "turbo dev --filter=./apps/docs",
+    "version-bump": "npx changeset && npx changeset version",
     "lint": "turbo lint",
     "test": "turbo test",
     "build": "turbo build --filter=./packages/*",
