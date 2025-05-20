@@ -89,4 +89,4 @@ const COMPONENTS = [
   'toggle-group',
   'toolbar',
   'tooltip',
-];
+] as const;
