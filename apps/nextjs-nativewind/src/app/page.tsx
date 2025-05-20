@@ -109,12 +109,12 @@ export default function Home() {
         <AlertDialogExample />
         <AspectRatioExample />
         <AvatarExample />
+        <CollapsibleExample />
         <ProgressExample />
         <Separator />
         <ToggleExample />
         <ToggleGroupExample />
         {/*<CheckboxExample />
-        <CollapsibleExample />
         <ContextMenuExample />
         <DialogExample />
         <DropdownMenuExample />

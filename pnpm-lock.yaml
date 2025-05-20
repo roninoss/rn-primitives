@@ -710,6 +710,9 @@ importers:
       '@rn-primitives/checkbox':
         specifier: workspace:*
         version: link:../../packages/checkbox
+      '@rn-primitives/collapsible':
+        specifier: workspace:*
+        version: link:../../packages/collapsible
       '@rn-primitives/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -795,6 +798,9 @@ importers:
       '@rn-primitives/checkbox':
         specifier: workspace:*
         version: link:../../packages/checkbox
+      '@rn-primitives/collapsible':
+        specifier: workspace:*
+        version: link:../../packages/collapsible
       '@rn-primitives/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -1068,15 +1074,18 @@ importers:
       '@radix-ui/react-collapsible':
         specifier: ^1.1.0
         version: 1.1.4(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@rn-primitives/core':
+        specifier: workspace:*
+        version: link:../core
       '@rn-primitives/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@rn-primitives/slot':
-        specifier: workspace:*
-        version: link:../slot
       '@rn-primitives/types':
         specifier: workspace:*
         version: link:../types
+      '@rn-primitives/utils':
+        specifier: workspace:*
+        version: link:../utils
       react-native-web:
         specifier: '*'
         version: 0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

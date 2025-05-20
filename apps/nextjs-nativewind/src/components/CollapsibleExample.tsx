@@ -1,10 +1,10 @@
 'use client';
 
+import { View } from '@rn-primitives/core';
 import * as React from 'react';
+import { Button } from '~/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { Text } from '~/components/ui/text';
-import { Button } from '~/components/ui/button';
-import { View } from 'react-native';
 import { ChevronsDownUp, ChevronsUpDown } from '~/lib/icons';
 
 export function CollapsibleExample() {
