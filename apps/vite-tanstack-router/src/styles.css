@@ -67,3 +67,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer base {
+  [data-rn-primitives='view'] {
+    @apply flex flex-col;
+  }
+}
