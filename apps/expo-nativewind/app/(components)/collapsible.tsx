@@ -1,10 +1,11 @@
-import { Text, View } from '@rn-primitives/core';
+import { Platform, Text, View } from '@rn-primitives/core';
 import { FadeInDown, LinearTransition } from '@rn-primitives/core/dist/native/reanimated';
 import * as React from 'react';
 import { Button } from '~/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { ChevronsDownUp } from '~/lib/icons/ChevronsDownUp';
 import { ChevronsUpDown } from '~/lib/icons/ChevronsUpDown';
+import { cn } from '~/lib/utils';
 
 const NATIVE_ROOT_PROPS = {
   isAnimated: true,
@@ -36,7 +37,14 @@ export default function CollapsibleScreen() {
             <View className='rounded-md border border-border px-4 py-3 '>
               <Text className='text-foreground text-sm native:text-lg'>@radix-ui/primitives</Text>
             </View>
-            <CollapsibleContent className='gap-2'>
+            <CollapsibleContent
+              className={cn(
+                'gap-2 overflow-hidden',
+                Platform.select({
+                  web: 'transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down',
+                })
+              )}
+            >
               <CollapsibleItem delay={100}>@radix-ui/react</CollapsibleItem>
               <CollapsibleItem delay={200}>@stitches/core</CollapsibleItem>
             </CollapsibleContent>
