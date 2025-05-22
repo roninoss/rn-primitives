@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/collapsible",
-  "version": "1.1.0",
+  "version": "2.0.0-alpha.1",
   "description": "Primitive collapsible",
   "license": "MIT",
   "main": "dist/index.js",
@@ -13,11 +13,17 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./dist/collapsible": {
-      "import": "./dist/collapsible.mjs",
-      "require": "./dist/collapsible.js",
-      "types": "./dist/collapsible.d.ts",
-      "default": "./dist/collapsible.js"
+    "./native": {
+      "import": "./dist/native/index.mjs",
+      "require": "./dist/native/index.js",
+      "types": "./dist/native/index.d.ts",
+      "default": "./dist/native/index.js"
+    },
+    "./web": {
+      "import": "./dist/web/index.mjs",
+      "require": "./dist/web/index.js",
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
     }
   },
   "files": [
@@ -33,9 +39,10 @@
   },
   "dependencies": {
     "@radix-ui/react-collapsible": "^1.1.0",
+    "@rn-primitives/core": "workspace:*",
     "@rn-primitives/hooks": "workspace:*",
-    "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/utils": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",

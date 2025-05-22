@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  [data-rn-primitives='view'] {
+    @apply flex flex-col;
+  }
+}
+
+@layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;

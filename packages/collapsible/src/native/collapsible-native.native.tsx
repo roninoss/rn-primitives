@@ -1,13 +1,17 @@
+import { Pressable, View } from '@rn-primitives/core/dist/native';
 import { useControllableState } from '@rn-primitives/hooks';
-import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
-import { Pressable, View, type GestureResponderEvent } from 'react-native';
-import type { ContentProps, RootContext, RootProps, TriggerProps } from './types';
+import type { GestureResponderEvent } from 'react-native';
+import type { ContentProps, RootProps, TriggerProps } from './types';
 
-const CollapsibleContext = React.createContext<(RootContext & { nativeID: string }) | null>(null);
+const CollapsibleContext = React.createContext<{
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  disabled: boolean;
+  nativeID: string;
+} | null>(null);
 
 function Root({
-  asChild,
   disabled = false,
   open: openProp,
   defaultOpen,
@@ -21,7 +25,6 @@ function Root({
     onChange: onOpenChangeProp,
   });
 
-  const Component = asChild ? Slot : View;
   return (
     <CollapsibleContext.Provider
       value={{
@@ -31,12 +34,10 @@ function Root({
         nativeID,
       }}
     >
-      <Component {...viewProps} />
+      <View {...viewProps} />
     </CollapsibleContext.Provider>
   );
 }
-
-Root.displayName = 'RootNativeCollapsible';
 
 function useCollapsibleContext() {
   const context = React.useContext(CollapsibleContext);
@@ -48,40 +49,35 @@ function useCollapsibleContext() {
   return context;
 }
 
-function Trigger({
-  asChild,
-  onPress: onPressProp,
-  disabled: disabledProp = false,
-  ...props
-}: TriggerProps) {
+function Trigger({ onPress: onPressProp, disabled: disabledProp = false, ...props }: TriggerProps) {
   const { disabled, open, onOpenChange, nativeID } = useCollapsibleContext();
 
-  function onPress(ev: GestureResponderEvent) {
-    if (disabled || disabledProp) return;
-    onOpenChange(!open);
-    onPressProp?.(ev);
-  }
+  const onPress = React.useCallback(
+    (ev: GestureResponderEvent) => {
+      onOpenChange(!open);
+      if (typeof onPressProp === 'function') {
+        onPressProp(ev);
+      }
+    },
+    [onPressProp, onOpenChange, open]
+  );
 
-  const Component = asChild ? Slot : Pressable;
+  const isDisabled = !!(disabledProp || disabled);
+
   return (
-    <Component
+    <Pressable
       nativeID={nativeID}
-      aria-disabled={(disabled || disabledProp) ?? undefined}
+      aria-disabled={isDisabled}
       role='button'
       onPress={onPress}
-      accessibilityState={{
-        expanded: open,
-        disabled: (disabled || disabledProp) ?? undefined,
-      }}
-      disabled={disabled || disabledProp}
+      aria-expanded={open}
+      disabled={isDisabled}
       {...props}
     />
   );
 }
 
-Trigger.displayName = 'TriggerNativeCollapsible';
-
-function Content({ asChild, forceMount, ...props }: ContentProps) {
+function Content({ forceMount, ...props }: ContentProps) {
   const { nativeID, open } = useCollapsibleContext();
 
   if (!forceMount) {
@@ -90,9 +86,8 @@ function Content({ asChild, forceMount, ...props }: ContentProps) {
     }
   }
 
-  const Component = asChild ? Slot : View;
   return (
-    <Component
+    <View
       aria-hidden={!(forceMount || open)}
       aria-labelledby={nativeID}
       role={'region'}
@@ -100,7 +95,5 @@ function Content({ asChild, forceMount, ...props }: ContentProps) {
     />
   );
 }
-
-Content.displayName = 'ContentNativeCollapsible';
 
 export { Content, Root, Trigger };

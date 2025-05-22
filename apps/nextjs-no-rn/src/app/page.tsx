@@ -1,4 +1,5 @@
-import { View } from '@rn-primitives/core';
+import { Platform, View } from '@rn-primitives/core';
+import { ChevronsUpDown } from 'lucide-react';
 import { Core } from '~/components/core';
 import {
   Accordion,
@@ -21,12 +22,14 @@ import { AspectRatio } from '~/components/ui/aspect-ratio';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Button } from '~/components/ui/button';
 import { Checkbox } from '~/components/ui/checkbox';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { Label } from '~/components/ui/label';
 import { Progress } from '~/components/ui/progress';
 import { Separator } from '~/components/ui/separator';
 import { Text } from '~/components/ui/text';
 import { Toggle } from '~/components/ui/toggle';
 import { ToggleGroup } from '~/components/ui/toggle-group';
+import { cn } from '~/lib/utils';
 
 export default function Home() {
   return (
@@ -43,6 +46,7 @@ export default function Home() {
         <AspectRatioExample />
         <AvatarExample />
         <CheckboxExample />
+        <CollapsibleExample />
         <LabelExample />
         <ProgressExample />
         <SeparatorExample />
@@ -149,6 +153,46 @@ function CheckboxExample() {
       <Checkbox web={{ id: 'checkbox' }} aria-labelledby='terms' />
       <label htmlFor='checkbox'>Accept terms and conditions</label>
     </View>
+  );
+}
+
+function CollapsibleExample() {
+  return (
+    <Collapsible asChild>
+      <View>
+        <View className='w-full gap-2'>
+          <View className='flex flex-row items-center justify-between space-x-4 px-4'>
+            <Text className='text-foreground text-sm native:text-lg font-semibold'>
+              @peduarte starred 3 repositories
+            </Text>
+            <CollapsibleTrigger asChild>
+              <Button variant='ghost' size='icon'>
+                <ChevronsUpDown size={16} className='text-foreground' />
+                <Text className='sr-only'>Toggle</Text>
+              </Button>
+            </CollapsibleTrigger>
+          </View>
+          <View className='rounded-md border border-border px-4 py-3 '>
+            <Text className='text-foreground text-sm native:text-lg'>@radix-ui/primitives</Text>
+          </View>
+          <CollapsibleContent
+            className={cn(
+              'gap-2 overflow-hidden',
+              Platform.select({
+                web: 'transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down',
+              })
+            )}
+          >
+            <View className='rounded-md border border-border px-4 py-3'>
+              <Text className='text-foreground text-sm'>@radix-ui/react</Text>
+            </View>
+            <View className='rounded-md border border-border px-4 py-3'>
+              <Text className='text-foreground text-sm'>@stitches/core</Text>
+            </View>
+          </CollapsibleContent>
+        </View>
+      </View>
+    </Collapsible>
   );
 }
 
