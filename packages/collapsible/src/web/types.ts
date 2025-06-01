@@ -1,6 +1,6 @@
 import type {
-  CollapsibleProps,
   CollapsibleContentProps,
+  CollapsibleProps,
   CollapsibleTriggerProps,
 } from '@radix-ui/react-collapsible';
 
@@ -16,11 +16,11 @@ type ContentProps = CollapsibleContentProps;
 type ContentPropsWebOnly = React.ComponentProps<'div'>;
 
 export type {
+  ContentProps,
+  ContentPropsWebOnly,
   RootProps,
   RootPropsWebOnly,
   TriggerProps,
   TriggerPropsWebOnly,
   TriggerRef,
-  ContentProps,
-  ContentPropsWebOnly,
 };

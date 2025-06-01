@@ -1,4 +1,4 @@
-import type { RootProps, TriggerProps, ContentProps } from './types';
+import type { ContentProps, RootProps, TriggerProps } from './types';
 
 function Root(props: RootProps) {
   if (process.env.NODE_ENV === 'development') {
