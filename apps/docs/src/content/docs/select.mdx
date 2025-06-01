@@ -9,18 +9,10 @@ description: Presents a selection of options for the user to choose from, activa
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/select/src/select.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/select/src/select.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/select/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/select/src/index.ts?raw';
 
 Presents a selection of options for the user to choose from, activated by a button.
 
 ## Installation
-
-
-<Tabs>
-  <TabItem label="NPM">
 
   Install the component via your command line.
 
@@ -35,55 +27,7 @@ Presents a selection of options for the user to choose from, activated by a butt
       npx expo install @rn-primitives/portal
       ```
     </Aside>
-
-  </TabItem>
-  <TabItem label="Manual">
-      <Aside title="Uses shared primitives">
-      If you do not already have these primitives in your project, you will need to add them.
-
-      - [Types Primitive](/types)
-      - [Hooks Primitive](/hooks)
-      - [Slot Primitive](/slot)
-      - [Portal Primitive](/portal)
-    </Aside>
-    <br />
-    <Tabs>
-      <TabItem label="Universal">
-        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/select">@radix-ui/react-select</a>**
-
-        ```bash
-        npx expo install @radix-ui/react-select
-        ```
-
-        **Copy/paste the following code for web to  `~/components/primitives/select/select.web.tsx`**
-
-        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/select/select.web.tsx" />
-
-        **Copy/paste the following code for native to  `~/components/primitives/select/select.tsx`**
-
-        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/select/select.tsx" />
-
-        **Copy/paste the following code for types to  `~/components/primitives/select/types.ts`**
-
-        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/select/types.ts" />
-
-        **Copy/paste the following code for exporting to  `~/components/primitives/select/index.ts`**
-
-        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/select/index.ts" />
-      </TabItem>
-      <TabItem label="Native Only">
-        **Copy/paste the following code for native to  `~/components/primitives/select/index.tsx`**
-
-        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/select/index.tsx" />
-
-        **Copy/paste the following code for types to  `~/components/primitives/select/types.ts`**
-
-        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/select/types.ts" />
-      </TabItem>
-    </Tabs>
-  </TabItem>
-</Tabs>
-
+    
 ## Usage
 
 <Aside type="caution">

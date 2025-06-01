@@ -1,12 +1,12 @@
-import { ViewPropsUniversal, PressablePropsUniversal } from '@rn-primitives/core';
+import type { PressablePropsUniversal, ViewPropsUniversal } from '@rn-primitives/core';
 import type { Prettify } from '@rn-primitives/types';
-import type { BaseRootProps, BaseContentProps, BaseTriggerProps } from '../base-types';
+import type { BaseContentProps, BaseRootProps, BaseTriggerProps } from '../base-types';
 import type {
-  RootPropsNativeOnly,
   ContentPropsNativeOnly,
+  RootPropsNativeOnly,
   TriggerPropsNativeOnly,
 } from '../native/types';
-import type { RootPropsWebOnly, ContentPropsWebOnly, TriggerPropsWebOnly } from '../web/types';
+import type { ContentPropsWebOnly, RootPropsWebOnly, TriggerPropsWebOnly } from '../web/types';
 
 type RootProps = Prettify<
   BaseRootProps &
@@ -34,4 +34,4 @@ type TriggerProps = Prettify<
 
 type TriggerRef = TriggerProps['ref'];
 
-export type { RootProps, ContentProps, TriggerProps, TriggerRef };
+export type { ContentProps, RootProps, TriggerProps, TriggerRef };

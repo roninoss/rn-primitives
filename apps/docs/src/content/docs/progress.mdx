@@ -9,69 +9,16 @@ description: Shows an indicator representing the advancement status of a task.
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/progress/src/progress.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/progress/src/progress.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/progress/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/progress/src/index.ts?raw';
 
 Shows an indicator representing the advancement status of a task.
 
 ## Installation
-
-<Tabs>
-  <TabItem label="NPM">
 
   Install the component via your command line.
 
     ```bash
     npx expo install @rn-primitives/progress
     ```
-
-  </TabItem>
-  <TabItem label="Manual">
-    <Aside title="Uses shared primitives">
-      If you do not already have these primitives in your project, you will need to add them.
-
-      - [Types Primitive](/types)
-      - [Slot Primitive](/slot)
-    </Aside>
-    <br/>
-    <Tabs>
-      <TabItem label="Universal">
-        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/progress">@radix-ui/react-progress</a>**
-
-        ```bash
-        npx expo install @radix-ui/react-progress
-        ```
-
-        **Copy/paste the following code for web to  `~/components/primitives/progress/progress.web.tsx`**
-
-        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/progress/progress.web.tsx" />
-
-        **Copy/paste the following code for native to  `~/components/primitives/progress/progress.tsx`**
-
-        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/progress/progress.tsx" />
-
-        **Copy/paste the following code for types to  `~/components/primitives/progress/types.ts`**
-
-        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/progress/types.ts" />
-
-        **Copy/paste the following code for exporting to  `~/components/primitives/progress/index.ts`**
-
-        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/progress/index.ts" />
-      </TabItem>
-      <TabItem label="Native Only">
-        **Copy/paste the following code for native to  `~/components/primitives/progress/index.tsx`**
-
-        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/progress/index.tsx" />
-
-        **Copy/paste the following code for types to  `~/components/primitives/progress/types.ts`**
-
-        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/progress/types.ts" />
-      </TabItem>
-    </Tabs>
-  </TabItem>
-</Tabs>
 
 ## Usage
 

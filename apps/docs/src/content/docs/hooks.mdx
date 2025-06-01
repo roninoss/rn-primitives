@@ -9,10 +9,6 @@ description: A collection of hooks for core primitives.
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Card, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedIndexCode from '@/../node_modules/@rn-primitives/hooks/src/index.ts?raw';
-import importedUseAugmentedRefCode from '@/../node_modules/@rn-primitives/hooks/src/useAugmentedRef.tsx?raw';
-import importedUseControllableStateCode from '@/../node_modules/@rn-primitives/hooks/src/useControllableState.tsx?raw';
-import importedUseRelativePositionCode from '@/../node_modules/@rn-primitives/hooks/src/useRelativePosition.tsx?raw';
 
 <LinkButton href="/primitives/types">
   Types Primitives
@@ -32,48 +28,12 @@ A collection of hooks for core primitives.
 
 ## Installation
 
-<Tabs>
-  <TabItem label="NPM">
-
   Install the component via your command line.
 
     ```bash
     npx expo install @rn-primitives/hooks
     ```
-
-  </TabItem>
-  <TabItem label="Manual">
-    ### useAugmentedRef
-    **Copy/paste the following code to  `~/components/primitives/hooks/useAugmentedRef.tsx`**
-
-    <Code code={importedUseAugmentedRefCode} lang="tsx" title="~/components/primitives/hooks/useAugmentedRef.tsx" />
-
-
-    ### useControllableState
-
-    **Copy/paste the following code to  `~/components/primitives/hooks/useControllableState.tsx`**
-
-    <Code code={importedUseControllableStateCode} lang="tsx" title="~/components/primitives/hooks/useControllableState.tsx" />
-
-    ### useRelativePosition
-
-    <Aside>
-        Only used for native primitives.
-    </Aside>
-
-    **Copy/paste the following code to  `~/components/primitives/hooks/useRelativePosition.tsx`**
-
-    <Code code={importedUseRelativePositionCode} lang="tsx" title="~/components/primitives/hooks/useRelativePosition.tsx" />
-
-    ### Index
-
-    **Copy/paste the following code to  `~/components/primitives/hooks/index.ts`**
-
-    <Code code={importedIndexCode} lang="ts" title="~/components/primitives/hooks/index.ts" />
-
-  </TabItem>
-</Tabs>
-
+    
 ## Usage
 
 ### useAugmentedRef
