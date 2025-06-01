@@ -65,6 +65,11 @@
 
 /* Default View Styling */
 /* https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/View/index.js#L148 */
+@layer base {
+  [data-rn-primitives='view'] {
+    @apply flex flex-col;
+  }
+}
 
 /* Default Text Styling */
 /* https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/Text/index.js#L189 */

@@ -22,6 +22,7 @@ import {
 import { AspectRatio } from '~/components/ui/aspect-ratio';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Button } from '~/components/ui/button';
+import { CollapsibleExample } from '~/components/CollapsibleExample';
 import {
   Dialog,
   DialogClose,
@@ -101,13 +102,13 @@ export default function Home() {
         <AlertDialogExample />
         <AspectRatioExample />
         <AvatarExample />
+        <CollapsibleExample />
         <LabelExample />
         <ProgressExample />
         <Separator />
         <ToggleExample />
         <ToggleGroupExample />
         {/*<CheckboxExample />
-        <CollapsibleExample />
         <ContextMenuExample />
         <DialogExample />
         <DropdownMenuExample />

@@ -17,6 +17,7 @@
     "@rn-primitives/aspect-ratio": "workspace:*",
     "@rn-primitives/avatar": "workspace:*",
     "@rn-primitives/checkbox": "workspace:*",
+    "@rn-primitives/collapsible": "workspace:*",
     "@rn-primitives/label": "workspace:*",
     "@rn-primitives/progress": "workspace:*",
     "@rn-primitives/separator": "workspace:*",

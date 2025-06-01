@@ -1,11 +1,12 @@
 'use client';
 
+import { Platform, View } from '@rn-primitives/core';
 import * as React from 'react';
+import { Button } from '~/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { Text } from '~/components/ui/text';
-import { Button } from '~/components/ui/button';
-import { View } from 'react-native';
 import { ChevronsDownUp, ChevronsUpDown } from '~/lib/icons';
+import { cn } from '~/lib/utils';
 
 export function CollapsibleExample() {
   const [open, setOpen] = React.useState(false);
@@ -31,7 +32,14 @@ export function CollapsibleExample() {
           <View className='rounded-md border border-border px-4 py-3 '>
             <Text className='text-foreground text-sm native:text-lg'>@radix-ui/primitives</Text>
           </View>
-          <CollapsibleContent className='gap-2'>
+          <CollapsibleContent
+            className={cn(
+              'gap-2 overflow-hidden',
+              Platform.select({
+                web: 'transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down',
+              })
+            )}
+          >
             <CollapsibleItem>@radix-ui/react</CollapsibleItem>
             <CollapsibleItem>@stitches/core</CollapsibleItem>
           </CollapsibleContent>
