@@ -9,72 +9,17 @@ description: A dynamic element that facilitates the expansion or collapse of a p
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/collapsible/src/collapsible.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/collapsible/src/collapsible.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/collapsible/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/collapsible/src/index.ts?raw';
-
 
 A dynamic element that facilitates the expansion or collapse of a panel.
 
 ## Installation
-
-<Tabs>
-  <TabItem label="NPM">
 
   Install the component via your command line.
 
     ```bash
     npx expo install @rn-primitives/collapsible
     ```
-
-  </TabItem>
-  <TabItem label="Manual">
-    <Aside title="Uses shared primitives">
-        If you do not already have these primitives in your project, you will need to add them.
-
-        - [Hooks Primitive](/hooks)
-        - [Slot Primitive](/slot)
-        - [Types Primitive](/types)
-
-    </Aside>
-    <br />
-    <Tabs>
-        <TabItem label="Universal">
-            **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/collapsible">@radix-ui/react-collapsible</a>**
-
-            ```bash
-            npx expo install @radix-ui/react-collapsible
-            ```
-
-            **Copy/paste the following code for web to  `~/components/primitives/collapsible/collapsible.web.tsx`**
-
-            <Code code={importedWebCode} lang="tsx" title="~/components/primitives/collapsible/collapsible.web.tsx" />
-
-            **Copy/paste the following code for native to  `~/components/primitives/collapsible/collapsible.tsx`**
-
-            <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/collapsible/collapsible.tsx" />
-
-            **Copy/paste the following code for types to  `~/components/primitives/collapsible/types.ts`**
-
-            <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/collapsible/types.ts" />
-
-            **Copy/paste the following code for exporting to  `~/components/primitives/collapsible/index.ts`**
-
-            <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/collapsible/index.ts" />
-        </TabItem>
-        <TabItem label="Native Only">
-            **Copy/paste the following code for native to  `~/components/primitives/collapsible/index.tsx`**
-
-            <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/collapsible/index.tsx" />
-
-            **Copy/paste the following code for types to  `~/components/primitives/collapsible/types.ts`**
-
-            <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/collapsible/types.ts" />
-        </TabItem>
-    </Tabs>
-  </TabItem>
-</Tabs>
+    
 ## Usage
 
 ```tsx

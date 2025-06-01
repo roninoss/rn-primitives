@@ -9,17 +9,10 @@ description: Shows a menu with options or actions when a user clicks the trigger
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/dropdown-menu/src/dropdown-menu.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/dropdown-menu/src/dropdown-menu.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/dropdown-menu/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/dropdown-menu/src/index.ts?raw';
 
 Shows a menu with options or actions when a user clicks the trigger button.
 
 ## Installation
-
-<Tabs>
-  <TabItem label="NPM">
 
   Install the component via your command line.
 
@@ -34,56 +27,6 @@ Shows a menu with options or actions when a user clicks the trigger button.
       npx expo install @rn-primitives/portal
       ```
     </Aside>
-
-  </TabItem>
-  <TabItem label="Manual">
-    <Aside title="Uses shared primitives">
-      If you do not already have these primitives in your project, you will need to add them.
-
-      - [Hooks Primitive](/hooks)
-      - [Portal Primitive](/portal)
-      - [Slot Primitive](/slot)
-      - [Types Primitive](/types)
-      - [Utils Primitive](/utils)
-    </Aside>
-    <br />
-    <Tabs>
-      <TabItem label="Universal">
-        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/dropdown-menu">@radix-ui/react-dropdown-menu</a>**
-
-        ```bash
-        npx expo install @radix-ui/react-dropdown-menu
-        ```
-
-        **Copy/paste the following code for web to  `~/components/primitives/dropdown-menu/dropdown-menu.web.tsx`**
-
-        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/dropdown-menu/dropdown-menu.web.tsx" />
-
-        **Copy/paste the following code for native to  `~/components/primitives/dropdown-menu/dropdown-menu.tsx`**
-
-        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/dropdown-menu/dropdown-menu.tsx" />
-
-        **Copy/paste the following code for types to  `~/components/primitives/dropdown-menu/types.ts`**
-
-        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/dropdown-menu/types.ts" />
-
-        **Copy/paste the following code for exporting to  `~/components/primitives/dropdown-menu/index.ts`**
-
-        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/dropdown-menu/index.ts" />
-      </TabItem>
-      <TabItem label="Native Only">
-        **Copy/paste the following code for native to  `~/components/primitives/dropdown-menu/index.tsx`**
-
-        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/dropdown-menu/index.tsx" />
-
-        **Copy/paste the following code for types to  `~/components/primitives/dropdown-menu/types.ts`**
-
-        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/dropdown-menu/types.ts" />
-      </TabItem>
-    </Tabs>
-  </TabItem>
-</Tabs>
-
 ## Usage
 
 <Aside type="caution">

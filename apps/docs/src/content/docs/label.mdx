@@ -9,17 +9,10 @@ description: A user-friendly label linked to controls for improved accessibility
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/label/src/label.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/label/src/label.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/label/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/label/src/index.ts?raw';
 
 A user-friendly label linked to controls for improved accessibility.
 
 ## Installation
-
-<Tabs>
-  <TabItem label="NPM">
 
   Install the component via your command line.
 
@@ -27,60 +20,6 @@ A user-friendly label linked to controls for improved accessibility.
     npx expo install @rn-primitives/label
     ```
 
-    <Aside title="Peer dependency">
-      If you do not have the portal primitive in your project, you will need to add it as well.
-
-       ```bash
-      npx expo install @rn-primitives/portal
-      ```
-    </Aside>
-
-  </TabItem>
-  <TabItem label="Manual">
-    <Aside title="Uses shared primitives">
-        If you do not already have these primitives in your project, you will need to add them.
-
-        - [Types Primitive](/types)
-        - [Slot Primitive](/slot)
-
-    </Aside>
-    <br />
-    <Tabs>
-        <TabItem label="Universal">
-            **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/label">@radix-ui/react-label</a>**
-
-            ```bash
-            npx expo install @radix-ui/react-label
-            ```
-
-            **Copy/paste the following code for web to  `~/components/primitives/label/label.web.tsx`**
-
-            <Code code={importedWebCode} lang="tsx" title="~/components/primitives/label/label.web.tsx" />
-
-            **Copy/paste the following code for native to  `~/components/primitives/label/label.tsx`**
-
-            <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/label/label.tsx" />
-
-            **Copy/paste the following code for types to  `~/components/primitives/label/types.ts`**
-
-            <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/label/types.ts" />
-
-            **Copy/paste the following code for exporting to  `~/components/primitives/label/index.ts`**
-
-            <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/label/index.ts" />
-        </TabItem>
-        <TabItem label="Native Only">
-            **Copy/paste the following code for native to  `~/components/primitives/label/index.tsx`**
-
-            <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/label/index.tsx" />
-
-            **Copy/paste the following code for types to  `~/components/primitives/label/types.ts`**
-
-            <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/label/types.ts" />
-        </TabItem>
-    </Tabs>
-  </TabItem>
-</Tabs>
 ## Usage
 
 ```tsx

@@ -9,52 +9,18 @@ description: A concise message that appears briefly.
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, TabItem, Tabs } from '@astrojs/starlight/components';
-import importedCode from '@/../node_modules/@rn-primitives/toast/src/toast.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/toast/src/types.ts?raw';
+
 
 A concise message that appears briefly.
 
 ## Installation
-
-<Tabs>
-  <TabItem label="NPM">
 
   Install the component via your command line.
 
     ```bash
     npx expo install @rn-primitives/toast
     ```
-
-    <Aside title="Peer dependency">
-      If you do not have the portal primitive in your project, you will need to add it as well.
-
-       ```bash
-      npx expo install @rn-primitives/portal
-      ```
-    </Aside>
-
-  </TabItem>
-  <TabItem label="Manual">
-    <Aside title="Uses shared primitives">
-      If you do not already have these primitives in your project, you will need to add them.
-
-      - [Slot Primitive](/slot)
-      - [Types Primitive](/types)
-      
-    </Aside>
-
-    <br />
-
-    **Copy/paste the following code to `~/components/primitives/toast/index.tsx`**
-
-    <Code code={importedCode} lang="tsx" title="~/components/primitives/toast/index.tsx" />
-
-    **Copy/paste the following code to `~/components/primitives/toast/types.ts`**
-
-    <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/toast/types.ts" />
-  </TabItem>
-</Tabs>
-
+    
 ## Usage
 
 <Aside type="caution">

@@ -9,76 +9,17 @@ description: A vertically stacked set of interactive headings that each reveal a
 import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
-import importedNativeCode from '@/../node_modules/@rn-primitives/accordion/src/accordion.tsx?raw';
-import importedWebCode from '@/../node_modules/@rn-primitives/accordion/src/accordion.web.tsx?raw';
-import importedTypesCode from '@/../node_modules/@rn-primitives/accordion/src/types.ts?raw';
-import importedIndexCode from '@/../node_modules/@rn-primitives/accordion/src/index.ts?raw';
 
 A vertically stacked set of interactive headings that each reveal a section of content.
 
 ## Installation
 
-<Tabs>
-  <TabItem label="NPM">
 
-  Install the component via your command line.
+Install the component via your command line.
 
-    ```bash
-    npx expo install @rn-primitives/accordion
-    ```
-
-  </TabItem>
-  <TabItem label="Manual">
-    <Aside title="Uses shared primitives">
-    If you do not already have these primitives in your project, you will need to add them.
-
-    - [Types Primitive](/types)
-    - [Hooks Primitive](/hooks)
-    - [Slot Primitive](/slot)
-
-    </Aside>
-
-    <br />
-
-    <Tabs>
-      <TabItem label="Universal">
-        **Install <a target="_blank" href="https://www.radix-ui.com/primitives/docs/components/accordion">@radix-ui/react-accordion</a>**
-
-        ```bash
-        npx expo install @radix-ui/react-accordion
-        ```
-
-        <br />
-
-        **Copy/paste the following code for web to  `~/components/primitives/accordion/accordion.web.tsx`**
-
-        <Code code={importedWebCode} lang="tsx" title="~/components/primitives/accordion/accordion.web.tsx" />
-
-        **Copy/paste the following code for native to  `~/components/primitives/accordion/accordion.tsx`**
-
-        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/accordion/accordion.tsx" />
-
-        **Copy/paste the following code for types to  `~/components/primitives/accordion/types.ts`**
-
-        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/accordion/types.ts" />
-
-        **Copy/paste the following code for exporting to  `~/components/primitives/accordion/index.ts`**
-
-        <Code code={importedIndexCode} lang="tsx" title="~/components/primitives/accordion/index.ts" />
-      </TabItem>
-      <TabItem label="Native Only">
-        **Copy/paste the following code for native to  `~/components/primitives/accordion/index.tsx`**
-
-        <Code code={importedNativeCode} lang="tsx" title="~/components/primitives/accordion/index.tsx" />
-
-        **Copy/paste the following code for types to  `~/components/primitives/accordion/types.ts`**
-
-        <Code code={importedTypesCode} lang="tsx" title="~/components/primitives/accordion/types.ts" />
-      </TabItem>
-    </Tabs>
-    </TabItem>
-</Tabs>
-
+```bash
+npx expo install @rn-primitives/accordion
+```
 
 
 ## Usage
