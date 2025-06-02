@@ -26,42 +26,42 @@ const Trigger = (() => {
 
 const Content = (() => {
   if (process.env.NODE_ENV === 'development') {
-    console.log('`Portal` from @rn-primitives/dialog/web is only supported on web.');
+    console.log('`Content` from @rn-primitives/dialog/web is only supported on web.');
   }
   return null;
 }) as unknown as typeof DialogContent;
 
 const Close = (() => {
   if (process.env.NODE_ENV === 'development') {
-    console.log('`Content` from @rn-primitives/dialog/web is only supported on web.');
+    console.log('`Close` from @rn-primitives/dialog/web is only supported on web.');
   }
   return null;
 }) as unknown as typeof DialogClose;
 
 const Description = (() => {
   if (process.env.NODE_ENV === 'development') {
-    console.log('`Cancel` from @rn-primitives/dialog/web is only supported on web.');
+    console.log('`Description` from @rn-primitives/dialog/web is only supported on web.');
   }
   return null;
 }) as unknown as typeof DialogDescription;
 
 const Overlay = (() => {
   if (process.env.NODE_ENV === 'development') {
-    console.log('`Action` from @rn-primitives/dialog/web is only supported on web.');
+    console.log('`Overlay` from @rn-primitives/dialog/web is only supported on web.');
   }
   return null;
 }) as unknown as typeof DialogOverlay;
 
 const Portal = (() => {
   if (process.env.NODE_ENV === 'development') {
-    console.log('`Title` from @rn-primitives/dialog/web is only supported on web.');
+    console.log('`Portal` from @rn-primitives/dialog/web is only supported on web.');
   }
   return null;
 }) as unknown as typeof DialogPortal;
 
 const Title = (() => {
   if (process.env.NODE_ENV === 'development') {
-    console.log('`Description` from @rn-primitives/dialog/web is only supported on web.');
+    console.log('`Title` from @rn-primitives/dialog/web is only supported on web.');
   }
   return null;
 }) as unknown as typeof DialogTitle;

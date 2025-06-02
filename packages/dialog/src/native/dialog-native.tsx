@@ -47,7 +47,7 @@ function Content(props: ContentProps) {
 
 function Close(props: CloseProps) {
   if (process.env.NODE_ENV === 'development') {
-    console.log('`Cancel` from @rn-primitives/dialog/native is only supported on native.');
+    console.log('`Close` from @rn-primitives/dialog/native is only supported on native.');
   }
   return null;
 }
