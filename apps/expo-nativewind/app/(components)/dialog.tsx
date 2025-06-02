@@ -30,10 +30,8 @@ export default function DialogScreen() {
           </DialogHeader>
 
           <DialogFooter>
-            <DialogClose asChild>
-              <Button>
-                <Text>OK</Text>
-              </Button>
+            <DialogClose>
+              <Text>OK</Text>
             </DialogClose>
           </DialogFooter>
         </DialogContent>

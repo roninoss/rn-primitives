@@ -17,6 +17,7 @@
     "@rn-primitives/checkbox": "workspace:*",
     "@rn-primitives/collapsible": "workspace:*",
     "@rn-primitives/core": "workspace:*",
+    "@rn-primitives/dialog": "workspace:*",
     "@rn-primitives/alert-dialog": "workspace:*",
     "@rn-primitives/aspect-ratio": "workspace:*",
     "@rn-primitives/avatar": "workspace:*",

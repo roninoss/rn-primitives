@@ -8,7 +8,7 @@ export {
   Title,
   Trigger,
   useRootContext,
-} from './universal';
+} from './dialog-native';
 
 export type {
   CloseProps,
@@ -19,4 +19,4 @@ export type {
   RootProps,
   TitleProps,
   TriggerProps,
-} from './universal';
+} from './types';

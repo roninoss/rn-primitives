@@ -1,12 +1,13 @@
+'use client';
+
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Platform, View } from '@rn-primitives/core';
+import { FadeIn, FadeOut, ZoomIn, ZoomOut } from '@rn-primitives/core/native-only-reanimated';
 import * as DialogPrimitive from '@rn-primitives/dialog';
 import { mergeProps } from '@rn-primitives/utils';
+import { X } from 'lucide-react';
 import * as React from 'react';
-import { FadeIn, FadeOut, ZoomIn, ZoomOut } from 'react-native-reanimated';
-import { buttonTextVariants, buttonVariants } from '~/components/ui/button';
-import { TextClassContext } from '~/components/ui/text';
-import { X } from '~/lib/icons/X';
-import { cn } from '~/lib/utils';
 
 const Dialog = DialogPrimitive.Root;
 
@@ -121,12 +122,9 @@ function DialogDescription({ className, ...props }: DialogPrimitive.DescriptionP
 }
 
 const DialogClose = ({ className, ...props }: DialogPrimitive.CloseProps) => (
-  <TextClassContext.Provider value={buttonTextVariants({ className, variant: 'outline' })}>
-    <DialogPrimitive.Close
-      className={cn(buttonVariants({ variant: 'outline', className }))}
-      {...props}
-    />
-  </TextClassContext.Provider>
+  <Button asChild variant='outline'>
+    <DialogPrimitive.Close {...props} />
+  </Button>
 );
 
 export {

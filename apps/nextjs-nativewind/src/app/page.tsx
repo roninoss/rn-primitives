@@ -1,4 +1,5 @@
 import { View } from '@rn-primitives/core';
+import { CollapsibleExample } from '~/components/CollapsibleExample';
 import { Core } from '~/components/core';
 import { ToggleExample } from '~/components/ToggleExample';
 import { ToggleGroupExample } from '~/components/ToggleGroupExample';
@@ -22,7 +23,6 @@ import {
 import { AspectRatio } from '~/components/ui/aspect-ratio';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Button } from '~/components/ui/button';
-import { CollapsibleExample } from '~/components/CollapsibleExample';
 import {
   Dialog,
   DialogClose,
@@ -103,6 +103,7 @@ export default function Home() {
         <AspectRatioExample />
         <AvatarExample />
         <CollapsibleExample />
+        <DialogExample />
         <LabelExample />
         <ProgressExample />
         <Separator />
@@ -110,7 +111,6 @@ export default function Home() {
         <ToggleGroupExample />
         {/*<CheckboxExample />
         <ContextMenuExample />
-        <DialogExample />
         <DropdownMenuExample />
         <HoverCardExample />
         <MenubarExample />
@@ -243,10 +243,8 @@ function DialogExample() {
         </DialogHeader>
 
         <DialogFooter>
-          <DialogClose asChild>
-            <Button>
-              <Text>OK</Text>
-            </Button>
+          <DialogClose>
+            <Text>OK</Text>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

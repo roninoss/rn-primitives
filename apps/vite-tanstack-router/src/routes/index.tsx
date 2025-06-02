@@ -18,6 +18,16 @@ import {
 } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
@@ -51,6 +61,7 @@ export function App() {
         <ButtonExample />
         <CheckboxExample />
         <CollapsibleExample />
+        <DialogExample />
         <LabelExample />
         <ProgressExample />
         <SeparatorExample />
@@ -194,6 +205,32 @@ function CollapsibleExample() {
         </View>
       </View>
     </Collapsible>
+  );
+}
+
+function DialogExample() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant='outline'>
+          <Text>Edit Profile</Text>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className='sm:max-w-[425px]'>
+        <DialogHeader>
+          <DialogTitle>Edit profile</DialogTitle>
+          <DialogDescription>
+            Make changes to your profile here. Click save when you're done.
+          </DialogDescription>
+        </DialogHeader>
+
+        <DialogFooter>
+          <DialogClose>
+            <Text>OK</Text>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
 
