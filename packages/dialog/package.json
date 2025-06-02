@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/dialog",
-  "version": "1.1.0",
+  "version": "2.0.0-alpha.1",
   "description": "Primitive dialog",
   "license": "MIT",
   "main": "dist/index.js",
@@ -13,11 +13,17 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./dist/dialog": {
-      "import": "./dist/dialog.mjs",
-      "require": "./dist/dialog.js",
-      "types": "./dist/dialog.d.ts",
-      "default": "./dist/dialog.js"
+    "./native": {
+      "import": "./dist/native/index.mjs",
+      "require": "./dist/native/index.js",
+      "types": "./dist/native/index.d.ts",
+      "default": "./dist/native/index.js"
+    },
+    "./web": {
+      "import": "./dist/web/index.mjs",
+      "require": "./dist/web/index.js",
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
     }
   },
   "files": [
@@ -32,10 +38,12 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@rn-primitives/core": "workspace:*",
     "@rn-primitives/hooks": "workspace:*",
-    "@rn-primitives/slot": "workspace:*",
-    "@rn-primitives/types": "workspace:*"
+    "@rn-primitives/portal": "workspace:*",
+    "@rn-primitives/types": "workspace:*",
+    "@rn-primitives/utils": "workspace:*"
   },
   "devDependencies": {
     "@rn-primitives/portal": "workspace:*",
