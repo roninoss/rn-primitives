@@ -93,13 +93,13 @@ An input allowing the user to choose a value from a specified range.
 ```tsx
 import * as React from 'react';
 import { View, Text, Platform } from 'react-native';
-import * as SelectPrimitive from '@rn-primitives/select';
+import * as Slider from '@rn-primitives/slider';
 
 function Example() {
   const [value, setValue] = React.useState(50);
 
   return (
-    <View >
+    <View>
       <Text>{Math.round(value)}</Text>
       <Slider.Root
         value={value}
