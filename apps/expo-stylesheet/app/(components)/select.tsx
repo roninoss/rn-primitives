@@ -1,3 +1,4 @@
+import { useTheme } from '@react-navigation/native';
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -14,6 +15,7 @@ import {
 export default function SelectScreen() {
   const triggerRef = React.useRef<React.ElementRef<typeof SelectTrigger>>(null);
   const insets = useSafeAreaInsets();
+  const { colors } = useTheme();
   const contentInsets = {
     top: insets.top,
     bottom: insets.bottom,
@@ -34,7 +36,6 @@ export default function SelectScreen() {
       >
         <Pressable
           onPress={() => {
-            console.log('open');
             // open programmatically
             triggerRef.current?.open();
           }}
@@ -48,7 +49,10 @@ export default function SelectScreen() {
         />
         <Select defaultValue={{ value: 'apple', label: 'Apple' }}>
           <SelectTrigger ref={triggerRef} style={{ width: 250 }}>
-            <SelectValue style={{ fontSize: 16 }} placeholder='Select a fruit' />
+            <SelectValue
+              style={{ fontSize: 16, color: colors.text }}
+              placeholder='Select a fruit'
+            />
           </SelectTrigger>
           <SelectContent insets={contentInsets} style={{ width: 250 }}>
             <SelectGroup>
