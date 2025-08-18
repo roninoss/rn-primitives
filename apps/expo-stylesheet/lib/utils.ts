@@ -13,7 +13,7 @@ export const mergeBaseStyleWithUserStyle = <TemplateStyle extends ViewStyle | Te
   return [...baseStyle, userStyle];
 };
 
-export const isViewStyleArray = (obj: any): boolean => {
+const isViewStyleArray = (obj: any): boolean => {
   if (typeof obj !== 'object') return false;
 
   const keysArray = Object.keys(obj);

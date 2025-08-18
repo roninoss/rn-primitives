@@ -2,10 +2,10 @@ import { useTheme } from '@react-navigation/native';
 import * as Slot from '@rn-primitives/slot';
 import type { SlottableTextProps, TextRef } from '@rn-primitives/types';
 import * as React from 'react';
-import { Text as RNText, TextStyle } from 'react-native';
+import { Text as RNText, StyleProp, TextStyle } from 'react-native';
 import { type ICustomTheme } from '~/lib/constants';
 
-const TextClassContext = React.createContext<TextStyle | TextStyle[] | undefined>(undefined);
+const TextClassContext = React.createContext<StyleProp<TextStyle>>(undefined);
 
 const Text = React.forwardRef<TextRef, SlottableTextProps>(
   ({ asChild = false, style, ...props }, ref) => {

@@ -1,10 +1,9 @@
 import * as SelectPrimitive from '@rn-primitives/select';
 import * as React from 'react';
-import { Platform, View, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { Platform, View, StyleSheet, ViewStyle, StyleProp } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useTheme } from '@react-navigation/native';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react-native';
-import { mergeBaseStyleWithUserStyle } from '~/lib/utils';
 import { ICustomTheme } from '~/lib/constants';
 
 type Option = SelectPrimitive.Option;
@@ -20,20 +19,18 @@ const SelectTrigger = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
 >(({ children, style, disabled, ...props }, ref) => {
   const { colors } = useTheme();
-  const baseStyles: (ViewStyle | false | undefined | null)[] = [
-    styles.trigger,
-    {
-      backgroundColor: colors.card,
-      borderColor: colors.border,
-    },
-    disabled && { opacity: 0.5 },
-  ];
-
-  // merging base styles with user passed styles
-  const mergedStyles = mergeBaseStyleWithUserStyle(baseStyles, style);
 
   return (
-    <SelectPrimitive.Trigger ref={ref} style={mergedStyles} {...props}>
+    <SelectPrimitive.Trigger
+      ref={ref}
+      style={[
+        styles.trigger,
+        { backgroundColor: colors.card, borderColor: colors.border },
+        disabled && { opacity: 0.5 },
+        style as StyleProp<ViewStyle>,
+      ]}
+      {...props}
+    >
       <>{children}</>
       <ChevronDown size={16} aria-hidden={true} color={colors.text} style={{ opacity: 0.7 }} />
     </SelectPrimitive.Trigger>
@@ -80,16 +77,15 @@ const SelectContent = React.forwardRef<
 >(({ children, position = 'popper', portalHost, style, ...props }, ref) => {
   // const { open } = SelectPrimitive.useRootContext();
   const { colors } = useTheme();
-  const baseStyles: ViewStyle[] = [
+  const flattenStyles = StyleSheet.flatten([
     styles.content,
     {
       backgroundColor: colors.card,
       borderColor: colors.border,
       shadowColor: colors.text,
     },
-  ];
-  const mergedStyles = mergeBaseStyleWithUserStyle(baseStyles, style);
-  const flattenStyles = StyleSheet.flatten(mergedStyles); // single style object
+    style,
+  ]); // single style object
 
   return (
     <SelectPrimitive.Portal hostName={portalHost}>
@@ -114,10 +110,14 @@ const SelectLabel = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme();
-  const baseStyles: TextStyle[] = [styles.label, { color: colors.text }];
-  const mergedStyles = mergeBaseStyleWithUserStyle(baseStyles, style);
 
-  return <SelectPrimitive.Label ref={ref} style={mergedStyles} {...props} />;
+  return (
+    <SelectPrimitive.Label
+      ref={ref}
+      style={[styles.label, { color: colors.text }, style]}
+      {...props}
+    />
+  );
 });
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
@@ -126,16 +126,13 @@ const SelectItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
 >(({ children, disabled, style, ...props }, ref) => {
   const { colors } = useTheme();
-  const baseStyles: (ViewStyle | false | undefined | null)[] = [
-    styles.item,
-    disabled && { opacity: 0.5 },
-  ];
-
-  // merging base styles with user passed styles
-  const mergedStyles = mergeBaseStyleWithUserStyle(baseStyles, style);
 
   return (
-    <SelectPrimitive.Item ref={ref} style={mergedStyles} {...props}>
+    <SelectPrimitive.Item
+      ref={ref}
+      style={[styles.item, disabled && { opacity: 0.5 }, style as StyleProp<ViewStyle>]}
+      {...props}
+    >
       <View style={styles.itemIndicatorWrapper}>
         <SelectPrimitive.ItemIndicator>
           <Check size={16} strokeWidth={3} color={colors.text} />
@@ -152,10 +149,14 @@ const SelectSeparator = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
-  const baseStyles: ViewStyle[] = [styles.separator, { backgroundColor: colors.muted }];
-  const mergedStyles = mergeBaseStyleWithUserStyle(baseStyles, style);
 
-  return <SelectPrimitive.Separator ref={ref} style={mergedStyles} {...props} />;
+  return (
+    <SelectPrimitive.Separator
+      ref={ref}
+      style={[styles.separator, { backgroundColor: colors.muted }, style]}
+      {...props}
+    />
+  );
 });
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
