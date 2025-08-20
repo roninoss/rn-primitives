@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pressable, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { TextClassContext } from '~/components/ui/text';
 import { ICustomTheme, ICustomThemeColor } from '~/lib/constants';
@@ -17,25 +17,16 @@ type ButtonProps = React.ComponentPropsWithoutRef<typeof Pressable> & {
 const Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>(
   ({ variant = 'default', size = 'default', disabled, style, ...props }, ref) => {
     const { colors } = useTheme() as ICustomTheme;
-
-    const baseStyles: (ViewStyle | false | undefined | null)[] = [
-      styles.base,
-      getVariantStyle(variant, colors),
-      getSizeStyle(size),
+    const baseButtonStyles = [
+      ...(buttonVariants({ variant, size, colors }) as ViewStyle[]),
       disabled && styles.disabled,
     ];
 
     // merging base styles with user passed styles
-    const mergedStyles = mergeBaseStyleWithUserStyle(baseStyles, style);
-
-    const buttonTextStyles: TextStyle[] = [
-      styles.textBase,
-      getTextVariantStyle(variant, colors),
-      getTextSizeStyle(size),
-    ];
+    const mergedStyles = mergeBaseStyleWithUserStyle(baseButtonStyles, style);
 
     return (
-      <TextClassContext.Provider value={buttonTextStyles}>
+      <TextClassContext.Provider value={buttonTextVariants({ variant, size, colors })}>
         <Pressable style={mergedStyles} ref={ref} role='button' disabled={disabled} {...props} />
       </TextClassContext.Provider>
     );
@@ -47,25 +38,23 @@ Button.displayName = 'Button';
 export { Button };
 export type { ButtonProps };
 const styles = StyleSheet.create({
-  base: {
-    flexDirection: 'row',
+  baseButton: {
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 6,
+  },
+  baseButtonText: {
+    fontSize: 16,
+    fontWeight: 500,
   },
   disabled: {
     opacity: 0.5,
   },
 
-  textBase: {
-    fontSize: 16,
-    fontWeight: '500',
-  },
-
   sizeDefault: {
-    height: 48,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
+    height: 40,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
   },
   sizeSm: {
     height: 36,
@@ -83,76 +72,114 @@ const styles = StyleSheet.create({
   },
 });
 
-// === VARIANT STYLES ===
-function getVariantStyle(variant: Variant, colors: ICustomThemeColor): ViewStyle {
-  switch (variant) {
-    case 'default':
-      return { backgroundColor: colors.buttonPrimary };
-    case 'destructive':
-      return { backgroundColor: colors.notification };
-    case 'outline':
-      return {
-        borderWidth: 1,
-        borderColor: colors.border,
-        backgroundColor: colors.buttonOutline,
-      };
-    case 'secondary':
-      return { backgroundColor: colors.buttonSecondary };
-    case 'ghost':
-      return { backgroundColor: colors.buttonGhost };
-    case 'link':
-      return { backgroundColor: colors.buttonLink };
-    default:
-      return {};
-  }
-}
+export const buttonVariants = ({
+  variant = 'default',
+  size = 'default',
+  colors,
+  style,
+}: {
+  variant?: Variant;
+  size?: Size;
+  colors: ICustomThemeColor;
+  style?: StyleProp<ViewStyle>;
+}): ViewStyle[] | StyleProp<ViewStyle> => {
+  let variantStyle: ViewStyle = {};
+  let sizeStyle: ViewStyle = {};
 
-function getTextVariantStyle(variant: Variant, colors: ICustomThemeColor): TextStyle {
-  switch (variant) {
-    case 'default':
-      return { color: colors.buttonPrimaryText };
-    case 'destructive':
-      return { color: '#fff' }; // destructive text
-    case 'outline':
-      return { color: colors.buttonOutlineText };
-    case 'secondary':
-      return { color: colors.buttonSecondaryText };
-    case 'ghost':
-      return { color: colors.buttonGhostText };
-    case 'link':
-      return { color: colors.buttonLinkText, textDecorationLine: 'underline' };
-    default:
-      return {};
+  // === VARIANT STYLES ===
+  if (variant === 'default') {
+    variantStyle = { backgroundColor: colors.buttonPrimary };
+  } else if (variant === 'destructive') {
+    variantStyle = { backgroundColor: colors.notification };
+  } else if (variant === 'outline') {
+    variantStyle = {
+      borderWidth: 1,
+      borderColor: colors.border,
+      backgroundColor: colors.buttonOutline,
+    };
+  } else if (variant === 'secondary') {
+    variantStyle = { backgroundColor: colors.buttonSecondary };
+  } else if (variant === 'ghost') {
+    variantStyle = { backgroundColor: colors.buttonGhost };
+  } else if (variant === 'link') {
+    variantStyle = { backgroundColor: colors.buttonLink };
   }
-}
 
-// === SIZE STYLES ===
-function getSizeStyle(size: Size): ViewStyle {
-  switch (size) {
-    case 'default':
-      return styles.sizeDefault;
-    case 'sm':
-      return styles.sizeSm;
-    case 'lg':
-      return styles.sizeLg;
-    case 'icon':
-      return styles.sizeIcon;
-    default:
-      return {};
+  // === SIZE STYLES ===
+  if (size === 'default') {
+    sizeStyle = styles.sizeDefault;
+  } else if (size === 'sm') {
+    sizeStyle = styles.sizeSm;
+  } else if (size === 'lg') {
+    sizeStyle = styles.sizeLg;
+  } else if (size === 'icon') {
+    sizeStyle = styles.sizeIcon;
   }
-}
 
-function getTextSizeStyle(size: Size): TextStyle {
-  switch (size) {
-    case 'default':
-      return { fontSize: 16 };
-    case 'sm':
-      return { fontSize: 14 };
-    case 'lg':
-      return { fontSize: 18 };
-    case 'icon':
-      return { fontSize: 16 };
-    default:
-      return {};
+  if (!style) {
+    return [{ ...styles.baseButton, ...variantStyle, ...sizeStyle }] as ViewStyle[];
   }
-}
+
+  return [
+    {
+      ...styles.baseButton,
+      ...variantStyle,
+      ...sizeStyle,
+    },
+    style,
+  ];
+};
+
+export const buttonTextVariants = ({
+  variant = 'default',
+  size = 'default',
+  colors,
+  style,
+}: {
+  variant?: Variant;
+  size?: Size;
+  colors: ICustomThemeColor;
+  style?: StyleProp<TextStyle>;
+}): TextStyle[] | StyleProp<TextStyle> => {
+  let variantStyle: TextStyle = {};
+  let sizeStyle: TextStyle = {};
+
+  // === VARIANT STYLES ===
+  if (variant === 'default') {
+    variantStyle = { color: colors.buttonPrimaryText };
+  } else if (variant === 'destructive') {
+    variantStyle = { color: '#fff' };
+  } else if (variant === 'outline') {
+    variantStyle = { color: colors.buttonOutlineText };
+  } else if (variant === 'secondary') {
+    variantStyle = { color: colors.buttonSecondaryText };
+  } else if (variant === 'ghost') {
+    variantStyle = { color: colors.buttonGhostText };
+  } else if (variant === 'link') {
+    variantStyle = { color: colors.buttonLinkText, textDecorationLine: 'underline' };
+  }
+
+  // === SIZE STYLES ===
+  if (size === 'default') {
+    sizeStyle = { fontSize: 14 };
+  } else if (size === 'sm') {
+    sizeStyle = { fontSize: 14 };
+  } else if (size === 'lg') {
+    sizeStyle = { fontSize: 18 };
+  } else if (size === 'icon') {
+    sizeStyle = { fontSize: 16 };
+  }
+
+  if (!style) {
+    return [{ ...styles.baseButtonText, ...variantStyle, ...sizeStyle }] as TextStyle[];
+  }
+
+  return [
+    {
+      ...styles.baseButtonText,
+      ...variantStyle,
+      ...sizeStyle,
+    },
+    style,
+  ];
+};

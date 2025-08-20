@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     paddingRight: 8,
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: 600,
   },
   item: {
     position: 'relative',

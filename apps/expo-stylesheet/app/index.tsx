@@ -68,10 +68,10 @@ function toOptions(name: string) {
 }
 
 const COMPONENTS = [
-  // 'accordion',
-  // 'alert-dialog',
-  // 'aspect-ratio',
-  // 'avatar',
+  'accordion',
+  'alert-dialog',
+  'aspect-ratio',
+  'avatar',
   // 'checkbox',
   // 'collapsible',
   // 'context-menu',
