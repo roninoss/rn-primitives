@@ -12,13 +12,14 @@ type ButtonProps = React.ComponentPropsWithoutRef<typeof Pressable> & {
   variant?: Variant;
   size?: Size;
   disabled?: boolean;
+  style?: StyleProp<ViewStyle>;
 };
 
 const Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>(
   ({ variant = 'default', size = 'default', disabled, style, ...props }, ref) => {
     const { colors } = useTheme() as ICustomTheme;
     const baseButtonStyles = [
-      ...(buttonVariants({ variant, size, colors }) as ViewStyle[]),
+      buttonVariants({ variant, size, colors }),
       disabled && styles.disabled,
     ];
 
@@ -27,7 +28,13 @@ const Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>
 
     return (
       <TextClassContext.Provider value={buttonTextVariants({ variant, size, colors })}>
-        <Pressable style={mergedStyles} ref={ref} role='button' disabled={disabled} {...props} />
+        <Pressable
+          style={({ pressed }) => [...mergedStyles, pressed && { backgroundColor: colors.accent }]}
+          ref={ref}
+          role='button'
+          disabled={disabled}
+          {...props}
+        />
       </TextClassContext.Provider>
     );
   }
@@ -52,7 +59,7 @@ const styles = StyleSheet.create({
   },
 
   sizeDefault: {
-    height: 40,
+    height: 44,
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
@@ -82,7 +89,7 @@ export const buttonVariants = ({
   size?: Size;
   colors: ICustomThemeColor;
   style?: StyleProp<ViewStyle>;
-}): ViewStyle[] | StyleProp<ViewStyle> => {
+}): ViewStyle => {
   let variantStyle: ViewStyle = {};
   let sizeStyle: ViewStyle = {};
 
@@ -116,18 +123,14 @@ export const buttonVariants = ({
     sizeStyle = styles.sizeIcon;
   }
 
-  if (!style) {
-    return [{ ...styles.baseButton, ...variantStyle, ...sizeStyle }] as ViewStyle[];
-  }
-
-  return [
+  return StyleSheet.flatten([
     {
       ...styles.baseButton,
       ...variantStyle,
       ...sizeStyle,
     },
     style,
-  ];
+  ]);
 };
 
 export const buttonTextVariants = ({
@@ -140,7 +143,7 @@ export const buttonTextVariants = ({
   size?: Size;
   colors: ICustomThemeColor;
   style?: StyleProp<TextStyle>;
-}): TextStyle[] | StyleProp<TextStyle> => {
+}): TextStyle => {
   let variantStyle: TextStyle = {};
   let sizeStyle: TextStyle = {};
 
@@ -170,16 +173,12 @@ export const buttonTextVariants = ({
     sizeStyle = { fontSize: 16 };
   }
 
-  if (!style) {
-    return [{ ...styles.baseButtonText, ...variantStyle, ...sizeStyle }] as TextStyle[];
-  }
-
-  return [
+  return StyleSheet.flatten([
     {
       ...styles.baseButtonText,
       ...variantStyle,
       ...sizeStyle,
     },
     style,
-  ];
+  ]);
 };
