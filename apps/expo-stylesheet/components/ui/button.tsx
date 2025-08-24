@@ -156,7 +156,7 @@ export const buttonTextVariants = ({
   } else if (variant === 'ghost') {
     variantStyle = { color: colors.buttonGhostText };
   } else if (variant === 'link') {
-    variantStyle = { color: colors.buttonLinkText, textDecorationLine: 'underline' };
+    variantStyle = { color: colors.buttonLinkText };
   }
 
   // === SIZE STYLES ===
@@ -165,7 +165,7 @@ export const buttonTextVariants = ({
   } else if (size === 'sm') {
     sizeStyle = { fontSize: 14 };
   } else if (size === 'lg') {
-    sizeStyle = { fontSize: 18 };
+    sizeStyle = { fontSize: 16 };
   } else if (size === 'icon') {
     sizeStyle = { fontSize: 16 };
   }

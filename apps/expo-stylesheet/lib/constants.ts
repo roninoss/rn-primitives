@@ -1,7 +1,8 @@
-export const NAV_THEME = {
+export const NAV_THEME: Record<'light' | 'dark', ICustomThemeColor> = {
   light: {
     background: 'hsl(0 0% 100%)', // background
     border: 'hsl(240 5.9% 90%)', // border
+    borderMedium: 'hsl(240 5.9% 65%)', // border
     card: 'hsl(0 0% 100%)', // card
     notification: 'hsl(0 84.2% 60.2%)', // destructive
     primary: 'hsl(240 5.9% 10%)', // primary
@@ -10,7 +11,8 @@ export const NAV_THEME = {
     // Input / Muted
     muted: 'hsl(240 4.8% 95.9%)', // subtle background
     mutedText: 'hsl(240 3.8% 46.1%)', // placeholder/secondary
-    accent: 'hsl(240 5.9% 10%)', // accent color
+    accent: 'hsl(240 4.8% 95.9%)', // accent background color
+    accentText: 'hsl(240 5.9% 10%)', // accent text color
     ring: 'hsl(240 4.9% 83.9%)', // focus ring
 
     // Button-specific
@@ -32,6 +34,7 @@ export const NAV_THEME = {
   dark: {
     background: 'hsl(240 10% 3.9%)', // background
     border: 'hsl(240 3.7% 15.9%)', // border
+    borderMedium: 'hsl(240 3.7% 35%)', // border
     card: 'hsl(240 10% 3.9%)', // card
     notification: 'hsl(0 72% 51%)', // destructive
     primary: 'hsl(0 0% 98%)', // primary
@@ -40,7 +43,8 @@ export const NAV_THEME = {
     // Input / Muted
     muted: 'hsl(240 3.7% 15.9%)', // subtle background
     mutedText: 'hsl(240 5% 64.9%)', // placeholder/secondary
-    accent: 'hsl(0 0% 98%)', // accent color
+    accent: 'hsl(240 3.7% 15.9%)', // accent background color
+    accentText: 'hsl(0 0% 98%)', // accent text color
     ring: 'hsl(240 4% 16.9%)', // focus ring
 
     // Button-specific
@@ -64,6 +68,7 @@ export const NAV_THEME = {
 export interface ICustomThemeColor {
   background: string;
   border: string;
+  borderMedium: string;
   card: string;
   notification: string;
   primary: string;
@@ -73,6 +78,7 @@ export interface ICustomThemeColor {
   muted: string;
   mutedText: string;
   accent: string;
+  accentText: string;
   ring: string;
 
   // Button-specific

@@ -147,7 +147,7 @@ const ContextMenuCheckboxItem = React.forwardRef<
           disabled && { opacity: 0.5 },
           style as StyleProp<ViewStyle>,
           {
-            backgroundColor: pressed ? colors.muted : 'transparent',
+            backgroundColor: pressed ? colors.accent : 'transparent',
           },
         ]}
         {...props}
@@ -180,7 +180,7 @@ const ContextMenuRadioItem = React.forwardRef<
           disabled && { opacity: 0.5 },
           style as StyleProp<ViewStyle>,
           {
-            backgroundColor: pressed ? colors.muted : 'transparent',
+            backgroundColor: pressed ? colors.accent : 'transparent',
           },
         ]}
         {...props}
