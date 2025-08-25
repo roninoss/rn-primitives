@@ -16,7 +16,7 @@ const Text = React.forwardRef<TextRef, SlottableTextProps>(
     return (
       <Component
         ref={ref}
-        style={[{ color: colors.text, fontSize: 16 }, contextStyle, style]}
+        style={[{ color: colors.text, fontSize: 14 }, contextStyle, style]}
         {...props}
       />
     );

@@ -11,15 +11,16 @@ export const NAV_THEME: Record<'light' | 'dark', ICustomThemeColor> = {
     // Input / Muted
     muted: 'hsl(240 4.8% 95.9%)', // subtle background
     mutedText: 'hsl(240 3.8% 46.1%)', // placeholder/secondary
-    accent: 'hsl(240 4.8% 95.9%)', // accent background color
+    accent: 'hsl(240 4.8% 92.9%)', // accent background color
     accentText: 'hsl(240 5.9% 10%)', // accent text color
+    accentMild: 'hsl(240 4.8% 98%)', // accent mild background color
     ring: 'hsl(240 4.9% 83.9%)', // focus ring
 
     // Button-specific
     buttonPrimary: 'hsl(240 5.9% 10%)',
     buttonPrimaryText: 'hsl(0 0% 100%)',
 
-    buttonSecondary: 'hsl(240 4.8% 96.9%)',
+    buttonSecondary: 'hsl(240 4.8% 95.9%)',
     buttonSecondaryText: 'hsl(240 10% 3.9%)',
 
     buttonGhost: 'transparent',
@@ -33,7 +34,7 @@ export const NAV_THEME: Record<'light' | 'dark', ICustomThemeColor> = {
   },
   dark: {
     background: 'hsl(240 10% 3.9%)', // background
-    border: 'hsl(240 3.7% 15.9%)', // border
+    border: 'hsl(240 3.7% 18%)', // border
     borderMedium: 'hsl(240 3.7% 35%)', // border
     card: 'hsl(240 10% 3.9%)', // card
     notification: 'hsl(0 72% 51%)', // destructive
@@ -43,15 +44,16 @@ export const NAV_THEME: Record<'light' | 'dark', ICustomThemeColor> = {
     // Input / Muted
     muted: 'hsl(240 3.7% 15.9%)', // subtle background
     mutedText: 'hsl(240 5% 64.9%)', // placeholder/secondary
-    accent: 'hsl(240 3.7% 15.9%)', // accent background color
+    accent: 'hsl(240 3.7% 17.9%)', // accent background color
     accentText: 'hsl(0 0% 98%)', // accent text color
+    accentMild: 'hsl(240 3.7% 8%)', // accent mild background color
     ring: 'hsl(240 4% 16.9%)', // focus ring
 
     // Button-specific
     buttonPrimary: 'hsl(0 0% 98%)',
     buttonPrimaryText: 'hsl(240 10% 3.9%)',
 
-    buttonSecondary: 'hsl(240 3.7% 6%)',
+    buttonSecondary: 'hsl(240 3.7% 13%)',
     buttonSecondaryText: 'hsl(0 0% 98%)',
 
     buttonGhost: 'transparent',
@@ -79,6 +81,7 @@ export interface ICustomThemeColor {
   mutedText: string;
   accent: string;
   accentText: string;
+  accentMild: string;
   ring: string;
 
   // Button-specific

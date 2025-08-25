@@ -34,7 +34,7 @@ export { Input };
 
 const styles = StyleSheet.create({
   base: {
-    height: 44,
+    height: 40,
     borderRadius: 6,
     borderWidth: 1,
     paddingHorizontal: 12,

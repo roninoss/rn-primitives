@@ -39,7 +39,7 @@ export default function ComponentsScreen() {
               size='lg'
               style={[
                 styles.button,
-                { borderColor: colors.border, backgroundColor: colors.buttonSecondary },
+                { borderColor: colors.border, backgroundColor: colors.accentMild },
                 index === 0 && styles.firstButton,
                 index === data.length - 1 && styles.lastButton,
               ]}
@@ -84,11 +84,11 @@ const COMPONENTS = [
   'progress',
   'radio-group',
   'select',
-  // 'separator',
-  // 'slider',
-  // 'switch',
-  // 'table',
-  // 'tabs',
+  'separator',
+  'slider',
+  'switch',
+  'table',
+  'tabs',
   // 'toggle',
   // 'toggle-group',
   // 'toolbar',
@@ -98,18 +98,18 @@ const COMPONENTS = [
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16, // px-4
+    paddingHorizontal: 16,
   },
   searchWrapper: {
-    paddingVertical: 12, // py-3
+    paddingVertical: 12,
   },
   listContainer: {
     borderRadius: 8,
-    overflow: 'hidden', // native:overflow-hidden
+    overflow: 'hidden',
   },
   button: {
-    paddingLeft: 16, // pl-4
-    paddingRight: 6, // pr-1.5 (~6px)
+    paddingLeft: 16,
+    paddingRight: 6,
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderTopWidth: 1,
@@ -131,6 +131,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   footerSpacing: {
-    paddingVertical: 16, // py-4
+    paddingVertical: 16,
   },
 });

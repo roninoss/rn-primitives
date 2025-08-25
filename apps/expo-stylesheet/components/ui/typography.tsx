@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   small: {
     fontSize: 14,
     fontWeight: 500,
-    lineHeight: 20,
+    lineHeight: 16,
   },
   muted: {
     fontSize: 14,

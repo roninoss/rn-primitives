@@ -29,7 +29,10 @@ const Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>
     return (
       <TextClassContext.Provider value={buttonTextVariants({ variant, size, colors })}>
         <Pressable
-          style={({ pressed }) => [...mergedStyles, pressed && { backgroundColor: colors.accent }]}
+          style={({ pressed }) => [
+            ...mergedStyles,
+            pressed && { backgroundColor: colors.accent, opacity: 0.7 },
+          ]}
           ref={ref}
           role='button'
           disabled={disabled}
