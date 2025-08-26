@@ -69,7 +69,7 @@ export default function RootLayout() {
             return (
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: Platform.OS === 'web' ? 20 : 18,
                   fontWeight: 600,
                   color: isDarkColorScheme ? 'white' : 'black',
                 }}

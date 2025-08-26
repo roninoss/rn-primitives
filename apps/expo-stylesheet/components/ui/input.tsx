@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextInput, StyleSheet, TextStyle } from 'react-native';
+import { TextInput, StyleSheet, TextStyle, Platform } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { type ICustomTheme } from '~/lib/constants';
 
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 1,
     paddingHorizontal: 12,
-    fontSize: 16,
+    fontSize: Platform.OS === 'web' ? 14 : 16,
     lineHeight: 20,
   },
 });

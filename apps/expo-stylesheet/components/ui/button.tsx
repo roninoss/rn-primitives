@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pressable, StyleProp, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, TextStyle, ViewStyle, Platform } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { TextClassContext } from '~/components/ui/text';
 import { ICustomTheme, ICustomThemeColor } from '~/lib/constants';
@@ -29,9 +29,10 @@ const Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>
     return (
       <TextClassContext.Provider value={buttonTextVariants({ variant, size, colors })}>
         <Pressable
-          style={({ pressed }) => [
+          style={({ pressed, hovered }) => [
             ...mergedStyles,
             pressed && { backgroundColor: colors.accent, opacity: 0.7 },
+            hovered && { backgroundColor: colors.accent, opacity: 0.7 },
           ]}
           ref={ref}
           role='button'
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   },
 
   sizeDefault: {
-    height: 44,
+    height: Platform.OS === 'web' ? 40 : 44,
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   sizeLg: {
-    height: 50,
+    height: Platform.OS === 'web' ? 44 : 50,
     paddingHorizontal: 32,
     borderRadius: 6,
   },

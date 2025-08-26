@@ -1,6 +1,6 @@
 import { Link } from 'expo-router';
 import * as React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet, Platform } from 'react-native';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Text } from '~/components/ui/text';
@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   listContainer: {
-    borderRadius: 8,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
     overflow: 'hidden',
   },
   button: {
@@ -116,7 +117,6 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
   },
   firstButton: {
     borderTopLeftRadius: 8,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 8,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: Platform.OS === 'web' ? 20 : 16,
   },
   footerSpacing: {
     paddingVertical: 16,

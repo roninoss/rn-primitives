@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Pressable, View, StyleSheet } from 'react-native';
+import { Pressable, View, StyleSheet, Platform } from 'react-native';
 import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
 import { MoonStar, Sun } from 'lucide-react-native';
 import { useColorScheme } from '~/lib/useColorScheme';
@@ -20,7 +20,7 @@ export function ThemeToggle() {
       }}
     >
       {({ pressed }) => (
-        <View style={[styles.iconContainer, pressed && styles.iconPressed]}>
+        <View style={[styles.iconContainer, pressed && { opacity: 0.7 }]}>
           {isDarkColorScheme ? (
             <MoonStar color={colors.text} size={23} strokeWidth={1.25} />
           ) : (
@@ -36,12 +36,9 @@ const styles = StyleSheet.create({
   iconContainer: {
     flex: 1,
     aspectRatio: 1,
-    paddingTop: 2, // 0.5 * 4 from Tailwind
+    paddingTop: 2,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    // paddingHorizontal: 20, // web:px-5 (5 * 4px)
-  },
-  iconPressed: {
-    opacity: 0.7,
+    paddingHorizontal: Platform.OS === 'web' ? 20 : 0,
   },
 });
