@@ -89,10 +89,10 @@ const COMPONENTS = [
   'switch',
   'table',
   'tabs',
-  // 'toggle',
-  // 'toggle-group',
-  // 'toolbar',
-  // 'tooltip',
+  'toggle',
+  'toggle-group',
+  'toolbar',
+  'tooltip',
 ] as const;
 
 const styles = StyleSheet.create({
