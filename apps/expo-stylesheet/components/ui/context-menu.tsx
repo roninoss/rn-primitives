@@ -4,7 +4,7 @@ import { Platform, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-na
 import { useTheme } from '@react-navigation/native';
 import { Check, ChevronDown, ChevronRight, ChevronUp } from 'lucide-react-native';
 import { TextClassContext } from '~/components/ui/text';
-import { ICustomTheme } from '~/lib/constants';
+import { type ICustomTheme } from '~/lib/constants';
 
 const ContextMenu = ContextMenuPrimitive.Root;
 const ContextMenuTrigger = ContextMenuPrimitive.Trigger;
@@ -16,9 +16,10 @@ const ContextMenuSubTrigger = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.SubTrigger>,
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubTrigger> & {
     inset?: boolean;
+    style?: StyleProp<ViewStyle>;
   }
 >(({ inset, children, style, ...props }, ref) => {
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ICustomTheme;
   const { open } = ContextMenuPrimitive.useSubContext();
   const Icon = Platform.OS === 'web' ? ChevronRight : open ? ChevronUp : ChevronDown;
 
@@ -32,11 +33,12 @@ const ContextMenuSubTrigger = React.forwardRef<
     >
       <ContextMenuPrimitive.SubTrigger
         ref={ref}
-        style={[
+        style={({ pressed }) => [
           styles.itemBase,
           open && { backgroundColor: colors.card },
           inset && { paddingLeft: 32 },
-          style as StyleProp<ViewStyle>,
+          style,
+          pressed && { backgroundColor: colors.accent },
         ]}
         {...props}
       >
@@ -50,7 +52,9 @@ ContextMenuSubTrigger.displayName = ContextMenuPrimitive.SubTrigger.displayName;
 
 const ContextMenuSubContent = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.SubContent>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent>
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent> & {
+    style?: StyleProp<ViewStyle>;
+  }
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme();
 
@@ -63,7 +67,7 @@ const ContextMenuSubContent = React.forwardRef<
           borderColor: colors.border,
           backgroundColor: colors.card,
         },
-        style as StyleProp<ViewStyle>,
+        style,
       ]}
       {...props}
     />
@@ -104,6 +108,7 @@ const ContextMenuItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Item> & {
     inset?: boolean;
+    style?: StyleProp<ViewStyle>;
   }
 >(({ inset, disabled, style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
@@ -118,11 +123,12 @@ const ContextMenuItem = React.forwardRef<
       <ContextMenuPrimitive.Item
         ref={ref}
         disabled={disabled}
-        style={[
+        style={({ pressed }) => [
           styles.itemBase,
           inset && { paddingLeft: 32 },
           disabled && { opacity: 0.5 },
-          style as StyleProp<ViewStyle>,
+          style,
+          pressed && { backgroundColor: colors.accent },
         ]}
         {...props}
       />
@@ -133,7 +139,9 @@ ContextMenuItem.displayName = ContextMenuPrimitive.Item.displayName;
 
 const ContextMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.CheckboxItem>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem>
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem> & {
+    style?: StyleProp<ViewStyle>;
+  }
 >(({ disabled, children, style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
 
@@ -145,7 +153,7 @@ const ContextMenuCheckboxItem = React.forwardRef<
         style={({ pressed }) => [
           styles.checkboxItem,
           disabled && { opacity: 0.5 },
-          style as StyleProp<ViewStyle>,
+          style,
           {
             backgroundColor: pressed ? colors.accent : 'transparent',
           },
@@ -166,7 +174,9 @@ ContextMenuCheckboxItem.displayName = ContextMenuPrimitive.CheckboxItem.displayN
 
 const ContextMenuRadioItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.RadioItem>,
-  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.RadioItem>
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.RadioItem> & {
+    style?: StyleProp<ViewStyle>;
+  }
 >(({ disabled, children, style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
 
@@ -178,7 +188,7 @@ const ContextMenuRadioItem = React.forwardRef<
         style={({ pressed }) => [
           styles.radioItem,
           disabled && { opacity: 0.5 },
-          style as StyleProp<ViewStyle>,
+          style,
           {
             backgroundColor: pressed ? colors.accent : 'transparent',
           },

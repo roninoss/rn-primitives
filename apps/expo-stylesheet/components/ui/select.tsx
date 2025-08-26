@@ -4,7 +4,7 @@ import { Platform, View, StyleSheet, ViewStyle, StyleProp } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useTheme } from '@react-navigation/native';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react-native';
-import { ICustomTheme } from '~/lib/constants';
+import { type ICustomTheme } from '~/lib/constants';
 
 type Option = SelectPrimitive.Option;
 
@@ -123,14 +123,21 @@ SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & {
+    style?: StyleProp<ViewStyle>;
+  }
 >(({ children, disabled, style, ...props }, ref) => {
-  const { colors } = useTheme();
+  const { colors } = useTheme() as ICustomTheme;
 
   return (
     <SelectPrimitive.Item
       ref={ref}
-      style={[styles.item, disabled && { opacity: 0.5 }, style as StyleProp<ViewStyle>]}
+      style={({ pressed }) => [
+        styles.item,
+        disabled && { opacity: 0.5 },
+        pressed && { backgroundColor: colors.accent },
+        style,
+      ]}
       {...props}
     >
       <View style={styles.itemIndicatorWrapper}>

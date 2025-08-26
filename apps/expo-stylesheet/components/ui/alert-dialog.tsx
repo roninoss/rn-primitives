@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Platform, StyleSheet, View, ViewStyle, StyleProp } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
-import * as AlertDialogPrimitive from '@rn-primitives/alert-dialog';
-import { useTheme } from '@react-navigation/native';
-import { TextClassContext } from '~/components/ui/text';
 import { buttonVariants, buttonTextVariants } from '~/components/ui/button';
-import { ICustomTheme } from '~/lib/constants';
+import * as AlertDialogPrimitive from '@rn-primitives/alert-dialog';
+import { TextClassContext } from '~/components/ui/text';
+import { useTheme } from '@react-navigation/native';
+import { type ICustomTheme } from '~/lib/constants';
 
 const AlertDialog = AlertDialogPrimitive.Root;
 
@@ -121,7 +121,9 @@ AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayNam
 
 const AlertDialogAction = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Action>,
-  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action> & {
+    style?: StyleProp<ViewStyle>;
+  }
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
 
@@ -129,7 +131,10 @@ const AlertDialogAction = React.forwardRef<
     <TextClassContext.Provider value={buttonTextVariants({ colors })}>
       <AlertDialogPrimitive.Action
         ref={ref}
-        style={buttonVariants({ colors, style: style as StyleProp<ViewStyle> })}
+        style={({ pressed }) => [
+          buttonVariants({ colors, style }),
+          pressed && { backgroundColor: colors.borderMedium },
+        ]}
         {...props}
       />
     </TextClassContext.Provider>
@@ -139,7 +144,9 @@ AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName;
 
 const AlertDialogCancel = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Cancel>,
-  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel> & {
+    style?: StyleProp<ViewStyle>;
+  }
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
 
@@ -147,7 +154,10 @@ const AlertDialogCancel = React.forwardRef<
     <TextClassContext.Provider value={buttonTextVariants({ variant: 'outline', colors })}>
       <AlertDialogPrimitive.Cancel
         ref={ref}
-        style={buttonVariants({ variant: 'outline', colors, style: style as StyleProp<ViewStyle> })}
+        style={({ pressed }) => [
+          buttonVariants({ variant: 'outline', colors, style }),
+          pressed && { backgroundColor: colors.accent },
+        ]}
         {...props}
       />
     </TextClassContext.Provider>
