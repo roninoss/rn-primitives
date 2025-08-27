@@ -19,10 +19,10 @@ import { TextClassContext } from '~/components/ui/text';
 const Accordion = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
->(({ children, ...props }, ref) => {
+>(({ children, style, ...props }, ref) => {
   return (
     <LayoutAnimationConfig skipEntering>
-      <AccordionPrimitive.Root ref={ref} {...props} asChild={Platform.OS !== 'web'}>
+      <AccordionPrimitive.Root ref={ref} style={style} {...props} asChild={Platform.OS !== 'web'}>
         <Animated.View layout={LinearTransition.duration(200)}>{children}</Animated.View>
       </AccordionPrimitive.Root>
     </LayoutAnimationConfig>
@@ -36,15 +36,15 @@ const AccordionItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >(({ value, style, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenStyle = StyleSheet.flatten([
+    styles.item,
+    { borderBottomColor: colors.border },
+    style,
+  ]);
 
   return (
     <Animated.View style={styles.overflowHidden} layout={LinearTransition.duration(200)}>
-      <AccordionPrimitive.Item
-        ref={ref}
-        value={value}
-        {...props}
-        style={[styles.item, { borderBottomColor: colors.border }, style]}
-      />
+      <AccordionPrimitive.Item ref={ref} value={value} {...props} style={flattenStyle} />
     </Animated.View>
   );
 });
@@ -54,7 +54,7 @@ const Trigger = Platform.OS === 'web' ? View : Pressable;
 
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof Pressable>,
-  React.ComponentPropsWithoutRef<typeof Pressable>
+  React.ComponentPropsWithoutRef<typeof Pressable> & { style?: StyleProp<ViewStyle> }
 >(({ children, style, ...props }, ref) => {
   const { isExpanded } = AccordionPrimitive.useItemContext();
   const { colors } = useTheme();
@@ -72,9 +72,7 @@ const AccordionTrigger = React.forwardRef<
     <TextClassContext.Provider value={styles.triggerProvider}>
       <AccordionPrimitive.Header style={styles.triggerHeader}>
         <AccordionPrimitive.Trigger ref={ref} {...props} asChild>
-          <Trigger
-            style={[styles.trigger, { borderColor: colors.border }, style as StyleProp<ViewStyle>]}
-          >
+          <Trigger style={[styles.trigger, { borderColor: colors.border }, style]}>
             <>{children}</>
             <Animated.View style={chevronStyle}>
               <ChevronDown size={18} color={colors.text} />
@@ -133,7 +131,6 @@ const styles = StyleSheet.create({
   },
   triggerProvider: {
     fontSize: 16,
-    // lineHeight: 28,
     fontWeight: 500,
   },
   triggerHeader: {

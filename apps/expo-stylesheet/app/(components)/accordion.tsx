@@ -57,10 +57,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 24, // p-6
+    padding: 24,
   },
   accordion: {
     width: '100%',
-    maxWidth: 384, // max-w-sm
+    maxWidth: 384,
   },
 });

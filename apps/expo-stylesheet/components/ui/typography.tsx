@@ -178,13 +178,13 @@ export { BlockQuote, Code, H1, H2, H3, H4, Large, Lead, Muted, P, Small };
 
 const styles = StyleSheet.create({
   h1: {
-    fontSize: 36, // ~text-4xl
+    fontSize: Platform.OS === 'web' ? 48 : 36,
     lineHeight: 40,
     fontWeight: 800,
-    letterSpacing: -0.25,
+    letterSpacing: -0.5,
   },
   h2: {
-    fontSize: 30, // ~text-3xl
+    fontSize: 30,
     lineHeight: 36,
     fontWeight: 600,
     letterSpacing: -0.25,
@@ -192,13 +192,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   h3: {
-    fontSize: 24, // ~text-2xl
+    fontSize: 24,
     lineHeight: 32,
     fontWeight: 600,
     letterSpacing: -0.25,
   },
   h4: {
-    fontSize: 20, // ~text-xl
+    fontSize: 20,
     lineHeight: 28,
     fontWeight: 600,
     letterSpacing: -0.25,

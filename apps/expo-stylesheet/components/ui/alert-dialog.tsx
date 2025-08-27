@@ -54,23 +54,20 @@ const AlertDialogContent = React.forwardRef<
 >(({ portalHost, style, ...props }, ref) => {
   // const { open } = AlertDialogPrimitive.useRootContext();
   const { colors } = useTheme();
+  const flattenContentStyles = StyleSheet.flatten([
+    styles.content,
+    {
+      backgroundColor: colors.card,
+      borderColor: colors.border,
+      shadowColor: colors.text,
+    },
+    style,
+  ]);
 
   return (
     <AlertDialogPortal hostName={portalHost}>
       <AlertDialogOverlay>
-        <AlertDialogPrimitive.Content
-          ref={ref}
-          style={[
-            styles.content,
-            {
-              backgroundColor: colors.card,
-              borderColor: colors.border,
-              shadowColor: colors.text,
-            },
-            style,
-          ]}
-          {...props}
-        />
+        <AlertDialogPrimitive.Content ref={ref} style={flattenContentStyles} {...props} />
       </AlertDialogOverlay>
     </AlertDialogPortal>
   );
@@ -92,14 +89,9 @@ const AlertDialogTitle = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenTitleStyles = StyleSheet.flatten([styles.title, { color: colors.text }, style]);
 
-  return (
-    <AlertDialogPrimitive.Title
-      ref={ref}
-      style={[styles.title, { color: colors.text }, style]}
-      {...props}
-    />
-  );
+  return <AlertDialogPrimitive.Title ref={ref} style={flattenTitleStyles} {...props} />;
 });
 AlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName;
 
@@ -108,14 +100,13 @@ const AlertDialogDescription = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const flattenDescriptionStyles = StyleSheet.flatten([
+    styles.description,
+    { color: colors.mutedText },
+    style,
+  ]);
 
-  return (
-    <AlertDialogPrimitive.Description
-      ref={ref}
-      style={[styles.description, { color: colors.mutedText }, style]}
-      {...props}
-    />
-  );
+  return <AlertDialogPrimitive.Description ref={ref} style={flattenDescriptionStyles} {...props} />;
 });
 AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayName;
 
@@ -126,17 +117,16 @@ const AlertDialogAction = React.forwardRef<
   }
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const nativeStylesFunc = ({ pressed }: { pressed: boolean }) => [
+    buttonVariants({ colors, style }),
+    pressed && { backgroundColor: colors.borderMedium },
+  ];
+  const actionBtnStyle =
+    Platform.OS === 'web' ? buttonVariants({ colors, style }) : nativeStylesFunc;
 
   return (
     <TextClassContext.Provider value={buttonTextVariants({ colors })}>
-      <AlertDialogPrimitive.Action
-        ref={ref}
-        style={({ pressed }) => [
-          buttonVariants({ colors, style }),
-          pressed && { backgroundColor: colors.borderMedium },
-        ]}
-        {...props}
-      />
+      <AlertDialogPrimitive.Action ref={ref} style={actionBtnStyle} {...props} />
     </TextClassContext.Provider>
   );
 });
@@ -149,17 +139,18 @@ const AlertDialogCancel = React.forwardRef<
   }
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const nativeStylesFunc = ({ pressed }: { pressed: boolean }) => [
+    buttonVariants({ variant: 'outline', colors, style }),
+    pressed && { backgroundColor: colors.accent },
+  ];
+  const cancelBtnStyle =
+    Platform.OS === 'web'
+      ? buttonVariants({ variant: 'outline', colors, style })
+      : nativeStylesFunc;
 
   return (
     <TextClassContext.Provider value={buttonTextVariants({ variant: 'outline', colors })}>
-      <AlertDialogPrimitive.Cancel
-        ref={ref}
-        style={({ pressed }) => [
-          buttonVariants({ variant: 'outline', colors, style }),
-          pressed && { backgroundColor: colors.accent },
-        ]}
-        {...props}
-      />
+      <AlertDialogPrimitive.Cancel ref={ref} style={cancelBtnStyle} {...props} />
     </TextClassContext.Provider>
   );
 });
@@ -215,7 +206,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   footer: {
-    flexDirection: 'column-reverse',
+    flexDirection: Platform.OS === 'web' ? 'row' : 'column-reverse',
     justifyContent: 'flex-end',
     gap: 8,
   },
