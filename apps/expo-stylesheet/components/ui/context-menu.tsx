@@ -7,7 +7,20 @@ import { TextClassContext } from '~/components/ui/text';
 import { type ICustomTheme } from '~/lib/constants';
 
 const ContextMenu = ContextMenuPrimitive.Root;
-const ContextMenuTrigger = ContextMenuPrimitive.Trigger;
+
+// const ContextMenuTrigger = ContextMenuPrimitive.Trigger;
+const ContextMenuTrigger = React.forwardRef<
+  React.ElementRef<typeof ContextMenuPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Trigger> & {
+    style?: StyleProp<ViewStyle>;
+  }
+>(({ style, ...props }, ref) => {
+  const flattenStyle: ViewStyle = StyleSheet.flatten([{ display: 'flex' }, style]);
+
+  return <ContextMenuPrimitive.Trigger ref={ref} style={flattenStyle} {...props} />;
+});
+ContextMenuTrigger.displayName = ContextMenuPrimitive.Trigger.displayName;
+
 const ContextMenuGroup = ContextMenuPrimitive.Group;
 const ContextMenuSub = ContextMenuPrimitive.Sub;
 const ContextMenuRadioGroup = ContextMenuPrimitive.RadioGroup;
@@ -22,24 +35,31 @@ const ContextMenuSubTrigger = React.forwardRef<
   const { colors } = useTheme() as ICustomTheme;
   const { open } = ContextMenuPrimitive.useSubContext();
   const Icon = Platform.OS === 'web' ? ChevronRight : open ? ChevronUp : ChevronDown;
+  const nativeStyles = ({ pressed }: { pressed: boolean }) => [
+    styles.itemBase,
+    open && { backgroundColor: colors.card },
+    inset && { paddingLeft: 32 },
+    style,
+    pressed && { backgroundColor: colors.accent },
+  ];
+  const webStyles = StyleSheet.flatten([
+    styles.itemBase,
+    open && { backgroundColor: colors.card },
+    inset && { paddingLeft: 32 },
+    style,
+  ]);
 
   return (
     <TextClassContext.Provider
       value={{
         userSelect: 'none',
-        fontSize: 16,
+        fontSize: Platform.OS === 'web' ? 14 : 16,
         color: open ? colors.primary : colors.text,
       }}
     >
       <ContextMenuPrimitive.SubTrigger
         ref={ref}
-        style={({ pressed }) => [
-          styles.itemBase,
-          open && { backgroundColor: colors.card },
-          inset && { paddingLeft: 32 },
-          style,
-          pressed && { backgroundColor: colors.accent },
-        ]}
+        style={Platform.OS === 'web' ? webStyles : nativeStyles}
         {...props}
       >
         <>{children}</>
@@ -112,24 +132,31 @@ const ContextMenuItem = React.forwardRef<
   }
 >(({ inset, disabled, style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const nativeStyles = ({ pressed }: { pressed: boolean }) => [
+    styles.itemBase,
+    inset && { paddingLeft: 32 },
+    disabled && { opacity: 0.5 },
+    style,
+    pressed && { backgroundColor: colors.accent },
+  ];
+  const webStyles = StyleSheet.flatten([
+    styles.itemBase,
+    inset && { paddingLeft: 32 },
+    disabled && { opacity: 0.5 },
+    style,
+  ]);
 
   return (
     <TextClassContext.Provider
       value={{
-        fontSize: 16,
+        fontSize: Platform.OS === 'web' ? 14 : 16,
         color: disabled ? colors.mutedText : colors.text,
       }}
     >
       <ContextMenuPrimitive.Item
         ref={ref}
         disabled={disabled}
-        style={({ pressed }) => [
-          styles.itemBase,
-          inset && { paddingLeft: 32 },
-          disabled && { opacity: 0.5 },
-          style,
-          pressed && { backgroundColor: colors.accent },
-        ]}
+        style={Platform.OS === 'web' ? webStyles : nativeStyles}
         {...props}
       />
     </TextClassContext.Provider>
@@ -144,20 +171,22 @@ const ContextMenuCheckboxItem = React.forwardRef<
   }
 >(({ disabled, children, style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const nativeStyles = ({ pressed }: { pressed: boolean }) => [
+    styles.checkboxItem,
+    disabled && { opacity: 0.5 },
+    style,
+    {
+      backgroundColor: pressed ? colors.accent : 'transparent',
+    },
+  ];
+  const webStyles = StyleSheet.flatten([styles.checkboxItem, disabled && { opacity: 0.5 }, style]);
 
   return (
     <TextClassContext.Provider value={{ fontSize: 14 }}>
       <ContextMenuPrimitive.CheckboxItem
         ref={ref}
         disabled={disabled}
-        style={({ pressed }) => [
-          styles.checkboxItem,
-          disabled && { opacity: 0.5 },
-          style,
-          {
-            backgroundColor: pressed ? colors.accent : 'transparent',
-          },
-        ]}
+        style={Platform.OS === 'web' ? webStyles : nativeStyles}
         {...props}
       >
         <View style={styles.indicatorBox}>
@@ -179,20 +208,22 @@ const ContextMenuRadioItem = React.forwardRef<
   }
 >(({ disabled, children, style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const nativeStyles = ({ pressed }: { pressed: boolean }) => [
+    styles.radioItem,
+    disabled && { opacity: 0.5 },
+    style,
+    {
+      backgroundColor: pressed ? colors.accent : 'transparent',
+    },
+  ];
+  const webStyles = StyleSheet.flatten([styles.radioItem, disabled && { opacity: 0.5 }, style]);
 
   return (
     <TextClassContext.Provider value={{ fontSize: 14 }}>
       <ContextMenuPrimitive.RadioItem
         ref={ref}
         disabled={disabled}
-        style={({ pressed }) => [
-          styles.radioItem,
-          disabled && { opacity: 0.5 },
-          style,
-          {
-            backgroundColor: pressed ? colors.accent : 'transparent',
-          },
-        ]}
+        style={Platform.OS === 'web' ? webStyles : nativeStyles}
         {...props}
       >
         <View style={styles.indicatorBox}>
@@ -221,14 +252,14 @@ const ContextMenuLabel = React.forwardRef<
   }
 >(({ inset, style, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenStyle = StyleSheet.flatten([
+    styles.label,
+    { color: colors.text },
+    inset && { paddingLeft: 32 },
+    style,
+  ]);
 
-  return (
-    <ContextMenuPrimitive.Label
-      ref={ref}
-      style={[styles.label, { color: colors.text }, inset && { paddingLeft: 32 }, style]}
-      {...props}
-    />
-  );
+  return <ContextMenuPrimitive.Label ref={ref} style={flattenStyle} {...props} />;
 });
 ContextMenuLabel.displayName = ContextMenuPrimitive.Label.displayName;
 
@@ -237,14 +268,13 @@ const ContextMenuSeparator = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Separator>
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenStyle = StyleSheet.flatten([
+    styles.separator,
+    { backgroundColor: colors.border },
+    style,
+  ]);
 
-  return (
-    <ContextMenuPrimitive.Separator
-      ref={ref}
-      style={[styles.separator, { backgroundColor: colors.border }, style]}
-      {...props}
-    />
-  );
+  return <ContextMenuPrimitive.Separator ref={ref} style={flattenStyle} {...props} />;
 });
 ContextMenuSeparator.displayName = ContextMenuPrimitive.Separator.displayName;
 

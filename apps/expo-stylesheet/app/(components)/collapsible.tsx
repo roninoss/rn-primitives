@@ -83,10 +83,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 16,
     paddingHorizontal: 16,
   },
   headerText: {
-    fontSize: 16,
+    fontSize: Platform.OS === 'web' ? 14 : 16,
     fontWeight: 600,
   },
   card: {
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   cardText: {
-    fontSize: 16,
+    fontSize: Platform.OS === 'web' ? 14 : 16,
     lineHeight: 20,
   },
   collapsibleContent: {

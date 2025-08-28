@@ -105,14 +105,9 @@ const DialogTitle = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenStyle = StyleSheet.flatten([styles.title, { color: colors.text }, style]);
 
-  return (
-    <DialogPrimitive.Title
-      ref={ref}
-      style={[styles.title, { color: colors.text }, style]}
-      {...props}
-    />
-  );
+  return <DialogPrimitive.Title ref={ref} style={flattenStyle} {...props} />;
 });
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
@@ -121,14 +116,9 @@ const DialogDescription = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const flattenStyle = StyleSheet.flatten([styles.description, { color: colors.mutedText }, style]);
 
-  return (
-    <DialogPrimitive.Description
-      ref={ref}
-      style={[styles.description, { color: colors.mutedText }, style]}
-      {...props}
-    />
-  );
+  return <DialogPrimitive.Description ref={ref} style={flattenStyle} {...props} />;
 });
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
@@ -186,7 +176,8 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   footer: {
-    flexDirection: 'column-reverse',
+    flexDirection: Platform.OS === 'web' ? 'row' : 'column-reverse',
+    justifyContent: Platform.OS === 'web' ? 'flex-end' : 'flex-start',
     gap: 8,
   },
   title: {

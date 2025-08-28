@@ -7,25 +7,23 @@ import { ICustomTheme } from '~/lib/constants';
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
+  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> & {
+    style?: StyleProp<ViewStyle>;
+  }
 >(({ style, checked, disabled, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const flattenStyle = StyleSheet.flatten([
+    styles.base,
+    {
+      borderColor: colors.primary,
+      backgroundColor: checked ? colors.primary : colors.background,
+      opacity: disabled ? 0.5 : 1,
+    },
+    style,
+  ]);
 
   return (
-    <CheckboxPrimitive.Root
-      ref={ref}
-      checked={checked}
-      style={[
-        styles.base,
-        {
-          borderColor: colors.primary,
-          backgroundColor: checked ? colors.primary : colors.background,
-          opacity: disabled ? 0.5 : 1,
-        },
-        style as StyleProp<ViewStyle>,
-      ]}
-      {...props}
-    >
+    <CheckboxPrimitive.Root ref={ref} checked={checked} style={flattenStyle} {...props}>
       <CheckboxPrimitive.Indicator style={styles.indicator}>
         <Check
           size={12}
