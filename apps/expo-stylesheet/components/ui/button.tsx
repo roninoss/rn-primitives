@@ -172,7 +172,7 @@ export const buttonTextVariants = ({
   } else if (size === 'sm') {
     sizeStyle = { fontSize: 14 };
   } else if (size === 'lg') {
-    sizeStyle = { fontSize: 16 };
+    sizeStyle = { fontSize: Platform.OS === 'web' ? 14 : 16 };
   } else if (size === 'icon') {
     sizeStyle = { fontSize: 16 };
   }

@@ -2,7 +2,7 @@ import { useTheme } from '@react-navigation/native';
 import * as Slot from '@rn-primitives/slot';
 import type { SlottableTextProps, TextRef } from '@rn-primitives/types';
 import * as React from 'react';
-import { Text as RNText, StyleProp, TextStyle } from 'react-native';
+import { Platform, Text as RNText, StyleProp, TextStyle } from 'react-native';
 import { type ICustomTheme } from '~/lib/constants';
 
 const TextClassContext = React.createContext<StyleProp<TextStyle>>(undefined);
@@ -16,7 +16,11 @@ const Text = React.forwardRef<TextRef, SlottableTextProps>(
     return (
       <Component
         ref={ref}
-        style={[{ color: colors.text, fontSize: 14 }, contextStyle, style]}
+        style={[
+          { color: colors.text, fontSize: Platform.OS === 'web' ? 16 : 14 },
+          contextStyle,
+          style,
+        ]}
         {...props}
       />
     );

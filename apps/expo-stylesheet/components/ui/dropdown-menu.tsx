@@ -1,6 +1,6 @@
 import * as DropdownMenuPrimitive from '@rn-primitives/dropdown-menu';
 import * as React from 'react';
-import { Platform, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Platform, StyleProp, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { Check, ChevronDown, ChevronRight, ChevronUp } from 'lucide-react-native';
 import { useTheme } from '@react-navigation/native';
 import { TextClassContext } from '~/components/ui/text';
@@ -28,18 +28,27 @@ const DropdownMenuSubTrigger = React.forwardRef<
   const { colors } = useTheme() as ICustomTheme;
   const { open } = DropdownMenuPrimitive.useSubContext();
   const Icon = Platform.OS === 'web' ? ChevronRight : open ? ChevronUp : ChevronDown;
+  const nativeStyle = ({ pressed }: { pressed: boolean }) => [
+    styles.item,
+    { backgroundColor: open ? colors.accent : 'transparent' },
+    inset && { paddingLeft: 32 },
+    pressed && { backgroundColor: colors.accent },
+    style,
+  ];
+  const webStyle = StyleSheet.flatten([
+    styles.item,
+    { backgroundColor: open ? colors.accent : 'transparent' },
+    inset && { paddingLeft: 32 },
+    style,
+  ]);
 
   return (
-    <TextClassContext.Provider value={{ color: colors.text, fontSize: 16 }}>
+    <TextClassContext.Provider
+      value={{ color: colors.text, fontSize: Platform.OS === 'web' ? 14 : 16 }}
+    >
       <DropdownMenuPrimitive.SubTrigger
         ref={ref}
-        style={({ pressed }) => [
-          styles.item,
-          { backgroundColor: open ? colors.accent : 'transparent' },
-          inset && { paddingLeft: 32 },
-          pressed && { backgroundColor: colors.accent },
-          style,
-        ]}
+        style={Platform.OS === 'web' ? webStyle : nativeStyle}
         {...props}
       >
         <>{children}</>
@@ -114,18 +123,31 @@ const DropdownMenuItem = React.forwardRef<
   }
 >(({ inset, style, disabled, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const nativeStyle = ({ pressed }: { pressed: boolean }) => [
+    styles.item,
+    inset && { paddingLeft: 32 },
+    disabled && { opacity: 0.5 },
+    pressed && { backgroundColor: colors.accent },
+    style,
+  ];
+  const webStyle = StyleSheet.flatten([
+    styles.item,
+    inset && { paddingLeft: 32 },
+    disabled && { opacity: 0.5 },
+    style,
+  ]);
 
   return (
-    <TextClassContext.Provider value={{ fontSize: 16, lineHeight: 28, color: colors.text }}>
+    <TextClassContext.Provider
+      value={{
+        fontSize: Platform.OS === 'web' ? 14 : 16,
+        lineHeight: Platform.OS === 'web' ? 22 : 28,
+        color: colors.text,
+      }}
+    >
       <DropdownMenuPrimitive.Item
         ref={ref}
-        style={({ pressed }) => [
-          styles.item,
-          inset && { paddingLeft: 32 },
-          disabled && { opacity: 0.5 },
-          pressed && { backgroundColor: colors.accent },
-          style,
-        ]}
+        style={Platform.OS === 'web' ? webStyle : nativeStyle}
         {...props}
       />
     </TextClassContext.Provider>
@@ -208,24 +230,19 @@ const DropdownMenuLabel = React.forwardRef<
   }
 >(({ inset, style, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenStyle: TextStyle = StyleSheet.flatten([
+    {
+      paddingHorizontal: 8,
+      paddingVertical: 6,
+      fontSize: 14,
+      fontWeight: 600,
+      color: colors.text,
+    },
+    inset && { paddingLeft: 32 },
+    style,
+  ]);
 
-  return (
-    <DropdownMenuPrimitive.Label
-      ref={ref}
-      style={[
-        {
-          paddingHorizontal: 8,
-          paddingVertical: 6,
-          fontSize: 14,
-          fontWeight: 600,
-          color: colors.text,
-        },
-        inset && { paddingLeft: 32 },
-        style,
-      ]}
-      {...props}
-    />
-  );
+  return <DropdownMenuPrimitive.Label ref={ref} style={flattenStyle} {...props} />;
 });
 DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName;
 
@@ -234,22 +251,17 @@ const DropdownMenuSeparator = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const flattenStyle = StyleSheet.flatten([
+    {
+      marginHorizontal: -4,
+      marginVertical: 4,
+      height: StyleSheet.hairlineWidth,
+      backgroundColor: colors.borderMedium,
+    },
+    style,
+  ]);
 
-  return (
-    <DropdownMenuPrimitive.Separator
-      ref={ref}
-      style={[
-        {
-          marginHorizontal: -4,
-          marginVertical: 4,
-          height: StyleSheet.hairlineWidth,
-          backgroundColor: colors.borderMedium,
-        },
-        style,
-      ]}
-      {...props}
-    />
-  );
+  return <DropdownMenuPrimitive.Separator ref={ref} style={flattenStyle} {...props} />;
 });
 DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName;
 

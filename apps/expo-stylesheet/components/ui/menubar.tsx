@@ -48,21 +48,24 @@ const MenubarTrigger = React.forwardRef<
   const { value } = MenubarPrimitive.useRootContext();
   const { value: itemValue } = MenubarPrimitive.useMenuContext();
   const { colors } = useTheme() as ICustomTheme;
-
   const isActive = value === itemValue;
+  const nativeStyle = ({ pressed }: { pressed: boolean }) => [
+    styles.trigger,
+    { backgroundColor: isActive ? colors.accent : 'transparent' },
+    pressed && { backgroundColor: colors.accent },
+    style,
+  ];
+  const webStyle = StyleSheet.flatten([
+    styles.trigger,
+    { backgroundColor: isActive ? colors.accent : 'transparent' },
+    style,
+  ]);
 
   return (
-    <TextClassContext.Provider value={{ fontSize: 14 }}>
+    <TextClassContext.Provider value={{ fontSize: Platform.OS === 'web' ? 16 : 14 }}>
       <MenubarPrimitive.Trigger
         ref={ref}
-        style={({ pressed }) => [
-          styles.trigger,
-          {
-            backgroundColor: isActive ? colors.accent : 'transparent',
-          },
-          pressed && { backgroundColor: colors.accent },
-          style,
-        ]}
+        style={Platform.OS === 'web' ? webStyle : nativeStyle}
         {...props}
       />
     </TextClassContext.Provider>
@@ -80,23 +83,30 @@ const MenubarSubTrigger = React.forwardRef<
   const { open } = MenubarPrimitive.useSubContext();
   const { colors } = useTheme() as ICustomTheme;
   const Icon = Platform.OS === 'web' ? ChevronRight : open ? ChevronUp : ChevronDown;
+  const nativeStyle = ({ pressed }: { pressed: boolean }) => [
+    styles.subTrigger,
+    { backgroundColor: open ? colors.accent : 'transparent' },
+    inset && { paddingLeft: 32 },
+    pressed && { backgroundColor: colors.accent },
+    style,
+  ];
+  const webStyle = StyleSheet.flatten([
+    styles.subTrigger,
+    { backgroundColor: open ? colors.accent : 'transparent' },
+    inset && { paddingLeft: 32 },
+    style,
+  ]);
 
   return (
     <TextClassContext.Provider
       value={{
         color: colors.text,
-        fontSize: 16,
+        fontSize: Platform.OS === 'web' ? 14 : 16,
       }}
     >
       <MenubarPrimitive.SubTrigger
         ref={ref}
-        style={({ pressed }) => [
-          styles.subTrigger,
-          { backgroundColor: open ? colors.accent : 'transparent' },
-          inset && { paddingLeft: 32 },
-          pressed && { backgroundColor: colors.accent },
-          style,
-        ]}
+        style={Platform.OS === 'web' ? webStyle : nativeStyle}
         {...props}
       >
         <>{children}</>
@@ -163,18 +173,30 @@ const MenubarItem = React.forwardRef<
   }
 >(({ inset, style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const nativeStyle = ({ pressed }: { pressed: boolean }) => [
+    styles.item,
+    inset && { paddingLeft: 32 },
+    props.disabled && { opacity: 0.5 },
+    pressed && { backgroundColor: colors.accent },
+    style,
+  ];
+  const webStyle = StyleSheet.flatten([
+    styles.item,
+    inset && { paddingLeft: 32 },
+    props.disabled && { opacity: 0.5 },
+    style,
+  ]);
 
   return (
-    <TextClassContext.Provider value={{ fontSize: 16, lineHeight: 26 }}>
+    <TextClassContext.Provider
+      value={{
+        fontSize: Platform.OS === 'web' ? 14 : 16,
+        lineHeight: Platform.OS === 'web' ? 20 : 24,
+      }}
+    >
       <MenubarPrimitive.Item
         ref={ref}
-        style={({ pressed }) => [
-          styles.item,
-          inset && { paddingLeft: 32 },
-          props.disabled && { opacity: 0.5 },
-          pressed && { backgroundColor: colors.accent },
-          style,
-        ]}
+        style={Platform.OS === 'web' ? webStyle : nativeStyle}
         {...props}
       />
     </TextClassContext.Provider>
@@ -187,16 +209,18 @@ const MenubarCheckboxItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof MenubarPrimitive.CheckboxItem>
 >(({ children, checked, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const nativeStyle = ({ pressed }: { pressed: boolean }) => [
+    styles.checkboxItem,
+    props.disabled && { opacity: 0.5 },
+    pressed && { backgroundColor: colors.accent },
+  ];
+  const webStyle = StyleSheet.flatten([styles.checkboxItem, props.disabled && { opacity: 0.5 }]);
 
   return (
     <TextClassContext.Provider value={{ fontSize: 14, lineHeight: 22 }}>
       <MenubarPrimitive.CheckboxItem
         ref={ref}
-        style={({ pressed }) => [
-          styles.checkboxItem,
-          props.disabled && { opacity: 0.5 },
-          pressed && { backgroundColor: colors.accent },
-        ]}
+        style={Platform.OS === 'web' ? webStyle : nativeStyle}
         checked={checked}
         {...props}
       >
@@ -219,17 +243,23 @@ const MenubarRadioItem = React.forwardRef<
   }
 >(({ children, style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const nativeStyle = ({ pressed }: { pressed: boolean }) => [
+    styles.radioItem,
+    props.disabled && { opacity: 0.5 },
+    pressed && { backgroundColor: colors.accent },
+    style,
+  ];
+  const webStyle = StyleSheet.flatten([
+    styles.radioItem,
+    props.disabled && { opacity: 0.5 },
+    style,
+  ]);
 
   return (
     <TextClassContext.Provider value={{ fontSize: 14, lineHeight: 22 }}>
       <MenubarPrimitive.RadioItem
         ref={ref}
-        style={({ pressed }) => [
-          styles.radioItem,
-          props.disabled && { opacity: 0.5 },
-          pressed && { backgroundColor: colors.accent },
-          style,
-        ]}
+        style={Platform.OS === 'web' ? webStyle : nativeStyle}
         {...props}
       >
         <View style={styles.indicatorBox}>
@@ -274,14 +304,13 @@ const MenubarSeparator = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Separator>
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenStyle = StyleSheet.flatten([
+    styles.separator,
+    { backgroundColor: colors.border },
+    style,
+  ]);
 
-  return (
-    <MenubarPrimitive.Separator
-      ref={ref}
-      style={[styles.separator, { backgroundColor: colors.border }, style]}
-      {...props}
-    />
-  );
+  return <MenubarPrimitive.Separator ref={ref} style={flattenStyle} {...props} />;
 });
 MenubarSeparator.displayName = MenubarPrimitive.Separator.displayName;
 
@@ -334,7 +363,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 2,
-    paddingHorizontal: 16,
+    paddingHorizontal: Platform.OS === 'web' ? 12 : 16,
     paddingVertical: 6,
   },
   subTrigger: {

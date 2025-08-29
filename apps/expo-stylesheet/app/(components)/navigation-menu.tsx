@@ -1,7 +1,7 @@
 import { ViewRef } from '@rn-primitives/types';
 import { useNavigation } from 'expo-router';
 import * as React from 'react';
-import { Platform, Pressable, StyleSheet, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   NavigationMenu,
@@ -28,6 +28,8 @@ export default function NavigationMenuScreen() {
   };
   const [value, setValue] = React.useState<string>();
   const navigation = useNavigation();
+  const { width } = useWindowDimensions();
+  const isMediumOrAboveScreen = width >= 768;
 
   function closeAll() {
     setValue('');
@@ -59,7 +61,10 @@ export default function NavigationMenuScreen() {
             </NavigationMenuTrigger>
             <NavigationMenuContent insets={contentInsets}>
               <View role='list' style={styles.menuContent}>
-                <View role='listitem' style={styles.featureCardWrapper}>
+                <View
+                  role='listitem'
+                  style={[styles.featureCardWrapper, { backgroundColor: colors.buttonSecondary }]}
+                >
                   <NavigationMenuLink>
                     <View style={[styles.featureCard, { borderColor: colors.border }]}>
                       <Sparkles size={16} color={colors.text} />
@@ -88,7 +93,10 @@ export default function NavigationMenuScreen() {
               <Text style={{ color: colors.text }}>Components</Text>
             </NavigationMenuTrigger>
             <NavigationMenuContent insets={contentInsets}>
-              <View role='list' style={styles.componentsGrid}>
+              <View
+                role='list'
+                style={[styles.componentsGrid, { width: isMediumOrAboveScreen ? 600 : 300 }]}
+              >
                 {components.map((component) => (
                   <ListItem key={component.title} title={component.title} href={component.href}>
                     {component.description}
@@ -99,7 +107,7 @@ export default function NavigationMenuScreen() {
           </NavigationMenuItem>
           <NavigationMenuItem value='documentation'>
             <NavigationMenuLink onPress={closeAll} style={navigationMenuTriggerStyle}>
-              <Text style={{ fontSize: 14 }}>Documentation</Text>
+              <Text>Documentation</Text>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
@@ -155,7 +163,9 @@ const ListItem = React.forwardRef<
     <View role='listitem'>
       <NavigationMenuLink ref={ref} style={[styles.listItem, style]} {...props}>
         <Text style={[styles.listItemTitle, { color: colors.text }]}>{title}</Text>
-        <Text style={[styles.listItemDescription, { color: colors.mutedText }]}>{children}</Text>
+        <Text numberOfLines={2} style={[styles.listItemDescription, { color: colors.mutedText }]}>
+          {children}
+        </Text>
       </NavigationMenuLink>
     </View>
   );
@@ -195,12 +205,14 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   componentsGrid: {
-    width: 400,
     gap: 12,
     padding: 16,
-    maxWidth: 600,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
   },
   listItem: {
+    width: 268,
     gap: 4,
     borderRadius: 6,
     padding: 12,

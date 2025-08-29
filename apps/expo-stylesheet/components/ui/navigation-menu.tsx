@@ -13,7 +13,6 @@ import Animated, {
 import { ChevronDown } from 'lucide-react-native';
 import { useTheme } from '@react-navigation/native';
 import { ICustomTheme } from '~/lib/constants';
-import { TextClassContext } from '~/components/ui/text';
 
 const NavigationMenu = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -29,9 +28,11 @@ NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName;
 const NavigationMenuList = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
->(({ style, ...props }, ref) => (
-  <NavigationMenuPrimitive.List ref={ref} style={[styles.list, style]} {...props} />
-));
+>(({ style, ...props }, ref) => {
+  const flattenStyle = StyleSheet.flatten([styles.list, style]);
+
+  return <NavigationMenuPrimitive.List ref={ref} style={flattenStyle} {...props} />;
+});
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
@@ -56,6 +57,25 @@ const NavigationMenuTrigger = React.forwardRef<
   const { value } = NavigationMenuPrimitive.useRootContext();
   const { value: itemValue } = NavigationMenuPrimitive.useItemContext();
   const { colors } = useTheme() as ICustomTheme;
+  const nativeStyle = ({ pressed }: { pressed: boolean }) => [
+    navigationMenuTriggerStyle,
+    style,
+    {
+      gap: 6,
+      backgroundColor: value === itemValue ? colors.accent : 'transparent',
+      opacity: disabled ? 0.5 : 1,
+    },
+    pressed && { backgroundColor: colors.accent },
+  ];
+  const webStyle = StyleSheet.flatten([
+    navigationMenuTriggerStyle,
+    style,
+    {
+      gap: 6,
+      backgroundColor: value === itemValue ? colors.accent : 'transparent',
+      opacity: disabled ? 0.5 : 1,
+    },
+  ]);
 
   const progress = useDerivedValue(() =>
     value === itemValue ? withTiming(1, { duration: 250 }) : withTiming(0, { duration: 200 })
@@ -66,27 +86,16 @@ const NavigationMenuTrigger = React.forwardRef<
   }));
 
   return (
-    <TextClassContext.Provider value={{ fontSize: 14 }}>
-      <NavigationMenuPrimitive.Trigger
-        ref={ref}
-        style={({ pressed }) => [
-          navigationMenuTriggerStyle,
-          style,
-          {
-            gap: 6,
-            backgroundColor: value === itemValue ? colors.accent : 'transparent',
-            opacity: disabled ? 0.5 : 1,
-          },
-          pressed && { backgroundColor: colors.accent },
-        ]}
-        {...props}
-      >
-        <>{children}</>
-        <Animated.View style={chevronStyle}>
-          <ChevronDown size={12} color={colors.text} aria-hidden={true} />
-        </Animated.View>
-      </NavigationMenuPrimitive.Trigger>
-    </TextClassContext.Provider>
+    <NavigationMenuPrimitive.Trigger
+      ref={ref}
+      style={Platform.OS === 'web' ? webStyle : nativeStyle}
+      {...props}
+    >
+      <>{children}</>
+      <Animated.View style={chevronStyle}>
+        <ChevronDown size={12} color={colors.text} aria-hidden={true} />
+      </Animated.View>
+    </NavigationMenuPrimitive.Trigger>
   );
 });
 NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName;
@@ -130,11 +139,16 @@ const NavigationMenuLink = React.forwardRef<
   }
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const nativeStyle = ({ pressed }: { pressed: boolean }) => [
+    style,
+    pressed && { backgroundColor: colors.accent },
+  ];
+  const webStyle: ViewStyle = StyleSheet.flatten([{}, style]);
 
   return (
     <NavigationMenuPrimitive.Link
       ref={ref}
-      style={({ pressed }) => [style, pressed && { backgroundColor: colors.accent }]}
+      style={Platform.OS === 'web' ? webStyle : nativeStyle}
       {...props}
     />
   );
