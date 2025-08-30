@@ -45,7 +45,7 @@ export default function PopoverScreen() {
           style={styles.popoverContent}
         >
           <View style={styles.section}>
-            <View>
+            <View style={{ gap: 8 }}>
               <Text style={styles.title}>Dimensions</Text>
               <Text style={[styles.subtitle, { color: colors.mutedText }]}>
                 Set the dimensions for the layer.
@@ -117,11 +117,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 500,
-    fontSize: 18,
-    lineHeight: 28,
+    fontSize: Platform.OS === 'web' ? 16 : 18,
+    lineHeight: Platform.OS === 'web' ? 20 : 28,
   },
   subtitle: {
-    fontSize: 12,
+    fontSize: Platform.OS === 'web' ? 14 : 12,
   },
   inputGroup: {
     gap: 8,
@@ -129,13 +129,13 @@ const styles = StyleSheet.create({
   labelledInputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 16,
+    gap: Platform.OS === 'web' ? 8 : 16,
   },
   label: {
     width: 96,
   },
   input: {
     flex: 1,
-    height: 40,
+    height: Platform.OS === 'web' ? 32 : 40,
   },
 });

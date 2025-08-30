@@ -7,7 +7,9 @@ const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
 >(({ style, ...props }, ref) => {
-  return <RadioGroupPrimitive.Root ref={ref} style={[styles.group, style]} {...props} />;
+  const flattenStyle = StyleSheet.flatten([styles.group, style]);
+
+  return <RadioGroupPrimitive.Root ref={ref} style={flattenStyle} {...props} />;
 });
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 
@@ -18,20 +20,17 @@ const RadioGroupItem = React.forwardRef<
   }
 >(({ style, disabled, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenRadioItemStyle = StyleSheet.flatten([
+    styles.item,
+    {
+      borderColor: colors.primary,
+      opacity: disabled ? 0.5 : 1,
+    },
+    style,
+  ]);
 
   return (
-    <RadioGroupPrimitive.Item
-      ref={ref}
-      style={[
-        styles.item,
-        {
-          borderColor: colors.primary,
-          opacity: disabled ? 0.5 : 1,
-        },
-        style,
-      ]}
-      {...props}
-    >
+    <RadioGroupPrimitive.Item ref={ref} style={flattenRadioItemStyle} {...props}>
       <RadioGroupPrimitive.Indicator style={styles.indicatorWrapper}>
         <View style={[styles.indicator, { backgroundColor: colors.primary }]} />
       </RadioGroupPrimitive.Indicator>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextInput, StyleSheet, TextStyle, Platform } from 'react-native';
+import { TextInput, StyleSheet, Platform } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { type ICustomTheme } from '~/lib/constants';
 
@@ -20,7 +20,7 @@ const Input = React.forwardRef<
           color: colors.text,
         },
         !editable && { opacity: 0.5 },
-        style as TextStyle,
+        style,
       ]}
       placeholderTextColor={colors.mutedText}
       {...props}

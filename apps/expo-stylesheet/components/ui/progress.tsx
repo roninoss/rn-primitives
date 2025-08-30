@@ -18,13 +18,10 @@ const Progress = React.forwardRef<
   }
 >(({ style, value, indicatorStyle, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const flattenStyle = StyleSheet.flatten([styles.root, { backgroundColor: colors.accent }, style]);
 
   return (
-    <ProgressPrimitive.Root
-      ref={ref}
-      {...props}
-      style={[styles.root, { backgroundColor: colors.accent }, style]}
-    >
+    <ProgressPrimitive.Root ref={ref} {...props} style={flattenStyle}>
       <Indicator value={value} indicatorStyle={indicatorStyle} />
     </ProgressPrimitive.Root>
   );
@@ -42,6 +39,7 @@ function Indicator({
 }) {
   const { colors } = useTheme();
   const progress = useDerivedValue(() => value ?? 0);
+  const flattenWebIndicatorStyle = StyleSheet.flatten([styles.webIndicator, indicatorStyle]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -64,7 +62,7 @@ function Indicator({
           indicatorStyle,
         ]}
       >
-        <ProgressPrimitive.Indicator style={[styles.webIndicator, indicatorStyle]} />
+        <ProgressPrimitive.Indicator style={flattenWebIndicatorStyle} />
       </View>
     );
   }
@@ -79,7 +77,7 @@ function Indicator({
 const styles = StyleSheet.create({
   root: {
     position: 'relative',
-    height: 14,
+    height: Platform.OS === 'web' ? 16 : 14,
     width: '100%',
     overflow: 'hidden',
     borderRadius: 9999,

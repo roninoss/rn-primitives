@@ -1,6 +1,6 @@
 import * as LabelPrimitive from '@rn-primitives/label';
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
 const Label = React.forwardRef<
@@ -8,6 +8,7 @@ const Label = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Text>
 >(({ style, onPress, onLongPress, onPressIn, onPressOut, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenStyle = StyleSheet.flatten([styles.text, { color: colors.text }, style]);
 
   return (
     <LabelPrimitive.Root
@@ -16,11 +17,7 @@ const Label = React.forwardRef<
       onPressIn={onPressIn}
       onPressOut={onPressOut}
     >
-      <LabelPrimitive.Text
-        ref={ref}
-        style={[styles.text, { color: colors.text }, style]}
-        {...props}
-      />
+      <LabelPrimitive.Text ref={ref} style={flattenStyle} {...props} />
     </LabelPrimitive.Root>
   );
 });
@@ -33,6 +30,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     fontWeight: 500,
-    lineHeight: 20,
+    lineHeight: Platform.OS === 'web' ? 16 : 20,
   },
 });

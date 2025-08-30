@@ -16,21 +16,20 @@ const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
+    style?: StyleProp<ViewStyle>;
+  }
 >(({ children, style, disabled, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenStyle = StyleSheet.flatten([
+    styles.trigger,
+    { backgroundColor: colors.card, borderColor: colors.border },
+    disabled && { opacity: 0.5 },
+    style,
+  ]);
 
   return (
-    <SelectPrimitive.Trigger
-      ref={ref}
-      style={[
-        styles.trigger,
-        { backgroundColor: colors.card, borderColor: colors.border },
-        disabled && { opacity: 0.5 },
-        style as StyleProp<ViewStyle>,
-      ]}
-      {...props}
-    >
+    <SelectPrimitive.Trigger ref={ref} style={flattenStyle} {...props}>
       <>{children}</>
       <ChevronDown size={16} aria-hidden={true} color={colors.text} style={{ opacity: 0.7 }} />
     </SelectPrimitive.Trigger>
@@ -77,7 +76,11 @@ const SelectContent = React.forwardRef<
 >(({ children, position = 'popper', portalHost, style, ...props }, ref) => {
   // const { open } = SelectPrimitive.useRootContext();
   const { colors } = useTheme();
-  const flattenStyles = StyleSheet.flatten([
+  const flattenOverlayStyles = StyleSheet.flatten([
+    StyleSheet.absoluteFillObject,
+    { backgroundColor: 'rgba(0,0,0,0.3)' },
+  ]);
+  const flattenContentStyles = StyleSheet.flatten([
     styles.content,
     {
       backgroundColor: colors.card,
@@ -89,11 +92,14 @@ const SelectContent = React.forwardRef<
 
   return (
     <SelectPrimitive.Portal hostName={portalHost}>
-      <SelectPrimitive.Overlay
-        style={[StyleSheet.absoluteFillObject, { backgroundColor: 'rgba(0,0,0,0.2)' }]}
-      >
+      <SelectPrimitive.Overlay style={flattenOverlayStyles}>
         <Animated.View entering={FadeIn} exiting={FadeOut}>
-          <SelectPrimitive.Content ref={ref} style={flattenStyles} position={position} {...props}>
+          <SelectPrimitive.Content
+            ref={ref}
+            style={flattenContentStyles}
+            position={position}
+            {...props}
+          >
             <SelectScrollUpButton />
             <SelectPrimitive.Viewport style={styles.viewport}>{children}</SelectPrimitive.Viewport>
             <SelectScrollDownButton />
@@ -110,14 +116,9 @@ const SelectLabel = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenStyle = StyleSheet.flatten([styles.label, { color: colors.text }, style]);
 
-  return (
-    <SelectPrimitive.Label
-      ref={ref}
-      style={[styles.label, { color: colors.text }, style]}
-      {...props}
-    />
-  );
+  return <SelectPrimitive.Label ref={ref} style={flattenStyle} {...props} />;
 });
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
@@ -128,16 +129,19 @@ const SelectItem = React.forwardRef<
   }
 >(({ children, disabled, style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const flattenItemTextStyle = StyleSheet.flatten([styles.itemText, { color: colors.text }]);
+  const webIndicatorStyle = StyleSheet.flatten([styles.item, disabled && { opacity: 0.5 }, style]);
+  const nativeIndicatorStyle = ({ pressed }: { pressed: boolean }) => [
+    styles.item,
+    disabled && { opacity: 0.5 },
+    pressed && { backgroundColor: colors.accent },
+    style,
+  ];
 
   return (
     <SelectPrimitive.Item
       ref={ref}
-      style={({ pressed }) => [
-        styles.item,
-        disabled && { opacity: 0.5 },
-        pressed && { backgroundColor: colors.accent },
-        style,
-      ]}
+      style={Platform.OS === 'web' ? webIndicatorStyle : nativeIndicatorStyle}
       {...props}
     >
       <View style={styles.itemIndicatorWrapper}>
@@ -145,7 +149,7 @@ const SelectItem = React.forwardRef<
           <Check size={16} strokeWidth={3} color={colors.text} />
         </SelectPrimitive.ItemIndicator>
       </View>
-      <SelectPrimitive.ItemText style={[styles.itemText, { color: colors.text }]} />
+      <SelectPrimitive.ItemText style={flattenItemTextStyle} />
     </SelectPrimitive.Item>
   );
 });
@@ -221,9 +225,11 @@ const styles = StyleSheet.create({
     paddingTop: 2,
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'center',
   },
   itemText: {
-    fontSize: 16,
+    fontSize: Platform.OS === 'web' ? 14 : 16,
+    lineHeight: Platform.OS === 'web' ? 28 : 24,
   },
   separator: {
     height: 1,
