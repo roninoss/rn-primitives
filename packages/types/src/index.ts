@@ -7,11 +7,8 @@ type ViewRef = React.ElementRef<typeof View>;
 type PressableRef = React.ElementRef<typeof Pressable>;
 type TextRef = React.ElementRef<typeof Text>;
 
-type SlottableViewProps = ComponentPropsWithAsChild<typeof View> & {
-  ref?: ViewRef;
-};
+type SlottableViewProps = ComponentPropsWithAsChild<typeof View>;
 type SlottablePressableProps = ComponentPropsWithAsChild<typeof Pressable> & {
-  ref?: PressableRef;
   /**
    * Platform: WEB ONLY
    */
@@ -21,9 +18,7 @@ type SlottablePressableProps = ComponentPropsWithAsChild<typeof Pressable> & {
    */
   onKeyUp?: (ev: React.KeyboardEvent) => void;
 };
-type SlottableTextProps = ComponentPropsWithAsChild<typeof Text> & {
-  ref?: TextRef;
-};
+type SlottableTextProps = ComponentPropsWithAsChild<typeof Text>;
 
 interface Insets {
   top?: number;
@@ -96,6 +91,11 @@ interface ForceMountable {
   forceMount?: true | undefined;
 }
 
+// Transitional types for React 19 compatibility - add ref as separate intersection
+type SlottableViewPropsWithRef = SlottableViewProps & { ref?: ViewRef };
+type SlottablePressablePropsWithRef = SlottablePressableProps & { ref?: PressableRef };
+type SlottableTextPropsWithRef = SlottableTextProps & { ref?: TextRef };
+
 export type {
   ComponentPropsWithAsChild,
   ForceMountable,
@@ -103,8 +103,11 @@ export type {
   PositionedContentProps,
   PressableRef,
   SlottablePressableProps,
+  SlottablePressablePropsWithRef,
   SlottableTextProps,
+  SlottableTextPropsWithRef,
   SlottableViewProps,
+  SlottableViewPropsWithRef,
   TextRef,
   ViewRef,
 };

@@ -1,6 +1,6 @@
-import type { SlottableViewProps, ViewRef } from '@rn-primitives/types';
+import type { SlottableViewPropsWithRef, ViewRef } from '@rn-primitives/types';
 
-type RootProps = SlottableViewProps & {
+type RootProps = SlottableViewPropsWithRef & {
   orientation?: 'horizontal' | 'vertical';
   decorative?: boolean;
 };
