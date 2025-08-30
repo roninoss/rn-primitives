@@ -46,7 +46,6 @@ function Root({ ref, asChild, open: openProp, defaultOpen, onOpenChange: onOpenC
       </AlertDialogContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeAlertDialog';
 
@@ -80,7 +79,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...prop
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeAlertDialog';
 
@@ -115,7 +113,6 @@ function Overlay({ ref, asChild, forceMount, ...props  }: OverlayProps & { ref?:
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayNativeAlertDialog';
 
@@ -152,7 +149,6 @@ function Content({ ref, asChild, forceMount, ...props  }: ContentProps & { ref?:
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeAlertDialog';
 
@@ -177,7 +173,6 @@ function Cancel({ ref, asChild, onPress: onPressProp, disabled = false, ...props
       />
     );
   }
-);
 
 Cancel.displayName = 'CloseNativeAlertDialog';
 
@@ -202,7 +197,6 @@ function Action({ ref, asChild, onPress: onPressProp, disabled = false, ...props
       />
     );
   }
-);
 
 Action.displayName = 'ActionNativeAlertDialog';
 
@@ -219,7 +213,6 @@ function Description({ ref, asChild, ...props  }: DescriptionProps & { ref?: Rea
     const Component = asChild ? Slot.Text : Text;
     return <Component ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
   }
-);
 
 Description.displayName = 'DescriptionNativeAlertDialog';
 

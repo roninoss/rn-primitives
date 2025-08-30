@@ -43,7 +43,6 @@ function Root({ ref, asChild, open: openProp, defaultOpen, onOpenChange: onOpenC
       </DialogContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebDialog';
 
@@ -86,7 +85,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, role: _role, disabled, ..
       </Dialog.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebDialog';
 
@@ -102,7 +100,6 @@ function Overlay({ ref, asChild, forceMount, ...props  }: OverlayProps & { ref?:
       </Dialog.Overlay>
     );
   }
-);
 
 Overlay.displayName = 'OverlayWebDialog';
 
@@ -129,7 +126,6 @@ function Content({ ref, asChild,
       </Dialog.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebDialog';
 
@@ -166,7 +162,6 @@ function Close({ ref, asChild, onPress: onPressProp, disabled, ...props  }: Clos
       </>
     );
   }
-);
 
 Close.displayName = 'CloseWebDialog';
 
@@ -189,7 +184,6 @@ function Description({ ref, asChild, ...props  }: DescriptionProps & { ref?: Rea
       </Dialog.Description>
     );
   }
-);
 
 Description.displayName = 'DescriptionWebDialog';
 

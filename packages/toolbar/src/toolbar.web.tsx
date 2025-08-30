@@ -26,7 +26,6 @@ function Root({ ref, asChild, orientation, dir, loop, style, ...props  }: RootPr
       </Toolbar.Root>
     );
   }
-);
 
 Root.displayName = 'RootWebToolbar';
 
@@ -57,7 +56,6 @@ function ToggleGroup({ ref, asChild, type, value, onValueChange, disabled = fals
       </ToggleGroupContext.Provider>
     );
   }
-);
 
 ToggleGroup.displayName = 'ToggleGroupWebToolbar';
 
@@ -98,7 +96,6 @@ function ToggleItem({ ref, asChild,
       </Toolbar.ToggleItem>
     );
   }
-);
 
 ToggleItem.displayName = 'ToggleItemWebToolbar';
 
@@ -106,7 +103,6 @@ function Separator({ ref, asChild, style, ...props  }: SeparatorProps & { ref?: 
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} {...props} />;
   }
-);
 
 Separator.displayName = 'SeparatorWebToolbar';
 

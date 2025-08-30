@@ -45,7 +45,6 @@ function Root({ ref, asChild, type = 'foreground', open, onOpenChange, ...viewPr
       </ToastContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootToast';
 
@@ -78,7 +77,6 @@ function Close({ ref, asChild, onPress: onPressProp, disabled = false, ...props 
       />
     );
   }
-);
 
 Close.displayName = 'CloseToast';
 
@@ -103,7 +101,6 @@ function Action({ ref, asChild, onPress: onPressProp, disabled = false, ...props
       />
     );
   }
-);
 
 Action.displayName = 'ActionToast';
 
@@ -122,7 +119,6 @@ function Description({ ref, asChild, ...props  }: DescriptionProps & { ref?: Rea
     const Component = asChild ? Slot.Text : Text;
     return <Component ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
   }
-);
 
 Description.displayName = 'DescriptionToast';
 

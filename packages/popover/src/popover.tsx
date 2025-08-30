@@ -64,7 +64,6 @@ function Root({ ref, asChild, onOpenChange: onOpenChangeProp, ...viewProps  }: R
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativePopover';
 
@@ -116,7 +115,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...prop
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativePopover';
 
@@ -164,7 +162,6 @@ function Overlay({ ref, asChild, forceMount, onPress: OnPressProp, closeOnPress 
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayNativePopover';
 
@@ -246,7 +243,6 @@ function Content({ ref, asChild = false,
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativePopover';
 
@@ -273,7 +269,6 @@ function Close({ ref, asChild, onPress: onPressProp, disabled = false, ...props 
       />
     );
   }
-);
 
 Close.displayName = 'CloseNativePopover';
 

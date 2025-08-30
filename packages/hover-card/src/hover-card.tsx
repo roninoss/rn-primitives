@@ -68,7 +68,6 @@ function Root({ ref, asChild,
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeHoverCard';
 
@@ -123,7 +122,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...prop
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeHoverCard';
 
@@ -171,7 +169,6 @@ function Overlay({ ref, asChild, forceMount, onPress: OnPressProp, closeOnPress 
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayNativeHoverCard';
 
@@ -252,7 +249,6 @@ function Content({ ref, asChild = false,
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeHoverCard';
 

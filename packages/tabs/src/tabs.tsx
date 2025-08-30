@@ -40,7 +40,6 @@ function Root({ ref, asChild,
       </TabsContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeTabs';
 
@@ -90,7 +89,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled, value: tabValue
       </TriggerContext.Provider>
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeTabs';
 
@@ -124,7 +122,6 @@ function Content({ ref, asChild, forceMount, value: tabValue, ...props  }: Conte
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeTabs';
 

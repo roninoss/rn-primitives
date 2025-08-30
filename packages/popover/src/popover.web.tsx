@@ -22,24 +22,22 @@ const RootContext = React.createContext<{
   onOpenChange: (open: boolean) => void;
 } | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps & { onOpenChange?: (open: boolean) => void }>(
-  ({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
-    const [open, setOpen] = React.useState(false);
+function Root({ ref, asChild, onOpenChange: onOpenChangeProp, ...viewProps }: (RootProps & { onOpenChange?: (open: boolean) => void }) & { ref?: React.Ref<RootRef> }) {
+  const [open, setOpen] = React.useState(false);
 
-    function onOpenChange(value: boolean) {
-      setOpen(value);
-      onOpenChangeProp?.(value);
-    }
-    const Component = asChild ? Slot.View : View;
-    return (
-      <RootContext.Provider value={{ open, onOpenChange }}>
-        <Popover.Root open={open} onOpenChange={onOpenChange}>
-          <Component ref={ref} {...viewProps} />
-        </Popover.Root>
-      </RootContext.Provider>
-    );
+  function onOpenChange(value: boolean) {
+    setOpen(value);
+    onOpenChangeProp?.(value);
   }
-);
+  const Component = asChild ? Slot.View : View;
+  return (
+    <RootContext.Provider value={{ open, onOpenChange }}>
+      <Popover.Root open={open} onOpenChange={onOpenChange}>
+        <Component ref={ref} {...viewProps} />
+      </Popover.Root>
+    </RootContext.Provider>
+  );
+}
 
 Root.displayName = 'RootWebPopover';
 
@@ -92,7 +90,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, role: _role, disabled, ..
       </Popover.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebPopover';
 
@@ -104,7 +101,6 @@ function Overlay({ ref, asChild, forceMount, ...props  }: OverlayProps & { ref?:
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayWebPopover';
 
@@ -143,7 +139,6 @@ function Content({ ref, asChild = false,
       </Popover.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebPopover';
 
@@ -180,7 +175,6 @@ function Close({ ref, asChild, onPress: onPressProp, disabled, ...props  }: Clos
       </>
     );
   }
-);
 
 Close.displayName = 'CloseWebPopover';
 

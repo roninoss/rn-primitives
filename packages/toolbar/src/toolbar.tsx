@@ -21,7 +21,6 @@ function Root({ ref, asChild, orientation: _orientation, dir: _dir, loop: _loop,
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} role='toolbar' {...props} />;
   }
-);
 
 Root.displayName = 'RootNativeToolbar';
 
@@ -44,7 +43,6 @@ function ToggleGroup({ ref, asChild, type, value, onValueChange, disabled = fals
       </ToggleGroupContext.Provider>
     );
   }
-);
 
 ToggleGroup.displayName = 'ToggleGroupNativeToolbar';
 
@@ -96,7 +94,6 @@ function ToggleItem({ ref, asChild, value: itemValue, disabled: disabledProp = f
       />
     );
   }
-);
 
 ToggleItem.displayName = 'ToggleItemNativeToolbar';
 

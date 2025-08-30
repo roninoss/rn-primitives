@@ -14,7 +14,6 @@ function Root({ ref, asChild, ratio = 1, style, ...props  }: RootProps & { ref?:
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} style={[style, { aspectRatio: ratio }]} {...props} />;
   }
-);
 
 Root.displayName = 'RootAspectRatio';
 

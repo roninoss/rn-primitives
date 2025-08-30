@@ -16,7 +16,6 @@ function Root({ ref, asChild, value, max, getValueLabel, ...props  }: RootProps 
       </ProgressContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootProgress';
 

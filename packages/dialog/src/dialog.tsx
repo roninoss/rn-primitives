@@ -45,7 +45,6 @@ function Root({ ref, asChild, open: openProp, defaultOpen, onOpenChange: onOpenC
       </DialogContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeDialog';
 
@@ -79,7 +78,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...prop
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeDialog';
 
@@ -121,7 +119,6 @@ function Overlay({ ref, asChild, forceMount, closeOnPress = true, onPress: OnPre
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayNativeDialog';
 
@@ -159,7 +156,6 @@ function Content({ ref, asChild, forceMount, ...props  }: ContentProps & { ref?:
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeDialog';
 
@@ -184,21 +180,20 @@ function Close({ ref, asChild, onPress: onPressProp, disabled = false, ...props 
       />
     );
   }
-);
 
 Close.displayName = 'CloseNativeDialog';
 
-const Title = React.forwardRef<TitleRef, TitleProps>((props, ref) => {
+function Title({ ref, ...props }: TitleProps & { ref?: React.Ref<TitleRef> }) {
   const { nativeID } = useRootContext();
   return <Text ref={ref} role='heading' nativeID={`${nativeID}_label`} {...props} />;
-});
+}
 
 Title.displayName = 'TitleNativeDialog';
 
-const Description = React.forwardRef<DescriptionRef, DescriptionProps>((props, ref) => {
+function Description({ ref, ...props }: DescriptionProps & { ref?: React.Ref<DescriptionRef> }) {
   const { nativeID } = useRootContext();
   return <Text ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
-});
+}
 
 Description.displayName = 'DescriptionNativeDialog';
 

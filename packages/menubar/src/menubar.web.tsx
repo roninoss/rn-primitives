@@ -56,7 +56,6 @@ function Root({ ref, asChild, value, onValueChange, ...viewProps  }: RootProps &
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebMenubar';
 
@@ -121,7 +120,6 @@ function Trigger({ ref, asChild, disabled = false, ...props  }: TriggerProps & {
       </Menubar.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebMenubar';
 
@@ -199,7 +197,6 @@ function Content({ ref, asChild = false,
       </MenubarContentContext.Provider>
     );
   }
-);
 
 Content.displayName = 'ContentWebMenubar';
 
@@ -257,7 +254,6 @@ function Item({ ref, asChild,
       </Menubar.Item>
     );
   }
-);
 
 Item.displayName = 'ItemWebMenubar';
 
@@ -332,7 +328,6 @@ function CheckboxItem({ ref, asChild,
       </Menubar.CheckboxItem>
     );
   }
-);
 
 CheckboxItem.displayName = 'CheckboxItemWebMenubar';
 
@@ -351,7 +346,6 @@ function RadioGroup({ ref, asChild, value, onValueChange, ...props  }: RadioGrou
       </MenubarRadioGroupContext.Provider>
     );
   }
-);
 
 RadioGroup.displayName = 'RadioGroupWebMenubar';
 
@@ -413,7 +407,6 @@ function RadioItem({ ref, asChild,
       </Menubar.RadioItem>
     );
   }
-);
 
 RadioItem.displayName = 'RadioItemWebMenubar';
 
@@ -425,7 +418,6 @@ function ItemIndicator({ ref, asChild, forceMount, ...props  }: ItemIndicatorPro
       </Menubar.ItemIndicator>
     );
   }
-);
 
 ItemIndicator.displayName = 'ItemIndicatorWebMenubar';
 
@@ -437,7 +429,6 @@ function Separator({ ref, asChild, decorative, ...props  }: SeparatorProps & { r
       </Menubar.Separator>
     );
   }
-);
 
 Separator.displayName = 'SeparatorWebMenubar';
 
@@ -461,7 +452,6 @@ function Sub({ ref, asChild, defaultOpen, open: openProp, onOpenChange: onOpenCh
       </MenubarSubContext.Provider>
     );
   }
-);
 
 Sub.displayName = 'SubWebMenubar';
 
@@ -490,7 +480,6 @@ function SubTrigger({ ref, asChild, textValue, disabled = false, onPress: onPres
       </Menubar.SubTrigger>
     );
   }
-);
 
 SubTrigger.displayName = 'SubTriggerWebMenubar';
 
@@ -504,7 +493,6 @@ function SubContent({ ref, asChild = false, forceMount, ...props  }: SubContentP
       </Menubar.Portal>
     );
   }
-);
 
 Content.displayName = 'ContentWebMenubar';
 

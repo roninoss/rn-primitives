@@ -27,8 +27,7 @@ function Root({ ref, asChild, pressed, onPressedChange, disabled, onPress: onPre
         {...props}
       />
     );
-  }
-);
+}
 
 Root.displayName = 'RootNativeToggle';
 

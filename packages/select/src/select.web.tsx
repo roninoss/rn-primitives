@@ -94,7 +94,6 @@ function Root({ ref, asChild,
       </SelectContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebSelect';
 
@@ -135,7 +134,6 @@ function Trigger({ ref, asChild, role: _role, disabled, ...props  }: TriggerProp
       </Select.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebSelect';
 
@@ -146,7 +144,6 @@ function Value({ ref, asChild, placeholder, children, ...props  }: ValueProps & 
       </Slot.Text>
     );
   }
-);
 
 Value.displayName = 'ValueWebSelect';
 
@@ -165,7 +162,6 @@ function Overlay({ ref, asChild, forceMount, children, ...props  }: OverlayProps
       </>
     );
   }
-);
 
 Overlay.displayName = 'OverlayWebSelect';
 
@@ -201,7 +197,6 @@ function Content({ ref, asChild = false,
       </Select.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebSelect';
 
@@ -221,7 +216,6 @@ function Item({ ref, asChild, closeOnPress = true, label, value, children, ...pr
       </ItemContext.Provider>
     );
   }
-);
 
 Item.displayName = 'ItemWebSelect';
 
@@ -233,20 +227,18 @@ function useItemContext() {
   return context;
 }
 
-const ItemText = React.forwardRef<ItemTextRef, Omit<ItemTextProps, 'children'>>(
-  ({ asChild, ...props }, ref) => {
-    const { label } = useItemContext();
+function ItemText({ ref, asChild, ...props }: Omit<ItemTextProps, 'children'> & { ref?: React.Ref<ItemTextRef> }) {
+  const { label } = useItemContext();
 
-    const Component = asChild ? Slot.Text : Text;
-    return (
-      <Select.ItemText asChild>
-        <Component ref={ref} {...props}>
-          {label}
-        </Component>
-      </Select.ItemText>
-    );
-  }
-);
+  const Component = asChild ? Slot.Text : Text;
+  return (
+    <Select.ItemText asChild>
+      <Component ref={ref} {...props}>
+        {label}
+      </Component>
+    </Select.ItemText>
+  );
+}
 
 ItemText.displayName = 'ItemTextWebSelect';
 
@@ -258,7 +250,6 @@ function ItemIndicator({ ref, asChild, forceMount: _forceMount, ...props  }: Ite
       </Select.ItemIndicator>
     );
   }
-);
 
 ItemIndicator.displayName = 'ItemIndicatorWebSelect';
 
@@ -292,7 +283,6 @@ function Separator({ ref, asChild, decorative, ...props  }: SeparatorProps & { r
       </Select.Separator>
     );
   }
-);
 
 Separator.displayName = 'SeparatorWebSelect';
 

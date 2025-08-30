@@ -51,7 +51,6 @@ function Root({ ref, asChild,
       </NavigationMenuContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebNavigationMenu';
 
@@ -140,7 +139,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, onKeyDo
       </NavigationMenu.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebNavigationMenu';
 
@@ -177,7 +175,6 @@ function Content({ ref, asChild = false,
       </NavigationMenu.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebNavigationMenu';
 
@@ -210,17 +207,16 @@ function Link({ ref, asChild, active, onPress: onPressProp, onKeyDown: onKeyDown
       </NavigationMenu.Link>
     );
   }
-);
 
 Link.displayName = 'LinkWebNavigationMenu';
 
-const Viewport = React.forwardRef<ViewportRef, ViewportProps>((props, ref) => {
+function Viewport({ ref, ...props }: ViewportProps & { ref?: React.Ref<ViewportRef> }) {
   return (
     <Slot.View ref={ref} {...props}>
       <NavigationMenu.Viewport />
     </Slot.View>
   );
-});
+}
 
 Viewport.displayName = 'ViewportWebNavigationMenu';
 

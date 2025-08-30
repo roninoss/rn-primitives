@@ -16,8 +16,7 @@ function Root({ ref, asChild, pressed, onPressedChange, disabled, onPress: onPre
         <Component ref={ref} onPress={onPress} disabled={disabled} role='button' {...props} />
       </Toggle.Root>
     );
-  }
-);
+}
 
 Root.displayName = 'RootWebToggle';
 

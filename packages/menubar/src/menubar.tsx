@@ -84,7 +84,6 @@ function Root({ ref, asChild, value, onValueChange, ...viewProps  }: RootProps &
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootMenubar';
 
@@ -149,7 +148,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...prop
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerMenubar';
 
@@ -202,7 +200,6 @@ function Overlay({ ref, asChild, forceMount, onPress: OnPressProp, closeOnPress 
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayMenubar';
 
@@ -284,7 +281,6 @@ function Content({ ref, asChild = false,
       />
     );
   }
-);
 
 Content.displayName = 'ContentMenubar';
 
@@ -314,7 +310,6 @@ function Item({ ref, asChild, textValue, onPress: onPressProp, disabled = false,
       />
     );
   }
-);
 
 Item.displayName = 'ItemMenubar';
 
@@ -379,7 +374,6 @@ function CheckboxItem({ ref, asChild,
       </FormItemContext.Provider>
     );
   }
-);
 
 CheckboxItem.displayName = 'CheckboxItemMenubar';
 
@@ -401,7 +395,6 @@ function RadioGroup({ ref, asChild, value, onValueChange, ...props  }: RadioGrou
       </FormItemContext.Provider>
     );
   }
-);
 
 RadioGroup.displayName = 'RadioGroupMenubar';
 
@@ -455,7 +448,6 @@ function RadioItem({ ref, asChild,
       </RadioItemContext.Provider>
     );
   }
-);
 
 RadioItem.displayName = 'RadioItemMenubar';
 
@@ -478,7 +470,6 @@ function ItemIndicator({ ref, asChild, forceMount, ...props  }: ItemIndicatorPro
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} role='presentation' {...props} />;
   }
-);
 
 ItemIndicator.displayName = 'ItemIndicatorMenubar';
 
@@ -486,7 +477,6 @@ function Separator({ ref, asChild, decorative, ...props  }: SeparatorProps & { r
     const Component = asChild ? Slot.View : View;
     return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
   }
-);
 
 Separator.displayName = 'SeparatorMenubar';
 
@@ -517,7 +507,6 @@ function Sub({ ref, asChild, defaultOpen, open: openProp, onOpenChange: onOpenCh
       </SubContext.Provider>
     );
   }
-);
 
 Sub.displayName = 'SubMenubar';
 
@@ -553,7 +542,6 @@ function SubTrigger({ ref, asChild, textValue, onPress: onPressProp, disabled = 
       />
     );
   }
-);
 
 SubTrigger.displayName = 'SubTriggerMenubar';
 
@@ -569,7 +557,6 @@ function SubContent({ ref, asChild = false, forceMount, ...props  }: SubContentP
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} role='group' aria-labelledby={nativeID} {...props} />;
   }
-);
 
 SubContent.displayName = 'SubContentMenubar';
 

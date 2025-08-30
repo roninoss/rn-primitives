@@ -64,7 +64,6 @@ function Root({ ref, asChild, onOpenChange: onOpenChangeProp, ...viewProps  }: R
       </ContextMenuContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebContextMenu';
 
@@ -117,7 +116,6 @@ function Trigger({ ref, asChild, disabled = false, ...props  }: TriggerProps & {
       </ContextMenu.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebContextMenu';
 
@@ -192,7 +190,6 @@ function Content({ ref, asChild = false,
       </ContextMenuContentContext.Provider>
     );
   }
-);
 
 Content.displayName = 'ContentWebContextMenu';
 
@@ -237,7 +234,6 @@ function Item({ ref, asChild, textValue, closeOnPress = true, onPress: onPressPr
       </ContextMenu.Item>
     );
   }
-);
 
 Item.displayName = 'ItemWebContextMenu';
 
@@ -316,7 +312,6 @@ function CheckboxItem({ ref, asChild,
       </ContextMenu.CheckboxItem>
     );
   }
-);
 
 CheckboxItem.displayName = 'CheckboxItemWebContextMenu';
 
@@ -335,7 +330,6 @@ function RadioGroup({ ref, asChild, value, onValueChange, ...props  }: RadioGrou
       </ContextMenuRadioGroupContext.Provider>
     );
   }
-);
 
 RadioGroup.displayName = 'RadioGroupWebContextMenu';
 
@@ -397,7 +391,6 @@ function RadioItem({ ref, asChild,
       </ContextMenu.RadioItem>
     );
   }
-);
 
 RadioItem.displayName = 'RadioItemWebContextMenu';
 
@@ -409,7 +402,6 @@ function ItemIndicator({ ref, asChild, forceMount, ...props  }: ItemIndicatorPro
       </ContextMenu.ItemIndicator>
     );
   }
-);
 
 ItemIndicator.displayName = 'ItemIndicatorWebContextMenu';
 
@@ -421,7 +413,6 @@ function Separator({ ref, asChild, decorative, ...props  }: SeparatorProps & { r
       </ContextMenu.Separator>
     );
   }
-);
 
 Separator.displayName = 'SeparatorWebContextMenu';
 
@@ -446,7 +437,6 @@ function Sub({ ref, asChild, defaultOpen, open: openProp, onOpenChange: onOpenCh
       </ContextMenuSubContext.Provider>
     );
   }
-);
 
 Sub.displayName = 'SubWebContextMenu';
 
@@ -475,7 +465,6 @@ function SubTrigger({ ref, asChild, textValue, disabled = false, onPress: onPres
       </ContextMenu.SubTrigger>
     );
   }
-);
 
 SubTrigger.displayName = 'SubTriggerWebContextMenu';
 
@@ -489,7 +478,6 @@ function SubContent({ ref, asChild = false, forceMount, ...props  }: SubContentP
       </ContextMenu.Portal>
     );
   }
-);
 
 Content.displayName = 'ContentWebContextMenu';
 

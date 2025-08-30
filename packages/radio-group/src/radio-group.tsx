@@ -19,7 +19,6 @@ function Root({ ref, asChild, value, onValueChange, disabled = false, ...viewPro
       </RadioGroupContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootRadioGroup';
 
@@ -70,7 +69,6 @@ function Item({ ref, asChild, value: itemValue, disabled: disabledProp = false, 
       </RadioItemContext.Provider>
     );
   }
-);
 
 Item.displayName = 'ItemRadioGroup';
 
@@ -96,7 +94,6 @@ function Indicator({ ref, asChild, forceMount, ...props  }: IndicatorProps & { r
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} role='presentation' {...props} />;
   }
-);
 
 Indicator.displayName = 'IndicatorRadioGroup';
 

@@ -40,7 +40,6 @@ function Root({ ref, asChild, openDelay, closeDelay, onOpenChange: onOpenChangeP
       </HoverCardContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebHoverCard';
 
@@ -130,7 +129,6 @@ function Content({ ref, asChild = false,
       </HoverCard.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebHoverCard';
 

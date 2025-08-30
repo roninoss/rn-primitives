@@ -70,7 +70,6 @@ function Root({ ref, asChild,
       </AccordionContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebAccordion';
 
@@ -127,7 +126,6 @@ function Item({ ref, asChild, value: itemValue, disabled, ...props  }: ItemProps
       </AccordionItemContext.Provider>
     );
   }
-);
 
 Item.displayName = 'ItemWebAccordion';
 
@@ -239,7 +237,6 @@ function Trigger({ ref, asChild, disabled: disabledProp, ...props  }: TriggerPro
       </>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebAccordion';
 
@@ -275,7 +272,6 @@ function Content({ ref, asChild, forceMount, ...props  }: ContentProps & { ref?:
       </Accordion.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebAccordion';
 

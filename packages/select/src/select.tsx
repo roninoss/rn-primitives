@@ -101,7 +101,6 @@ function Root({ ref, asChild,
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeSelect';
 
@@ -154,7 +153,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...prop
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeSelect';
 
@@ -214,7 +212,6 @@ function Overlay({ ref, asChild, forceMount, onPress: OnPressProp, closeOnPress 
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayNativeSelect';
 
@@ -296,7 +293,6 @@ function Content({ ref, asChild = false,
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeSelect';
 
@@ -346,7 +342,6 @@ function Item({ ref, asChild,
       </ItemContext.Provider>
     );
   }
-);
 
 Item.displayName = 'ItemNativeSelect';
 
@@ -383,7 +378,6 @@ function ItemIndicator({ ref, asChild, forceMount, ...props  }: ItemIndicatorPro
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} role='presentation' {...props} />;
   }
-);
 
 ItemIndicator.displayName = 'ItemIndicatorNativeSelect';
 
@@ -405,7 +399,6 @@ function Separator({ ref, asChild, decorative, ...props  }: SeparatorProps & { r
     const Component = asChild ? Slot.View : View;
     return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
   }
-);
 
 Separator.displayName = 'SeparatorNativeSelect';
 

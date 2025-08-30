@@ -90,7 +90,6 @@ function Root({ ref, asChild, onOpenChange: onOpenChangeProp, ...viewProps  }: R
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeDropdownMenu';
 
@@ -146,7 +145,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...prop
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeDropdownMenu';
 
@@ -194,7 +192,6 @@ function Overlay({ ref, asChild, forceMount, onPress: OnPressProp, closeOnPress 
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayNativeDropdownMenu';
 
@@ -274,7 +271,6 @@ function Content({ ref, asChild = false,
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeDropdownMenu';
 
@@ -304,7 +300,6 @@ function Item({ ref, asChild, textValue, onPress: onPressProp, disabled = false,
       />
     );
   }
-);
 
 Item.displayName = 'ItemNativeDropdownMenu';
 
@@ -369,7 +364,6 @@ function CheckboxItem({ ref, asChild,
       </FormItemContext.Provider>
     );
   }
-);
 
 CheckboxItem.displayName = 'CheckboxItemNativeDropdownMenu';
 
@@ -391,7 +385,6 @@ function RadioGroup({ ref, asChild, value, onValueChange, ...props  }: RadioGrou
       </FormItemContext.Provider>
     );
   }
-);
 
 RadioGroup.displayName = 'RadioGroupNativeDropdownMenu';
 
@@ -441,7 +434,6 @@ function RadioItem({ ref, asChild,
       </RadioItemContext.Provider>
     );
   }
-);
 
 RadioItem.displayName = 'RadioItemNativeDropdownMenu';
 
@@ -464,7 +456,6 @@ function ItemIndicator({ ref, asChild, forceMount, ...props  }: ItemIndicatorPro
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} role='presentation' {...props} />;
   }
-);
 
 ItemIndicator.displayName = 'ItemIndicatorNativeDropdownMenu';
 
@@ -472,7 +463,6 @@ function Separator({ ref, asChild, decorative, ...props  }: SeparatorProps & { r
     const Component = asChild ? Slot.View : View;
     return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
   }
-);
 
 Separator.displayName = 'SeparatorNativeDropdownMenu';
 
@@ -503,7 +493,6 @@ function Sub({ ref, asChild, defaultOpen, open: openProp, onOpenChange: onOpenCh
       </SubContext.Provider>
     );
   }
-);
 
 Sub.displayName = 'SubNativeDropdownMenu';
 
@@ -539,7 +528,6 @@ function SubTrigger({ ref, asChild, textValue, onPress: onPressProp, disabled = 
       />
     );
   }
-);
 
 SubTrigger.displayName = 'SubTriggerNativeDropdownMenu';
 
@@ -555,7 +543,6 @@ function SubContent({ ref, asChild = false, forceMount, ...props  }: SubContentP
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} role='group' aria-labelledby={nativeID} {...props} />;
   }
-);
 
 Content.displayName = 'ContentNativeDropdownMenu';
 

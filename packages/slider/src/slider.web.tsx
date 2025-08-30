@@ -31,7 +31,6 @@ function Root({ ref, asChild, value, disabled, min, max, dir, inverted, step = 1
       </Slider.Root>
     );
   }
-);
 
 Root.displayName = 'RootWebSlider';
 

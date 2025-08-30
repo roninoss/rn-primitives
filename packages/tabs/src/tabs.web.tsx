@@ -36,7 +36,6 @@ function Root({ ref, asChild, value, onValueChange, orientation, dir, activation
       </TabsContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebTabs';
 
@@ -70,7 +69,6 @@ function Trigger({ ref, asChild, value: tabValue, ...props  }: TriggerProps & { 
       </TriggerContext.Provider>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebTabs';
 
@@ -92,7 +90,6 @@ function Content({ ref, asChild, forceMount, value, tabIndex = -1, ...props  }: 
       </Tabs.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebTabs';
 

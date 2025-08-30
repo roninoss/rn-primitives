@@ -45,7 +45,6 @@ function Root({ ref, asChild, open: openProp, defaultOpen, onOpenChange: onOpenC
       </AlertDialogContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootAlertWebDialog';
 
@@ -90,7 +89,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, role: _role, disabled, ..
       </AlertDialog.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerAlertWebDialog';
 
@@ -106,7 +104,6 @@ function Overlay({ ref, asChild, forceMount, ...props  }: OverlayProps & { ref?:
       </AlertDialog.Overlay>
     );
   }
-);
 
 Overlay.displayName = 'OverlayAlertWebDialog';
 
@@ -134,7 +131,6 @@ function Content({ ref, asChild, forceMount, onOpenAutoFocus, onCloseAutoFocus, 
       </AlertDialog.Content>
     );
   }
-);
 
 Content.displayName = 'ContentAlertWebDialog';
 
@@ -171,7 +167,6 @@ function Cancel({ ref, asChild, onPress: onPressProp, disabled, ...props  }: Can
       </>
     );
   }
-);
 
 Cancel.displayName = 'CancelAlertWebDialog';
 
@@ -208,7 +203,6 @@ function Action({ ref, asChild, onPress: onPressProp, disabled, ...props  }: Act
       </>
     );
   }
-);
 
 Action.displayName = 'ActionAlertWebDialog';
 
@@ -231,7 +225,6 @@ function Description({ ref, asChild, ...props  }: DescriptionProps & { ref?: Rea
       </AlertDialog.Description>
     );
   }
-);
 
 Description.displayName = 'DescriptionAlertWebDialog';
 

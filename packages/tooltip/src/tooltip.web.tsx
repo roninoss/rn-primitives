@@ -54,7 +54,6 @@ function Root({ ref, asChild,
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebTooltip';
 
@@ -107,7 +106,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, role: _role, disabled, ..
       </Tooltip.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebTooltip';
 
@@ -119,7 +117,6 @@ function Overlay({ ref, asChild, forceMount, ...props  }: OverlayProps & { ref?:
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayWebTooltip';
 
@@ -158,7 +155,6 @@ function Content({ ref, asChild = false,
       </Tooltip.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebTooltip';
 

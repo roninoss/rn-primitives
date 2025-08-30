@@ -62,7 +62,6 @@ function Root({ ref, asChild, value, onValueChange, ...viewProps  }: RootProps &
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeNavigationMenu';
 
@@ -152,7 +151,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...prop
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeNavigationMenu';
 
@@ -262,7 +260,6 @@ function Content({ ref, asChild = false,
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeNavigationMenu';
 
@@ -273,9 +270,9 @@ function Link({ ref, asChild, ...props  }: LinkProps & { ref?: React.Ref<LinkRef
 
 Link.displayName = 'LinkNativeNavigationMenu';
 
-const Viewport = React.forwardRef<ViewportRef, ViewportProps>((props, ref) => {
+function Viewport({ ref, ...props }: ViewportProps & { ref?: React.Ref<ViewportRef> }) {
   return <View ref={ref} {...props} />;
-});
+}
 
 Viewport.displayName = 'ViewportNativeNavigationMenu';
 

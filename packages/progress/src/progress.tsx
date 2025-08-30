@@ -32,7 +32,6 @@ function Root({ ref, asChild, value: valueProp, max: maxProp, getValueLabel = de
       />
     );
   }
-);
 
 Root.displayName = 'RootProgress';
 

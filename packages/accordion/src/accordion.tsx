@@ -50,7 +50,6 @@ function Root({ ref, asChild,
       </AccordionContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeAccordion';
 
@@ -89,7 +88,6 @@ function Item({ ref, asChild, value, disabled, ...viewProps  }: ItemProps & { re
       </AccordionItemContext.Provider>
     );
   }
-);
 
 Item.displayName = 'ItemNativeAccordion';
 
@@ -168,7 +166,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled: disabledProp, .
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeAccordion';
 
@@ -193,7 +190,6 @@ function Content({ ref, asChild, forceMount, ...props  }: ContentProps & { ref?:
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeAccordion';
 

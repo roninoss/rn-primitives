@@ -68,7 +68,6 @@ function Root({ ref, asChild,
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeTooltip';
 
@@ -121,7 +120,6 @@ function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...prop
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeTooltip';
 
@@ -169,7 +167,6 @@ function Overlay({ ref, asChild, forceMount, onPress: OnPressProp, closeOnPress 
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayNativeTooltip';
 
@@ -250,7 +247,6 @@ function Content({ ref, asChild = false,
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeTooltip';
 

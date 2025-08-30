@@ -22,7 +22,6 @@ function Root({ ref, asChild, value, onValueChange, disabled = false, ...viewPro
       </RadioGroupContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootRadioGroup';
 function useRadioGroupContext() {
@@ -51,7 +50,6 @@ function Item({ ref, asChild, value, onPress: onPressProps, ...props  }: ItemPro
       </RadioGroup.Item>
     );
   }
-);
 
 Item.displayName = 'ItemRadioGroup';
 
@@ -63,7 +61,6 @@ function Indicator({ ref, asChild, forceMount, ...props  }: IndicatorProps & { r
       </RadioGroup.Indicator>
     );
   }
-);
 
 Indicator.displayName = 'IndicatorRadioGroup';
 

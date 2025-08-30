@@ -46,7 +46,6 @@ function Root({ ref, asChild,
       </ToggleGroupContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootToggleGroup';
 
@@ -90,7 +89,6 @@ function Item({ ref, asChild, value: itemValue, disabled: disabledProp = false, 
       </ItemContext.Provider>
     );
   }
-);
 
 Item.displayName = 'ItemToggleGroup';
 

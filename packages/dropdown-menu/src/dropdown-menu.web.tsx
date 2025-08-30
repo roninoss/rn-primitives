@@ -64,7 +64,6 @@ function Root({ ref, asChild, onOpenChange: onOpenChangeProp, ...viewProps  }: R
       </DropdownMenuContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebDropdownMenu';
 
@@ -117,7 +116,6 @@ function Trigger({ ref, asChild, disabled = false, ...props  }: TriggerProps & {
       </DropdownMenu.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebDropdownMenu';
 
@@ -194,7 +192,6 @@ function Content({ ref, asChild = false,
       </DropdownMenuContentContext.Provider>
     );
   }
-);
 
 Content.displayName = 'ContentWebDropdownMenu';
 
@@ -252,7 +249,6 @@ function Item({ ref, asChild,
       </DropdownMenu.Item>
     );
   }
-);
 
 Item.displayName = 'ItemWebDropdownMenu';
 
@@ -329,7 +325,6 @@ function CheckboxItem({ ref, asChild,
       </DropdownMenu.CheckboxItem>
     );
   }
-);
 
 CheckboxItem.displayName = 'CheckboxItemWebDropdownMenu';
 
@@ -348,7 +343,6 @@ function RadioGroup({ ref, asChild, value, onValueChange, ...props  }: RadioGrou
       </DropdownMenuRadioGroupContext.Provider>
     );
   }
-);
 
 RadioGroup.displayName = 'RadioGroupWebDropdownMenu';
 
@@ -410,7 +404,6 @@ function RadioItem({ ref, asChild,
       </DropdownMenu.RadioItem>
     );
   }
-);
 
 RadioItem.displayName = 'RadioItemWebDropdownMenu';
 
@@ -422,7 +415,6 @@ function ItemIndicator({ ref, asChild, forceMount, ...props  }: ItemIndicatorPro
       </DropdownMenu.ItemIndicator>
     );
   }
-);
 
 ItemIndicator.displayName = 'ItemIndicatorWebDropdownMenu';
 
@@ -434,7 +426,6 @@ function Separator({ ref, asChild, decorative, ...props  }: SeparatorProps & { r
       </DropdownMenu.Separator>
     );
   }
-);
 
 Separator.displayName = 'SeparatorWebDropdownMenu';
 
@@ -459,7 +450,6 @@ function Sub({ ref, asChild, defaultOpen, open: openProp, onOpenChange: onOpenCh
       </DropdownMenuSubContext.Provider>
     );
   }
-);
 
 Sub.displayName = 'SubWebDropdownMenu';
 
@@ -488,7 +478,6 @@ function SubTrigger({ ref, asChild, textValue, disabled = false, onPress: onPres
       </DropdownMenu.SubTrigger>
     );
   }
-);
 
 SubTrigger.displayName = 'SubTriggerWebDropdownMenu';
 
@@ -502,7 +491,6 @@ function SubContent({ ref, asChild = false, forceMount, ...props  }: SubContentP
       </DropdownMenu.Portal>
     );
   }
-);
 
 Content.displayName = 'ContentWebDropdownMenu';
 

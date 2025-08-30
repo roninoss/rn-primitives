@@ -32,7 +32,6 @@ function Root({ ref, asChild,
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeSlider';
 

@@ -92,7 +92,6 @@ function Root({ ref, asChild, relativeTo = 'longPress', onOpenChange: onOpenChan
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeContextMenu';
 
@@ -180,7 +179,6 @@ function Trigger({ ref, asChild,
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeContextMenu';
 
@@ -228,7 +226,6 @@ function Overlay({ ref, asChild, forceMount, onPress: OnPressProp, closeOnPress 
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayNativeContextMenu';
 
@@ -306,7 +303,6 @@ function Content({ ref, asChild = false,
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeContextMenu';
 
@@ -336,7 +332,6 @@ function Item({ ref, asChild, textValue, onPress: onPressProp, disabled = false,
       />
     );
   }
-);
 
 Item.displayName = 'ItemNativeContextMenu';
 
@@ -401,7 +396,6 @@ function CheckboxItem({ ref, asChild,
       </FormItemContext.Provider>
     );
   }
-);
 
 CheckboxItem.displayName = 'CheckboxItemNativeContextMenu';
 
@@ -423,7 +417,6 @@ function RadioGroup({ ref, asChild, value, onValueChange, ...props  }: RadioGrou
       </FormItemContext.Provider>
     );
   }
-);
 
 RadioGroup.displayName = 'RadioGroupNativeContextMenu';
 
@@ -473,7 +466,6 @@ function RadioItem({ ref, asChild,
       </RadioItemContext.Provider>
     );
   }
-);
 
 RadioItem.displayName = 'RadioItemNativeContextMenu';
 
@@ -496,7 +488,6 @@ function ItemIndicator({ ref, asChild, forceMount, ...props  }: ItemIndicatorPro
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} role='presentation' {...props} />;
   }
-);
 
 ItemIndicator.displayName = 'ItemIndicatorNativeContextMenu';
 
@@ -504,7 +495,6 @@ function Separator({ ref, asChild, decorative, ...props  }: SeparatorProps & { r
     const Component = asChild ? Slot.View : View;
     return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
   }
-);
 
 Separator.displayName = 'SeparatorNativeContextMenu';
 
@@ -535,7 +525,6 @@ function Sub({ ref, asChild, defaultOpen, open: openProp, onOpenChange: onOpenCh
       </SubContext.Provider>
     );
   }
-);
 
 Sub.displayName = 'SubNativeContextMenu';
 
@@ -571,7 +560,6 @@ function SubTrigger({ ref, asChild, textValue, onPress: onPressProp, disabled = 
       />
     );
   }
-);
 
 SubTrigger.displayName = 'SubTriggerNativeContextMenu';
 
@@ -587,7 +575,6 @@ function SubContent({ ref, asChild = false, forceMount, ...props  }: SubContentP
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} role='group' aria-labelledby={nativeID} {...props} />;
   }
-);
 
 Content.displayName = 'ContentNativeContextMenu';
 
