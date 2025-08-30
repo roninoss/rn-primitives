@@ -49,18 +49,13 @@ const SelectContext = React.createContext<
  * @web Parameter of `onValueChange` has the value of `value` for the `value` and the `label` of the selected Option
  * @ex When an Option with a label of Green Apple, the parameter passed to `onValueChange` is { value: 'green-apple', label: 'green-apple' }
  */
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
+function Root({ ref, asChild,
       value: valueProp,
       defaultValue,
       onValueChange: onValueChangeProp,
       onOpenChange: onOpenChangeProp,
       ...viewProps
-    },
-    ref
-  ) => {
+     }: RootProps & { ref?: React.Ref<RootRef> }) {
     const [value, onValueChange] = useControllableState({
       prop: valueProp,
       defaultProp: defaultValue,
@@ -99,7 +94,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </SelectContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebSelect';
 
@@ -111,8 +105,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, role: _role, disabled, ...props }, ref) => {
+function Trigger({ ref, asChild, role: _role, disabled, ...props  }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const { open, onOpenChange } = useRootContext();
     const augmentedRef = useAugmentedRef({
       ref,
@@ -141,19 +134,16 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       </Select.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebSelect';
 
-const Value = React.forwardRef<ValueRef, ValueProps>(
-  ({ asChild, placeholder, children, ...props }, ref) => {
+function Value({ ref, asChild, placeholder, children, ...props  }: ValueProps & { ref?: React.Ref<ValueRef> }) {
     return (
       <Slot.Text ref={ref} {...props}>
         <Select.Value placeholder={placeholder}>{children}</Select.Value>
       </Slot.Text>
     );
   }
-);
 
 Value.displayName = 'ValueWebSelect';
 
@@ -161,8 +151,7 @@ function Portal({ container, children }: PortalProps) {
   return <Select.Portal children={children} container={container} />;
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, children, ...props }, ref) => {
+function Overlay({ ref, asChild, forceMount, children, ...props  }: OverlayProps & { ref?: React.Ref<OverlayRef> }) {
     const { open } = useRootContext();
 
     const Component = asChild ? Slot.Pressable : Pressable;
@@ -173,14 +162,10 @@ const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
       </>
     );
   }
-);
 
 Overlay.displayName = 'OverlayWebSelect';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
+function Content({ ref, asChild = false,
       forceMount: _forceMount,
       align = 'start',
       side = 'bottom',
@@ -194,9 +179,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       onInteractOutside: _onInteractOutside,
       onPointerDownOutside,
       ...props
-    },
-    ref
-  ) => {
+     }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <Select.Content
@@ -214,7 +197,6 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       </Select.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebSelect';
 
@@ -223,8 +205,7 @@ const ItemContext = React.createContext<{
   label: string;
 } | null>(null);
 
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  ({ asChild, closeOnPress = true, label, value, children, ...props }, ref) => {
+function Item({ ref, asChild, closeOnPress = true, label, value, children, ...props  }: ItemProps & { ref?: React.Ref<ItemRef> }) {
     return (
       <ItemContext.Provider value={{ itemValue: value, label: label }}>
         <Slot.Pressable ref={ref} {...props}>
@@ -235,7 +216,6 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
       </ItemContext.Provider>
     );
   }
-);
 
 Item.displayName = 'ItemWebSelect';
 
@@ -247,25 +227,22 @@ function useItemContext() {
   return context;
 }
 
-const ItemText = React.forwardRef<ItemTextRef, Omit<ItemTextProps, 'children'>>(
-  ({ asChild, ...props }, ref) => {
-    const { label } = useItemContext();
+function ItemText({ ref, asChild, ...props }: Omit<ItemTextProps, 'children'> & { ref?: React.Ref<ItemTextRef> }) {
+  const { label } = useItemContext();
 
-    const Component = asChild ? Slot.Text : Text;
-    return (
-      <Select.ItemText asChild>
-        <Component ref={ref} {...props}>
-          {label}
-        </Component>
-      </Select.ItemText>
-    );
-  }
-);
+  const Component = asChild ? Slot.Text : Text;
+  return (
+    <Select.ItemText asChild>
+      <Component ref={ref} {...props}>
+        {label}
+      </Component>
+    </Select.ItemText>
+  );
+}
 
 ItemText.displayName = 'ItemTextWebSelect';
 
-const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
-  ({ asChild, forceMount: _forceMount, ...props }, ref) => {
+function ItemIndicator({ ref, asChild, forceMount: _forceMount, ...props  }: ItemIndicatorProps & { ref?: React.Ref<ItemIndicatorRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <Select.ItemIndicator asChild>
@@ -273,34 +250,32 @@ const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
       </Select.ItemIndicator>
     );
   }
-);
 
 ItemIndicator.displayName = 'ItemIndicatorWebSelect';
 
-const Group = React.forwardRef<GroupRef, GroupProps>(({ asChild, ...props }, ref) => {
+function Group({ ref, asChild, ...props  }: GroupProps & { ref?: React.Ref<GroupRef> }) {
   const Component = asChild ? Slot.View : View;
   return (
     <Select.Group asChild>
       <Component ref={ref} {...props} />
     </Select.Group>
   );
-});
+}
 
 Group.displayName = 'GroupWebSelect';
 
-const Label = React.forwardRef<LabelRef, LabelProps>(({ asChild, ...props }, ref) => {
+function Label({ ref, asChild, ...props  }: LabelProps & { ref?: React.Ref<LabelRef> }) {
   const Component = asChild ? Slot.Text : Text;
   return (
     <Select.Label asChild>
       <Component ref={ref} {...props} />
     </Select.Label>
   );
-});
+}
 
 Label.displayName = 'LabelWebSelect';
 
-const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
-  ({ asChild, decorative, ...props }, ref) => {
+function Separator({ ref, asChild, decorative, ...props  }: SeparatorProps & { ref?: React.Ref<SeparatorRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <Select.Separator asChild>
@@ -308,7 +283,6 @@ const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
       </Select.Separator>
     );
   }
-);
 
 Separator.displayName = 'SeparatorWebSelect';
 

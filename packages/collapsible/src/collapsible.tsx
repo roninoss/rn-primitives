@@ -14,18 +14,13 @@ import type {
 
 const CollapsibleContext = React.createContext<(RootContext & { nativeID: string }) | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
+function Root({ ref, asChild,
       disabled = false,
       open: openProp,
       defaultOpen,
       onOpenChange: onOpenChangeProp,
       ...viewProps
-    },
-    ref
-  ) => {
+     }: RootProps & { ref?: React.Ref<RootRef> }) {
     const nativeID = React.useId();
     const [open = false, onOpenChange] = useControllableState({
       prop: openProp,
@@ -46,8 +41,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
         <Component ref={ref} {...viewProps} />
       </CollapsibleContext.Provider>
     );
-  }
-);
+}
 
 Root.displayName = 'RootNativeCollapsible';
 
@@ -61,8 +55,7 @@ function useCollapsibleContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled: disabledProp = false, ...props }, ref) => {
+function Trigger({ ref, asChild, onPress: onPressProp, disabled: disabledProp = false, ...props  }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const { disabled, open, onOpenChange, nativeID } = useCollapsibleContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -87,13 +80,11 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
         {...props}
       />
     );
-  }
-);
+}
 
 Trigger.displayName = 'TriggerNativeCollapsible';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Content({ ref, asChild, forceMount, ...props  }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const { nativeID, open } = useCollapsibleContext();
 
     if (!forceMount) {
@@ -112,8 +103,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
         {...props}
       />
     );
-  }
-);
+}
 
 Content.displayName = 'ContentNativeCollapsible';
 

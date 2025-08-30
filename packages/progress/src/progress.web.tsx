@@ -6,8 +6,7 @@ import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
 
 const ProgressContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, value, max, getValueLabel, ...props }, ref) => {
+function Root({ ref, asChild, value, max, getValueLabel, ...props  }: RootProps & { ref?: React.Ref<RootRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <ProgressContext.Provider value={{ value, max }}>
@@ -17,18 +16,17 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </ProgressContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootProgress';
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
+function Indicator({ ref, asChild, ...props  }: IndicatorProps & { ref?: React.Ref<IndicatorRef> }) {
   const Component = asChild ? Slot.View : View;
   return (
     <Progress.Indicator asChild>
       <Component ref={ref} {...props} />
     </Progress.Indicator>
   );
-});
+}
 
 Indicator.displayName = 'IndicatorProgress';
 

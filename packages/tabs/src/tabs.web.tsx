@@ -14,8 +14,7 @@ import type {
 } from './types';
 
 const TabsContext = React.createContext<RootProps | null>(null);
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, value, onValueChange, orientation, dir, activationMode, ...viewProps }, ref) => {
+function Root({ ref, asChild, value, onValueChange, orientation, dir, activationMode, ...viewProps  }: RootProps & { ref?: React.Ref<RootRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <TabsContext.Provider
@@ -37,7 +36,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </TabsContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebTabs';
 
@@ -49,20 +47,19 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...props }, ref) => {
+function List({ ref, asChild, ...props  }: ListProps & { ref?: React.Ref<ListRef> }) {
   const Component = asChild ? Slot.View : View;
   return (
     <Tabs.List asChild>
       <Component ref={ref} {...props} />
     </Tabs.List>
   );
-});
+}
 
 List.displayName = 'ListWebTabs';
 
 const TriggerContext = React.createContext<{ value: string } | null>(null);
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, value: tabValue, ...props }, ref) => {
+function Trigger({ ref, asChild, value: tabValue, ...props  }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <TriggerContext.Provider value={{ value: tabValue }}>
@@ -72,7 +69,6 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       </TriggerContext.Provider>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebTabs';
 
@@ -86,8 +82,7 @@ function useTriggerContext() {
   return context;
 }
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, value, tabIndex = -1, ...props }, ref) => {
+function Content({ ref, asChild, forceMount, value, tabIndex = -1, ...props  }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <Tabs.Content value={value} asChild>
@@ -95,7 +90,6 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       </Tabs.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebTabs';
 
