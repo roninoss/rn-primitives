@@ -29,8 +29,7 @@ const AlertDialogOverlayWeb = React.forwardRef<
       {...props}
       ref={ref}
     />
-  );
-});
+  }
 
 AlertDialogOverlayWeb.displayName = 'AlertDialogOverlayWeb';
 
@@ -50,8 +49,7 @@ const AlertDialogOverlayNative = React.forwardRef<
         {children}
       </Animated.View>
     </AlertDialogPrimitive.Overlay>
-  );
-});
+  }
 
 AlertDialogOverlayNative.displayName = 'AlertDialogOverlayNative';
 
@@ -82,8 +80,8 @@ const AlertDialogContent = React.forwardRef<
         />
       </AlertDialogOverlay>
     </AlertDialogPortal>
-  );
-});
+  }
+
 AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;
 
 const AlertDialogHeader = ({

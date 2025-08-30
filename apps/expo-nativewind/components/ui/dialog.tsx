@@ -28,8 +28,7 @@ const DialogOverlayWeb = React.forwardRef<
       {...props}
       ref={ref}
     />
-  );
-});
+  }
 
 DialogOverlayWeb.displayName = 'DialogOverlayWeb';
 
@@ -48,8 +47,7 @@ const DialogOverlayNative = React.forwardRef<
         <>{children}</>
       </Animated.View>
     </DialogPrimitive.Overlay>
-  );
-});
+  }
 
 DialogOverlayNative.displayName = 'DialogOverlayNative';
 
@@ -91,8 +89,8 @@ const DialogContent = React.forwardRef<
         </DialogPrimitive.Content>
       </DialogOverlay>
     </DialogPortal>
-  );
-});
+  }
+
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({ className, ...props }: React.ComponentPropsWithoutRef<typeof View>) => (

@@ -19,8 +19,8 @@ const Progress = React.forwardRef<
     >
       <Indicator value={value} className={indicatorClassName} />
     </ProgressPrimitive.Root>
-  );
-});
+  }
+
 Progress.displayName = ProgressPrimitive.Root.displayName;
 
 export { Progress };

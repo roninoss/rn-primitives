@@ -175,6 +175,6 @@ const ListItem = React.forwardRef<
         </Text>
       </NavigationMenuLink>
     </View>
-  );
-});
+  }
+
 ListItem.displayName = 'ListItem';

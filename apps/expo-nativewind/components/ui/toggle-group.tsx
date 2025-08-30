@@ -67,8 +67,7 @@ const ToggleGroupItem = React.forwardRef<
         {children}
       </ToggleGroupPrimitive.Item>
     </TextClassContext.Provider>
-  );
-});
+  }
 
 ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName;
 

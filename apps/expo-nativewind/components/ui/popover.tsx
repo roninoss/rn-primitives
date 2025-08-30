@@ -32,8 +32,8 @@ const PopoverContent = React.forwardRef<
         </Animated.View>
       </PopoverPrimitive.Overlay>
     </PopoverPrimitive.Portal>
-  );
-});
+  }
+
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 export { Popover, PopoverContent, PopoverTrigger };
