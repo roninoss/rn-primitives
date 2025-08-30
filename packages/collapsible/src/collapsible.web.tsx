@@ -19,18 +19,12 @@ import type {
 
 const CollapsibleContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
+function Root({ ref, asChild,
       disabled = false,
       open: openProp,
       defaultOpen,
       onOpenChange: onOpenChangeProp,
-      ...viewProps
-    },
-    ref
-  ) => {
+      ...viewProps }: RootProps & { ref?: React.Ref<RootRef> }) {
     const [open = false, onOpenChange] = useControllableState({
       prop: openProp,
       defaultProp: defaultOpen,
@@ -76,7 +70,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </CollapsibleContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebCollapsible';
 
@@ -90,8 +83,7 @@ function useCollapsibleContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled: disabledProp = false, ...props }, ref) => {
+function Trigger({ ref, asChild, onPress: onPressProp, disabled: disabledProp = false, ...props }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const { disabled, open, onOpenChange } = useCollapsibleContext();
     const augmentedRef = useAugmentedRef({ ref });
 
@@ -133,12 +125,10 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       </Collapsible.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebCollapsible';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Content({ ref, asChild, forceMount, ...props }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const augmentedRef = useAugmentedRef({ ref });
     const { open } = useCollapsibleContext();
 
@@ -156,7 +146,6 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       </Collapsible.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebCollapsible';
 

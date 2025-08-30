@@ -23,8 +23,7 @@ const Accordion = React.forwardRef<
         <Animated.View layout={LinearTransition.duration(200)}>{children}</Animated.View>
       </AccordionPrimitive.Root>
     </LayoutAnimationConfig>
-  );
-});
+  }
 
 Accordion.displayName = AccordionPrimitive.Root.displayName;
 
@@ -41,8 +40,8 @@ const AccordionItem = React.forwardRef<
         {...props}
       />
     </Animated.View>
-  );
-});
+  }
+
 AccordionItem.displayName = AccordionPrimitive.Item.displayName;
 
 const Trigger = Platform.OS === 'web' ? View : Pressable;
@@ -71,8 +70,8 @@ const AccordionTrigger = React.forwardRef<
         </AccordionPrimitive.Trigger>
       </AccordionPrimitive.Header>
     </TextClassContext.Provider>
-  );
-});
+  }
+
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 const AccordionContent = React.forwardRef<
@@ -108,8 +107,7 @@ function InnerContent({ children, className }: { children: React.ReactNode; clas
     >
       {children}
     </Animated.View>
-  );
-}
+  }
 
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 

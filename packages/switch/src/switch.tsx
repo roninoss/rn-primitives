@@ -3,19 +3,16 @@ import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type { RootProps, RootRef, ThumbProps, ThumbRef } from './types';
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
-      checked,
-      onCheckedChange,
-      disabled,
-      onPress: onPressProp,
-      'aria-valuetext': ariaValueText,
-      ...props
-    },
-    ref
-  ) => {
+function Root({
+  ref,
+  asChild,
+  checked,
+  onCheckedChange,
+  disabled,
+  onPress: onPressProp,
+  'aria-valuetext': ariaValueText,
+  ...props
+}: RootProps & { ref?: React.Ref<RootRef> }) {
     function onPress(ev: GestureResponderEvent) {
       if (disabled) return;
       onCheckedChange(!checked);
@@ -40,14 +37,13 @@ const Root = React.forwardRef<RootRef, RootProps>(
       />
     );
   }
-);
 
 Root.displayName = 'RootNativeSwitch';
 
-const Thumb = React.forwardRef<ThumbRef, ThumbProps>(({ asChild, ...props }, ref) => {
+function Thumb({ ref, asChild, ...props }: ThumbProps & { ref?: React.Ref<ThumbRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='presentation' {...props} />;
-});
+}
 
 Thumb.displayName = 'ThumbNativeSwitch';
 

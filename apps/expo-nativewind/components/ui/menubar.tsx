@@ -50,8 +50,8 @@ const MenubarTrigger = React.forwardRef<
       )}
       {...props}
     />
-  );
-});
+  }
+
 MenubarTrigger.displayName = MenubarPrimitive.Trigger.displayName;
 
 const MenubarSubTrigger = React.forwardRef<
@@ -83,8 +83,8 @@ const MenubarSubTrigger = React.forwardRef<
         <Icon size={18} className='ml-auto text-foreground' />
       </MenubarPrimitive.SubTrigger>
     </TextClassContext.Provider>
-  );
-});
+  }
+
 MenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName;
 
 const MenubarSubContent = React.forwardRef<
@@ -104,8 +104,8 @@ const MenubarSubContent = React.forwardRef<
       )}
       {...props}
     />
-  );
-});
+  }
+
 MenubarSubContent.displayName = MenubarPrimitive.SubContent.displayName;
 
 const MenubarContent = React.forwardRef<
@@ -128,8 +128,8 @@ const MenubarContent = React.forwardRef<
         {...props}
       />
     </MenubarPrimitive.Portal>
-  );
-});
+  }
+
 MenubarContent.displayName = MenubarPrimitive.Content.displayName;
 
 const MenubarItem = React.forwardRef<

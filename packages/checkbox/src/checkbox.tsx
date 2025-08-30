@@ -10,8 +10,7 @@ interface RootContext extends RootProps {
 
 const CheckboxContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, disabled = false, checked, onCheckedChange, nativeID, ...props }, ref) => {
+function Root({ ref, asChild, disabled = false, checked, onCheckedChange, nativeID, ...props }: RootProps & { ref?: React.Ref<RootRef> }) {
     return (
       <CheckboxContext.Provider
         value={{
@@ -25,7 +24,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </CheckboxContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeCheckbox';
 
@@ -39,8 +37,7 @@ function useCheckboxContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, onPress: onPressProp, ...props }, ref) => {
+function Trigger({ ref, asChild, onPress: onPressProp, ...props }: SlottablePressableProps & { ref?: React.Ref<PressableRef> }) {
     const { disabled, checked, onCheckedChange, nativeID } = useCheckboxContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -68,12 +65,10 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeCheckbox';
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Indicator({ ref, asChild, forceMount, ...props }: IndicatorProps & { ref?: React.Ref<IndicatorRef> }) {
     const { checked, disabled } = useCheckboxContext();
 
     if (!forceMount) {
@@ -93,7 +88,6 @@ const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
       />
     );
   }
-);
 
 Indicator.displayName = 'IndicatorNativeCheckbox';
 

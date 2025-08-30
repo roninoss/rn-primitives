@@ -4,15 +4,14 @@ import * as React from 'react';
 import { Pressable, Text as RNText } from 'react-native';
 import type { RootProps, RootRef, TextProps, TextRef } from './types';
 
-const Root = React.forwardRef<RootRef, RootProps>(({ asChild, tabIndex = -1, ...props }, ref) => {
+function Root({ ref, asChild, tabIndex = -1, ...props }: RootProps & { ref?: React.Ref<RootRef> }) {
   const Component = asChild ? Slot.Pressable : Pressable;
   return <Component ref={ref} tabIndex={tabIndex} {...props} />;
-});
+}
 
 Root.displayName = 'RootWebLabel';
 
-const Text = React.forwardRef<TextRef, TextProps>(
-  ({ asChild, nativeID, htmlFor, ...props }, ref) => {
+function Text({ ref, asChild, nativeID, htmlFor, ...props }: TextProps & { ref?: React.Ref<TextRef> }) {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Label.Root asChild={!htmlFor} id={nativeID} htmlFor={htmlFor}>
@@ -20,7 +19,6 @@ const Text = React.forwardRef<TextRef, TextProps>(
       </Label.Root>
     );
   }
-);
 
 Text.displayName = 'TextWebLabel';
 

@@ -19,8 +19,7 @@ const Input = React.forwardRef<
       placeholderClassName={cn('text-muted-foreground', placeholderClassName)}
       {...props}
     />
-  );
-});
+  }
 
 Input.displayName = 'Input';
 

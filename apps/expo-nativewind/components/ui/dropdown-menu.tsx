@@ -49,8 +49,8 @@ const DropdownMenuSubTrigger = React.forwardRef<
         <Icon size={18} className='ml-auto text-foreground' />
       </DropdownMenuPrimitive.SubTrigger>
     </TextClassContext.Provider>
-  );
-});
+  }
+
 DropdownMenuSubTrigger.displayName = DropdownMenuPrimitive.SubTrigger.displayName;
 
 const DropdownMenuSubContent = React.forwardRef<
@@ -70,8 +70,8 @@ const DropdownMenuSubContent = React.forwardRef<
       )}
       {...props}
     />
-  );
-});
+  }
+
 DropdownMenuSubContent.displayName = DropdownMenuPrimitive.SubContent.displayName;
 
 const DropdownMenuContent = React.forwardRef<
@@ -111,8 +111,8 @@ const DropdownMenuContent = React.forwardRef<
         />
       </DropdownMenuPrimitive.Overlay>
     </DropdownMenuPrimitive.Portal>
-  );
-});
+  }
+
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
 
 const DropdownMenuItem = React.forwardRef<

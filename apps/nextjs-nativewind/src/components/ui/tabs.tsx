@@ -45,8 +45,8 @@ const TabsTrigger = React.forwardRef<
         {...props}
       />
     </TextClassContext.Provider>
-  );
-});
+  }
+
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 const TabsContent = React.forwardRef<

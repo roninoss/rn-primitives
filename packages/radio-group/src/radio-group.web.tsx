@@ -6,8 +6,7 @@ import type { IndicatorProps, IndicatorRef, ItemProps, ItemRef, RootProps, RootR
 
 const RadioGroupContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, value, onValueChange, disabled = false, ...viewProps }, ref) => {
+function Root({ ref, asChild, value, onValueChange, disabled = false, ...viewProps }: RootProps & { ref?: React.Ref<RootRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <RadioGroupContext.Provider
@@ -23,7 +22,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </RadioGroupContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootRadioGroup';
 function useRadioGroupContext() {
@@ -35,8 +33,7 @@ function useRadioGroupContext() {
   }
   return context;
 }
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  ({ asChild, value, onPress: onPressProps, ...props }, ref) => {
+function Item({ ref, asChild, value, onPress: onPressProps, ...props }: ItemProps & { ref?: React.Ref<ItemRef> }) {
     const { onValueChange } = useRadioGroupContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -53,12 +50,10 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
       </RadioGroup.Item>
     );
   }
-);
 
 Item.displayName = 'ItemRadioGroup';
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Indicator({ ref, asChild, forceMount, ...props }: IndicatorProps & { ref?: React.Ref<IndicatorRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <RadioGroup.Indicator asChild>
@@ -66,7 +61,6 @@ const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
       </RadioGroup.Indicator>
     );
   }
-);
 
 Indicator.displayName = 'IndicatorRadioGroup';
 

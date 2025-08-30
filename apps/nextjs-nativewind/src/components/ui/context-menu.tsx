@@ -45,8 +45,8 @@ const ContextMenuSubTrigger = React.forwardRef<
         <Icon size={18} className='ml-auto text-foreground' />
       </ContextMenuPrimitive.SubTrigger>
     </TextClassContext.Provider>
-  );
-});
+  }
+
 ContextMenuSubTrigger.displayName = ContextMenuPrimitive.SubTrigger.displayName;
 
 const ContextMenuSubContent = React.forwardRef<
@@ -66,8 +66,8 @@ const ContextMenuSubContent = React.forwardRef<
       )}
       {...props}
     />
-  );
-});
+  }
+
 ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName;
 
 const ContextMenuContent = React.forwardRef<
@@ -107,8 +107,8 @@ const ContextMenuContent = React.forwardRef<
         />
       </ContextMenuPrimitive.Overlay>
     </ContextMenuPrimitive.Portal>
-  );
-});
+  }
+
 ContextMenuContent.displayName = ContextMenuPrimitive.Content.displayName;
 
 const ContextMenuItem = React.forwardRef<

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface AugmentRefProps<T> {
-  ref: React.Ref<T>;
+  ref: React.Ref<T> | undefined;
   methods?: Record<string, (...args: any[]) => any>;
   deps?: any[];
 }

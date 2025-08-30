@@ -6,8 +6,7 @@ import { cn } from '~/lib/utils';
 
 const TextClassContext = React.createContext<string | undefined>(undefined);
 
-const Text = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+function Text({ ref, className, asChild = false, ...props }: SlottableTextProps & { ref?: React.Ref<TextRef> }) {
     const textClass = React.useContext(TextClassContext);
     const Component = asChild ? Slot.Text : RNText;
     return (
@@ -16,9 +15,8 @@ const Text = React.forwardRef<TextRef, SlottableTextProps>(
         ref={ref}
         {...props}
       />
-    );
-  }
-);
+    }
+
 Text.displayName = 'Text';
 
 export { Text, TextClassContext };
