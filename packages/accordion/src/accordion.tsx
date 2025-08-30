@@ -115,7 +115,7 @@ function Header({ ref, asChild, ...props  }: HeaderProps & { ref?: React.Ref<Hea
       {...props}
     />
   );
-});
+}
 
 Header.displayName = 'HeaderNativeAccordion';
 

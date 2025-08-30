@@ -100,20 +100,20 @@ ToggleItem.displayName = 'ToggleItemNativeToolbar';
 function Separator({ ref, asChild, ...props  }: SeparatorProps & { ref?: React.Ref<SeparatorRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component role={'separator'} ref={ref} {...props} />;
-});
+}
 
 Separator.displayName = 'SeparatorNativeToolbar';
 
 function Link({ ref, asChild, ...props  }: LinkProps & { ref?: React.Ref<LinkRef> }) {
   const Component = asChild ? Slot.Pressable : Pressable;
   return <Component ref={ref} role='link' {...props} />;
-});
+}
 
 Link.displayName = 'LinkNativeToolbar';
 
 function Button({ ref, asChild, ...props  }: ButtonProps & { ref?: React.Ref<ButtonRef> }) {
   const Component = asChild ? Slot.Pressable : Pressable;
   return <Component ref={ref} role='button' {...props} />;
-});
+}
 
 export { Button, Link, Root, Separator, ToggleGroup, ToggleItem };

@@ -54,7 +54,7 @@ function useRootContext() {
 function List({ ref, asChild, ...props  }: ListProps & { ref?: React.Ref<ListRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='tablist' {...props} />;
-});
+}
 
 List.displayName = 'ListNativeTabs';
 

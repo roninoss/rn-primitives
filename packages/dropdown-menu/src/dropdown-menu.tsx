@@ -306,14 +306,14 @@ Item.displayName = 'ItemNativeDropdownMenu';
 function Group({ ref, asChild, ...props  }: GroupProps & { ref?: React.Ref<GroupRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='group' {...props} />;
-});
+}
 
 Group.displayName = 'GroupNativeDropdownMenu';
 
 function Label({ ref, asChild, ...props  }: LabelProps & { ref?: React.Ref<LabelRef> }) {
   const Component = asChild ? Slot.Text : Text;
   return <Component ref={ref} {...props} />;
-});
+}
 
 Label.displayName = 'LabelNativeDropdownMenu';
 

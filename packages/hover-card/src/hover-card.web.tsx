@@ -73,7 +73,7 @@ function Trigger({ ref, asChild, ...props  }: TriggerProps & { ref?: React.Ref<T
       <Component ref={augmentedRef} {...props} />
     </HoverCard.Trigger>
   );
-});
+}
 
 Trigger.displayName = 'TriggerWebHoverCard';
 
@@ -84,7 +84,7 @@ function Portal({ forceMount, container, children }: PortalProps) {
 function Overlay({ ref, asChild, ...props  }: OverlayProps & { ref?: React.Ref<OverlayRef> }) {
   const Component = asChild ? Slot.Pressable : Pressable;
   return <Component ref={ref} {...props} />;
-});
+}
 
 Overlay.displayName = 'OverlayWebHoverCard';
 

@@ -260,7 +260,7 @@ function Group({ ref, asChild, ...props  }: GroupProps & { ref?: React.Ref<Group
       <Component ref={ref} {...props} />
     </Select.Group>
   );
-});
+}
 
 Group.displayName = 'GroupWebSelect';
 
@@ -271,7 +271,7 @@ function Label({ ref, asChild, ...props  }: LabelProps & { ref?: React.Ref<Label
       <Component ref={ref} {...props} />
     </Select.Label>
   );
-});
+}
 
 Label.displayName = 'LabelWebSelect';
 

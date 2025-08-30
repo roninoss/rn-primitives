@@ -78,7 +78,7 @@ function useRootContext() {
 function List({ ref, asChild, ...viewProps  }: ListProps & { ref?: React.Ref<ListRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='menubar' {...viewProps} />;
-});
+}
 
 List.displayName = 'ListNativeNavigationMenu';
 
@@ -98,7 +98,7 @@ function Item({ ref, asChild, value, ...viewProps  }: ItemProps & { ref?: React.
       <Component ref={ref} role='menuitem' {...viewProps} />
     </ItemContext.Provider>
   );
-});
+}
 
 Item.displayName = 'ItemNativeNavigationMenu';
 
@@ -266,7 +266,7 @@ Content.displayName = 'ContentNativeNavigationMenu';
 function Link({ ref, asChild, ...props  }: LinkProps & { ref?: React.Ref<LinkRef> }) {
   const Component = asChild ? Slot.Pressable : Pressable;
   return <Component ref={ref} role='link' {...props} />;
-});
+}
 
 Link.displayName = 'LinkNativeNavigationMenu';
 
@@ -279,7 +279,7 @@ Viewport.displayName = 'ViewportNativeNavigationMenu';
 function Indicator({ ref, asChild, ...props  }: IndicatorProps & { ref?: React.Ref<IndicatorRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} {...props} />;
-});
+}
 
 Indicator.displayName = 'IndicatorNativeNavigationMenu';
 

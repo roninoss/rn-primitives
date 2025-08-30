@@ -169,7 +169,7 @@ function Header({ ref, asChild, ...props  }: HeaderProps & { ref?: React.Ref<Hea
       <Component ref={augmentedRef} {...props} />
     </Accordion.Header>
   );
-});
+}
 
 Header.displayName = 'HeaderWebAccordion';
 

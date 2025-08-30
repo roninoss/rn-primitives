@@ -108,7 +108,7 @@ function Menu({ ref, asChild, value, ...viewProps  }: MenuProps & { ref?: React.
       <Component ref={ref} role='menubar' {...viewProps} />
     </MenuContext.Provider>
   );
-});
+}
 
 Menu.displayName = 'MenuMenubar';
 
@@ -316,14 +316,14 @@ Item.displayName = 'ItemMenubar';
 function Group({ ref, asChild, ...props  }: GroupProps & { ref?: React.Ref<GroupRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='group' {...props} />;
-});
+}
 
 Group.displayName = 'GroupMenubar';
 
 function Label({ ref, asChild, ...props  }: LabelProps & { ref?: React.Ref<LabelRef> }) {
   const Component = asChild ? Slot.Text : Text;
   return <Component ref={ref} {...props} />;
-});
+}
 
 Label.displayName = 'LabelMenubar';
 

@@ -109,7 +109,7 @@ function Title({ ref, asChild, ...props  }: TitleProps & { ref?: React.Ref<Title
 
   const Component = asChild ? Slot.Text : Text;
   return <Component ref={ref} role='heading' nativeID={`${nativeID}_label`} {...props} />;
-});
+}
 
 Title.displayName = 'TitleToast';
 

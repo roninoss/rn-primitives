@@ -172,7 +172,7 @@ function Title({ ref, asChild, ...props  }: TitleProps & { ref?: React.Ref<Title
       <Component ref={ref} {...props} />
     </Dialog.Title>
   );
-});
+}
 
 Title.displayName = 'TitleWebDialog';
 

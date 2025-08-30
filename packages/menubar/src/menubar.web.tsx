@@ -78,7 +78,7 @@ function Menu({ ref, asChild, value, ...viewProps  }: MenuProps & { ref?: React.
       </Menubar.Menu>
     </MenuContext.Provider>
   );
-});
+}
 
 Menu.displayName = 'MenuWebMenubar';
 
@@ -130,7 +130,7 @@ function Portal({ forceMount, container, children }: PortalProps) {
 function Overlay({ ref, asChild, ...props  }: OverlayProps & { ref?: React.Ref<OverlayRef> }) {
   const Component = asChild ? Slot.Pressable : Pressable;
   return <Component ref={ref} {...props} />;
-});
+}
 
 Overlay.displayName = 'OverlayWebMenubar';
 
@@ -264,7 +264,7 @@ function Group({ ref, asChild, ...props  }: GroupProps & { ref?: React.Ref<Group
       <Component ref={ref} {...props} />
     </Menubar.Group>
   );
-});
+}
 
 Group.displayName = 'GroupWebMenubar';
 
@@ -275,7 +275,7 @@ function Label({ ref, asChild, ...props  }: LabelProps & { ref?: React.Ref<Label
       <Component ref={ref} {...props} />
     </Menubar.Label>
   );
-});
+}
 
 Label.displayName = 'LabelWebMenubar';
 

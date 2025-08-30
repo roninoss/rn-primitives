@@ -38,7 +38,7 @@ Root.displayName = 'RootProgress';
 function Indicator({ ref, asChild, ...props  }: IndicatorProps & { ref?: React.Ref<IndicatorRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='presentation' {...props} />;
-});
+}
 
 Indicator.displayName = 'IndicatorProgress';
 

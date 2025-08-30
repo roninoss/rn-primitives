@@ -41,7 +41,7 @@ function Track({ ref, asChild, ...props  }: TrackProps & { ref?: React.Ref<Track
       <Component ref={ref} {...props} />
     </Slider.Track>
   );
-});
+}
 
 Track.displayName = 'TrackWebSlider';
 
@@ -52,7 +52,7 @@ function Range({ ref, asChild, ...props  }: RangeProps & { ref?: React.Ref<Range
       <Component ref={ref} {...props} />
     </Slider.Range>
   );
-});
+}
 
 Range.displayName = 'RangeWebSlider';
 
@@ -63,7 +63,7 @@ function Thumb({ ref, asChild, ...props  }: ThumbProps & { ref?: React.Ref<Thumb
       <Component ref={ref} {...props} />
     </Slider.Thumb>
   );
-});
+}
 
 Thumb.displayName = 'ThumbWebSlider';
 

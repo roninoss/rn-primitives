@@ -59,21 +59,21 @@ function Track({ ref, asChild, ...props  }: TrackProps & { ref?: React.Ref<Track
       {...props}
     />
   );
-});
+}
 
 Track.displayName = 'TrackNativeSlider';
 
 function Range({ ref, asChild, ...props  }: RangeProps & { ref?: React.Ref<RangeRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='presentation' {...props} />;
-});
+}
 
 Range.displayName = 'RangeNativeSlider';
 
 function Thumb({ ref, asChild, ...props  }: ThumbProps & { ref?: React.Ref<ThumbRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component accessibilityRole='adjustable' ref={ref} {...props} />;
-});
+}
 
 Thumb.displayName = 'ThumbNativeSlider';
 

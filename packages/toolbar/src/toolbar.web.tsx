@@ -113,7 +113,7 @@ function Link({ ref, asChild, style, ...props  }: LinkProps & { ref?: React.Ref<
       <Component ref={ref} {...props} />
     </Toolbar.Link>
   );
-});
+}
 
 Link.displayName = 'LinkWebToolbar';
 
@@ -124,6 +124,6 @@ function Button({ ref, asChild, style, ...props  }: ButtonProps & { ref?: React.
       <Component ref={ref} role='button' {...props} />
     </Toolbar.Button>
   );
-});
+}
 
 export { Button, Link, Root, Separator, ToggleGroup, ToggleItem };

@@ -26,7 +26,7 @@ function Indicator({ ref, asChild, ...props  }: IndicatorProps & { ref?: React.R
       <Component ref={ref} {...props} />
     </Progress.Indicator>
   );
-});
+}
 
 Indicator.displayName = 'IndicatorProgress';
 

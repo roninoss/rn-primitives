@@ -81,7 +81,7 @@ function List({ ref, asChild, ...viewProps  }: ListProps & { ref?: React.Ref<Lis
       <Component ref={ref} {...viewProps} />
     </NavigationMenu.List>
   );
-});
+}
 
 List.displayName = 'ListWebNavigationMenu';
 
@@ -96,7 +96,7 @@ function Item({ ref, asChild, value, ...props  }: ItemProps & { ref?: React.Ref<
       </NavigationMenu.Item>
     </ItemContext.Provider>
   );
-});
+}
 
 Item.displayName = 'ItemWebNavigationMenu';
 
@@ -227,7 +227,7 @@ function Indicator({ ref, asChild, ...props  }: IndicatorProps & { ref?: React.R
       <Component ref={ref} {...props} />
     </NavigationMenu.Indicator>
   );
-});
+}
 
 Indicator.displayName = 'IndicatorWebNavigationMenu';
 

@@ -54,7 +54,7 @@ function List({ ref, asChild, ...props  }: ListProps & { ref?: React.Ref<ListRef
       <Component ref={ref} {...props} />
     </Tabs.List>
   );
-});
+}
 
 List.displayName = 'ListWebTabs';
 

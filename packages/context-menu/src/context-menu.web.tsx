@@ -126,7 +126,7 @@ function Portal({ forceMount, container, children }: PortalProps) {
 function Overlay({ ref, asChild, ...props  }: OverlayProps & { ref?: React.Ref<OverlayRef> }) {
   const Component = asChild ? Slot.Pressable : Pressable;
   return <Component ref={ref} {...props} />;
-});
+}
 
 Overlay.displayName = 'OverlayWebContextMenu';
 
@@ -244,7 +244,7 @@ function Group({ ref, asChild, ...props  }: GroupProps & { ref?: React.Ref<Group
       <Component ref={ref} {...props} />
     </ContextMenu.Group>
   );
-});
+}
 
 Group.displayName = 'GroupWebContextMenu';
 
@@ -255,7 +255,7 @@ function Label({ ref, asChild, ...props  }: LabelProps & { ref?: React.Ref<Label
       <Component ref={ref} {...props} />
     </ContextMenu.Label>
   );
-});
+}
 
 Label.displayName = 'LabelWebContextMenu';
 
