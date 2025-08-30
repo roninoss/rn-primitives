@@ -14,91 +14,76 @@ import {
   type StyleProp,
 } from 'react-native';
 
-const Pressable = React.forwardRef<React.ElementRef<typeof RNPressable>, RNPressableProps>(
-  (props, forwardedRef) => {
-    const { children, ...pressableSlotProps } = props;
-
-    if (!React.isValidElement(children)) {
-      console.log('Slot.Pressable - Invalid asChild element', children);
-      return null;
-    }
-
-    return React.cloneElement<
-      React.ComponentPropsWithoutRef<typeof RNPressable>,
-      React.ElementRef<typeof RNPressable>
-    >(isTextChildren(children) ? <></> : children, {
-      ...mergeProps(pressableSlotProps, children.props as AnyProps),
-      ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
-    });
+function Pressable({ ref: forwardedRef, children, ...pressableSlotProps }: RNPressableProps & { ref?: React.Ref<React.ElementRef<typeof RNPressable>> }) {
+  if (!React.isValidElement(children)) {
+    console.log('Slot.Pressable - Invalid asChild element', children);
+    return null;
   }
-);
+
+  return React.cloneElement<
+    React.ComponentPropsWithoutRef<typeof RNPressable>,
+    React.ElementRef<typeof RNPressable>
+  >(isTextChildren(children) ? <></> : children, {
+    ...mergeProps(pressableSlotProps, children.props as AnyProps),
+    ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
+  });
+}
 
 Pressable.displayName = 'SlotPressable';
 
-const View = React.forwardRef<React.ElementRef<typeof RNView>, RNViewProps>(
-  (props, forwardedRef) => {
-    const { children, ...viewSlotProps } = props;
-
-    if (!React.isValidElement(children)) {
-      console.log('Slot.View - Invalid asChild element', children);
-      return null;
-    }
-
-    return React.cloneElement<
-      React.ComponentPropsWithoutRef<typeof RNView>,
-      React.ElementRef<typeof RNView>
-    >(isTextChildren(children) ? <></> : children, {
-      ...mergeProps(viewSlotProps, children.props as AnyProps),
-      ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
-    });
+function View({ ref: forwardedRef, children, ...viewSlotProps }: RNViewProps & { ref?: React.Ref<React.ElementRef<typeof RNView>> }) {
+  if (!React.isValidElement(children)) {
+    console.log('Slot.View - Invalid asChild element', children);
+    return null;
   }
-);
+
+  return React.cloneElement<
+    React.ComponentPropsWithoutRef<typeof RNView>,
+    React.ElementRef<typeof RNView>
+  >(isTextChildren(children) ? <></> : children, {
+    ...mergeProps(viewSlotProps, children.props as AnyProps),
+    ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
+  });
+}
 
 View.displayName = 'SlotView';
 
-const Text = React.forwardRef<React.ElementRef<typeof RNText>, RNTextProps>(
-  (props, forwardedRef) => {
-    const { children, ...textSlotProps } = props;
-
-    if (!React.isValidElement(children)) {
-      console.log('Slot.Text - Invalid asChild element', children);
-      return null;
-    }
-
-    return React.cloneElement<
-      React.ComponentPropsWithoutRef<typeof RNText>,
-      React.ElementRef<typeof RNText>
-    >(isTextChildren(children) ? <></> : children, {
-      ...mergeProps(textSlotProps, children.props as AnyProps),
-      ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
-    });
+function Text({ ref: forwardedRef, children, ...textSlotProps }: RNTextProps & { ref?: React.Ref<React.ElementRef<typeof RNText>> }) {
+  if (!React.isValidElement(children)) {
+    console.log('Slot.Text - Invalid asChild element', children);
+    return null;
   }
-);
+
+  return React.cloneElement<
+    React.ComponentPropsWithoutRef<typeof RNText>,
+    React.ElementRef<typeof RNText>
+  >(isTextChildren(children) ? <></> : children, {
+    ...mergeProps(textSlotProps, children.props as AnyProps),
+    ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
+  });
+}
 
 Text.displayName = 'SlotText';
 
 type ImageSlotProps = RNImageProps & {
   children?: React.ReactNode;
+  ref?: React.Ref<React.ElementRef<typeof RNImage>>;
 };
 
-const Image = React.forwardRef<React.ElementRef<typeof RNImage>, ImageSlotProps>(
-  (props, forwardedRef) => {
-    const { children, ...imageSlotProps } = props;
-
-    if (!React.isValidElement(children)) {
-      console.log('Slot.Image - Invalid asChild element', children);
-      return null;
-    }
-
-    return React.cloneElement<
-      React.ComponentPropsWithoutRef<typeof RNImage>,
-      React.ElementRef<typeof RNImage>
-    >(isTextChildren(children) ? <></> : children, {
-      ...mergeProps(imageSlotProps, children.props as AnyProps),
-      ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
-    });
+function Image({ ref: forwardedRef, children, ...imageSlotProps }: ImageSlotProps) {
+  if (!React.isValidElement(children)) {
+    console.log('Slot.Image - Invalid asChild element', children);
+    return null;
   }
-);
+
+  return React.cloneElement<
+    React.ComponentPropsWithoutRef<typeof RNImage>,
+    React.ElementRef<typeof RNImage>
+  >(isTextChildren(children) ? <></> : children, {
+    ...mergeProps(imageSlotProps, children.props as AnyProps),
+    ref: forwardedRef ? composeRefs(forwardedRef, (children as any).ref) : (children as any).ref,
+  });
+}
 
 Image.displayName = 'SlotImage';
 
