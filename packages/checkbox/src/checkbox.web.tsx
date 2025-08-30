@@ -7,11 +7,7 @@ import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
 
 const CheckboxContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    { asChild, disabled, checked, onCheckedChange, onPress: onPressProp, role: _role, ...props },
-    ref
-  ) => {
+function Root({ ref, asChild, disabled, checked, onCheckedChange, onPress: onPressProp, role: _role, ...props }: RootProps & { ref?: React.Ref<RootRef> }) {
     const augmentedRef = useAugmentedRef({ ref });
 
     function onPress(ev: GestureResponderEvent) {
@@ -61,7 +57,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </CheckboxContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebCheckbox';
 
@@ -75,8 +70,7 @@ function useCheckboxContext() {
   return context;
 }
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Indicator({ ref, asChild, forceMount, ...props }: IndicatorProps & { ref?: React.Ref<IndicatorRef> }) {
     const { checked, disabled } = useCheckboxContext();
     const augmentedRef = useAugmentedRef({ ref });
 
@@ -105,7 +99,6 @@ const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
       </Checkbox.Indicator>
     );
   }
-);
 
 Indicator.displayName = 'IndicatorWebCheckbox';
 

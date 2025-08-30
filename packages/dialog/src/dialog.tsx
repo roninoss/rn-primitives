@@ -24,8 +24,7 @@ import type {
 
 const DialogContext = React.createContext<(RootContext & { nativeID: string }) | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, open: openProp, defaultOpen, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
+function Root({ ref, asChild, open: openProp, defaultOpen, onOpenChange: onOpenChangeProp, ...viewProps }: RootProps & { ref?: React.Ref<RootRef> }) {
     const nativeID = React.useId();
     const [open = false, onOpenChange] = useControllableState({
       prop: openProp,
@@ -46,7 +45,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </DialogContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeDialog';
 
@@ -58,8 +56,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...props }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const { open, onOpenChange } = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -81,7 +78,6 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeDialog';
 
@@ -104,8 +100,7 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, closeOnPress = true, onPress: OnPressProp, ...props }, ref) => {
+function Overlay({ ref, asChild, forceMount, closeOnPress = true, onPress: OnPressProp, ...props }: OverlayProps & { ref?: React.Ref<OverlayRef> }) {
     const { open, onOpenChange } = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -124,12 +119,10 @@ const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayNativeDialog';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Content({ ref, asChild, forceMount, ...props }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const { open, nativeID, onOpenChange } = useRootContext();
 
     React.useEffect(() => {
@@ -163,12 +156,10 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeDialog';
 
-const Close = React.forwardRef<CloseRef, CloseProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+function Close({ ref, asChild, onPress: onPressProp, disabled = false, ...props }: CloseProps & { ref?: React.Ref<CloseRef> }) {
     const { onOpenChange } = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -189,21 +180,20 @@ const Close = React.forwardRef<CloseRef, CloseProps>(
       />
     );
   }
-);
 
 Close.displayName = 'CloseNativeDialog';
 
-const Title = React.forwardRef<TitleRef, TitleProps>((props, ref) => {
+function Title({ ref, ...props }: TitleProps & { ref?: React.Ref<TitleRef> }) {
   const { nativeID } = useRootContext();
   return <Text ref={ref} role='heading' nativeID={`${nativeID}_label`} {...props} />;
-});
+}
 
 Title.displayName = 'TitleNativeDialog';
 
-const Description = React.forwardRef<DescriptionRef, DescriptionProps>((props, ref) => {
+function Description({ ref, ...props }: DescriptionProps & { ref?: React.Ref<DescriptionRef> }) {
   const { nativeID } = useRootContext();
   return <Text ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
-});
+}
 
 Description.displayName = 'DescriptionNativeDialog';
 
