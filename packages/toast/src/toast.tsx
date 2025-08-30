@@ -19,8 +19,7 @@ interface RootContext extends RootProps {
 }
 const ToastContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, type = 'foreground', open, onOpenChange, ...viewProps }, ref) => {
+function Root({ ref, asChild, type = 'foreground', open, onOpenChange, ...viewProps  }: RootProps & { ref?: React.Ref<RootRef> }) {
     const nativeID = React.useId();
 
     if (!open) {
@@ -58,8 +57,7 @@ function useToastContext() {
   return context;
 }
 
-const Close = React.forwardRef<CloseRef, CloseProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+function Close({ ref, asChild, onPress: onPressProp, disabled = false, ...props  }: CloseProps & { ref?: React.Ref<CloseRef> }) {
     const { onOpenChange } = useToastContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -84,8 +82,7 @@ const Close = React.forwardRef<CloseRef, CloseProps>(
 
 Close.displayName = 'CloseToast';
 
-const Action = React.forwardRef<ActionRef, ActionProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+function Action({ ref, asChild, onPress: onPressProp, disabled = false, ...props  }: ActionProps & { ref?: React.Ref<ActionRef> }) {
     const { onOpenChange } = useToastContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -110,7 +107,7 @@ const Action = React.forwardRef<ActionRef, ActionProps>(
 
 Action.displayName = 'ActionToast';
 
-const Title = React.forwardRef<TitleRef, TitleProps>(({ asChild, ...props }, ref) => {
+function Title({ ref, asChild, ...props  }: TitleProps & { ref?: React.Ref<TitleRef> }) {
   const { nativeID } = useToastContext();
 
   const Component = asChild ? Slot.Text : Text;
@@ -119,8 +116,7 @@ const Title = React.forwardRef<TitleRef, TitleProps>(({ asChild, ...props }, ref
 
 Title.displayName = 'TitleToast';
 
-const Description = React.forwardRef<DescriptionRef, DescriptionProps>(
-  ({ asChild, ...props }, ref) => {
+function Description({ ref, asChild, ...props  }: DescriptionProps & { ref?: React.Ref<DescriptionRef> }) {
     const { nativeID } = useToastContext();
 
     const Component = asChild ? Slot.Text : Text;

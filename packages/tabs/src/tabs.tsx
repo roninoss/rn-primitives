@@ -18,19 +18,14 @@ interface RootContext extends RootProps {
 
 const TabsContext = React.createContext<RootContext | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
+function Root({ ref, asChild,
       value,
       onValueChange,
       orientation: _orientation,
       dir: _dir,
       activationMode: _activationMode,
       ...viewProps
-    },
-    ref
-  ) => {
+     }: RootProps & { ref?: React.Ref<RootRef> }) {
     const nativeID = React.useId();
     const Component = asChild ? Slot.View : View;
     return (
@@ -57,7 +52,7 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...props }, ref) => {
+function List({ ref, asChild, ...props  }: ListProps & { ref?: React.Ref<ListRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='tablist' {...props} />;
 });
@@ -66,8 +61,7 @@ List.displayName = 'ListNativeTabs';
 
 const TriggerContext = React.createContext<{ value: string } | null>(null);
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled, value: tabValue, ...props }, ref) => {
+function Trigger({ ref, asChild, onPress: onPressProp, disabled, value: tabValue, ...props  }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const { onValueChange, value: rootValue, nativeID } = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -110,8 +104,7 @@ function useTriggerContext() {
   return context;
 }
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, value: tabValue, ...props }, ref) => {
+function Content({ ref, asChild, forceMount, value: tabValue, ...props  }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const { value: rootValue, nativeID } = useRootContext();
 
     if (!forceMount) {

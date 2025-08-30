@@ -20,18 +20,13 @@ const RootContext = React.createContext<{
   onOpenChange: (open: boolean) => void;
 } | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
+function Root({ ref, asChild,
       delayDuration,
       skipDelayDuration,
       disableHoverableContent,
       onOpenChange: onOpenChangeProp,
       ...viewProps
-    },
-    ref
-  ) => {
+     }: RootProps & { ref?: React.Ref<RootRef> }) {
     const [open, setOpen] = React.useState(false);
 
     function onOpenChange(value: boolean) {
@@ -71,8 +66,7 @@ function useTooltipContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, role: _role, disabled, ...props }, ref) => {
+function Trigger({ ref, asChild, onPress: onPressProp, role: _role, disabled, ...props  }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const { onOpenChange, open } = useTooltipContext();
     const augmentedRef = useAugmentedRef({
       ref,
@@ -121,8 +115,7 @@ function Portal({ forceMount, container, children }: PortalProps) {
   return <Tooltip.Portal forceMount={forceMount} children={children} container={container} />;
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Overlay({ ref, asChild, forceMount, ...props  }: OverlayProps & { ref?: React.Ref<OverlayRef> }) {
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} {...props} />;
   }
@@ -130,10 +123,7 @@ const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
 
 Overlay.displayName = 'OverlayWebTooltip';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
+function Content({ ref, asChild = false,
       forceMount,
       align = 'center',
       side = 'top',
@@ -149,9 +139,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       sticky,
       hideWhenDetached,
       ...props
-    },
-    ref
-  ) => {
+     }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <Tooltip.Content

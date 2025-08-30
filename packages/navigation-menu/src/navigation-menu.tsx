@@ -40,8 +40,7 @@ interface INavigationMenuRootContext extends RootProps {
 
 const RootContext = React.createContext<INavigationMenuRootContext | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, value, onValueChange, ...viewProps }, ref) => {
+function Root({ ref, asChild, value, onValueChange, ...viewProps  }: RootProps & { ref?: React.Ref<RootRef> }) {
     const nativeID = React.useId();
     const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
     const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
@@ -77,7 +76,7 @@ function useRootContext() {
   return context;
 }
 
-const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...viewProps }, ref) => {
+function List({ ref, asChild, ...viewProps  }: ListProps & { ref?: React.Ref<ListRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='menubar' {...viewProps} />;
 });
@@ -86,7 +85,7 @@ List.displayName = 'ListNativeNavigationMenu';
 
 const ItemContext = React.createContext<(ItemProps & { nativeID: string }) | null>(null);
 
-const Item = React.forwardRef<ItemRef, ItemProps>(({ asChild, value, ...viewProps }, ref) => {
+function Item({ ref, asChild, value, ...viewProps  }: ItemProps & { ref?: React.Ref<ItemRef> }) {
   const nativeID = React.useId();
 
   const Component = asChild ? Slot.View : View;
@@ -114,8 +113,7 @@ function useItemContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...props  }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const triggerRef = React.useRef<View>(null);
     const { value, onValueChange, setTriggerPosition } = useRootContext();
     const { value: menuValue } = useItemContext();
@@ -190,10 +188,7 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
+function Content({ ref, asChild = false,
       forceMount,
       align = 'center',
       side = 'bottom',
@@ -205,9 +200,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       style,
       disablePositioningStyle,
       ...props
-    },
-    ref
-  ) => {
+     }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const {
       value,
       onValueChange,
@@ -273,7 +266,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
 
 Content.displayName = 'ContentNativeNavigationMenu';
 
-const Link = React.forwardRef<LinkRef, LinkProps>(({ asChild, ...props }, ref) => {
+function Link({ ref, asChild, ...props  }: LinkProps & { ref?: React.Ref<LinkRef> }) {
   const Component = asChild ? Slot.Pressable : Pressable;
   return <Component ref={ref} role='link' {...props} />;
 });
@@ -286,7 +279,7 @@ const Viewport = React.forwardRef<ViewportRef, ViewportProps>((props, ref) => {
 
 Viewport.displayName = 'ViewportNativeNavigationMenu';
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
+function Indicator({ ref, asChild, ...props  }: IndicatorProps & { ref?: React.Ref<IndicatorRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} {...props} />;
 });

@@ -5,8 +5,7 @@ import type { IndicatorProps, IndicatorRef, ItemProps, ItemRef, RootProps, RootR
 
 const RadioGroupContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, value, onValueChange, disabled = false, ...viewProps }, ref) => {
+function Root({ ref, asChild, value, onValueChange, disabled = false, ...viewProps  }: RootProps & { ref?: React.Ref<RootRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <RadioGroupContext.Provider
@@ -40,11 +39,7 @@ interface RadioItemContext {
 
 const RadioItemContext = React.createContext<RadioItemContext | null>(null);
 
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  (
-    { asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props },
-    ref
-  ) => {
+function Item({ ref, asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props  }: ItemProps & { ref?: React.Ref<ItemRef> }) {
     const { disabled, value, onValueChange } = useRadioGroupContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -89,8 +84,7 @@ function useRadioItemContext() {
   return context;
 }
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Indicator({ ref, asChild, forceMount, ...props  }: IndicatorProps & { ref?: React.Ref<IndicatorRef> }) {
     const { value } = useRadioGroupContext();
     const { itemValue } = useRadioItemContext();
 

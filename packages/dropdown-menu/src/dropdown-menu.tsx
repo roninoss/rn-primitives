@@ -62,8 +62,7 @@ interface IRootContext {
 
 const RootContext = React.createContext<IRootContext | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
+function Root({ ref, asChild, onOpenChange: onOpenChangeProp, ...viewProps  }: RootProps & { ref?: React.Ref<RootRef> }) {
     const nativeID = React.useId();
     const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
     const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
@@ -105,8 +104,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...props  }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const { open, onOpenChange, setTriggerPosition } = useRootContext();
 
     const augmentedRef = useAugmentedRef({
@@ -175,8 +173,7 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props }, ref) => {
+function Overlay({ ref, asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props  }: OverlayProps & { ref?: React.Ref<OverlayRef> }) {
     const { open, onOpenChange, setContentLayout, setTriggerPosition } = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -204,10 +201,7 @@ Overlay.displayName = 'OverlayNativeDropdownMenu';
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
+function Content({ ref, asChild = false,
       forceMount,
       align = 'start',
       side = 'bottom',
@@ -219,9 +213,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       style,
       disablePositioningStyle,
       ...props
-    },
-    ref
-  ) => {
+     }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const {
       open,
       onOpenChange,
@@ -286,11 +278,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
 
 Content.displayName = 'ContentNativeDropdownMenu';
 
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  (
-    { asChild, textValue, onPress: onPressProp, disabled = false, closeOnPress = true, ...props },
-    ref
-  ) => {
+function Item({ ref, asChild, textValue, onPress: onPressProp, disabled = false, closeOnPress = true, ...props  }: ItemProps & { ref?: React.Ref<ItemRef> }) {
     const { onOpenChange, setTriggerPosition, setContentLayout } = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -320,14 +308,14 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
 
 Item.displayName = 'ItemNativeDropdownMenu';
 
-const Group = React.forwardRef<GroupRef, GroupProps>(({ asChild, ...props }, ref) => {
+function Group({ ref, asChild, ...props  }: GroupProps & { ref?: React.Ref<GroupRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='group' {...props} />;
 });
 
 Group.displayName = 'GroupNativeDropdownMenu';
 
-const Label = React.forwardRef<LabelRef, LabelProps>(({ asChild, ...props }, ref) => {
+function Label({ ref, asChild, ...props  }: LabelProps & { ref?: React.Ref<LabelRef> }) {
   const Component = asChild ? Slot.Text : Text;
   return <Component ref={ref} {...props} />;
 });
@@ -343,10 +331,7 @@ type FormItemContext =
 
 const FormItemContext = React.createContext<FormItemContext | null>(null);
 
-const CheckboxItem = React.forwardRef<CheckboxItemRef, CheckboxItemProps>(
-  (
-    {
-      asChild,
+function CheckboxItem({ ref, asChild,
       checked,
       onCheckedChange,
       textValue,
@@ -354,9 +339,7 @@ const CheckboxItem = React.forwardRef<CheckboxItemRef, CheckboxItemProps>(
       closeOnPress = true,
       disabled = false,
       ...props
-    },
-    ref
-  ) => {
+     }: CheckboxItemProps & { ref?: React.Ref<CheckboxItemRef> }) {
     const { onOpenChange, setContentLayout, setTriggerPosition, nativeID } = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -400,8 +383,7 @@ function useFormItemContext() {
   return context;
 }
 
-const RadioGroup = React.forwardRef<RadioGroupRef, RadioGroupProps>(
-  ({ asChild, value, onValueChange, ...props }, ref) => {
+function RadioGroup({ ref, asChild, value, onValueChange, ...props  }: RadioGroupProps & { ref?: React.Ref<RadioGroupRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <FormItemContext.Provider value={{ value, onValueChange }}>
@@ -419,19 +401,14 @@ type BothFormItemContext = Exclude<FormItemContext, { checked: boolean }> & {
 
 const RadioItemContext = React.createContext({} as { itemValue: string });
 
-const RadioItem = React.forwardRef<RadioItemRef, RadioItemProps>(
-  (
-    {
-      asChild,
+function RadioItem({ ref, asChild,
       value: itemValue,
       textValue,
       onPress: onPressProp,
       disabled = false,
       closeOnPress = true,
       ...props
-    },
-    ref
-  ) => {
+     }: RadioItemProps & { ref?: React.Ref<RadioItemRef> }) {
     const { onOpenChange, setContentLayout, setTriggerPosition } = useRootContext();
 
     const { value, onValueChange } = useFormItemContext() as BothFormItemContext;
@@ -472,8 +449,7 @@ function useItemIndicatorContext() {
   return React.useContext(RadioItemContext);
 }
 
-const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function ItemIndicator({ ref, asChild, forceMount, ...props  }: ItemIndicatorProps & { ref?: React.Ref<ItemIndicatorRef> }) {
     const { itemValue } = useItemIndicatorContext();
     const { checked, value } = useFormItemContext() as BothFormItemContext;
 
@@ -492,8 +468,7 @@ const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
 
 ItemIndicator.displayName = 'ItemIndicatorNativeDropdownMenu';
 
-const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
-  ({ asChild, decorative, ...props }, ref) => {
+function Separator({ ref, asChild, decorative, ...props  }: SeparatorProps & { ref?: React.Ref<SeparatorRef> }) {
     const Component = asChild ? Slot.View : View;
     return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
   }
@@ -507,8 +482,7 @@ const SubContext = React.createContext<{
   onOpenChange: (value: boolean) => void;
 } | null>(null);
 
-const Sub = React.forwardRef<SubRef, SubProps>(
-  ({ asChild, defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, ...props }, ref) => {
+function Sub({ ref, asChild, defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, ...props  }: SubProps & { ref?: React.Ref<SubRef> }) {
     const nativeID = React.useId();
     const [open = false, onOpenChange] = useControllableState({
       prop: openProp,
@@ -541,8 +515,7 @@ function useSubContext() {
   return context;
 }
 
-const SubTrigger = React.forwardRef<SubTriggerRef, SubTriggerProps>(
-  ({ asChild, textValue, onPress: onPressProp, disabled = false, ...props }, ref) => {
+function SubTrigger({ ref, asChild, textValue, onPress: onPressProp, disabled = false, ...props  }: SubTriggerProps & { ref?: React.Ref<SubTriggerRef> }) {
     const { nativeID, open, onOpenChange } = useSubContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -570,8 +543,7 @@ const SubTrigger = React.forwardRef<SubTriggerRef, SubTriggerProps>(
 
 SubTrigger.displayName = 'SubTriggerNativeDropdownMenu';
 
-const SubContent = React.forwardRef<SubContentRef, SubContentProps>(
-  ({ asChild = false, forceMount, ...props }, ref) => {
+function SubContent({ ref, asChild = false, forceMount, ...props  }: SubContentProps & { ref?: React.Ref<SubContentRef> }) {
     const { open, nativeID } = useSubContext();
 
     if (!forceMount) {

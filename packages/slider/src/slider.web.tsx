@@ -13,11 +13,7 @@ import type {
   TrackRef,
 } from './types';
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    { asChild, value, disabled, min, max, dir, inverted, step = 1, onValueChange, ...props },
-    ref
-  ) => {
+function Root({ ref, asChild, value, disabled, min, max, dir, inverted, step = 1, onValueChange, ...props  }: RootProps & { ref?: React.Ref<RootRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <Slider.Root
@@ -39,7 +35,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
 
 Root.displayName = 'RootWebSlider';
 
-const Track = React.forwardRef<TrackRef, TrackProps>(({ asChild, ...props }, ref) => {
+function Track({ ref, asChild, ...props  }: TrackProps & { ref?: React.Ref<TrackRef> }) {
   const Component = asChild ? Slot.View : View;
   return (
     <Slider.Track asChild>
@@ -50,7 +46,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(({ asChild, ...props }, ref
 
 Track.displayName = 'TrackWebSlider';
 
-const Range = React.forwardRef<RangeRef, RangeProps>(({ asChild, ...props }, ref) => {
+function Range({ ref, asChild, ...props  }: RangeProps & { ref?: React.Ref<RangeRef> }) {
   const Component = asChild ? Slot.View : View;
   return (
     <Slider.Range asChild>
@@ -61,7 +57,7 @@ const Range = React.forwardRef<RangeRef, RangeProps>(({ asChild, ...props }, ref
 
 Range.displayName = 'RangeWebSlider';
 
-const Thumb = React.forwardRef<ThumbRef, ThumbProps>(({ asChild, ...props }, ref) => {
+function Thumb({ ref, asChild, ...props  }: ThumbProps & { ref?: React.Ref<ThumbRef> }) {
   const Component = asChild ? Slot.View : View;
   return (
     <Slider.Thumb asChild>

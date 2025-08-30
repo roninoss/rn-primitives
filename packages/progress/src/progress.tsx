@@ -9,11 +9,7 @@ import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
 
 const DEFAULT_MAX = 100;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    { asChild, value: valueProp, max: maxProp, getValueLabel = defaultGetValueLabel, ...props },
-    ref
-  ) => {
+function Root({ ref, asChild, value: valueProp, max: maxProp, getValueLabel = defaultGetValueLabel, ...props  }: RootProps & { ref?: React.Ref<RootRef> }) {
     const max = maxProp ?? DEFAULT_MAX;
     const value = isValidValueNumber(valueProp, max) ? valueProp : 0;
 
@@ -40,7 +36,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
 
 Root.displayName = 'RootProgress';
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
+function Indicator({ ref, asChild, ...props  }: IndicatorProps & { ref?: React.Ref<IndicatorRef> }) {
   const Component = asChild ? Slot.View : View;
   return <Component ref={ref} role='presentation' {...props} />;
 });

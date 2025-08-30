@@ -4,8 +4,7 @@ import * as React from 'react';
 import { Pressable, type GestureResponderEvent } from 'react-native';
 import type { RootProps, RootRef } from './types';
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, pressed, onPressedChange, disabled, onPress: onPressProp, ...props }, ref) => {
+function Root({ ref, asChild, pressed, onPressedChange, disabled, onPress: onPressProp, ...props  }: RootProps & { ref?: React.Ref<RootRef> }) {
     function onPress(ev: GestureResponderEvent) {
       onPressProp?.(ev);
       onPressedChange(!pressed);

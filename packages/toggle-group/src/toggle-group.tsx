@@ -6,10 +6,7 @@ import type { ItemProps, ItemRef, RootProps, RootRef } from './types';
 
 const ToggleGroupContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
+function Root({ ref, asChild,
       type,
       value,
       onValueChange,
@@ -19,9 +16,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       dir: _dir,
       loop: _loop,
       ...viewProps
-    },
-    ref
-  ) => {
+     }: RootProps & { ref?: React.Ref<RootRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <ToggleGroupContext.Provider
@@ -54,11 +49,7 @@ function useRootContext() {
 
 const ItemContext = React.createContext<ItemProps | null>(null);
 
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  (
-    { asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props },
-    ref
-  ) => {
+function Item({ ref, asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props  }: ItemProps & { ref?: React.Ref<ItemRef> }) {
     const id = React.useId();
     const { type, disabled, value, onValueChange } = useRootContext();
 
