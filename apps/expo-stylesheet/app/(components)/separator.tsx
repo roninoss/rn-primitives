@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { Separator } from '~/components/ui/separator';
 import { H4, P, Small } from '~/components/ui/typography';
 import { useTheme } from '@react-navigation/native';
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: Platform.OS === 'web' ? 16 : 20,
     fontWeight: 500,
   },
   headerDescription: {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   smallText: {
-    fontSize: 12,
+    fontSize: Platform.OS === 'web' ? 14 : 12,
     fontWeight: 400,
   },
 });

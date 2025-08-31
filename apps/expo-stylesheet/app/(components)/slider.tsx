@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pressable, View, Text, Platform, StyleSheet } from 'react-native';
+import { Pressable, View, Text, Platform, StyleSheet, ViewStyle } from 'react-native';
 import * as Slider from '@rn-primitives/slider';
 import { useTheme } from '@react-navigation/native';
 import { type ICustomTheme } from '~/lib/constants';
@@ -7,6 +7,15 @@ import { type ICustomTheme } from '~/lib/constants';
 export default function SliderScreen() {
   const { colors } = useTheme() as ICustomTheme;
   const [value, setValue] = React.useState(50);
+  const flattenTrackStyle = StyleSheet.flatten([
+    styles.track,
+    { backgroundColor: colors.accent, borderColor: colors.border },
+  ]);
+  const flattenRangeStyle = StyleSheet.flatten([styles.range, { backgroundColor: colors.primary }]);
+  const flattenThumbStyle = StyleSheet.flatten([
+    styles.thumb,
+    { backgroundColor: colors.primary, left: `${value}%` },
+  ]);
 
   return (
     <View style={[styles.container]}>
@@ -27,15 +36,11 @@ export default function SliderScreen() {
         }}
         style={styles.sliderRoot}
       >
-        <Slider.Track
-          style={[styles.track, { backgroundColor: colors.accent, borderColor: colors.border }]}
-        >
+        <Slider.Track style={flattenTrackStyle}>
           <View style={{ width: `${value}%`, height: '100%' }}>
-            <Slider.Range style={[styles.range, { backgroundColor: colors.primary }]} />
+            <Slider.Range style={flattenRangeStyle} />
           </View>
-          <Slider.Thumb
-            style={[styles.thumb, { backgroundColor: colors.primary, left: `${value}%` }]}
-          />
+          <Slider.Thumb style={flattenThumbStyle as ViewStyle} />
         </Slider.Track>
       </Slider.Root>
 
@@ -62,8 +67,8 @@ const styles = StyleSheet.create({
     gap: 48,
   },
   valueText: {
-    fontSize: 40,
-    lineHeight: 40,
+    fontSize: Platform.OS === 'web' ? 48 : 40,
+    lineHeight: Platform.OS === 'web' ? 48 : 40,
     textAlign: 'center',
   },
   sliderRoot: {
@@ -71,7 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   track: {
-    height: 14,
+    height: Platform.OS === 'web' ? 16 : 14,
     borderRadius: 9999,
     borderWidth: 1,
   },
@@ -81,8 +86,8 @@ const styles = StyleSheet.create({
     borderRadius: 9999,
   },
   thumb: {
-    height: 36,
-    width: 36,
+    height: Platform.OS === 'web' ? 40 : 36,
+    width: Platform.OS === 'web' ? 40 : 36,
     position: 'absolute',
     transform: [{ translateY: -12 }, { translateX: -20 }],
     borderRadius: 9999,

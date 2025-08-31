@@ -1,6 +1,14 @@
 import { Stack } from 'expo-router';
 import * as React from 'react';
-import { Alert, FlatList, ScrollView, View, useWindowDimensions, StyleSheet } from 'react-native';
+import {
+  Alert,
+  FlatList,
+  ScrollView,
+  View,
+  useWindowDimensions,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '~/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover';
@@ -23,6 +31,7 @@ const MIN_COLUMN_WIDTHS = [120, 120, 110, 120];
 export default function TableScreen() {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
+  const isMediumOrAboveScreen = width >= 768;
   const { colors } = useTheme() as ICustomTheme;
 
   const columnWidths = React.useMemo(() => {
@@ -48,7 +57,10 @@ export default function TableScreen() {
                       <ChevronDown color={colors.mutedText} size={18} />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent style={{ padding: 18, width: 260 }} insets={{ left: 6 }}>
+                  <PopoverContent
+                    style={{ padding: 18, width: isMediumOrAboveScreen ? 290 : 260 }}
+                    insets={{ left: 6 }}
+                  >
                     <View style={{ gap: 6 }}>
                       <Text style={styles.popoverTitle}>Table Head</Text>
                       <Text style={[styles.popoverDescription, { color: colors.mutedText }]}>
@@ -67,7 +79,11 @@ export default function TableScreen() {
                 <Text>Method</Text>
               </TableHead>
               <TableHead style={{ width: columnWidths[3] }}>
-                <Text style={styles.amountHead}>Amount</Text>
+                <Text
+                  style={isMediumOrAboveScreen ? styles.amountHeadWeb : styles.amountHeadNative}
+                >
+                  Amount
+                </Text>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -160,20 +176,24 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   invoiceText: {
-    fontSize: 14,
+    fontSize: Platform.OS === 'web' ? 16 : 14,
     fontWeight: 500,
   },
   popoverTitle: {
-    fontSize: 22,
-    lineHeight: 28,
+    fontSize: Platform.OS === 'web' ? 24 : 22,
+    lineHeight: Platform.OS === 'web' ? 32 : 28,
     fontWeight: 700,
   },
   popoverDescription: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: Platform.OS === 'web' ? 18 : 16,
+    lineHeight: Platform.OS === 'web' ? 28 : 24,
   },
-  amountHead: {
+  amountHeadNative: {
     textAlign: 'center',
+  },
+  amountHeadWeb: {
+    textAlign: 'right',
+    paddingRight: 20,
   },
   priceButton: {
     shadowOpacity: 0.1,
@@ -195,7 +215,7 @@ const styles = StyleSheet.create({
   },
   footerNoteText: {
     alignItems: 'center',
-    fontSize: 12,
+    fontSize: Platform.OS === 'web' ? 14 : 12,
   },
 });
 

@@ -70,11 +70,12 @@ const TableRow = React.forwardRef<
   return (
     <TablePrimitive.Row
       ref={ref}
-      style={({ pressed }) => [
+      style={({ pressed, hovered }) => [
         styles.row,
         { borderColor: colors.borderMedium },
         style,
         pressed && { backgroundColor: colors.accent },
+        hovered && { backgroundColor: colors.accent },
       ]}
       {...props}
     />

@@ -17,31 +17,26 @@ const SwitchWeb = React.forwardRef<
   }
 >(({ style, checked, disabled, ...props }, ref) => {
   const { colors } = useTheme();
+  const flattenRootStyle = StyleSheet.flatten([
+    styles.webRoot,
+    {
+      backgroundColor: checked ? colors.primary : colors.border,
+      opacity: disabled ? 0.5 : 1,
+    },
+    style,
+  ]);
+  const flattenThumbStyle = StyleSheet.flatten([
+    styles.webThumb,
+    {
+      backgroundColor: colors.background,
+      shadowColor: colors.text,
+      transform: [{ translateX: checked ? 20 : 0 }],
+    },
+  ]);
 
   return (
-    <SwitchPrimitives.Root
-      ref={ref}
-      checked={checked}
-      style={[
-        styles.webRoot,
-        {
-          backgroundColor: checked ? colors.primary : colors.border,
-          opacity: disabled ? 0.5 : 1,
-        },
-        style,
-      ]}
-      {...props}
-    >
-      <SwitchPrimitives.Thumb
-        style={[
-          styles.webThumb,
-          {
-            backgroundColor: colors.background,
-            shadowColor: colors.text,
-            transform: [{ translateX: checked ? 20 : 0 }],
-          },
-        ]}
-      />
+    <SwitchPrimitives.Root ref={ref} checked={checked} style={flattenRootStyle} {...props}>
+      <SwitchPrimitives.Thumb style={flattenThumbStyle} />
     </SwitchPrimitives.Root>
   );
 });
