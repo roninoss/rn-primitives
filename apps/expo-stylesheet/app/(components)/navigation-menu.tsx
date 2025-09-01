@@ -95,7 +95,7 @@ export default function NavigationMenuScreen() {
             <NavigationMenuContent insets={contentInsets}>
               <View
                 role='list'
-                style={[styles.componentsGrid, { width: isMediumOrAboveScreen ? 600 : 300 }]}
+                style={[styles.componentsGrid, { width: isMediumOrAboveScreen ? 600 : 360 }]}
               >
                 {components.map((component) => (
                   <ListItem key={component.title} title={component.title} href={component.href}>
@@ -137,7 +137,8 @@ const components: { title: string; href: string; description: string }[] = [
   {
     title: 'Scroll-area',
     href: '/scroll-area/scroll-area-universal',
-    description: 'Visually or semantically separates content.',
+    description:
+      'Visually or semantically separates content. Typically used to create a scrollable area.',
   },
   {
     title: 'Tabs',
@@ -158,10 +159,16 @@ const ListItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof View> & { title: string; href: string }
 >(({ title, children, style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const { width } = useWindowDimensions();
+  const isMediumOrAboveScreen = width >= 768;
 
   return (
     <View role='listitem'>
-      <NavigationMenuLink ref={ref} style={[styles.listItem, style]} {...props}>
+      <NavigationMenuLink
+        ref={ref}
+        style={[styles.listItem, { width: isMediumOrAboveScreen ? 268 : '100%' }, style]}
+        {...props}
+      >
         <Text style={[styles.listItemTitle, { color: colors.text }]}>{title}</Text>
         <Text numberOfLines={2} style={[styles.listItemDescription, { color: colors.mutedText }]}>
           {children}
