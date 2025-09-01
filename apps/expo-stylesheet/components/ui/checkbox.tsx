@@ -23,7 +23,13 @@ const Checkbox = React.forwardRef<
   ]);
 
   return (
-    <CheckboxPrimitive.Root ref={ref} checked={checked} style={flattenStyle} {...props}>
+    <CheckboxPrimitive.Root
+      ref={ref}
+      checked={checked}
+      disabled={disabled}
+      style={flattenStyle}
+      {...props}
+    >
       <CheckboxPrimitive.Indicator style={styles.indicator}>
         <Check
           size={12}

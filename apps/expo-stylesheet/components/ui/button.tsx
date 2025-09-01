@@ -31,11 +31,7 @@ const Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>
         <Pressable
           style={({ pressed, hovered }) => [
             ...mergedStyles,
-            pressed && {
-              backgroundColor: variant === 'default' ? colors.borderMedium : colors.accent,
-              opacity: 0.7,
-            },
-            hovered && {
+            !disabled && (pressed || hovered) && {
               backgroundColor: variant === 'default' ? colors.borderMedium : colors.accent,
               opacity: 0.7,
             },

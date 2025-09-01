@@ -148,6 +148,7 @@ const DropdownMenuItem = React.forwardRef<
       <DropdownMenuPrimitive.Item
         ref={ref}
         style={Platform.OS === 'web' ? webStyle : nativeStyle}
+        disabled={disabled}
         {...props}
       />
     </TextClassContext.Provider>
@@ -167,6 +168,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     <DropdownMenuPrimitive.CheckboxItem
       ref={ref}
       checked={checked}
+      disabled={disabled}
       style={({ pressed }) => [
         styles.checkboxItem,
         disabled && { opacity: 0.5 },
@@ -197,6 +199,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   return (
     <DropdownMenuPrimitive.RadioItem
       ref={ref}
+      disabled={disabled}
       style={({ pressed }) => [
         styles.radioItem,
         disabled && { opacity: 0.5 },

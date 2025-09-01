@@ -14,6 +14,8 @@ export const mergeBaseStyleWithUserStyle = <TemplateStyle extends ViewStyle | Te
 };
 
 const isViewStyleArray = (obj: any): boolean => {
+  if (obj == null) return false;  
+  if (Array.isArray(obj)) return true;  
   if (typeof obj !== 'object') return false;
 
   const keysArray = Object.keys(obj);

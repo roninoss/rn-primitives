@@ -23,6 +23,7 @@ const Input = React.forwardRef<
         style,
       ]}
       placeholderTextColor={colors.mutedText}
+      editable={editable}
       {...props}
     />
   );

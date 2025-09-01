@@ -213,7 +213,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     zIndex: 10,
     flexDirection: 'row',
-    maxWidth: 'auto',
     alignItems: 'center',
     justifyContent: 'center',
   },

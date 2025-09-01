@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   footerNoteText: {
-    alignItems: 'center',
+    textAlign: 'center',
     fontSize: Platform.OS === 'web' ? 14 : 12,
   },
 });
