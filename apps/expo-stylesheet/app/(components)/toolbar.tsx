@@ -1,6 +1,6 @@
 import * as Toolbar from '@rn-primitives/toolbar';
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Platform } from 'react-native';
 import { AlignCenter, AlignLeft, Bold, Italic } from 'lucide-react-native';
 import { useTheme } from '@react-navigation/native';
 import { type ICustomTheme } from '~/lib/constants';
@@ -9,10 +9,24 @@ export default function ToolbarScreen() {
   const [singleValue, setSingleValue] = React.useState<string>();
   const [multipleValue, setMultipleValue] = React.useState<string[]>([]);
   const { colors } = useTheme() as ICustomTheme;
+  const flattenToolbarRootStyle = StyleSheet.flatten([
+    styles.toolbarRoot,
+    { borderColor: colors.border },
+  ]);
+  const nativeToolbarButtonStyle = ({ pressed }: { pressed: boolean }) => [
+    styles.button,
+    {
+      backgroundColor: pressed ? colors.accent : colors.buttonSecondary,
+    },
+  ];
+  const webToolbarButtonStyle = {
+    ...styles.button,
+    backgroundColor: colors.buttonSecondary,
+  };
 
   return (
     <View style={styles.container}>
-      <Toolbar.Root style={[styles.toolbarRoot, { borderColor: colors.border }]}>
+      <Toolbar.Root style={flattenToolbarRootStyle}>
         {/* Bold & Italic Group */}
         <Toolbar.ToggleGroup
           type='multiple'
@@ -22,23 +36,23 @@ export default function ToolbarScreen() {
         >
           <Toolbar.ToggleItem
             value='bold'
-            style={[
+            style={StyleSheet.flatten([
               styles.item,
               {
                 backgroundColor: multipleValue.includes('bold') ? colors.accent : 'transparent',
               },
-            ]}
+            ])}
           >
             <Bold color={colors.text} />
           </Toolbar.ToggleItem>
           <Toolbar.ToggleItem
             value='italic'
-            style={[
+            style={StyleSheet.flatten([
               styles.item,
               {
                 backgroundColor: multipleValue.includes('italic') ? colors.accent : 'transparent',
               },
-            ]}
+            ])}
           >
             <Italic color={colors.text} />
           </Toolbar.ToggleItem>
@@ -55,23 +69,23 @@ export default function ToolbarScreen() {
         >
           <Toolbar.ToggleItem
             value='left'
-            style={[
+            style={StyleSheet.flatten([
               styles.item,
               {
                 backgroundColor: singleValue === 'left' ? colors.accent : 'transparent',
               },
-            ]}
+            ])}
           >
             <AlignLeft color={colors.text} />
           </Toolbar.ToggleItem>
           <Toolbar.ToggleItem
             value='center'
-            style={[
+            style={StyleSheet.flatten([
               styles.item,
               {
                 backgroundColor: singleValue === 'center' ? colors.accent : 'transparent',
               },
-            ]}
+            ])}
           >
             <AlignCenter color={colors.text} />
           </Toolbar.ToggleItem>
@@ -83,12 +97,7 @@ export default function ToolbarScreen() {
         <View style={styles.flexEnd}>
           <Toolbar.Button
             onPress={() => console.log('Button pressed')}
-            style={({ pressed }) => [
-              styles.button,
-              {
-                backgroundColor: pressed ? colors.accent : colors.buttonSecondary,
-              },
-            ]}
+            style={Platform.OS === 'web' ? webToolbarButtonStyle : nativeToolbarButtonStyle}
           >
             <Text style={[styles.buttonText, { color: colors.text }]}>Button</Text>
           </Toolbar.Button>

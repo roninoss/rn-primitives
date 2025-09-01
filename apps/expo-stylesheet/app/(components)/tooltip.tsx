@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
     height: 64,
   },
   tooltipText: {
-    fontSize: 16,
+    fontSize: Platform.OS === 'web' ? 14 : 16,
   },
 });

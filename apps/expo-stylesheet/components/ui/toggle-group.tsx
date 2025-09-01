@@ -13,8 +13,10 @@ const ToggleGroup = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> & ToggleProps
 >(({ style, variant, size, children, ...props }, ref) => {
+  const flattenStyle = StyleSheet.flatten([styles.group, style]);
+
   return (
-    <ToggleGroupPrimitive.Root ref={ref} style={[styles.group, style]} {...props}>
+    <ToggleGroupPrimitive.Root ref={ref} style={flattenStyle} {...props}>
       <ToggleGroupContext.Provider value={{ variant, size }}>
         {children}
       </ToggleGroupContext.Provider>
@@ -46,6 +48,20 @@ const ToggleGroupItem = React.forwardRef<
   const { colors } = useTheme() as ICustomTheme;
 
   const isSelected = ToggleGroupPrimitive.utils.getIsSelected(value, props.value);
+  const flattenToggleGroupStyle = StyleSheet.flatten([
+    toggleVariants({
+      variant: context.variant || variant,
+      size: context.size || size,
+      colors,
+    }),
+    {
+      backgroundColor: isSelected ? colors.accent : colors.card,
+      borderColor: colors.borderMedium,
+      borderWidth: StyleSheet.hairlineWidth,
+    },
+    props.disabled && { opacity: 0.5 },
+    style,
+  ]);
 
   return (
     <TextClassContext.Provider
@@ -54,24 +70,7 @@ const ToggleGroupItem = React.forwardRef<
         { color: isSelected ? colors.accentText : colors.text },
       ]}
     >
-      <ToggleGroupPrimitive.Item
-        ref={ref}
-        style={[
-          toggleVariants({
-            variant: context.variant || variant,
-            size: context.size || size,
-            colors,
-          }),
-          {
-            backgroundColor: isSelected ? colors.accent : colors.card,
-            borderColor: colors.borderMedium,
-            borderWidth: StyleSheet.hairlineWidth,
-          },
-          props.disabled && { opacity: 0.5 },
-          style,
-        ]}
-        {...props}
-      >
+      <ToggleGroupPrimitive.Item ref={ref} style={flattenToggleGroupStyle} {...props}>
         {children}
       </ToggleGroupPrimitive.Item>
     </TextClassContext.Provider>

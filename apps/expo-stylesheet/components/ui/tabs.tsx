@@ -12,14 +12,9 @@ const TabsList = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
 >(({ style, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const flattenStyle = StyleSheet.flatten([styles.list, { backgroundColor: colors.muted }, style]);
 
-  return (
-    <TabsPrimitive.List
-      ref={ref}
-      style={[styles.list, { backgroundColor: colors.muted }, style]}
-      {...props}
-    />
-  );
+  return <TabsPrimitive.List ref={ref} style={flattenStyle} {...props} />;
 });
 TabsList.displayName = TabsPrimitive.List.displayName;
 
@@ -37,7 +32,7 @@ const TabsTrigger = React.forwardRef<
     >
       <TabsPrimitive.Trigger
         ref={ref}
-        style={[
+        style={StyleSheet.flatten([
           styles.trigger,
           {
             backgroundColor: isActive ? colors.background : 'transparent',
@@ -45,7 +40,7 @@ const TabsTrigger = React.forwardRef<
             opacity: props.disabled ? 0.5 : 1,
           },
           style,
-        ]}
+        ])}
         {...props}
       />
     </TextClassContext.Provider>

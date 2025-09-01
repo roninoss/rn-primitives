@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Platform } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { TextClassContext } from '~/components/ui/text';
 import type { TextRef, ViewRef } from '@rn-primitives/types';
@@ -95,17 +95,18 @@ const styles = StyleSheet.create({
   },
   cardHeader: {
     flexDirection: 'column',
+    gap: 6,
     padding: 24,
   },
   cardTitle: {
     fontSize: 24,
     fontWeight: 600,
-    lineHeight: 28,
+    lineHeight: 24,
     letterSpacing: -0.25,
   },
   cardDescription: {
-    fontSize: 12,
-    lineHeight: 16,
+    fontSize: Platform.OS === 'web' ? 14 : 12,
+    lineHeight: Platform.OS === 'web' ? 20 : 16,
   },
   cardContent: {
     padding: 24,

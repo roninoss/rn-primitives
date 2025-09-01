@@ -88,6 +88,11 @@ const Toggle = React.forwardRef<
     }
 >(({ variant, size, style, textStyle, ...props }, ref) => {
   const { colors } = useTheme() as ICustomTheme;
+  const flattenToggleStyle = StyleSheet.flatten([
+    toggleVariants({ variant, size, colors, style }),
+    props.disabled && { opacity: 0.5 },
+    props.pressed && { backgroundColor: colors.accent },
+  ]);
 
   return (
     <TextClassContext.Provider
@@ -96,15 +101,7 @@ const Toggle = React.forwardRef<
         props.pressed && { color: colors.accentText },
       ]}
     >
-      <TogglePrimitive.Root
-        ref={ref}
-        style={[
-          toggleVariants({ variant, size, colors, style }),
-          props.disabled && { opacity: 0.5 },
-          props.pressed && { backgroundColor: colors.accent },
-        ]}
-        {...props}
-      />
+      <TogglePrimitive.Root ref={ref} style={flattenToggleStyle} {...props} />
     </TextClassContext.Provider>
   );
 });
