@@ -180,13 +180,13 @@ const styles = StyleSheet.create({
   h1: {
     fontSize: Platform.OS === 'web' ? 48 : 36,
     lineHeight: 40,
-    fontWeight: 800,
+    fontWeight: '800',
     letterSpacing: -0.5,
   },
   h2: {
     fontSize: 30,
     lineHeight: 36,
-    fontWeight: 600,
+    fontWeight: '600',
     letterSpacing: -0.25,
     paddingBottom: 8,
     borderBottomWidth: 1,
@@ -194,13 +194,13 @@ const styles = StyleSheet.create({
   h3: {
     fontSize: 24,
     lineHeight: 32,
-    fontWeight: 600,
+    fontWeight: '600',
     letterSpacing: -0.25,
   },
   h4: {
     fontSize: 20,
     lineHeight: 28,
-    fontWeight: 600,
+    fontWeight: '600',
     letterSpacing: -0.25,
   },
   p: {
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3.2,
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: 600,
+    fontWeight: '600',
   },
   lead: {
     fontSize: 20,
@@ -231,11 +231,11 @@ const styles = StyleSheet.create({
   large: {
     fontSize: 20,
     lineHeight: 28,
-    fontWeight: 600,
+    fontWeight: '600',
   },
   small: {
     fontSize: 14,
-    fontWeight: 500,
+    fontWeight: '500',
     lineHeight: 16,
   },
   muted: {

@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: 600,
+    fontWeight: '600',
     letterSpacing: -0.25,
   },
   description: {

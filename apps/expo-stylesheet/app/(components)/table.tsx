@@ -177,12 +177,12 @@ const styles = StyleSheet.create({
   },
   invoiceText: {
     fontSize: Platform.OS === 'web' ? 16 : 14,
-    fontWeight: 500,
+    fontWeight: '500',
   },
   popoverTitle: {
     fontSize: Platform.OS === 'web' ? 24 : 22,
     lineHeight: Platform.OS === 'web' ? 32 : 28,
-    fontWeight: 700,
+    fontWeight: '700',
   },
   popoverDescription: {
     fontSize: Platform.OS === 'web' ? 18 : 16,

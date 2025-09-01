@@ -131,6 +131,6 @@ const styles = StyleSheet.create({
   },
   baseToggleText: {
     fontSize: 14,
-    fontWeight: 500,
+    fontWeight: '500',
   },
 });

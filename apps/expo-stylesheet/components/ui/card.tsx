@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: 24,
-    fontWeight: 600,
+    fontWeight: '600',
     lineHeight: 24,
     letterSpacing: -0.25,
   },

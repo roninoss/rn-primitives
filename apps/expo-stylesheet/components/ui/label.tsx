@@ -29,7 +29,7 @@ export { Label };
 const styles = StyleSheet.create({
   text: {
     fontSize: 14,
-    fontWeight: 500,
+    fontWeight: '500',
     lineHeight: Platform.OS === 'web' ? 16 : 20,
   },
 });

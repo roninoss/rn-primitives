@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   title: {
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: Platform.OS === 'web' ? 16 : 18,
     lineHeight: Platform.OS === 'web' ? 20 : 28,
   },

@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 16,
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: '500',
   },
   featureDescription: {
     fontSize: 14,
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   listItemTitle: {
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: 500,
+    fontWeight: '500',
   },
   listItemDescription: {
     fontSize: 14,

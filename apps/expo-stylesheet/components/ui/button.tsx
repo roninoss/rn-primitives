@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   baseButtonText: {
     fontSize: 16,
-    fontWeight: 500,
+    fontWeight: '500',
   },
   disabled: {
     opacity: 0.5,

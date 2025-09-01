@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   triggerProvider: {
     fontSize: 16,
-    fontWeight: 500,
+    fontWeight: '500',
   },
   triggerHeader: {
     display: 'flex',

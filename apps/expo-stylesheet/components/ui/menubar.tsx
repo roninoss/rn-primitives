@@ -434,7 +434,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     fontSize: 14,
-    fontWeight: 600,
+    fontWeight: '600',
   },
   separator: {
     marginHorizontal: -4,

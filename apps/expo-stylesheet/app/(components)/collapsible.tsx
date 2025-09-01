@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: Platform.OS === 'web' ? 14 : 16,
-    fontWeight: 600,
+    fontWeight: '600',
   },
   card: {
     borderWidth: 1,

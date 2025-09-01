@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     minHeight: 2,
   },
   footer: {
-    fontWeight: 500,
+    fontWeight: '500',
     borderBottomWidth: 0,
   },
   row: {
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     textAlign: 'left',
     justifyContent: 'center',
-    fontWeight: 500,
+    fontWeight: '500',
   },
   cell: {
     padding: 16,

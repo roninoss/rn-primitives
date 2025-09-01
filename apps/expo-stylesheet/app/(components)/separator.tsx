@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 14,
     lineHeight: Platform.OS === 'web' ? 16 : 20,
-    fontWeight: 500,
+    fontWeight: '500',
   },
   headerDescription: {
     fontSize: 14,
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
   },
   smallText: {
     fontSize: Platform.OS === 'web' ? 14 : 12,
-    fontWeight: 400,
+    fontWeight: '400',
   },
 });

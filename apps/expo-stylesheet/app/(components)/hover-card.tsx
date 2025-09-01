@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   username: {
     fontSize: 14,
-    fontWeight: 600,
+    fontWeight: '600',
   },
   description: {
     fontSize: 14,

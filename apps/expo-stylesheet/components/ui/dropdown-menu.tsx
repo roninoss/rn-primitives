@@ -235,7 +235,7 @@ const DropdownMenuLabel = React.forwardRef<
       paddingHorizontal: 8,
       paddingVertical: 6,
       fontSize: 14,
-      fontWeight: 600,
+      fontWeight: '600',
       color: colors.text,
     },
     inset && { paddingLeft: 32 },
