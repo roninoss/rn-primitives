@@ -21,7 +21,7 @@ A modal dialog that interrupts the user with important content and expects a res
 <Tabs>
   <TabItem label="NPM">
 
-  Install the component via your command line.
+Install the component via your command line.
 
     ```bash
     npx expo install @rn-primitives/dialog
@@ -86,21 +86,21 @@ A modal dialog that interrupts the user with important content and expects a res
 
 <Aside type="caution">
 
-  Requires a `<PortalHost />` as the last child of your `<Root/>` (`app/_layout.tsx`) component
+Requires a `<PortalHost />` as the last child of your `<Root/>` (`app/_layout.tsx`) component
 
-  ```tsx
-  import { PortalHost } from '@rn-primitives/portal';
+```tsx
+import { PortalHost } from '@rn-primitives/portal';
 
-  function Root() {
-    return (
-      <>
-        <Stack />
-        {/* Default Portal Host (one per app) */}
-        <PortalHost />
-      </>
-    );
-  }
-  ```
+function Root() {
+  return (
+    <>
+      <Stack />
+      {/* Default Portal Host (one per app) */}
+      <PortalHost />
+    </>
+  );
+}
+```
 
 </Aside>
 
@@ -118,7 +118,7 @@ function Example() {
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay>
           <DialogPrimitive.Content>
-              <DialogPrimitive.Title>Dialog Title</DialogPrimitive.Title>
+            <DialogPrimitive.Title>Dialog Title</DialogPrimitive.Title>
               <DialogPrimitive.Description>
                 Dialog description.
               </DialogPrimitive.Description>
@@ -137,12 +137,13 @@ function Example() {
 
 Extends [`View`](https://reactnative.dev/docs/view#props) props
 
-|     Prop     |           Type           |     Note     |
-| :----------: | :----------------------: | :----------: |
-|   asChild    |         boolean          | _(optional)_ |
-|     open     |         boolean          | _(optional)_ |
-| onOpenChange | (value: boolean) => void | _(optional)_ |
-| defaultOpen  |         boolean          | _(optional)_ |
+|       Prop       |           Type           |           Note           |
+| :--------------: | :----------------------: | :----------------------: |
+|     asChild      |         boolean          |       _(optional)_       |
+|       open       |         boolean          |       _(optional)_       |
+|   onOpenChange   | (value: boolean) => void |       _(optional)_       |
+|   defaultOpen    |         boolean          |       _(optional)_       |
+| closeOnBackPress |         boolean          | Native Only _(optional)_ |
 
 ### Trigger
 
