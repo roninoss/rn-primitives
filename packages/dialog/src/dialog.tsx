@@ -25,7 +25,17 @@ import type {
 const DialogContext = React.createContext<(RootContext & { nativeID: string }) | null>(null);
 
 const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, open: openProp, defaultOpen, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
+  (
+    {
+      asChild,
+      open: openProp,
+      defaultOpen,
+      onOpenChange: onOpenChangeProp,
+      closeOnBackPress = true,
+      ...viewProps
+    },
+    ref
+  ) => {
     const nativeID = React.useId();
     const [open = false, onOpenChange] = useControllableState({
       prop: openProp,
@@ -40,6 +50,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
           open,
           onOpenChange,
           nativeID,
+          closeOnBackPress,
         }}
       >
         <Component ref={ref} {...viewProps} />
@@ -130,18 +141,20 @@ Overlay.displayName = 'OverlayNativeDialog';
 
 const Content = React.forwardRef<ContentRef, ContentProps>(
   ({ asChild, forceMount, ...props }, ref) => {
-    const { open, nativeID, onOpenChange } = useRootContext();
+    const { open, nativeID, onOpenChange, closeOnBackPress } = useRootContext();
 
     React.useEffect(() => {
       const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-        onOpenChange(false);
+        if (closeOnBackPress) {
+          onOpenChange(false);
+        }
         return true;
       });
 
       return () => {
         backHandler.remove();
       };
-    }, []);
+    }, [closeOnBackPress]);
 
     if (!forceMount) {
       if (!open) {
