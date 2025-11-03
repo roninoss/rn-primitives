@@ -35,17 +35,12 @@ interface IRootContext extends SharedRootContext {
 
 const RootContext = React.createContext<IRootContext | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
+function Root({ ref, asChild,
       openDelay: _openDelay,
       closeDelay: _closeDelay,
       onOpenChange: onOpenChangeProp,
       ...viewProps
-    },
-    ref
-  ) => {
+     }: RootProps & { ref?: React.Ref<RootRef> }) {
     const nativeID = React.useId();
     const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
     const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
@@ -73,7 +68,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </RootContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeHoverCard';
 
@@ -87,8 +81,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...props  }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const { open, onOpenChange, setTriggerPosition } = useRootContext();
 
     const augmentedRef = useAugmentedRef({
@@ -129,7 +122,6 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeHoverCard';
 
@@ -156,8 +148,7 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props }, ref) => {
+function Overlay({ ref, asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props  }: OverlayProps & { ref?: React.Ref<OverlayRef> }) {
     const { open, onOpenChange, setTriggerPosition, setContentLayout } = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -178,17 +169,13 @@ const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} onPress={onPress} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayNativeHoverCard';
 
 /**
  * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
  */
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
+function Content({ ref, asChild = false,
       forceMount,
       align = 'start',
       side = 'bottom',
@@ -200,9 +187,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       style,
       disablePositioningStyle,
       ...props
-    },
-    ref
-  ) => {
+     }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const {
       open,
       onOpenChange,
@@ -264,7 +249,6 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeHoverCard';
 

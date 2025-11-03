@@ -22,24 +22,22 @@ const RootContext = React.createContext<{
   onOpenChange: (open: boolean) => void;
 } | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps & { onOpenChange?: (open: boolean) => void }>(
-  ({ asChild, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
-    const [open, setOpen] = React.useState(false);
+function Root({ ref, asChild, onOpenChange: onOpenChangeProp, ...viewProps }: (RootProps & { onOpenChange?: (open: boolean) => void }) & { ref?: React.Ref<RootRef> }) {
+  const [open, setOpen] = React.useState(false);
 
-    function onOpenChange(value: boolean) {
-      setOpen(value);
-      onOpenChangeProp?.(value);
-    }
-    const Component = asChild ? Slot.View : View;
-    return (
-      <RootContext.Provider value={{ open, onOpenChange }}>
-        <Popover.Root open={open} onOpenChange={onOpenChange}>
-          <Component ref={ref} {...viewProps} />
-        </Popover.Root>
-      </RootContext.Provider>
-    );
+  function onOpenChange(value: boolean) {
+    setOpen(value);
+    onOpenChangeProp?.(value);
   }
-);
+  const Component = asChild ? Slot.View : View;
+  return (
+    <RootContext.Provider value={{ open, onOpenChange }}>
+      <Popover.Root open={open} onOpenChange={onOpenChange}>
+        <Component ref={ref} {...viewProps} />
+      </Popover.Root>
+    </RootContext.Provider>
+  );
+}
 
 Root.displayName = 'RootWebPopover';
 
@@ -51,8 +49,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, role: _role, disabled, ...props }, ref) => {
+function Trigger({ ref, asChild, onPress: onPressProp, role: _role, disabled, ...props  }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const { onOpenChange, open } = useRootContext();
     const augmentedRef = useAugmentedRef({
       ref,
@@ -93,7 +90,6 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       </Popover.Trigger>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebPopover';
 
@@ -101,19 +97,14 @@ function Portal({ forceMount, container, children }: PortalProps) {
   return <Popover.Portal forceMount={forceMount} children={children} container={container} />;
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Overlay({ ref, asChild, forceMount, ...props  }: OverlayProps & { ref?: React.Ref<OverlayRef> }) {
     const Component = asChild ? Slot.Pressable : Pressable;
     return <Component ref={ref} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayWebPopover';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
+function Content({ ref, asChild = false,
       forceMount,
       align = 'start',
       side = 'bottom',
@@ -128,9 +119,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       onPointerDownOutside,
       onOpenAutoFocus,
       ...props
-    },
-    ref
-  ) => {
+     }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const Component = asChild ? Slot.View : View;
     return (
       <Popover.Content
@@ -150,12 +139,10 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       </Popover.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebPopover';
 
-const Close = React.forwardRef<CloseRef, CloseProps>(
-  ({ asChild, onPress: onPressProp, disabled, ...props }, ref) => {
+function Close({ ref, asChild, onPress: onPressProp, disabled, ...props  }: CloseProps & { ref?: React.Ref<CloseRef> }) {
     const augmentedRef = useAugmentedRef({ ref });
     const { onOpenChange, open } = useRootContext();
 
@@ -188,7 +175,6 @@ const Close = React.forwardRef<CloseRef, CloseProps>(
       </>
     );
   }
-);
 
 Close.displayName = 'CloseWebPopover';
 

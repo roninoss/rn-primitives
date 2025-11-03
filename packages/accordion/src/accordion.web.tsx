@@ -22,10 +22,7 @@ import type {
 
 const AccordionContext = React.createContext<RootProps | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
+function Root({ ref, asChild,
       value: valueProp,
       onValueChange: onValueChangeProps,
       defaultValue,
@@ -35,9 +32,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
       orientation = 'vertical',
       collapsible,
       ...props
-    },
-    ref
-  ) => {
+     }: RootProps & { ref?: React.Ref<RootRef> }) {
     const [value = type === 'multiple' ? [] : undefined, onValueChange] = useControllableState<
       (string | undefined) | string[]
     >({
@@ -75,7 +70,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </AccordionContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebAccordion';
 
@@ -93,8 +87,7 @@ const AccordionItemContext = React.createContext<(ItemProps & { isExpanded: bool
   null
 );
 
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  ({ asChild, value: itemValue, disabled, ...props }, ref) => {
+function Item({ ref, asChild, value: itemValue, disabled, ...props  }: ItemProps & { ref?: React.Ref<ItemRef> }) {
     const augmentedRef = useAugmentedRef({ ref });
     const { value, orientation, disabled: disabledRoot } = useRootContext();
 
@@ -133,7 +126,6 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
       </AccordionItemContext.Provider>
     );
   }
-);
 
 Item.displayName = 'ItemWebAccordion';
 
@@ -147,7 +139,7 @@ function useItemContext() {
   return context;
 }
 
-const Header = React.forwardRef<HeaderRef, HeaderProps>(({ asChild, ...props }, ref) => {
+function Header({ ref, asChild, ...props  }: HeaderProps & { ref?: React.Ref<HeaderRef> }) {
   const augmentedRef = useAugmentedRef({ ref });
   const { disabled, isExpanded } = useItemContext();
   const { orientation, disabled: disabledRoot } = useRootContext();
@@ -177,7 +169,7 @@ const Header = React.forwardRef<HeaderRef, HeaderProps>(({ asChild, ...props }, 
       <Component ref={augmentedRef} {...props} />
     </Accordion.Header>
   );
-});
+}
 
 Header.displayName = 'HeaderWebAccordion';
 
@@ -189,8 +181,7 @@ const HIDDEN_STYLE: React.CSSProperties = {
   opacity: 0,
 };
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, disabled: disabledProp, ...props }, ref) => {
+function Trigger({ ref, asChild, disabled: disabledProp, ...props  }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const { disabled: disabledRoot } = useRootContext();
     const { disabled, isExpanded } = useItemContext();
     const triggerRef = React.useRef<HTMLButtonElement>(null);
@@ -246,12 +237,10 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       </>
     );
   }
-);
 
 Trigger.displayName = 'TriggerWebAccordion';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Content({ ref, asChild, forceMount, ...props  }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const augmentedRef = useAugmentedRef({ ref });
 
     const { orientation, disabled: disabledRoot } = useRootContext();
@@ -283,7 +272,6 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       </Accordion.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebAccordion';
 

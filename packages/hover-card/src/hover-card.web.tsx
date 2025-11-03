@@ -18,8 +18,7 @@ import type {
 
 const HoverCardContext = React.createContext<SharedRootContext | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, openDelay, closeDelay, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
+function Root({ ref, asChild, openDelay, closeDelay, onOpenChange: onOpenChangeProp, ...viewProps  }: RootProps & { ref?: React.Ref<RootRef> }) {
     const [open, setOpen] = React.useState(false);
 
     function onOpenChange(value: boolean) {
@@ -41,7 +40,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </HoverCardContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootWebHoverCard';
 
@@ -55,7 +53,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(({ asChild, ...props }, ref) => {
+function Trigger({ ref, asChild, ...props  }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
   const { onOpenChange } = useRootContext();
   const augmentedRef = useAugmentedRef({
     ref,
@@ -75,7 +73,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(({ asChild, ...props 
       <Component ref={augmentedRef} {...props} />
     </HoverCard.Trigger>
   );
-});
+}
 
 Trigger.displayName = 'TriggerWebHoverCard';
 
@@ -83,17 +81,14 @@ function Portal({ forceMount, container, children }: PortalProps) {
   return <HoverCard.Portal forceMount={forceMount} container={container} children={children} />;
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(({ asChild, ...props }, ref) => {
+function Overlay({ ref, asChild, ...props  }: OverlayProps & { ref?: React.Ref<OverlayRef> }) {
   const Component = asChild ? Slot.Pressable : Pressable;
   return <Component ref={ref} {...props} />;
-});
+}
 
 Overlay.displayName = 'OverlayWebHoverCard';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
+function Content({ ref, asChild = false,
       forceMount,
       align,
       side,
@@ -111,9 +106,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       sticky,
       hideWhenDetached,
       ...props
-    },
-    ref
-  ) => {
+     }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <HoverCard.Content
@@ -136,7 +129,6 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       </HoverCard.Content>
     );
   }
-);
 
 Content.displayName = 'ContentWebHoverCard';
 
