@@ -26,8 +26,7 @@ import type {
 
 const AlertDialogContext = React.createContext<(RootContext & { nativeID: string }) | null>(null);
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, open: openProp, defaultOpen, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
+function Root({ ref, asChild, open: openProp, defaultOpen, onOpenChange: onOpenChangeProp, ...viewProps }: RootProps & { ref?: React.Ref<RootRef> }) {
     const nativeID = React.useId();
     const [open = false, onOpenChange] = useControllableState({
       prop: openProp,
@@ -47,7 +46,6 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </AlertDialogContext.Provider>
     );
   }
-);
 
 Root.displayName = 'RootNativeAlertDialog';
 
@@ -61,8 +59,7 @@ function useRootContext() {
   return context;
 }
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+function Trigger({ ref, asChild, onPress: onPressProp, disabled = false, ...props }: TriggerProps & { ref?: React.Ref<TriggerRef> }) {
     const { open: value, onOpenChange } = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -82,7 +79,6 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       />
     );
   }
-);
 
 Trigger.displayName = 'TriggerNativeAlertDialog';
 
@@ -105,8 +101,7 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
   );
 }
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Overlay({ ref, asChild, forceMount, ...props }: OverlayProps & { ref?: React.Ref<OverlayRef> }) {
     const { open: value } = useRootContext();
 
     if (!forceMount) {
@@ -118,12 +113,10 @@ const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} {...props} />;
   }
-);
 
 Overlay.displayName = 'OverlayNativeAlertDialog';
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
+function Content({ ref, asChild, forceMount, ...props }: ContentProps & { ref?: React.Ref<ContentRef> }) {
     const { open: value, nativeID, onOpenChange } = useRootContext();
 
     React.useEffect(() => {
@@ -156,12 +149,10 @@ const Content = React.forwardRef<ContentRef, ContentProps>(
       />
     );
   }
-);
 
 Content.displayName = 'ContentNativeAlertDialog';
 
-const Cancel = React.forwardRef<CancelRef, CancelProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+function Cancel({ ref, asChild, onPress: onPressProp, disabled = false, ...props }: CancelProps & { ref?: React.Ref<CancelRef> }) {
     const { onOpenChange } = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -182,12 +173,10 @@ const Cancel = React.forwardRef<CancelRef, CancelProps>(
       />
     );
   }
-);
 
 Cancel.displayName = 'CloseNativeAlertDialog';
 
-const Action = React.forwardRef<ActionRef, ActionProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+function Action({ ref, asChild, onPress: onPressProp, disabled = false, ...props }: ActionProps & { ref?: React.Ref<ActionRef> }) {
     const { onOpenChange } = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -208,25 +197,22 @@ const Action = React.forwardRef<ActionRef, ActionProps>(
       />
     );
   }
-);
 
 Action.displayName = 'ActionNativeAlertDialog';
 
-const Title = React.forwardRef<TitleRef, TitleProps>(({ asChild, ...props }, ref) => {
+function Title({ ref, asChild, ...props }: TitleProps & { ref?: React.Ref<TitleRef> }) {
   const { nativeID } = useRootContext();
   const Component = asChild ? Slot.Text : Text;
   return <Component ref={ref} role='heading' nativeID={`${nativeID}_label`} {...props} />;
-});
+}
 
 Title.displayName = 'TitleNativeAlertDialog';
 
-const Description = React.forwardRef<DescriptionRef, DescriptionProps>(
-  ({ asChild, ...props }, ref) => {
+function Description({ ref, asChild, ...props }: DescriptionProps & { ref?: React.Ref<DescriptionRef> }) {
     const { nativeID } = useRootContext();
     const Component = asChild ? Slot.Text : Text;
     return <Component ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
   }
-);
 
 Description.displayName = 'DescriptionNativeAlertDialog';
 

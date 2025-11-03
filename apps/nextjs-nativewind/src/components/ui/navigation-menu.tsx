@@ -70,8 +70,8 @@ const NavigationMenuTrigger = React.forwardRef<
         />
       </View>
     </NavigationMenuPrimitive.Trigger>
-  );
-});
+  }
+
 NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName;
 
 const NavigationMenuContent = React.forwardRef<
@@ -98,8 +98,8 @@ const NavigationMenuContent = React.forwardRef<
         {children}
       </NavigationMenuPrimitive.Content>
     </NavigationMenuPrimitive.Portal>
-  );
-});
+  }
+
 NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 
 const NavigationMenuLink = NavigationMenuPrimitive.Link;
@@ -121,8 +121,8 @@ const NavigationMenuViewport = React.forwardRef<
         <NavigationMenuPrimitive.Viewport />
       </View>
     </View>
-  );
-});
+  }
+
 NavigationMenuViewport.displayName = NavigationMenuPrimitive.Viewport.displayName;
 
 const NavigationMenuIndicator = React.forwardRef<
@@ -144,8 +144,8 @@ const NavigationMenuIndicator = React.forwardRef<
     >
       <View className='relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md shadow-foreground/5' />
     </NavigationMenuPrimitive.Indicator>
-  );
-});
+  }
+
 NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName;
 
 export {

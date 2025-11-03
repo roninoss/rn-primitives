@@ -4,19 +4,16 @@ import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type { RootProps, RootRef, ThumbProps, ThumbRef } from './types';
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
-      checked,
-      onCheckedChange,
-      disabled,
-      onPress: onPressProp,
-      onKeyDown: onKeyDownProp,
-      ...props
-    },
-    ref
-  ) => {
+function Root({
+  ref,
+  asChild,
+  checked,
+  onCheckedChange,
+  disabled,
+  onPress: onPressProp,
+  onKeyDown: onKeyDownProp,
+  ...props
+}: RootProps & { ref?: React.Ref<RootRef> }) {
     function onPress(ev: GestureResponderEvent) {
       onCheckedChange(!checked);
       onPressProp?.(ev);
@@ -43,18 +40,17 @@ const Root = React.forwardRef<RootRef, RootProps>(
       </Switch.Root>
     );
   }
-);
 
 Root.displayName = 'RootWebSwitch';
 
-const Thumb = React.forwardRef<ThumbRef, ThumbProps>(({ asChild, ...props }, ref) => {
+function Thumb({ ref, asChild, ...props }: ThumbProps & { ref?: React.Ref<ThumbRef> }) {
   const Component = asChild ? Slot.View : View;
   return (
     <Switch.Thumb asChild>
       <Component ref={ref} {...props} />
     </Switch.Thumb>
   );
-});
+}
 
 Thumb.displayName = 'ThumbWebSwitch';
 

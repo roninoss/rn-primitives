@@ -85,8 +85,8 @@ const SwitchNative = React.forwardRef<
         </Animated.View>
       </SwitchPrimitives.Root>
     </Animated.View>
-  );
-});
+  }
+
 SwitchNative.displayName = 'SwitchNative';
 
 const Switch = Platform.select({

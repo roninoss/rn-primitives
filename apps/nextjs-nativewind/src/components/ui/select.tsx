@@ -113,8 +113,8 @@ const SelectContent = React.forwardRef<
         </SelectPrimitive.Content>
       </Animated.View>
     </SelectPrimitive.Overlay>
-  );
-});
+  }
+
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
 const SelectLabel = React.forwardRef<

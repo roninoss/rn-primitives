@@ -38,8 +38,8 @@ const HoverCardContent = React.forwardRef<
         </Animated.View>
       </HoverCardPrimitive.Overlay>
     </HoverCardPrimitive.Portal>
-  );
-});
+  }
+
 HoverCardContent.displayName = HoverCardPrimitive.Content.displayName;
 
 export { HoverCard, HoverCardContent, HoverCardTrigger };

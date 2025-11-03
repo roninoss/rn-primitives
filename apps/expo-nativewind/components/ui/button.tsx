@@ -79,9 +79,8 @@ const Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>
           {...props}
         />
       </TextClassContext.Provider>
-    );
-  }
-);
+    }
+
 Button.displayName = 'Button';
 
 export { Button, buttonTextVariants, buttonVariants };
