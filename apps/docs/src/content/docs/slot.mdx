@@ -44,11 +44,11 @@ Merges its props onto its immediate child.
 ```tsx
 import * as Slot from '@rn-primitives/slot';
 
-function CustomView({ isChild = true }) {
-  const Component = isChild ? Slot.View : View;
+function CustomView({ asChild = true }) {
+  const Component = asChild ? Slot.View : View;
   return (
     <Component className="bg-red-500">
-      {/* The `className` is passed down to the `View` with `key="x"` when `isChild` is `true` */}
+      {/* The `className` is passed down to the `View` with `key="x"` when `asChild` is `true` */}
       <View key="x" />
     </Component>
   );
