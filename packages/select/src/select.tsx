@@ -1,11 +1,11 @@
 import {
-  useAugmentedRef,
+  useComposedRefs,
   useControllableState,
   useRelativePosition,
   type LayoutPosition,
 } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import {
   BackHandler,
@@ -57,56 +57,53 @@ interface IRootContext extends SharedRootContext {
 }
 
 const RootContext = React.createContext<IRootContext | null>(null);
+type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
-      value: valueProp,
-      defaultValue,
-      onValueChange: onValueChangeProp,
-      onOpenChange: onOpenChangeProp,
-      disabled,
-      ...viewProps
-    },
-    ref
-  ) => {
-    const nativeID = React.useId();
-    const [value, onValueChange] = useControllableState({
-      prop: valueProp,
-      defaultProp: defaultValue,
-      onChange: onValueChangeProp,
-    });
-    const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
-    const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
-    const [open, setOpen] = React.useState(false);
+const Root = ({
+  asChild,
+  value: valueProp,
+  defaultValue,
+  onValueChange: onValueChangeProp,
+  onOpenChange: onOpenChangeProp,
+  disabled,
+  ref,
+  ...viewProps
+}: RootComponentProps) => {
+  const nativeID = React.useId();
+  const [value, onValueChange] = useControllableState({
+    prop: valueProp,
+    defaultProp: defaultValue,
+    onChange: onValueChangeProp,
+  });
+  const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
+  const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
+  const [open, setOpen] = React.useState(false);
 
-    function onOpenChange(value: boolean) {
-      setOpen(value);
-      onOpenChangeProp?.(value);
-    }
-
-    const Component = asChild ? Slot.View : View;
-    return (
-      <RootContext.Provider
-        value={{
-          value,
-          onValueChange,
-          open,
-          onOpenChange,
-          disabled,
-          contentLayout,
-          nativeID,
-          setContentLayout,
-          setTriggerPosition,
-          triggerPosition,
-        }}
-      >
-        <Component ref={ref} {...viewProps} />
-      </RootContext.Provider>
-    );
+  function onOpenChange(value: boolean) {
+    setOpen(value);
+    onOpenChangeProp?.(value);
   }
-);
+
+  const Component = asChild ? Slot : View;
+  return (
+    <RootContext.Provider
+      value={{
+        value,
+        onValueChange,
+        open,
+        onOpenChange,
+        disabled,
+        contentLayout,
+        nativeID,
+        setContentLayout,
+        setTriggerPosition,
+        triggerPosition,
+      }}
+    >
+      <Component ref={ref} {...viewProps} />
+    </RootContext.Provider>
+  );
+};
 
 Root.displayName = 'RootNativeSelect';
 
@@ -117,62 +114,79 @@ function useRootContext() {
   }
   return context;
 }
+type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
-    const { open, onOpenChange, disabled: disabledRoot, setTriggerPosition } = useRootContext();
+const Trigger = ({
+  asChild,
+  onPress: onPressProp,
+  disabled = false,
+  ref,
+  ...props
+}: TriggerComponentProps) => {
+  const { open, onOpenChange, disabled: disabledRoot, setTriggerPosition } = useRootContext();
+  const triggerRef = React.useRef<TriggerRef>(null);
+  const composedRef = useComposedRefs(triggerRef);
 
-    const augmentedRef = useAugmentedRef({
-      ref,
-      methods: {
-        open: () => {
-          onOpenChange(true);
-          augmentedRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
-            setTriggerPosition({ width, pageX, pageY: pageY, height });
-          });
-        },
-        close: () => {
-          setTriggerPosition(null);
-          onOpenChange(false);
-        },
-      },
+  function measureTrigger() {
+    triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+      setTriggerPosition({ width, pageX, pageY: pageY, height });
     });
-
-    function onPress(ev: GestureResponderEvent) {
-      if (disabled) return;
-      augmentedRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
-        setTriggerPosition({ width, pageX, pageY: pageY, height });
-      });
-      onOpenChange(!open);
-      onPressProp?.(ev);
-    }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <Component
-        ref={augmentedRef}
-        aria-disabled={disabled ?? undefined}
-        role='combobox'
-        onPress={onPress}
-        disabled={disabled ?? disabledRoot}
-        aria-expanded={open}
-        {...props}
-      />
-    );
   }
-);
+
+  function openTrigger() {
+    onOpenChange(true);
+    measureTrigger();
+  }
+
+  function closeTrigger() {
+    setTriggerPosition(null);
+    onOpenChange(false);
+  }
+
+  React.useImperativeHandle(
+    ref,
+    () =>
+      ({
+        ...(triggerRef.current ?? {}),
+        open: openTrigger,
+        close: closeTrigger,
+      } as TriggerRef),
+    [onOpenChange, setTriggerPosition]
+  );
+
+  function onPress(ev: GestureResponderEvent) {
+    if (disabled) return;
+    measureTrigger();
+    onOpenChange(!open);
+    onPressProp?.(ev);
+  }
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <Component
+      ref={composedRef}
+      aria-disabled={disabled ?? undefined}
+      role='combobox'
+      onPress={onPress}
+      disabled={disabled ?? disabledRoot}
+      aria-expanded={open}
+      {...props}
+    />
+  );
+};
 
 Trigger.displayName = 'TriggerNativeSelect';
+type ValueComponentProps = ValueProps & React.RefAttributes<ValueRef>;
 
-const Value = React.forwardRef<ValueRef, ValueProps>(({ asChild, placeholder, ...props }, ref) => {
+const Value = ({ asChild, placeholder, ref, ...props }: ValueComponentProps) => {
   const { value } = useRootContext();
-  const Component = asChild ? Slot.Text : Text;
+  const Component = asChild ? Slot : Text;
   return (
     <Component ref={ref} {...props}>
       {value?.label ?? placeholder}
     </Component>
   );
-});
+};
 
 Value.displayName = 'ValueNativeSelect';
 
@@ -198,117 +212,117 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
     </RNPPortal>
   );
 }
+type OverlayComponentProps = OverlayProps & React.RefAttributes<OverlayRef>;
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props }, ref) => {
-    const { open, onOpenChange, setTriggerPosition, setContentLayout } = useRootContext();
+const Overlay = ({
+  asChild,
+  forceMount,
+  onPress: OnPressProp,
+  closeOnPress = true,
+  ref,
+  ...props
+}: OverlayComponentProps) => {
+  const { open, onOpenChange, setTriggerPosition, setContentLayout } = useRootContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      if (closeOnPress) {
-        setTriggerPosition(null);
-        setContentLayout(null);
-        onOpenChange(false);
-      }
-      OnPressProp?.(ev);
+  function onPress(ev: GestureResponderEvent) {
+    if (closeOnPress) {
+      setTriggerPosition(null);
+      setContentLayout(null);
+      onOpenChange(false);
     }
-
-    if (!forceMount) {
-      if (!open) {
-        return null;
-      }
-    }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} onPress={onPress} {...props} />;
+    OnPressProp?.(ev);
   }
-);
+
+  if (!forceMount) {
+    if (!open) {
+      return null;
+    }
+  }
+
+  const Component = asChild ? Slot : Pressable;
+  return <Component ref={ref} onPress={onPress} {...props} />;
+};
 
 Overlay.displayName = 'OverlayNativeSelect';
+type ContentComponentProps = ContentProps & React.RefAttributes<ContentRef>;
 
-/**
- * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
- */
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
-      forceMount,
-      align = 'start',
-      side = 'bottom',
-      sideOffset = 0,
-      alignOffset = 0,
-      avoidCollisions = true,
-      onLayout: onLayoutProp,
-      insets,
-      style,
-      disablePositioningStyle,
-      position: _position,
-      ...props
-    },
-    ref
-  ) => {
-    const {
-      open,
-      onOpenChange,
-      contentLayout,
-      nativeID,
-      triggerPosition,
-      setContentLayout,
-      setTriggerPosition,
-    } = useRootContext();
+const Content = ({
+  asChild = false,
+  forceMount,
+  align = 'start',
+  side = 'bottom',
+  sideOffset = 0,
+  alignOffset = 0,
+  avoidCollisions = true,
+  onLayout: onLayoutProp,
+  insets,
+  style,
+  disablePositioningStyle,
+  position: _position,
+  ref,
+  ...props
+}: ContentComponentProps) => {
+  const {
+    open,
+    onOpenChange,
+    contentLayout,
+    nativeID,
+    triggerPosition,
+    setContentLayout,
+    setTriggerPosition,
+  } = useRootContext();
 
-    React.useEffect(() => {
-      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-        setTriggerPosition(null);
-        setContentLayout(null);
-        onOpenChange(false);
-        return true;
-      });
-
-      return () => {
-        setContentLayout(null);
-        backHandler.remove();
-      };
-    }, []);
-
-    const positionStyle = useRelativePosition({
-      align,
-      avoidCollisions,
-      triggerPosition,
-      contentLayout,
-      alignOffset,
-      insets,
-      sideOffset,
-      side,
-      disablePositioningStyle,
+  React.useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      setTriggerPosition(null);
+      setContentLayout(null);
+      onOpenChange(false);
+      return true;
     });
 
-    function onLayout(event: LayoutChangeEvent) {
-      setContentLayout(event.nativeEvent.layout);
-      onLayoutProp?.(event);
-    }
+    return () => {
+      setContentLayout(null);
+      backHandler.remove();
+    };
+  }, []);
 
-    if (!forceMount) {
-      if (!open) {
-        return null;
-      }
-    }
+  const positionStyle = useRelativePosition({
+    align,
+    avoidCollisions,
+    triggerPosition,
+    contentLayout,
+    alignOffset,
+    insets,
+    sideOffset,
+    side,
+    disablePositioningStyle,
+  });
 
-    const Component = asChild ? Slot.View : View;
-    return (
-      <Component
-        ref={ref}
-        role='list'
-        nativeID={nativeID}
-        aria-modal={true}
-        style={[positionStyle, style]}
-        onLayout={onLayout}
-        onStartShouldSetResponder={onStartShouldSetResponder}
-        {...props}
-      />
-    );
+  function onLayout(event: LayoutChangeEvent) {
+    setContentLayout(event.nativeEvent.layout);
+    onLayoutProp?.(event);
   }
-);
+
+  if (!forceMount) {
+    if (!open) {
+      return null;
+    }
+  }
+
+  const Component = asChild ? Slot : View;
+  return (
+    <Component
+      ref={ref}
+      role='list'
+      nativeID={nativeID}
+      aria-modal={true}
+      style={[positionStyle, style]}
+      onLayout={onLayout}
+      onStartShouldSetResponder={onStartShouldSetResponder}
+      {...props}
+    />
+  );
+};
 
 Content.displayName = 'ContentNativeSelect';
 
@@ -316,54 +330,51 @@ const ItemContext = React.createContext<{
   itemValue: string;
   label: string;
 } | null>(null);
+type ItemComponentProps = ItemProps & React.RefAttributes<ItemRef>;
 
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  (
-    {
-      asChild,
-      value: itemValue,
-      label,
-      onPress: onPressProp,
-      disabled = false,
-      closeOnPress = true,
-      ...props
-    },
-    ref
-  ) => {
-    const { onOpenChange, value, onValueChange, setTriggerPosition, setContentLayout } =
-      useRootContext();
-    function onPress(ev: GestureResponderEvent) {
-      if (closeOnPress) {
-        setTriggerPosition(null);
-        setContentLayout(null);
-        onOpenChange(false);
-      }
-
-      onValueChange({ value: itemValue, label });
-      onPressProp?.(ev);
+const Item = ({
+  asChild,
+  value: itemValue,
+  label,
+  onPress: onPressProp,
+  disabled = false,
+  closeOnPress = true,
+  ref,
+  ...props
+}: ItemComponentProps) => {
+  const { onOpenChange, value, onValueChange, setTriggerPosition, setContentLayout } =
+    useRootContext();
+  function onPress(ev: GestureResponderEvent) {
+    if (closeOnPress) {
+      setTriggerPosition(null);
+      setContentLayout(null);
+      onOpenChange(false);
     }
 
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <ItemContext.Provider value={{ itemValue, label }}>
-        <Component
-          ref={ref}
-          role='option'
-          onPress={onPress}
-          disabled={disabled}
-          aria-checked={value?.value === itemValue}
-          aria-valuetext={label}
-          aria-disabled={!!disabled}
-          accessibilityState={{
-            disabled: !!disabled,
-            checked: value?.value === itemValue,
-          }}
-          {...props}
-        />
-      </ItemContext.Provider>
-    );
+    onValueChange({ value: itemValue, label });
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <ItemContext.Provider value={{ itemValue, label }}>
+      <Component
+        ref={ref}
+        role='option'
+        onPress={onPress}
+        disabled={disabled}
+        aria-checked={value?.value === itemValue}
+        aria-valuetext={label}
+        aria-disabled={!!disabled}
+        accessibilityState={{
+          disabled: !!disabled,
+          checked: value?.value === itemValue,
+        }}
+        {...props}
+      />
+    </ItemContext.Provider>
+  );
+};
 
 Item.displayName = 'ItemNativeSelect';
 
@@ -374,57 +385,58 @@ function useItemContext() {
   }
   return context;
 }
+type ItemTextComponentProps = ItemTextProps & React.RefAttributes<ItemTextRef>;
 
-const ItemText = React.forwardRef<ItemTextRef, ItemTextProps>(({ asChild, ...props }, ref) => {
+const ItemText = ({ asChild, ref, ...props }: ItemTextComponentProps) => {
   const { label } = useItemContext();
 
-  const Component = asChild ? Slot.Text : Text;
+  const Component = asChild ? Slot : Text;
   return (
     <Component ref={ref} {...props}>
       {label}
     </Component>
   );
-});
+};
 
 ItemText.displayName = 'ItemTextNativeSelect';
+type ItemIndicatorComponentProps = ItemIndicatorProps & React.RefAttributes<ItemIndicatorRef>;
 
-const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
-    const { itemValue } = useItemContext();
-    const { value } = useRootContext();
+const ItemIndicator = ({ asChild, forceMount, ref, ...props }: ItemIndicatorComponentProps) => {
+  const { itemValue } = useItemContext();
+  const { value } = useRootContext();
 
-    if (!forceMount) {
-      if (value?.value !== itemValue) {
-        return null;
-      }
+  if (!forceMount) {
+    if (value?.value !== itemValue) {
+      return null;
     }
-    const Component = asChild ? Slot.View : View;
-    return <Component ref={ref} role='presentation' {...props} />;
   }
-);
+  const Component = asChild ? Slot : View;
+  return <Component ref={ref} role='presentation' {...props} />;
+};
 
 ItemIndicator.displayName = 'ItemIndicatorNativeSelect';
+type GroupComponentProps = GroupProps & React.RefAttributes<GroupRef>;
 
-const Group = React.forwardRef<GroupRef, GroupProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const Group = ({ asChild, ref, ...props }: GroupComponentProps) => {
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role='group' {...props} />;
-});
+};
 
 Group.displayName = 'GroupNativeSelect';
+type LabelComponentProps = LabelProps & React.RefAttributes<LabelRef>;
 
-const Label = React.forwardRef<LabelRef, LabelProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.Text : Text;
+const Label = ({ asChild, ref, ...props }: LabelComponentProps) => {
+  const Component = asChild ? Slot : Text;
   return <Component ref={ref} {...props} />;
-});
+};
 
 Label.displayName = 'LabelNativeSelect';
+type SeparatorComponentProps = SeparatorProps & React.RefAttributes<SeparatorRef>;
 
-const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
-  ({ asChild, decorative, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
-    return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
-  }
-);
+const Separator = ({ asChild, decorative, ref, ...props }: SeparatorComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
+};
 
 Separator.displayName = 'SeparatorNativeSelect';
 

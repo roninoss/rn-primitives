@@ -177,7 +177,6 @@ Image.displayName = 'SlotImage';
 
 export { Slot, Image, Pressable, Text, View };
 
-
 function setRef<T>(ref: React.Ref<T> | undefined, value: T | null): (() => void) | void {
   if (typeof ref === 'function') {
     const cleanup = ref(value);
@@ -197,9 +196,7 @@ function setRef<T>(ref: React.Ref<T> | undefined, value: T | null): (() => void)
   }
 }
 
-function composeRefs<T>(
-  ...refs: Array<React.Ref<T> | undefined>
-): React.RefCallback<T> {
+function composeRefs<T>(...refs: Array<React.Ref<T> | undefined>): React.RefCallback<T> {
   let cleanups: Array<() => void> = [];
 
   return (node) => {
