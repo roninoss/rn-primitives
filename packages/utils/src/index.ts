@@ -58,4 +58,15 @@ const EmptyGestureResponderEvent: GestureResponderEvent = {
   type: '',
 };
 
-export { ToggleGroupUtils, EmptyGestureResponderEvent };
+function augmentRef<T>(
+  userRef: React.Ref<T>,
+  componentRef: T,
+  methods?: Record<string, (...args: any[]) => any>
+) {
+  if (!userRef || !componentRef) return;
+  if (typeof userRef === 'function') return; // copy hook behaviour
+  Object.assign(componentRef, methods);
+  userRef.current = componentRef;
+}
+
+export { ToggleGroupUtils, EmptyGestureResponderEvent, augmentRef };

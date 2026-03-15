@@ -1,4 +1,5 @@
-import { useAugmentedRef, useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
+import { augmentRef } from '@rn-primitives/utils';
+import { useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
@@ -91,25 +92,10 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
     const { open, onOpenChange, setTriggerPosition } = useRootContext();
 
-    const augmentedRef = useAugmentedRef({
-      ref,
-      methods: {
-        open: () => {
-          onOpenChange(true);
-          augmentedRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
-            setTriggerPosition({ width, pageX, pageY: pageY, height });
-          });
-        },
-        close: () => {
-          setTriggerPosition(null);
-          onOpenChange(false);
-        },
-      },
-    });
-
     function onPress(ev: GestureResponderEvent) {
       if (disabled) return;
-      augmentedRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+      if (typeof ref === 'function') return;
+      ref?.current?.measure((_x, _y, width, height, pageX, pageY) => {
         setTriggerPosition({ width, pageX, pageY: pageY, height });
       });
 
@@ -117,10 +103,25 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       onPressProp?.(ev);
     }
 
+    const methods = {
+      open: () => {
+        onOpenChange(true);
+        (ref as React.RefObject<TriggerRef>)?.current?.measure(
+          (_x, _y, width, height, pageX, pageY) => {
+            setTriggerPosition({ width, pageX, pageY: pageY, height });
+          }
+        );
+      },
+      close: () => {
+        setTriggerPosition(null);
+        onOpenChange(false);
+      },
+    };
+
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Component
-        ref={augmentedRef}
+        ref={(self) => augmentRef(ref, self, methods)}
         aria-disabled={disabled ?? undefined}
         role='button'
         onPress={onPress}

@@ -1,5 +1,5 @@
+import { augmentRef } from '@rn-primitives/utils';
 import {
-  useAugmentedRef,
   useControllableState,
   useRelativePosition,
   type LayoutPosition,
@@ -121,21 +121,6 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
     ref
   ) => {
     const { open, onOpenChange, relativeTo, setPressPosition } = useRootContext();
-    const augmentedRef = useAugmentedRef({
-      ref,
-      methods: {
-        open: () => {
-          onOpenChange(true);
-          augmentedRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
-            setPressPosition({ width, pageX, pageY: pageY, height });
-          });
-        },
-        close: () => {
-          setPressPosition(null);
-          onOpenChange(false);
-        },
-      },
-    });
 
     function onLongPress(ev: GestureResponderEvent) {
       if (disabled) return;
@@ -148,7 +133,8 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
         });
       }
       if (relativeTo === 'trigger') {
-        augmentedRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+        if (typeof ref === 'function') return;
+        ref?.current?.measure((_x, _y, width, height, pageX, pageY) => {
           setPressPosition({ width, pageX, pageY: pageY, height });
         });
       }
@@ -171,10 +157,25 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
       onAccessibilityActionProp?.(event);
     }
 
+    const methods = {
+      open: () => {
+        onOpenChange(true);
+        (ref as React.RefObject<TriggerRef>)?.current?.measure(
+          (_x, _y, width, height, pageX, pageY) => {
+            setPressPosition({ width, pageX, pageY: pageY, height });
+          }
+        );
+      },
+      close: () => {
+        setPressPosition(null);
+        onOpenChange(false);
+      },
+    };
+
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Component
-        ref={augmentedRef}
+        ref={(self) => augmentRef(ref, self, methods)}
         aria-disabled={disabled ?? undefined}
         role='button'
         onLongPress={onLongPress}

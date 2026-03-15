@@ -1,5 +1,5 @@
+import { augmentRef } from '@rn-primitives/utils';
 import {
-  useAugmentedRef,
   useControllableState,
   useRelativePosition,
   type LayoutPosition,
@@ -124,13 +124,13 @@ function useMenuContext() {
 
 const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
   ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
-    const triggerRef = useAugmentedRef({ ref });
     const { value, onValueChange, setTriggerPosition } = useRootContext();
     const { value: menuValue } = useMenuContext();
 
     function onPress(ev: GestureResponderEvent) {
       if (disabled) return;
-      triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+      if (typeof ref === 'function') return;
+      ref?.current?.measure((_x, _y, width, height, pageX, pageY) => {
         setTriggerPosition({ width, pageX, pageY, height });
       });
 
@@ -141,7 +141,7 @@ const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Component
-        ref={triggerRef}
+        ref={(self) => augmentRef(ref, self)} // copy hook behaviour if not needed then pass 'ref' instead
         aria-disabled={disabled ?? undefined}
         role='button'
         onPress={onPress}
