@@ -41,14 +41,11 @@ const SelectContext = React.createContext<
   | (SharedRootContext & {
       open: boolean;
       onOpenChange: (open: boolean) => void;
+      labelForValueRef: React.MutableRefObject<Record<string, string>>;
     })
   | null
 >(null);
 
-/**
- * @web Parameter of `onValueChange` has the value of `value` for the `value` and the `label` of the selected Option
- * @ex When an Option with a label of Green Apple, the parameter passed to `onValueChange` is { value: 'green-apple', label: 'green-apple' }
- */
 const Root = React.forwardRef<RootRef, RootProps>(
   (
     {
@@ -73,8 +70,12 @@ const Root = React.forwardRef<RootRef, RootProps>(
       onOpenChangeProp?.(value);
     }
 
+    const labelForValueRef = React.useRef<Record<string, string>>({});
     function onStrValueChange(val: string) {
-      onValueChange({ value: val, label: val });
+      onValueChange({
+        value: val,
+        label: labelForValueRef.current[val] ?? val,
+      });
     }
 
     const Component = asChild ? Slot.View : View;
@@ -85,6 +86,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
           onValueChange,
           open,
           onOpenChange,
+          labelForValueRef,
         }}
       >
         <Select.Root
@@ -225,10 +227,19 @@ const ItemContext = React.createContext<{
 
 const Item = React.forwardRef<ItemRef, ItemProps>(
   ({ asChild, closeOnPress = true, label, value, children, ...props }, ref) => {
+    const { labelForValueRef } = useRootContext();
+    if (!(value in labelForValueRef.current)) {
+      labelForValueRef.current[value] = label;
+    }
     return (
       <ItemContext.Provider value={{ itemValue: value, label: label }}>
         <Slot.Pressable ref={ref} {...props}>
-          <Select.Item textValue={label} value={value} disabled={props.disabled ?? undefined}>
+          <Select.Item
+            asChild={asChild}
+            textValue={label}
+            value={value}
+            disabled={props.disabled ?? undefined}
+          >
             <>{children as React.ReactNode}</>
           </Select.Item>
         </Slot.Pressable>
