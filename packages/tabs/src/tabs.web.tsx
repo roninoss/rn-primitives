@@ -1,5 +1,5 @@
 import * as Tabs from '@radix-ui/react-tabs';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
 import type {
@@ -14,30 +14,39 @@ import type {
 } from './types';
 
 const TabsContext = React.createContext<RootProps | null>(null);
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, value, onValueChange, orientation, dir, activationMode, ...viewProps }, ref) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <TabsContext.Provider
-        value={{
-          value,
-          onValueChange,
-        }}
+type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
+
+const Root = ({
+  asChild,
+  value,
+  onValueChange,
+  orientation,
+  dir,
+  activationMode,
+  ref,
+  ...viewProps
+}: RootComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <TabsContext.Provider
+      value={{
+        value,
+        onValueChange,
+      }}
+    >
+      <Tabs.Root
+        value={value}
+        onValueChange={onValueChange}
+        orientation={orientation}
+        dir={dir}
+        activationMode={activationMode}
+        asChild
       >
-        <Tabs.Root
-          value={value}
-          onValueChange={onValueChange}
-          orientation={orientation}
-          dir={dir}
-          activationMode={activationMode}
-          asChild
-        >
-          <Component ref={ref} {...viewProps} />
-        </Tabs.Root>
-      </TabsContext.Provider>
-    );
-  }
-);
+        <Component ref={ref} {...viewProps} />
+      </Tabs.Root>
+    </TabsContext.Provider>
+  );
+};
 
 Root.displayName = 'RootWebTabs';
 
@@ -48,31 +57,32 @@ function useRootContext() {
   }
   return context;
 }
+type ListComponentProps = ListProps & React.RefAttributes<ListRef>;
 
-const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const List = ({ asChild, ref, ...props }: ListComponentProps) => {
+  const Component = asChild ? Slot : View;
   return (
     <Tabs.List asChild>
       <Component ref={ref} {...props} />
     </Tabs.List>
   );
-});
+};
 
 List.displayName = 'ListWebTabs';
 
 const TriggerContext = React.createContext<{ value: string } | null>(null);
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, value: tabValue, ...props }, ref) => {
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <TriggerContext.Provider value={{ value: tabValue }}>
-        <Tabs.Trigger value={tabValue} asChild>
-          <Component ref={ref} {...props} />
-        </Tabs.Trigger>
-      </TriggerContext.Provider>
-    );
-  }
-);
+type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
+
+const Trigger = ({ asChild, value: tabValue, ref, ...props }: TriggerComponentProps) => {
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <TriggerContext.Provider value={{ value: tabValue }}>
+      <Tabs.Trigger value={tabValue} asChild>
+        <Component ref={ref} {...props} />
+      </Tabs.Trigger>
+    </TriggerContext.Provider>
+  );
+};
 
 Trigger.displayName = 'TriggerWebTabs';
 
@@ -85,17 +95,23 @@ function useTriggerContext() {
   }
   return context;
 }
+type ContentComponentProps = ContentProps & React.RefAttributes<ContentRef>;
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, value, tabIndex = -1, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <Tabs.Content value={value} asChild>
-        <Component ref={ref} {...props} tabIndex={tabIndex} />
-      </Tabs.Content>
-    );
-  }
-);
+const Content = ({
+  asChild,
+  forceMount,
+  value,
+  tabIndex = -1,
+  ref,
+  ...props
+}: ContentComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <Tabs.Content value={value} asChild>
+      <Component ref={ref} {...props} tabIndex={tabIndex} />
+    </Tabs.Content>
+  );
+};
 
 Content.displayName = 'ContentWebTabs';
 

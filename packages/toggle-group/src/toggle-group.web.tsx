@@ -1,57 +1,54 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import { ToggleGroupUtils } from '@rn-primitives/utils';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type { ItemProps, ItemRef, RootProps, RootRef } from './types';
 
 const ToggleGroupContext = React.createContext<RootProps | null>(null);
+type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
-      type,
-      value,
-      onValueChange,
-      disabled = false,
-      rovingFocus,
-      orientation,
-      dir,
-      loop,
-      ...viewProps
-    },
-    ref
-  ) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <ToggleGroupContext.Provider
-        value={
-          {
-            type,
-            value,
-            disabled,
-            onValueChange,
-          } as RootProps
-        }
+const Root = ({
+  asChild,
+  type,
+  value,
+  onValueChange,
+  disabled = false,
+  rovingFocus,
+  orientation,
+  dir,
+  loop,
+  ref,
+  ...viewProps
+}: RootComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <ToggleGroupContext.Provider
+      value={
+        {
+          type,
+          value,
+          disabled,
+          onValueChange,
+        } as RootProps
+      }
+    >
+      <ToggleGroup.Root
+        type={type as any}
+        value={value as any}
+        onValueChange={onValueChange as any}
+        disabled={disabled}
+        rovingFocus={rovingFocus}
+        orientation={orientation}
+        dir={dir}
+        loop={loop}
+        asChild
       >
-        <ToggleGroup.Root
-          type={type as any}
-          value={value as any}
-          onValueChange={onValueChange as any}
-          disabled={disabled}
-          rovingFocus={rovingFocus}
-          orientation={orientation}
-          dir={dir}
-          loop={loop}
-          asChild
-        >
-          <Component ref={ref} {...viewProps} />
-        </ToggleGroup.Root>
-      </ToggleGroupContext.Provider>
-    );
-  }
-);
+        <Component ref={ref} {...viewProps} />
+      </ToggleGroup.Root>
+    </ToggleGroupContext.Provider>
+  );
+};
 
 Root.displayName = 'RootToggleGroup';
 
@@ -66,40 +63,43 @@ function useRootContext() {
 }
 
 const ItemContext = React.createContext<ItemProps | null>(null);
+type ItemComponentProps = ItemProps & React.RefAttributes<ItemRef>;
 
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  (
-    { asChild, value: itemValue, disabled: disabledProp = false, onPress: onPressProp, ...props },
-    ref
-  ) => {
-    const { type, disabled, value, onValueChange } = useRootContext();
+const Item = ({
+  asChild,
+  value: itemValue,
+  disabled: disabledProp = false,
+  onPress: onPressProp,
+  ref,
+  ...props
+}: ItemComponentProps) => {
+  const { type, disabled, value, onValueChange } = useRootContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      onPressProp?.(ev);
-      if (type === 'single') {
-        onValueChange(ToggleGroupUtils.getNewSingleValue(value, itemValue));
-      }
-      if (type === 'multiple') {
-        onValueChange(ToggleGroupUtils.getNewMultipleValue(value, itemValue));
-      }
+  function onPress(ev: GestureResponderEvent) {
+    onPressProp?.(ev);
+    if (type === 'single') {
+      onValueChange(ToggleGroupUtils.getNewSingleValue(value, itemValue));
     }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <ItemContext.Provider value={{ value: itemValue }}>
-        <ToggleGroup.Item value={itemValue} asChild>
-          <Component
-            ref={ref}
-            onPress={onPress}
-            disabled={disabled || disabledProp}
-            role='button'
-            {...props}
-          />
-        </ToggleGroup.Item>
-      </ItemContext.Provider>
-    );
+    if (type === 'multiple') {
+      onValueChange(ToggleGroupUtils.getNewMultipleValue(value, itemValue));
+    }
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <ItemContext.Provider value={{ value: itemValue }}>
+      <ToggleGroup.Item value={itemValue} asChild>
+        <Component
+          ref={ref}
+          onPress={onPress}
+          disabled={disabled || disabledProp}
+          role='button'
+          {...props}
+        />
+      </ToggleGroup.Item>
+    </ItemContext.Provider>
+  );
+};
 
 Item.displayName = 'ItemToggleGroup';
 

@@ -1,11 +1,11 @@
 import {
-  useAugmentedRef,
+  useComposedRefs,
   useControllableState,
   useRelativePosition,
   type LayoutPosition,
 } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import {
   BackHandler,
@@ -61,31 +61,30 @@ interface IMenuContext extends RootProps {
 }
 
 const RootContext = React.createContext<IMenuContext | null>(null);
+type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, value, onValueChange, ...viewProps }, ref) => {
-    const nativeID = React.useId();
-    const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
-    const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
+const Root = ({ asChild, value, onValueChange, ref, ...viewProps }: RootComponentProps) => {
+  const nativeID = React.useId();
+  const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
+  const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
 
-    const Component = asChild ? Slot.View : View;
-    return (
-      <RootContext.Provider
-        value={{
-          value,
-          onValueChange,
-          nativeID,
-          contentLayout,
-          setContentLayout,
-          setTriggerPosition,
-          triggerPosition,
-        }}
-      >
-        <Component ref={ref} {...viewProps} />
-      </RootContext.Provider>
-    );
-  }
-);
+  const Component = asChild ? Slot : View;
+  return (
+    <RootContext.Provider
+      value={{
+        value,
+        onValueChange,
+        nativeID,
+        contentLayout,
+        setContentLayout,
+        setTriggerPosition,
+        triggerPosition,
+      }}
+    >
+      <Component ref={ref} {...viewProps} />
+    </RootContext.Provider>
+  );
+};
 
 Root.displayName = 'RootMenubar';
 
@@ -98,9 +97,10 @@ function useRootContext() {
 }
 
 const MenuContext = React.createContext<MenuProps | null>(null);
+type MenuComponentProps = MenuProps & React.RefAttributes<MenuRef>;
 
-const Menu = React.forwardRef<MenuRef, MenuProps>(({ asChild, value, ...viewProps }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const Menu = ({ asChild, value, ref, ...viewProps }: MenuComponentProps) => {
+  const Component = asChild ? Slot : View;
   return (
     <MenuContext.Provider
       value={{
@@ -110,7 +110,7 @@ const Menu = React.forwardRef<MenuRef, MenuProps>(({ asChild, value, ...viewProp
       <Component ref={ref} role='menubar' {...viewProps} />
     </MenuContext.Provider>
   );
-});
+};
 
 Menu.displayName = 'MenuMenubar';
 
@@ -121,37 +121,43 @@ function useMenuContext() {
   }
   return context;
 }
+type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
-    const triggerRef = useAugmentedRef({ ref });
-    const { value, onValueChange, setTriggerPosition } = useRootContext();
-    const { value: menuValue } = useMenuContext();
+const Trigger = ({
+  asChild,
+  onPress: onPressProp,
+  disabled = false,
+  ref,
+  ...props
+}: TriggerComponentProps) => {
+  const triggerRef = React.useRef<TriggerRef>(null);
+  const composedRef = useComposedRefs(ref, triggerRef);
+  const { value, onValueChange, setTriggerPosition } = useRootContext();
+  const { value: menuValue } = useMenuContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      if (disabled) return;
-      triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
-        setTriggerPosition({ width, pageX, pageY, height });
-      });
+  function onPress(ev: GestureResponderEvent) {
+    if (disabled) return;
+    triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+      setTriggerPosition({ width, pageX, pageY, height });
+    });
 
-      onValueChange(menuValue === value ? undefined : menuValue);
-      onPressProp?.(ev);
-    }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <Component
-        ref={triggerRef}
-        aria-disabled={disabled ?? undefined}
-        role='button'
-        onPress={onPress}
-        disabled={disabled ?? undefined}
-        aria-expanded={value === menuValue}
-        {...props}
-      />
-    );
+    onValueChange(menuValue === value ? undefined : menuValue);
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <Component
+      ref={composedRef}
+      aria-disabled={disabled ?? undefined}
+      role='button'
+      onPress={onPress}
+      disabled={disabled ?? undefined}
+      aria-expanded={value === menuValue}
+      {...props}
+    />
+  );
+};
 
 Trigger.displayName = 'TriggerMenubar';
 
@@ -182,165 +188,171 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
     </RNPPortal>
   );
 }
+type OverlayComponentProps = OverlayProps & React.RefAttributes<OverlayRef>;
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, onPress: OnPressProp, closeOnPress = true, ...props }, ref) => {
-    const { value, onValueChange, setContentLayout, setTriggerPosition } = useRootContext();
+const Overlay = ({
+  asChild,
+  forceMount,
+  onPress: OnPressProp,
+  closeOnPress = true,
+  ref,
+  ...props
+}: OverlayComponentProps) => {
+  const { value, onValueChange, setContentLayout, setTriggerPosition } = useRootContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      if (closeOnPress) {
-        setTriggerPosition(null);
-        setContentLayout(null);
-        onValueChange(undefined);
-      }
-      OnPressProp?.(ev);
+  function onPress(ev: GestureResponderEvent) {
+    if (closeOnPress) {
+      setTriggerPosition(null);
+      setContentLayout(null);
+      onValueChange(undefined);
     }
-
-    if (!forceMount) {
-      if (!value) {
-        return null;
-      }
-    }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} onPress={onPress} {...props} />;
+    OnPressProp?.(ev);
   }
-);
+
+  if (!forceMount) {
+    if (!value) {
+      return null;
+    }
+  }
+
+  const Component = asChild ? Slot : Pressable;
+  return <Component ref={ref} onPress={onPress} {...props} />;
+};
 
 Overlay.displayName = 'OverlayMenubar';
+type ContentComponentProps = ContentProps & React.RefAttributes<ContentRef>;
 
-/**
- * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
- */
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
-      forceMount,
-      align = 'start',
-      side = 'bottom',
-      sideOffset = 0,
-      alignOffset = 0,
-      avoidCollisions = true,
-      onLayout: onLayoutProp,
-      insets,
-      style,
-      disablePositioningStyle,
-      ...props
-    },
-    ref
-  ) => {
-    const {
-      value,
-      onValueChange,
-      triggerPosition,
-      contentLayout,
-      setContentLayout,
-      nativeID,
-      setTriggerPosition,
-    } = useRootContext();
-    const { value: menuValue } = useMenuContext();
+const Content = ({
+  asChild = false,
+  forceMount,
+  align = 'start',
+  side = 'bottom',
+  sideOffset = 0,
+  alignOffset = 0,
+  avoidCollisions = true,
+  onLayout: onLayoutProp,
+  insets,
+  style,
+  disablePositioningStyle,
+  ref,
+  ...props
+}: ContentComponentProps) => {
+  const {
+    value,
+    onValueChange,
+    triggerPosition,
+    contentLayout,
+    setContentLayout,
+    nativeID,
+    setTriggerPosition,
+  } = useRootContext();
+  const { value: menuValue } = useMenuContext();
 
-    React.useEffect(() => {
-      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-        setTriggerPosition(null);
-        setContentLayout(null);
-        onValueChange(undefined);
-        return true;
-      });
-
-      return () => {
-        setContentLayout(null);
-        backHandler.remove();
-      };
-    }, []);
-
-    const positionStyle = useRelativePosition({
-      align,
-      avoidCollisions,
-      triggerPosition,
-      contentLayout,
-      alignOffset,
-      insets,
-      sideOffset,
-      side,
-      disablePositioningStyle,
+  React.useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      setTriggerPosition(null);
+      setContentLayout(null);
+      onValueChange(undefined);
+      return true;
     });
 
-    function onLayout(event: LayoutChangeEvent) {
-      setContentLayout(event.nativeEvent.layout);
-      onLayoutProp?.(event);
-    }
+    return () => {
+      setContentLayout(null);
+      backHandler.remove();
+    };
+  }, []);
 
-    if (!forceMount) {
-      if (value !== menuValue) {
-        return null;
-      }
-    }
+  const positionStyle = useRelativePosition({
+    align,
+    avoidCollisions,
+    triggerPosition,
+    contentLayout,
+    alignOffset,
+    insets,
+    sideOffset,
+    side,
+    disablePositioningStyle,
+  });
 
-    const Component = asChild ? Slot.View : View;
-    return (
-      <Component
-        ref={ref}
-        role='menu'
-        nativeID={nativeID}
-        aria-modal={true}
-        style={[positionStyle, style]}
-        onLayout={onLayout}
-        onStartShouldSetResponder={onStartShouldSetResponder}
-        {...props}
-      />
-    );
+  function onLayout(event: LayoutChangeEvent) {
+    setContentLayout(event.nativeEvent.layout);
+    onLayoutProp?.(event);
   }
-);
+
+  if (!forceMount) {
+    if (value !== menuValue) {
+      return null;
+    }
+  }
+
+  const Component = asChild ? Slot : View;
+  return (
+    <Component
+      ref={ref}
+      role='menu'
+      nativeID={nativeID}
+      aria-modal={true}
+      style={[positionStyle, style]}
+      onLayout={onLayout}
+      onStartShouldSetResponder={onStartShouldSetResponder}
+      {...props}
+    />
+  );
+};
 
 Content.displayName = 'ContentMenubar';
+type ItemComponentProps = ItemProps & React.RefAttributes<ItemRef>;
 
-const Item = React.forwardRef<ItemRef, ItemProps>(
-  (
-    { asChild, textValue, onPress: onPressProp, disabled = false, closeOnPress = true, ...props },
-    ref
-  ) => {
-    const { onValueChange, setContentLayout, setTriggerPosition } = useRootContext();
+const Item = ({
+  asChild,
+  textValue,
+  onPress: onPressProp,
+  disabled = false,
+  closeOnPress = true,
+  ref,
+  ...props
+}: ItemComponentProps) => {
+  const { onValueChange, setContentLayout, setTriggerPosition } = useRootContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      if (closeOnPress) {
-        setTriggerPosition(null);
-        setContentLayout(null);
-        onValueChange(undefined);
-      }
-      onPressProp?.(ev);
+  function onPress(ev: GestureResponderEvent) {
+    if (closeOnPress) {
+      setTriggerPosition(null);
+      setContentLayout(null);
+      onValueChange(undefined);
     }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <Component
-        ref={ref}
-        role='menuitem'
-        onPress={onPress}
-        disabled={disabled}
-        aria-valuetext={textValue}
-        aria-disabled={!!disabled}
-        accessibilityState={{ disabled: !!disabled }}
-        {...props}
-      />
-    );
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <Component
+      ref={ref}
+      role='menuitem'
+      onPress={onPress}
+      disabled={disabled}
+      aria-valuetext={textValue}
+      aria-disabled={!!disabled}
+      accessibilityState={{ disabled: !!disabled }}
+      {...props}
+    />
+  );
+};
 
 Item.displayName = 'ItemMenubar';
+type GroupComponentProps = GroupProps & React.RefAttributes<GroupRef>;
 
-const Group = React.forwardRef<GroupRef, GroupProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const Group = ({ asChild, ref, ...props }: GroupComponentProps) => {
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role='group' {...props} />;
-});
+};
 
 Group.displayName = 'GroupMenubar';
+type LabelComponentProps = LabelProps & React.RefAttributes<LabelRef>;
 
-const Label = React.forwardRef<LabelRef, LabelProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.Text : Text;
+const Label = ({ asChild, ref, ...props }: LabelComponentProps) => {
+  const Component = asChild ? Slot : Text;
   return <Component ref={ref} {...props} />;
-});
+};
 
 Label.displayName = 'LabelMenubar';
 
@@ -352,51 +364,48 @@ type FormItemContext =
     };
 
 const FormItemContext = React.createContext<FormItemContext | null>(null);
+type CheckboxItemComponentProps = CheckboxItemProps & React.RefAttributes<CheckboxItemRef>;
 
-const CheckboxItem = React.forwardRef<CheckboxItemRef, CheckboxItemProps>(
-  (
-    {
-      asChild,
-      checked,
-      onCheckedChange,
-      textValue,
-      onPress: onPressProp,
-      closeOnPress = true,
-      disabled = false,
-      ...props
-    },
-    ref
-  ) => {
-    const { onValueChange, setTriggerPosition, setContentLayout, nativeID } = useRootContext();
+const CheckboxItem = ({
+  asChild,
+  checked,
+  onCheckedChange,
+  textValue,
+  onPress: onPressProp,
+  closeOnPress = true,
+  disabled = false,
+  ref,
+  ...props
+}: CheckboxItemComponentProps) => {
+  const { onValueChange, setTriggerPosition, setContentLayout, nativeID } = useRootContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      onCheckedChange(!checked);
-      if (closeOnPress) {
-        setTriggerPosition(null);
-        setContentLayout(null);
-        onValueChange(undefined);
-      }
-      onPressProp?.(ev);
+  function onPress(ev: GestureResponderEvent) {
+    onCheckedChange(!checked);
+    if (closeOnPress) {
+      setTriggerPosition(null);
+      setContentLayout(null);
+      onValueChange(undefined);
     }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <FormItemContext.Provider value={{ checked }}>
-        <Component
-          ref={ref}
-          role='checkbox'
-          aria-checked={checked}
-          onPress={onPress}
-          disabled={disabled}
-          aria-disabled={!!disabled}
-          aria-valuetext={textValue}
-          accessibilityState={{ disabled: !!disabled }}
-          {...props}
-        />
-      </FormItemContext.Provider>
-    );
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <FormItemContext.Provider value={{ checked }}>
+      <Component
+        ref={ref}
+        role='checkbox'
+        aria-checked={checked}
+        onPress={onPress}
+        disabled={disabled}
+        aria-disabled={!!disabled}
+        aria-valuetext={textValue}
+        accessibilityState={{ disabled: !!disabled }}
+        {...props}
+      />
+    </FormItemContext.Provider>
+  );
+};
 
 CheckboxItem.displayName = 'CheckboxItemMenubar';
 
@@ -409,17 +418,16 @@ function useFormItemContext() {
   }
   return context;
 }
+type RadioGroupComponentProps = RadioGroupProps & React.RefAttributes<RadioGroupRef>;
 
-const RadioGroup = React.forwardRef<RadioGroupRef, RadioGroupProps>(
-  ({ asChild, value, onValueChange, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <FormItemContext.Provider value={{ value, onValueChange }}>
-        <Component ref={ref} role='radiogroup' {...props} />
-      </FormItemContext.Provider>
-    );
-  }
-);
+const RadioGroup = ({ asChild, value, onValueChange, ref, ...props }: RadioGroupComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <FormItemContext.Provider value={{ value, onValueChange }}>
+      <Component ref={ref} role='radiogroup' {...props} />
+    </FormItemContext.Provider>
+  );
+};
 
 RadioGroup.displayName = 'RadioGroupMenubar';
 
@@ -428,90 +436,85 @@ type BothFormItemContext = Exclude<FormItemContext, { checked: boolean }> & {
 };
 
 const RadioItemContext = React.createContext({} as { itemValue: string });
+type RadioItemComponentProps = RadioItemProps & React.RefAttributes<RadioItemRef>;
 
-const RadioItem = React.forwardRef<RadioItemRef, RadioItemProps>(
-  (
-    {
-      asChild,
-      value: itemValue,
-      textValue,
-      onPress: onPressProp,
-      disabled = false,
-      closeOnPress = true,
-      ...props
-    },
-    ref
-  ) => {
-    const {
-      onValueChange: onRootValueChange,
-      setTriggerPosition,
-      setContentLayout,
-    } = useRootContext();
+const RadioItem = ({
+  asChild,
+  value: itemValue,
+  textValue,
+  onPress: onPressProp,
+  disabled = false,
+  closeOnPress = true,
+  ref,
+  ...props
+}: RadioItemComponentProps) => {
+  const {
+    onValueChange: onRootValueChange,
+    setTriggerPosition,
+    setContentLayout,
+  } = useRootContext();
 
-    const { value, onValueChange } = useFormItemContext() as BothFormItemContext;
-    function onPress(ev: GestureResponderEvent) {
-      onValueChange(itemValue);
-      if (closeOnPress) {
-        setTriggerPosition(null);
-        setContentLayout(null);
-        onRootValueChange(undefined);
-      }
-      onPressProp?.(ev);
+  const { value, onValueChange } = useFormItemContext() as BothFormItemContext;
+  function onPress(ev: GestureResponderEvent) {
+    onValueChange(itemValue);
+    if (closeOnPress) {
+      setTriggerPosition(null);
+      setContentLayout(null);
+      onRootValueChange(undefined);
     }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <RadioItemContext.Provider value={{ itemValue }}>
-        <Component
-          ref={ref}
-          onPress={onPress}
-          role='radio'
-          aria-checked={value === itemValue}
-          disabled={disabled ?? false}
-          accessibilityState={{
-            disabled: disabled ?? false,
-            checked: value === itemValue,
-          }}
-          aria-valuetext={textValue}
-          {...props}
-        />
-      </RadioItemContext.Provider>
-    );
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <RadioItemContext.Provider value={{ itemValue }}>
+      <Component
+        ref={ref}
+        onPress={onPress}
+        role='radio'
+        aria-checked={value === itemValue}
+        disabled={disabled ?? false}
+        accessibilityState={{
+          disabled: disabled ?? false,
+          checked: value === itemValue,
+        }}
+        aria-valuetext={textValue}
+        {...props}
+      />
+    </RadioItemContext.Provider>
+  );
+};
 
 RadioItem.displayName = 'RadioItemMenubar';
 
 function useItemIndicatorContext() {
   return React.useContext(RadioItemContext);
 }
+type ItemIndicatorComponentProps = ItemIndicatorProps & React.RefAttributes<ItemIndicatorRef>;
 
-const ItemIndicator = React.forwardRef<ItemIndicatorRef, ItemIndicatorProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
-    const { itemValue } = useItemIndicatorContext();
-    const { checked, value } = useFormItemContext() as BothFormItemContext;
+const ItemIndicator = ({ asChild, forceMount, ref, ...props }: ItemIndicatorComponentProps) => {
+  const { itemValue } = useItemIndicatorContext();
+  const { checked, value } = useFormItemContext() as BothFormItemContext;
 
-    if (!forceMount) {
-      if (itemValue == null && !checked) {
-        return null;
-      }
-      if (value !== itemValue) {
-        return null;
-      }
+  if (!forceMount) {
+    if (itemValue == null && !checked) {
+      return null;
     }
-    const Component = asChild ? Slot.View : View;
-    return <Component ref={ref} role='presentation' {...props} />;
+    if (value !== itemValue) {
+      return null;
+    }
   }
-);
+  const Component = asChild ? Slot : View;
+  return <Component ref={ref} role='presentation' {...props} />;
+};
 
 ItemIndicator.displayName = 'ItemIndicatorMenubar';
+type SeparatorComponentProps = SeparatorProps & React.RefAttributes<SeparatorRef>;
 
-const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
-  ({ asChild, decorative, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
-    return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
-  }
-);
+const Separator = ({ asChild, decorative, ref, ...props }: SeparatorComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return <Component role={decorative ? 'presentation' : 'separator'} ref={ref} {...props} />;
+};
 
 Separator.displayName = 'SeparatorMenubar';
 
@@ -520,30 +523,36 @@ const SubContext = React.createContext<{
   open: boolean;
   onOpenChange: (value: boolean) => void;
 } | null>(null);
+type SubComponentProps = SubProps & React.RefAttributes<SubRef>;
 
-const Sub = React.forwardRef<SubRef, SubProps>(
-  ({ asChild, defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, ...props }, ref) => {
-    const nativeID = React.useId();
-    const [open = false, onOpenChange] = useControllableState({
-      prop: openProp,
-      defaultProp: defaultOpen,
-      onChange: onOpenChangeProp,
-    });
+const Sub = ({
+  asChild,
+  defaultOpen,
+  open: openProp,
+  onOpenChange: onOpenChangeProp,
+  ref,
+  ...props
+}: SubComponentProps) => {
+  const nativeID = React.useId();
+  const [open = false, onOpenChange] = useControllableState({
+    prop: openProp,
+    defaultProp: defaultOpen,
+    onChange: onOpenChangeProp,
+  });
 
-    const Component = asChild ? Slot.View : View;
-    return (
-      <SubContext.Provider
-        value={{
-          nativeID,
-          open,
-          onOpenChange,
-        }}
-      >
-        <Component ref={ref} {...props} />
-      </SubContext.Provider>
-    );
-  }
-);
+  const Component = asChild ? Slot : View;
+  return (
+    <SubContext.Provider
+      value={{
+        nativeID,
+        open,
+        onOpenChange,
+      }}
+    >
+      <Component ref={ref} {...props} />
+    </SubContext.Provider>
+  );
+};
 
 Sub.displayName = 'SubMenubar';
 
@@ -554,50 +563,55 @@ function useSubContext() {
   }
   return context;
 }
+type SubTriggerComponentProps = SubTriggerProps & React.RefAttributes<SubTriggerRef>;
 
-const SubTrigger = React.forwardRef<SubTriggerRef, SubTriggerProps>(
-  ({ asChild, textValue, onPress: onPressProp, disabled = false, ...props }, ref) => {
-    const { nativeID, open, onOpenChange } = useSubContext();
+const SubTrigger = ({
+  asChild,
+  textValue,
+  onPress: onPressProp,
+  disabled = false,
+  ref,
+  ...props
+}: SubTriggerComponentProps) => {
+  const { nativeID, open, onOpenChange } = useSubContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      onOpenChange(!open);
-      onPressProp?.(ev);
-    }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <Component
-        ref={ref}
-        aria-valuetext={textValue}
-        role='menuitem'
-        aria-expanded={open}
-        accessibilityState={{ expanded: open, disabled: !!disabled }}
-        nativeID={nativeID}
-        onPress={onPress}
-        disabled={disabled}
-        aria-disabled={!!disabled}
-        {...props}
-      />
-    );
+  function onPress(ev: GestureResponderEvent) {
+    onOpenChange(!open);
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <Component
+      ref={ref}
+      aria-valuetext={textValue}
+      role='menuitem'
+      aria-expanded={open}
+      accessibilityState={{ expanded: open, disabled: !!disabled }}
+      nativeID={nativeID}
+      onPress={onPress}
+      disabled={disabled}
+      aria-disabled={!!disabled}
+      {...props}
+    />
+  );
+};
 
 SubTrigger.displayName = 'SubTriggerMenubar';
+type SubContentComponentProps = SubContentProps & React.RefAttributes<SubContentRef>;
 
-const SubContent = React.forwardRef<SubContentRef, SubContentProps>(
-  ({ asChild = false, forceMount, ...props }, ref) => {
-    const { open, nativeID } = useSubContext();
+const SubContent = ({ asChild = false, forceMount, ref, ...props }: SubContentComponentProps) => {
+  const { open, nativeID } = useSubContext();
 
-    if (!forceMount) {
-      if (!open) {
-        return null;
-      }
+  if (!forceMount) {
+    if (!open) {
+      return null;
     }
-
-    const Component = asChild ? Slot.View : View;
-    return <Component ref={ref} role='group' aria-labelledby={nativeID} {...props} />;
   }
-);
+
+  const Component = asChild ? Slot : View;
+  return <Component ref={ref} role='group' aria-labelledby={nativeID} {...props} />;
+};
 
 SubContent.displayName = 'SubContentMenubar';
 

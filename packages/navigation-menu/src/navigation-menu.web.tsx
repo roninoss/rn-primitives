@@ -1,6 +1,6 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { useAugmentedRef, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
-import * as Slot from '@rn-primitives/slot';
+import { useComposedRefs, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
+import { Slot } from '@rn-primitives/slot';
 import { EmptyGestureResponderEvent } from '@rn-primitives/utils';
 import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
@@ -25,38 +25,35 @@ import type {
 } from './types';
 
 const NavigationMenuContext = React.createContext<RootProps | null>(null);
+type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
-      value,
-      onValueChange,
-      delayDuration,
-      skipDelayDuration,
-      dir,
-      orientation,
-      ...viewProps
-    },
-    ref
-  ) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <NavigationMenuContext.Provider value={{ value, onValueChange, orientation }}>
-        <NavigationMenu.Root
-          value={value}
-          onValueChange={onValueChange}
-          delayDuration={delayDuration}
-          skipDelayDuration={skipDelayDuration}
-          dir={dir}
-          orientation={orientation}
-        >
-          <Component ref={ref} {...viewProps} />
-        </NavigationMenu.Root>
-      </NavigationMenuContext.Provider>
-    );
-  }
-);
+const Root = ({
+  asChild,
+  value,
+  onValueChange,
+  delayDuration,
+  skipDelayDuration,
+  dir,
+  orientation,
+  ref,
+  ...viewProps
+}: RootComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <NavigationMenuContext.Provider value={{ value, onValueChange, orientation }}>
+      <NavigationMenu.Root
+        value={value}
+        onValueChange={onValueChange}
+        delayDuration={delayDuration}
+        skipDelayDuration={skipDelayDuration}
+        dir={dir}
+        orientation={orientation}
+      >
+        <Component ref={ref} {...viewProps} />
+      </NavigationMenu.Root>
+    </NavigationMenuContext.Provider>
+  );
+};
 
 Root.displayName = 'RootWebNavigationMenu';
 
@@ -69,32 +66,35 @@ function useRootContext() {
   }
   return context;
 }
+type ListComponentProps = ListProps & React.RefAttributes<ListRef>;
 
-const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...viewProps }, ref) => {
-  const augmentedRef = useAugmentedRef({ ref });
+const List = ({ asChild, ref, ...viewProps }: ListComponentProps) => {
+  const listRef = React.useRef<ListRef>(null);
+  const composedRef = useComposedRefs(ref, listRef);
   const { orientation } = useRootContext();
 
   useIsomorphicLayoutEffect(() => {
-    if (augmentedRef.current) {
-      const augRef = augmentedRef.current as unknown as HTMLDivElement;
+    if (listRef.current) {
+      const augRef = listRef.current as unknown as HTMLDivElement;
       augRef.dataset.orientation = orientation;
     }
   }, [orientation]);
 
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return (
     <NavigationMenu.List asChild>
-      <Component ref={ref} {...viewProps} />
+      <Component ref={composedRef} {...viewProps} />
     </NavigationMenu.List>
   );
-});
+};
 
 List.displayName = 'ListWebNavigationMenu';
 
 const ItemContext = React.createContext<ItemProps | null>(null);
+type ItemComponentProps = ItemProps & React.RefAttributes<ItemRef>;
 
-const Item = React.forwardRef<ItemRef, ItemProps>(({ asChild, value, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const Item = ({ asChild, value, ref, ...props }: ItemComponentProps) => {
+  const Component = asChild ? Slot : View;
   return (
     <ItemContext.Provider value={{ value }}>
       <NavigationMenu.Item value={value} asChild>
@@ -102,7 +102,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(({ asChild, value, ...props },
       </NavigationMenu.Item>
     </ItemContext.Provider>
   );
-});
+};
 
 Item.displayName = 'ItemWebNavigationMenu';
 
@@ -115,138 +115,133 @@ function useItemContext() {
   }
   return context;
 }
+type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  (
-    { asChild, onPress: onPressProp, disabled = false, onKeyDown: onKeyDownProp, ...props },
-    ref
-  ) => {
-    const { value: rootValue, onValueChange } = useRootContext();
-    const { value } = useItemContext();
-    function onKeyDown(ev: React.KeyboardEvent) {
-      onKeyDownProp?.(ev);
-      if (ev.key === ' ') {
-        onPressProp?.(EmptyGestureResponderEvent);
-        onValueChange(value === rootValue ? '' : value);
-      }
-    }
-
-    function onPress(ev: GestureResponderEvent) {
-      onPressProp?.(ev);
+const Trigger = ({
+  asChild,
+  onPress: onPressProp,
+  disabled = false,
+  onKeyDown: onKeyDownProp,
+  ref,
+  ...props
+}: TriggerComponentProps) => {
+  const { value: rootValue, onValueChange } = useRootContext();
+  const { value } = useItemContext();
+  function onKeyDown(ev: React.KeyboardEvent) {
+    onKeyDownProp?.(ev);
+    if (ev.key === ' ') {
+      onPressProp?.(EmptyGestureResponderEvent);
       onValueChange(value === rootValue ? '' : value);
     }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <NavigationMenu.Trigger disabled={disabled ?? undefined} asChild>
-        <Component
-          ref={ref}
-          // @ts-expect-error web only
-          onKeyDown={onKeyDown}
-          onPress={onPress}
-          {...props}
-        />
-      </NavigationMenu.Trigger>
-    );
   }
-);
+
+  function onPress(ev: GestureResponderEvent) {
+    onPressProp?.(ev);
+    onValueChange(value === rootValue ? '' : value);
+  }
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <NavigationMenu.Trigger disabled={disabled ?? undefined} asChild>
+      <Component ref={ref} onKeyDown={onKeyDown} onPress={onPress} {...props} />
+    </NavigationMenu.Trigger>
+  );
+};
 
 Trigger.displayName = 'TriggerWebNavigationMenu';
 
 function Portal({ children }: PortalProps) {
   return <>{children}</>;
 }
+type ContentComponentProps = ContentProps & React.RefAttributes<ContentRef>;
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
-      forceMount,
-      align: _align,
-      side: _side,
-      sideOffset: _sideOffset,
-      alignOffset: _alignOffset,
-      avoidCollisions: _avoidCollisions,
-      onLayout: onLayoutProp,
-      insets: _insets,
-      disablePositioningStyle: _disablePositioningStyle,
-      onEscapeKeyDown,
-      onPointerDownOutside,
-      onFocusOutside,
-      onInteractOutside,
-      ...props
-    },
-    ref
-  ) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <NavigationMenu.Content
-        forceMount={forceMount}
-        onEscapeKeyDown={onEscapeKeyDown}
-        onPointerDownOutside={onPointerDownOutside}
-        onFocusOutside={onFocusOutside}
-        onInteractOutside={onInteractOutside}
-      >
-        <Component ref={ref} {...props} />
-      </NavigationMenu.Content>
-    );
-  }
-);
+const Content = ({
+  asChild = false,
+  forceMount,
+  align: _align,
+  side: _side,
+  sideOffset: _sideOffset,
+  alignOffset: _alignOffset,
+  avoidCollisions: _avoidCollisions,
+  onLayout: onLayoutProp,
+  insets: _insets,
+  disablePositioningStyle: _disablePositioningStyle,
+  onEscapeKeyDown,
+  onPointerDownOutside,
+  onFocusOutside,
+  onInteractOutside,
+  ref,
+  ...props
+}: ContentComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <NavigationMenu.Content
+      forceMount={forceMount}
+      onEscapeKeyDown={onEscapeKeyDown}
+      onPointerDownOutside={onPointerDownOutside}
+      onFocusOutside={onFocusOutside}
+      onInteractOutside={onInteractOutside}
+    >
+      <Component ref={ref} {...props} />
+    </NavigationMenu.Content>
+  );
+};
 
 Content.displayName = 'ContentWebNavigationMenu';
+type LinkComponentProps = LinkProps & React.RefAttributes<LinkRef>;
 
-const Link = React.forwardRef<LinkRef, LinkProps>(
-  ({ asChild, active, onPress: onPressProp, onKeyDown: onKeyDownProp, ...props }, ref) => {
-    const { onValueChange } = useRootContext();
-    function onKeyDown(ev: React.KeyboardEvent) {
-      onKeyDownProp?.(ev);
-      if (ev.key === 'Enter' || ev.key === ' ') {
-        onPressProp?.(EmptyGestureResponderEvent);
-        onValueChange('');
-      }
-    }
-
-    function onPress(ev: GestureResponderEvent) {
-      onPressProp?.(ev);
+const Link = ({
+  asChild,
+  active,
+  onPress: onPressProp,
+  onKeyDown: onKeyDownProp,
+  ref,
+  ...props
+}: LinkComponentProps) => {
+  const { onValueChange } = useRootContext();
+  function onKeyDown(ev: React.KeyboardEvent) {
+    onKeyDownProp?.(ev);
+    if (ev.key === 'Enter' || ev.key === ' ') {
+      onPressProp?.(EmptyGestureResponderEvent);
       onValueChange('');
     }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <NavigationMenu.Link active={active} asChild>
-        <Component
-          ref={ref}
-          role='link'
-          // @ts-expect-error web only
-          onKeyDown={onKeyDown}
-          onPress={onPress}
-          {...props}
-        />
-      </NavigationMenu.Link>
-    );
   }
-);
+
+  function onPress(ev: GestureResponderEvent) {
+    onPressProp?.(ev);
+    onValueChange('');
+  }
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <NavigationMenu.Link active={active} asChild>
+      <Component ref={ref} role='link' onKeyDown={onKeyDown} onPress={onPress} {...props} />
+    </NavigationMenu.Link>
+  );
+};
 
 Link.displayName = 'LinkWebNavigationMenu';
+type ViewportComponentProps = ViewportProps & React.RefAttributes<ViewportRef>;
 
-const Viewport = React.forwardRef<ViewportRef, ViewportProps>((props, ref) => {
+const Viewport = ({ ref, ...props }: ViewportComponentProps) => {
   return (
-    <Slot.View ref={ref} {...props}>
+    <Slot ref={ref} {...props}>
       <NavigationMenu.Viewport />
-    </Slot.View>
+    </Slot>
   );
-});
+};
 
 Viewport.displayName = 'ViewportWebNavigationMenu';
+type IndicatorComponentProps = IndicatorProps & React.RefAttributes<IndicatorRef>;
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const Indicator = ({ asChild, ref, ...props }: IndicatorComponentProps) => {
+  const Component = asChild ? Slot : View;
   return (
     <NavigationMenu.Indicator asChild>
       <Component ref={ref} {...props} />
     </NavigationMenu.Indicator>
   );
-});
+};
 
 Indicator.displayName = 'IndicatorWebNavigationMenu';
 

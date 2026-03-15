@@ -1,5 +1,5 @@
 import * as Toolbar from '@radix-ui/react-toolbar';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import { ToggleGroupUtils } from '@rn-primitives/utils';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
@@ -17,49 +17,56 @@ import type {
   ToggleItemProps,
   ToggleItemRef,
 } from './types';
+type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, orientation, dir, loop, style, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <Toolbar.Root orientation={orientation} dir={dir} loop={loop} asChild>
-        <Component ref={ref} {...props} />
-      </Toolbar.Root>
-    );
-  }
-);
+const Root = ({ asChild, orientation, dir, loop, style, ref, ...props }: RootComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <Toolbar.Root orientation={orientation} dir={dir} loop={loop} asChild>
+      <Component ref={ref} {...props} />
+    </Toolbar.Root>
+  );
+};
 
 Root.displayName = 'RootWebToolbar';
 
 const ToggleGroupContext = React.createContext<ToggleGroupProps | null>(null);
+type ToggleGroupComponentProps = ToggleGroupProps & React.RefAttributes<ToggleGroupRef>;
 
-const ToggleGroup = React.forwardRef<ToggleGroupRef, ToggleGroupProps>(
-  ({ asChild, type, value, onValueChange, disabled = false, style, ...viewProps }, ref) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <ToggleGroupContext.Provider
-        value={
-          {
-            type,
-            value,
-            disabled,
-            onValueChange,
-          } as ToggleGroupProps
-        }
+const ToggleGroup = ({
+  asChild,
+  type,
+  value,
+  onValueChange,
+  disabled = false,
+  style,
+  ref,
+  ...viewProps
+}: ToggleGroupComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <ToggleGroupContext.Provider
+      value={
+        {
+          type,
+          value,
+          disabled,
+          onValueChange,
+        } as ToggleGroupProps
+      }
+    >
+      <Toolbar.ToggleGroup
+        type={type as any}
+        value={value as any}
+        onValueChange={onValueChange as any}
+        disabled={disabled}
+        asChild
       >
-        <Toolbar.ToggleGroup
-          type={type as any}
-          value={value as any}
-          onValueChange={onValueChange as any}
-          disabled={disabled}
-          asChild
-        >
-          <Component ref={ref} {...viewProps} />
-        </Toolbar.ToggleGroup>
-      </ToggleGroupContext.Provider>
-    );
-  }
-);
+        <Component ref={ref} {...viewProps} />
+      </Toolbar.ToggleGroup>
+    </ToggleGroupContext.Provider>
+  );
+};
 
 ToggleGroup.displayName = 'ToggleGroupWebToolbar';
 
@@ -72,70 +79,68 @@ function useToggleGroupContext() {
   }
   return context;
 }
+type ToggleItemComponentProps = ToggleItemProps & React.RefAttributes<ToggleItemRef>;
 
-const ToggleItem = React.forwardRef<ToggleItemRef, ToggleItemProps>(
-  (
-    {
-      asChild,
-      value: itemValue,
-      disabled: disabledProp = false,
-      onPress: onPressProp,
-      style,
-      ...props
-    },
-    ref
-  ) => {
-    const { type, disabled, value, onValueChange } = useToggleGroupContext();
+const ToggleItem = ({
+  asChild,
+  value: itemValue,
+  disabled: disabledProp = false,
+  onPress: onPressProp,
+  style,
+  ref,
+  ...props
+}: ToggleItemComponentProps) => {
+  const { type, disabled, value, onValueChange } = useToggleGroupContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      if (disabled || disabledProp) return;
-      if (type === 'single') {
-        onValueChange(ToggleGroupUtils.getNewSingleValue(value, itemValue));
-      }
-      if (type === 'multiple') {
-        onValueChange(ToggleGroupUtils.getNewMultipleValue(value, itemValue));
-      }
-      onPressProp?.(ev);
+  function onPress(ev: GestureResponderEvent) {
+    if (disabled || disabledProp) return;
+    if (type === 'single') {
+      onValueChange(ToggleGroupUtils.getNewSingleValue(value, itemValue));
     }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <Toolbar.ToggleItem value={itemValue} asChild>
-        <Component ref={ref} onPress={onPress} role='button' {...props} />
-      </Toolbar.ToggleItem>
-    );
+    if (type === 'multiple') {
+      onValueChange(ToggleGroupUtils.getNewMultipleValue(value, itemValue));
+    }
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <Toolbar.ToggleItem value={itemValue} asChild>
+      <Component ref={ref} onPress={onPress} role='button' {...props} />
+    </Toolbar.ToggleItem>
+  );
+};
 
 ToggleItem.displayName = 'ToggleItemWebToolbar';
+type SeparatorComponentProps = SeparatorProps & React.RefAttributes<SeparatorRef>;
 
-const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
-  ({ asChild, style, ...props }, ref) => {
-    const Component = asChild ? Slot.View : View;
-    return <Component ref={ref} {...props} />;
-  }
-);
+const Separator = ({ asChild, style, ref, ...props }: SeparatorComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return <Component ref={ref} {...props} />;
+};
 
 Separator.displayName = 'SeparatorWebToolbar';
+type LinkComponentProps = LinkProps & React.RefAttributes<LinkRef>;
 
-const Link = React.forwardRef<LinkRef, LinkProps>(({ asChild, style, ...props }, ref) => {
-  const Component = asChild ? Slot.Pressable : Pressable;
+const Link = ({ asChild, style, ref, ...props }: LinkComponentProps) => {
+  const Component = asChild ? Slot : Pressable;
   return (
     <Toolbar.Link asChild>
       <Component ref={ref} {...props} />
     </Toolbar.Link>
   );
-});
+};
 
 Link.displayName = 'LinkWebToolbar';
+type ButtonComponentProps = ButtonProps & React.RefAttributes<ButtonRef>;
 
-const Button = React.forwardRef<ButtonRef, ButtonProps>(({ asChild, style, ...props }, ref) => {
-  const Component = asChild ? Slot.Pressable : Pressable;
+const Button = ({ asChild, style, ref, ...props }: ButtonComponentProps) => {
+  const Component = asChild ? Slot : Pressable;
   return (
     <Toolbar.Button asChild>
       <Component ref={ref} role='button' {...props} />
     </Toolbar.Button>
   );
-});
+};
 
 export { Button, Link, Root, Separator, ToggleGroup, ToggleItem };

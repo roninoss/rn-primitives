@@ -1,4 +1,4 @@
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import type {
@@ -17,35 +17,32 @@ interface RootContext extends RootProps {
 }
 
 const TabsContext = React.createContext<RootContext | null>(null);
+type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
-      value,
-      onValueChange,
-      orientation: _orientation,
-      dir: _dir,
-      activationMode: _activationMode,
-      ...viewProps
-    },
-    ref
-  ) => {
-    const nativeID = React.useId();
-    const Component = asChild ? Slot.View : View;
-    return (
-      <TabsContext.Provider
-        value={{
-          value,
-          onValueChange,
-          nativeID,
-        }}
-      >
-        <Component ref={ref} {...viewProps} />
-      </TabsContext.Provider>
-    );
-  }
-);
+const Root = ({
+  asChild,
+  value,
+  onValueChange,
+  orientation: _orientation,
+  dir: _dir,
+  activationMode: _activationMode,
+  ref,
+  ...viewProps
+}: RootComponentProps) => {
+  const nativeID = React.useId();
+  const Component = asChild ? Slot : View;
+  return (
+    <TabsContext.Provider
+      value={{
+        value,
+        onValueChange,
+        nativeID,
+      }}
+    >
+      <Component ref={ref} {...viewProps} />
+    </TabsContext.Provider>
+  );
+};
 
 Root.displayName = 'RootNativeTabs';
 
@@ -56,47 +53,54 @@ function useRootContext() {
   }
   return context;
 }
+type ListComponentProps = ListProps & React.RefAttributes<ListRef>;
 
-const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const List = ({ asChild, ref, ...props }: ListComponentProps) => {
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role='tablist' {...props} />;
-});
+};
 
 List.displayName = 'ListNativeTabs';
 
 const TriggerContext = React.createContext<{ value: string } | null>(null);
+type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled, value: tabValue, ...props }, ref) => {
-    const { onValueChange, value: rootValue, nativeID } = useRootContext();
+const Trigger = ({
+  asChild,
+  onPress: onPressProp,
+  disabled,
+  value: tabValue,
+  ref,
+  ...props
+}: TriggerComponentProps) => {
+  const { onValueChange, value: rootValue, nativeID } = useRootContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      if (disabled) return;
-      onValueChange(tabValue);
-      onPressProp?.(ev);
-    }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <TriggerContext.Provider value={{ value: tabValue }}>
-        <Component
-          ref={ref}
-          nativeID={`${nativeID}-tab-${tabValue}`}
-          aria-disabled={!!disabled}
-          aria-selected={rootValue === tabValue}
-          role='tab'
-          onPress={onPress}
-          accessibilityState={{
-            selected: rootValue === tabValue,
-            disabled: !!disabled,
-          }}
-          disabled={!!disabled}
-          {...props}
-        />
-      </TriggerContext.Provider>
-    );
+  function onPress(ev: GestureResponderEvent) {
+    if (disabled) return;
+    onValueChange(tabValue);
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <TriggerContext.Provider value={{ value: tabValue }}>
+      <Component
+        ref={ref}
+        nativeID={`${nativeID}-tab-${tabValue}`}
+        aria-disabled={!!disabled}
+        aria-selected={rootValue === tabValue}
+        role='tab'
+        onPress={onPress}
+        accessibilityState={{
+          selected: rootValue === tabValue,
+          disabled: !!disabled,
+        }}
+        disabled={!!disabled}
+        {...props}
+      />
+    </TriggerContext.Provider>
+  );
+};
 
 Trigger.displayName = 'TriggerNativeTabs';
 
@@ -109,29 +113,34 @@ function useTriggerContext() {
   }
   return context;
 }
+type ContentComponentProps = ContentProps & React.RefAttributes<ContentRef>;
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, value: tabValue, ...props }, ref) => {
-    const { value: rootValue, nativeID } = useRootContext();
+const Content = ({
+  asChild,
+  forceMount,
+  value: tabValue,
+  ref,
+  ...props
+}: ContentComponentProps) => {
+  const { value: rootValue, nativeID } = useRootContext();
 
-    if (!forceMount) {
-      if (rootValue !== tabValue) {
-        return null;
-      }
+  if (!forceMount) {
+    if (rootValue !== tabValue) {
+      return null;
     }
-
-    const Component = asChild ? Slot.View : View;
-    return (
-      <Component
-        ref={ref}
-        aria-hidden={!(forceMount || rootValue === tabValue)}
-        aria-labelledby={`${nativeID}-tab-${tabValue}`}
-        role='tabpanel'
-        {...props}
-      />
-    );
   }
-);
+
+  const Component = asChild ? Slot : View;
+  return (
+    <Component
+      ref={ref}
+      aria-hidden={!(forceMount || rootValue === tabValue)}
+      aria-labelledby={`${nativeID}-tab-${tabValue}`}
+      role='tabpanel'
+      {...props}
+    />
+  );
+};
 
 Content.displayName = 'ContentNativeTabs';
 

@@ -1,6 +1,6 @@
 import { useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import {
   BackHandler,
@@ -39,31 +39,30 @@ interface INavigationMenuRootContext extends RootProps {
 }
 
 const RootContext = React.createContext<INavigationMenuRootContext | null>(null);
+type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, value, onValueChange, ...viewProps }, ref) => {
-    const nativeID = React.useId();
-    const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
-    const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
+const Root = ({ asChild, value, onValueChange, ref, ...viewProps }: RootComponentProps) => {
+  const nativeID = React.useId();
+  const [triggerPosition, setTriggerPosition] = React.useState<LayoutPosition | null>(null);
+  const [contentLayout, setContentLayout] = React.useState<LayoutRectangle | null>(null);
 
-    const Component = asChild ? Slot.View : View;
-    return (
-      <RootContext.Provider
-        value={{
-          value,
-          onValueChange,
-          nativeID,
-          contentLayout,
-          setContentLayout,
-          setTriggerPosition,
-          triggerPosition,
-        }}
-      >
-        <Component ref={ref} role='navigation' {...viewProps} />
-      </RootContext.Provider>
-    );
-  }
-);
+  const Component = asChild ? Slot : View;
+  return (
+    <RootContext.Provider
+      value={{
+        value,
+        onValueChange,
+        nativeID,
+        contentLayout,
+        setContentLayout,
+        setTriggerPosition,
+        triggerPosition,
+      }}
+    >
+      <Component ref={ref} role='navigation' {...viewProps} />
+    </RootContext.Provider>
+  );
+};
 
 Root.displayName = 'RootNativeNavigationMenu';
 
@@ -76,20 +75,22 @@ function useRootContext() {
   }
   return context;
 }
+type ListComponentProps = ListProps & React.RefAttributes<ListRef>;
 
-const List = React.forwardRef<ListRef, ListProps>(({ asChild, ...viewProps }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const List = ({ asChild, ref, ...viewProps }: ListComponentProps) => {
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role='menubar' {...viewProps} />;
-});
+};
 
 List.displayName = 'ListNativeNavigationMenu';
 
 const ItemContext = React.createContext<(ItemProps & { nativeID: string }) | null>(null);
+type ItemComponentProps = ItemProps & React.RefAttributes<ItemRef>;
 
-const Item = React.forwardRef<ItemRef, ItemProps>(({ asChild, value, ...viewProps }, ref) => {
+const Item = ({ asChild, value, ref, ...viewProps }: ItemComponentProps) => {
   const nativeID = React.useId();
 
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return (
     <ItemContext.Provider
       value={{
@@ -100,7 +101,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(({ asChild, value, ...viewProp
       <Component ref={ref} role='menuitem' {...viewProps} />
     </ItemContext.Provider>
   );
-});
+};
 
 Item.displayName = 'ItemNativeNavigationMenu';
 
@@ -113,48 +114,53 @@ function useItemContext() {
   }
   return context;
 }
+type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
-    const triggerRef = React.useRef<View>(null);
-    const { value, onValueChange, setTriggerPosition } = useRootContext();
-    const { value: menuValue } = useItemContext();
+const Trigger = ({
+  asChild,
+  onPress: onPressProp,
+  disabled = false,
+  ref,
+  ...props
+}: TriggerComponentProps) => {
+  const triggerRef = React.useRef<View>(null);
+  const { value, onValueChange, setTriggerPosition } = useRootContext();
+  const { value: menuValue } = useItemContext();
 
-    React.useImperativeHandle(
-      ref,
-      () => {
-        if (!triggerRef.current) {
-          return new View({});
-        }
-        return triggerRef.current;
-      },
-      [triggerRef.current]
-    );
+  React.useImperativeHandle(
+    ref,
+    () => {
+      if (!triggerRef.current) {
+        return new View({});
+      }
+      return triggerRef.current;
+    },
+    [triggerRef.current]
+  );
 
-    function onPress(ev: GestureResponderEvent) {
-      if (disabled) return;
-      triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
-        setTriggerPosition({ width, pageX, pageY: pageY, height });
-      });
+  function onPress(ev: GestureResponderEvent) {
+    if (disabled) return;
+    triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+      setTriggerPosition({ width, pageX, pageY: pageY, height });
+    });
 
-      onValueChange(menuValue === value ? '' : menuValue);
-      onPressProp?.(ev);
-    }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <Component
-        ref={triggerRef}
-        aria-disabled={disabled ?? undefined}
-        role='button'
-        onPress={onPress}
-        disabled={disabled ?? undefined}
-        aria-expanded={value === menuValue}
-        {...props}
-      />
-    );
+    onValueChange(menuValue === value ? '' : menuValue);
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <Component
+      ref={triggerRef}
+      aria-disabled={disabled ?? undefined}
+      role='button'
+      onPress={onPress}
+      disabled={disabled ?? undefined}
+      aria-expanded={value === menuValue}
+      {...props}
+    />
+  );
+};
 
 Trigger.displayName = 'TriggerNativeNavigationMenu';
 
@@ -186,110 +192,107 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
     </RNPPortal>
   );
 }
+type ContentComponentProps = ContentProps & React.RefAttributes<ContentRef>;
 
-/**
- * @info `position`, `top`, `left`, and `maxWidth` style properties are controlled internally. Opt out of this behavior by setting `disablePositioningStyle` to `true`.
- */
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  (
-    {
-      asChild = false,
-      forceMount,
-      align = 'center',
-      side = 'bottom',
-      sideOffset = 0,
-      alignOffset = 0,
-      avoidCollisions = true,
-      onLayout: onLayoutProp,
-      insets,
-      style,
-      disablePositioningStyle,
-      ...props
-    },
-    ref
-  ) => {
-    const {
-      value,
-      onValueChange,
-      triggerPosition,
-      setTriggerPosition,
-      contentLayout,
-      setContentLayout,
-    } = useRootContext();
-    const { value: menuValue, nativeID } = useItemContext();
+const Content = ({
+  asChild = false,
+  forceMount,
+  align = 'center',
+  side = 'bottom',
+  sideOffset = 0,
+  alignOffset = 0,
+  avoidCollisions = true,
+  onLayout: onLayoutProp,
+  insets,
+  style,
+  disablePositioningStyle,
+  ref,
+  ...props
+}: ContentComponentProps) => {
+  const {
+    value,
+    onValueChange,
+    triggerPosition,
+    setTriggerPosition,
+    contentLayout,
+    setContentLayout,
+  } = useRootContext();
+  const { value: menuValue, nativeID } = useItemContext();
 
-    React.useEffect(() => {
-      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-        setTriggerPosition(null);
-        setContentLayout(null);
-        onValueChange('');
-        return true;
-      });
-
-      return () => {
-        setContentLayout(null);
-        backHandler.remove();
-      };
-    }, []);
-
-    const positionStyle = useRelativePosition({
-      align,
-      avoidCollisions,
-      triggerPosition,
-      contentLayout,
-      alignOffset,
-      insets,
-      sideOffset,
-      side,
-      disablePositioningStyle,
+  React.useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      setTriggerPosition(null);
+      setContentLayout(null);
+      onValueChange('');
+      return true;
     });
 
-    function onLayout(event: LayoutChangeEvent) {
-      setContentLayout(event.nativeEvent.layout);
-      onLayoutProp?.(event);
-    }
+    return () => {
+      setContentLayout(null);
+      backHandler.remove();
+    };
+  }, []);
 
-    if (!forceMount) {
-      if (value !== menuValue) {
-        return null;
-      }
-    }
+  const positionStyle = useRelativePosition({
+    align,
+    avoidCollisions,
+    triggerPosition,
+    contentLayout,
+    alignOffset,
+    insets,
+    sideOffset,
+    side,
+    disablePositioningStyle,
+  });
 
-    const Component = asChild ? Slot.View : View;
-    return (
-      <Component
-        ref={ref}
-        role='menu'
-        nativeID={nativeID}
-        aria-modal={true}
-        style={[positionStyle, style]}
-        onLayout={onLayout}
-        onStartShouldSetResponder={onStartShouldSetResponder}
-        {...props}
-      />
-    );
+  function onLayout(event: LayoutChangeEvent) {
+    setContentLayout(event.nativeEvent.layout);
+    onLayoutProp?.(event);
   }
-);
+
+  if (!forceMount) {
+    if (value !== menuValue) {
+      return null;
+    }
+  }
+
+  const Component = asChild ? Slot : View;
+  return (
+    <Component
+      ref={ref}
+      role='menu'
+      nativeID={nativeID}
+      aria-modal={true}
+      style={[positionStyle, style]}
+      onLayout={onLayout}
+      onStartShouldSetResponder={onStartShouldSetResponder}
+      {...props}
+    />
+  );
+};
 
 Content.displayName = 'ContentNativeNavigationMenu';
+type LinkComponentProps = LinkProps & React.RefAttributes<LinkRef>;
 
-const Link = React.forwardRef<LinkRef, LinkProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.Pressable : Pressable;
+const Link = ({ asChild, ref, ...props }: LinkComponentProps) => {
+  const Component = asChild ? Slot : Pressable;
   return <Component ref={ref} role='link' {...props} />;
-});
+};
 
 Link.displayName = 'LinkNativeNavigationMenu';
+type ViewportComponentProps = ViewportProps & React.RefAttributes<ViewportRef>;
 
-const Viewport = React.forwardRef<ViewportRef, ViewportProps>((props, ref) => {
+const Viewport = ({ ref, ...props }: ViewportComponentProps) => {
   return <View ref={ref} {...props} />;
-});
+};
 
 Viewport.displayName = 'ViewportNativeNavigationMenu';
+type IndicatorComponentProps = IndicatorProps & React.RefAttributes<IndicatorRef>;
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const Indicator = ({ asChild, ref, ...props }: IndicatorComponentProps) => {
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} {...props} />;
-});
+};
 
 Indicator.displayName = 'IndicatorNativeNavigationMenu';
 

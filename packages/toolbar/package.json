@@ -32,16 +32,16 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
-    "@radix-ui/react-toolbar": "^1.1.10",
+    "@radix-ui/react-toolbar": "^1.1.11",
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*",
     "@rn-primitives/utils": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",
-    "@types/react": "~19.0.14",
-    "react": "19.0.0",
-    "react-native": "0.79.2",
+    "@types/react": "~19.2.2",
+    "react": "19.2.0",
+    "react-native": "0.83.2",
     "tsup": "^8.1.0"
   },
   "peerDependencies": {
