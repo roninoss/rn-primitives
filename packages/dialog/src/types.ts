@@ -11,12 +11,22 @@ import type {
 type RootContext = {
   open: boolean;
   onOpenChange: (value: boolean) => void;
+
+  /**
+   * Platform: NATIVE ONLY
+   */
+  closeOnBackPress?: boolean;
 };
 
 type RootProps = SlottableViewProps & {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (value: boolean) => void;
+
+  /**
+   * Platform: NATIVE ONLY
+   */
+  closeOnBackPress?: boolean;
 };
 
 interface PortalProps extends ForceMountable {
