@@ -5,7 +5,9 @@ import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Platform, Text } from 'react-native';
+import { ThemeToggle } from '~/components/ThemeToggle';
 import { NAV_THEME } from '~/lib/constants';
+import { useColorScheme } from '~/lib/useColorScheme';
 
 const LIGHT_THEME = {
   ...DefaultTheme,
@@ -25,12 +27,9 @@ export {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { colorScheme, setColorScheme, isDarkColorScheme } = {
-    colorScheme: 'light',
-    setColorScheme: (c: any) => {},
-    isDarkColorScheme: false,
-  };
+  const { colorScheme, setColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+  const isDarkColorScheme = colorScheme === 'dark';
 
   React.useEffect(() => {
     (async () => {
@@ -68,7 +67,15 @@ export default function RootLayout() {
         screenOptions={{
           headerTitle(props) {
             return (
-              <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{toOptions(props.children)}</Text>
+              <Text
+                style={{
+                  fontSize: Platform.OS === 'web' ? 20 : 18,
+                  fontWeight: '600',
+                  color: isDarkColorScheme ? 'white' : 'black',
+                }}
+              >
+                {toOptions(props.children)}
+              </Text>
             );
           },
         }}
@@ -77,6 +84,7 @@ export default function RootLayout() {
           name='index'
           options={{
             title: 'Examples',
+            headerRight: () => <ThemeToggle />,
           }}
         />
       </Stack>
