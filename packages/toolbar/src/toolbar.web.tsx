@@ -23,7 +23,7 @@ const Root = React.forwardRef<RootRef, RootProps>(
     const Component = asChild ? Slot.View : View;
     return (
       <Toolbar.Root orientation={orientation} dir={dir} loop={loop} asChild>
-        <Component ref={ref} {...props} />
+        <Component ref={ref} style={style} {...props} />
       </Toolbar.Root>
     );
   }
@@ -54,7 +54,7 @@ const ToggleGroup = React.forwardRef<ToggleGroupRef, ToggleGroupProps>(
           disabled={disabled}
           asChild
         >
-          <Component ref={ref} {...viewProps} />
+          <Component ref={ref} style={style} {...viewProps} />
         </Toolbar.ToggleGroup>
       </ToggleGroupContext.Provider>
     );
@@ -101,7 +101,7 @@ const ToggleItem = React.forwardRef<ToggleItemRef, ToggleItemProps>(
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
       <Toolbar.ToggleItem value={itemValue} asChild>
-        <Component ref={ref} onPress={onPress} role='button' {...props} />
+        <Component ref={ref} onPress={onPress} role='button' style={style} {...props} />
       </Toolbar.ToggleItem>
     );
   }
@@ -112,7 +112,7 @@ ToggleItem.displayName = 'ToggleItemWebToolbar';
 const Separator = React.forwardRef<SeparatorRef, SeparatorProps>(
   ({ asChild, style, ...props }, ref) => {
     const Component = asChild ? Slot.View : View;
-    return <Component ref={ref} {...props} />;
+    return <Component ref={ref} style={style} {...props} />;
   }
 );
 
@@ -122,7 +122,7 @@ const Link = React.forwardRef<LinkRef, LinkProps>(({ asChild, style, ...props },
   const Component = asChild ? Slot.Pressable : Pressable;
   return (
     <Toolbar.Link asChild>
-      <Component ref={ref} {...props} />
+      <Component ref={ref} style={style} {...props} />
     </Toolbar.Link>
   );
 });
@@ -133,7 +133,7 @@ const Button = React.forwardRef<ButtonRef, ButtonProps>(({ asChild, style, ...pr
   const Component = asChild ? Slot.Pressable : Pressable;
   return (
     <Toolbar.Button asChild>
-      <Component ref={ref} role='button' {...props} />
+      <Component ref={ref} role='button' style={style} {...props} />
     </Toolbar.Button>
   );
 });
