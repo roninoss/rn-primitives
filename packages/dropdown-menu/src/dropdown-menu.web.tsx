@@ -87,25 +87,20 @@ type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 const Trigger = ({ asChild, disabled = false, ref, ...props }: TriggerComponentProps) => {
   const { open, onOpenChange } = useRootContext();
   const triggerRef = React.useRef<TriggerRef>(null);
-  const composedRef = useComposedRefs(triggerRef);
-
-  function openTrigger() {
+  const openTriggerEvent = React.useEffectEvent(() => {
     onOpenChange(true);
-  }
-
-  function closeTrigger() {
+  });
+  const closeTriggerEvent = React.useEffectEvent(() => {
     onOpenChange(false);
-  }
-
-  React.useImperativeHandle(
+  });
+  const composedRef = useComposedRefs(
+    triggerRef,
     ref,
-    () =>
-      ({
-        ...(triggerRef.current ?? {}),
-        open: openTrigger,
-        close: closeTrigger,
-      } as TriggerRef),
-    [onOpenChange]
+    React.useCallback((node: TriggerRef | null) => {
+      if (!node) return;
+      node.open = () => openTriggerEvent();
+      node.close = () => closeTriggerEvent();
+    }, [])
   );
 
   useIsomorphicLayoutEffect(() => {

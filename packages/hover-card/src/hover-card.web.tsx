@@ -64,22 +64,19 @@ type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 
 const Trigger = ({ asChild, ref, ...props }: TriggerComponentProps) => {
   const { onOpenChange } = useRootContext();
-  const triggerRef = React.useRef<TriggerRef>(null);
-  const composedRef = useComposedRefs(triggerRef);
-
-  React.useImperativeHandle(
+  const openTriggerEvent = React.useEffectEvent(() => {
+    onOpenChange(true);
+  });
+  const closeTriggerEvent = React.useEffectEvent(() => {
+    onOpenChange(false);
+  });
+  const composedRef = useComposedRefs(
     ref,
-    () =>
-      ({
-        ...(triggerRef.current ?? {}),
-        open() {
-          onOpenChange(true);
-        },
-        close() {
-          onOpenChange(false);
-        },
-      } as TriggerRef),
-    [onOpenChange]
+    React.useCallback((node: TriggerRef | null) => {
+      if (!node) return;
+      node.open = () => openTriggerEvent();
+      node.close = () => closeTriggerEvent();
+    }, [])
   );
 
   const Component = asChild ? Slot : Pressable;
