@@ -1,4 +1,4 @@
-import { useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
+import { useComposedRefs, useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
@@ -126,17 +126,7 @@ const Trigger = ({
   const triggerRef = React.useRef<View>(null);
   const { value, onValueChange, setTriggerPosition } = useRootContext();
   const { value: menuValue } = useItemContext();
-
-  React.useImperativeHandle(
-    ref,
-    () => {
-      if (!triggerRef.current) {
-        return new View({});
-      }
-      return triggerRef.current;
-    },
-    [triggerRef.current]
-  );
+  const composedRef = useComposedRefs(ref, triggerRef);
 
   function onPress(ev: GestureResponderEvent) {
     if (disabled) return;
@@ -151,7 +141,7 @@ const Trigger = ({
   const Component = asChild ? Slot : Pressable;
   return (
     <Component
-      ref={triggerRef}
+      ref={composedRef}
       aria-disabled={disabled ?? undefined}
       role='button'
       onPress={onPress}

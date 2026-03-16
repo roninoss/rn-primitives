@@ -94,7 +94,6 @@ const Trigger = ({
 }: TriggerComponentProps) => {
   const { open, onOpenChange, setTriggerPosition } = useRootContext();
   const triggerRef = React.useRef<TriggerRef>(null);
-  const composedRef = useComposedRefs(triggerRef);
 
   function measureTrigger() {
     triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
@@ -102,25 +101,22 @@ const Trigger = ({
     });
   }
 
-  function openTrigger() {
+  const openTriggerEvent = React.useEffectEvent(() => {
     onOpenChange(true);
     measureTrigger();
-  }
-
-  function closeTrigger() {
+  });
+  const closeTriggerEvent = React.useEffectEvent(() => {
     setTriggerPosition(null);
     onOpenChange(false);
-  }
-
-  React.useImperativeHandle(
+  });
+  const composedRef = useComposedRefs(
+    triggerRef,
     ref,
-    () =>
-      ({
-        ...(triggerRef.current ?? {}),
-        open: openTrigger,
-        close: closeTrigger,
-      } as TriggerRef),
-    [onOpenChange, setTriggerPosition]
+    React.useCallback((node: TriggerRef | null) => {
+      if (!node) return;
+      node.open = () => openTriggerEvent();
+      node.close = () => closeTriggerEvent();
+    }, [])
   );
 
   function onPress(ev: GestureResponderEvent) {

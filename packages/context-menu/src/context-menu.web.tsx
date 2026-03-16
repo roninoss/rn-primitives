@@ -87,21 +87,20 @@ type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 const Trigger = ({ asChild, disabled = false, ref, ...props }: TriggerComponentProps) => {
   const { open } = useRootContext();
   const triggerRef = React.useRef<TriggerRef>(null);
-  const composedRef = useComposedRefs(triggerRef);
-
-  React.useImperativeHandle(
+  const warnOpen = React.useEffectEvent(() => {
+    console.warn('Warning: `open()` is only for Native platforms');
+  });
+  const warnClose = React.useEffectEvent(() => {
+    console.warn('Warning: `close()` is only for Native platforms');
+  });
+  const composedRef = useComposedRefs(
+    triggerRef,
     ref,
-    () =>
-      ({
-        ...(triggerRef.current ?? {}),
-        open() {
-          console.warn('Warning: `open()` is only for Native platforms');
-        },
-        close() {
-          console.warn('Warning: `close()` is only for Native platforms');
-        },
-      } as TriggerRef),
-    []
+    React.useCallback((node: TriggerRef | null) => {
+      if (!node) return;
+      node.open = () => warnOpen();
+      node.close = () => warnClose();
+    }, [])
   );
 
   useIsomorphicLayoutEffect(() => {
