@@ -6,7 +6,7 @@ import {
 } from '@rn-primitives/hooks';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { type GestureResponderEvent, Pressable, Text, View } from 'react-native';
 import type {
   ContentProps,
   ContentRef,
@@ -39,9 +39,9 @@ import type {
 
 const SelectContext = React.createContext<
   | (SharedRootContext & {
-      open: boolean;
-      onOpenChange: (open: boolean) => void;
-    })
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+  })
   | null
 >(null);
 type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
@@ -105,28 +105,32 @@ function useRootContext() {
 }
 type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 
-const Trigger = ({ asChild, role: _role, disabled, ref, ...props }: TriggerComponentProps) => {
+const Trigger = ({
+  asChild,
+  role: _role,
+  disabled,
+  ref,
+  onTouchStart: onTouchStartProp,
+  ...props
+}: TriggerComponentProps) => {
   const { open, onOpenChange } = useRootContext();
   const triggerRef = React.useRef<TriggerRef>(null);
-  const composedRef = useComposedRefs(triggerRef);
 
-  function openTrigger() {
+  const openTriggerEvent = React.useEffectEvent(() => {
     onOpenChange(true);
-  }
-
-  function closeTrigger() {
+  });
+  const closeTriggerEvent = React.useEffectEvent(() => {
     onOpenChange(false);
-  }
+  });
 
-  React.useImperativeHandle(
+  const composedRef = useComposedRefs(
+    triggerRef,
     ref,
-    () =>
-      ({
-        ...(triggerRef.current ?? {}),
-        open: openTrigger,
-        close: closeTrigger,
-      } as TriggerRef),
-    [onOpenChange]
+    React.useCallback((node: TriggerRef | null) => {
+      if (!node) return;
+      node.open = () => openTriggerEvent();
+      node.close = () => closeTriggerEvent();
+    }, [])
   );
 
   useIsomorphicLayoutEffect(() => {
@@ -137,10 +141,23 @@ const Trigger = ({ asChild, role: _role, disabled, ref, ...props }: TriggerCompo
     }
   }, [open]);
 
+  function onTouchStart(ev: GestureResponderEvent) {
+    onTouchStartProp?.(ev);
+    if (!ev.defaultPrevented) {
+      onOpenChange(true);
+    }
+  }
+
   const Component = asChild ? Slot : Pressable;
   return (
     <Select.Trigger disabled={disabled ?? undefined} asChild>
-      <Component ref={composedRef} role='button' disabled={disabled} {...props} />
+      <Component
+        ref={composedRef}
+        role='button'
+        disabled={disabled}
+        onTouchStart={onTouchStart}
+        {...props}
+      />
     </Select.Trigger>
   );
 };
