@@ -2,6 +2,7 @@ import * as Select from '@radix-ui/react-select';
 import {
   useComposedRefs,
   useControllableState,
+  useEffectEvent,
   useIsomorphicLayoutEffect,
 } from '@rn-primitives/hooks';
 import { Slot } from '@rn-primitives/slot';
@@ -116,10 +117,10 @@ const Trigger = ({
   const { open, onOpenChange } = useRootContext();
   const triggerRef = React.useRef<TriggerRef>(null);
 
-  const openTriggerEvent = React.useEffectEvent(() => {
+  const openTriggerEvent = useEffectEvent(() => {
     onOpenChange(true);
   });
-  const closeTriggerEvent = React.useEffectEvent(() => {
+  const closeTriggerEvent = useEffectEvent(() => {
     onOpenChange(false);
   });
 

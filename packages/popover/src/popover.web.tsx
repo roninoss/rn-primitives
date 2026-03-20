@@ -1,5 +1,5 @@
 import * as Popover from '@radix-ui/react-popover';
-import { useComposedRefs, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
+import { useComposedRefs, useEffectEvent, useIsomorphicLayoutEffect } from '@rn-primitives/hooks';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
@@ -69,10 +69,10 @@ const Trigger = ({
   const { onOpenChange, open } = useRootContext();
   const triggerRef = React.useRef<TriggerRef>(null);
 
-  const openTriggerEvent = React.useEffectEvent(() => {
+  const openTriggerEvent = useEffectEvent(() => {
     onOpenChange(true);
   });
-  const closeTriggerEvent = React.useEffectEvent(() => {
+  const closeTriggerEvent = useEffectEvent(() => {
     onOpenChange(false);
   });
   const composedRef = useComposedRefs(

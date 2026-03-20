@@ -2,6 +2,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {
   useComposedRefs,
   useControllableState,
+  useEffectEvent,
   useIsomorphicLayoutEffect,
 } from '@rn-primitives/hooks';
 import { Slot } from '@rn-primitives/slot';
@@ -87,10 +88,10 @@ type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 const Trigger = ({ asChild, disabled = false, ref, ...props }: TriggerComponentProps) => {
   const { open, onOpenChange } = useRootContext();
   const triggerRef = React.useRef<TriggerRef>(null);
-  const openTriggerEvent = React.useEffectEvent(() => {
+  const openTriggerEvent = useEffectEvent(() => {
     onOpenChange(true);
   });
-  const closeTriggerEvent = React.useEffectEvent(() => {
+  const closeTriggerEvent = useEffectEvent(() => {
     onOpenChange(false);
   });
   const composedRef = useComposedRefs(
