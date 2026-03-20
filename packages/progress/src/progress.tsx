@@ -1,4 +1,4 @@
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { View } from 'react-native';
 import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
@@ -8,42 +8,46 @@ import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
 // https://github.com/radix-ui/primitives/tree/main
 
 const DEFAULT_MAX = 100;
+type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    { asChild, value: valueProp, max: maxProp, getValueLabel = defaultGetValueLabel, ...props },
-    ref
-  ) => {
-    const max = maxProp ?? DEFAULT_MAX;
-    const value = isValidValueNumber(valueProp, max) ? valueProp : 0;
+const Root = ({
+  asChild,
+  value: valueProp,
+  max: maxProp,
+  getValueLabel = defaultGetValueLabel,
+  ref,
+  ...props
+}: RootComponentProps) => {
+  const max = maxProp ?? DEFAULT_MAX;
+  const value = isValidValueNumber(valueProp, max) ? valueProp : 0;
 
-    const Component = asChild ? Slot.View : View;
-    return (
-      <Component
-        role='progressbar'
-        ref={ref}
-        aria-valuemax={max}
-        aria-valuemin={0}
-        aria-valuenow={value}
-        aria-valuetext={getValueLabel(value, max)}
-        accessibilityValue={{
-          min: 0,
-          max,
-          now: value,
-          text: getValueLabel(value, max),
-        }}
-        {...props}
-      />
-    );
-  }
-);
+  const Component = asChild ? Slot : View;
+  return (
+    <Component
+      role='progressbar'
+      ref={ref}
+      aria-valuemax={max}
+      aria-valuemin={0}
+      aria-valuenow={value}
+      aria-valuetext={getValueLabel(value, max)}
+      accessibilityValue={{
+        min: 0,
+        max,
+        now: value,
+        text: getValueLabel(value, max),
+      }}
+      {...props}
+    />
+  );
+};
 
 Root.displayName = 'RootProgress';
+type IndicatorComponentProps = IndicatorProps & React.RefAttributes<IndicatorRef>;
 
-const Indicator = React.forwardRef<IndicatorRef, IndicatorProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const Indicator = ({ asChild, ref, ...props }: IndicatorComponentProps) => {
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role='presentation' {...props} />;
-});
+};
 
 Indicator.displayName = 'IndicatorProgress';
 

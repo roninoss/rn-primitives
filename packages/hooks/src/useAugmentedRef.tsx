@@ -6,11 +6,11 @@ interface AugmentRefProps<T> {
   deps?: any[];
 }
 
-export function useAugmentedRef<T>({
-  ref,
-  methods,
-  deps = [],
-}: AugmentRefProps<T>) {
+/**
+ * @deprecated Use useComposedRefs for new code. This hook remains only for
+ * backwards compatibility with the older imperative ref augmentation pattern.
+ */
+export function useAugmentedRef<T>({ ref, methods, deps = [] }: AugmentRefProps<T>) {
   const augmentedRef = React.useRef<T>(null);
   React.useImperativeHandle(
     ref,

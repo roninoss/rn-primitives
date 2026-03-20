@@ -10,13 +10,11 @@ import Code from '@/components/ManualCode.astro';
 import { LinkButton } from '@/components/react/LinkButton';
 import { Aside, Card, Tabs, TabItem } from '@astrojs/starlight/components';
 import importedIndexCode from '@/../node_modules/@rn-primitives/hooks/src/index.ts?raw';
-import importedUseAugmentedRefCode from '@/../node_modules/@rn-primitives/hooks/src/useAugmentedRef.tsx?raw';
+import importedUseComposedRefsCode from '@/../node_modules/@rn-primitives/hooks/src/use-compose-refs.ts?raw';
 import importedUseControllableStateCode from '@/../node_modules/@rn-primitives/hooks/src/useControllableState.tsx?raw';
 import importedUseRelativePositionCode from '@/../node_modules/@rn-primitives/hooks/src/useRelativePosition.tsx?raw';
 
-<LinkButton href="/primitives/types">
-  Types Primitives
-</LinkButton>
+<LinkButton href='/primitives/types'>Types Primitives</LinkButton>
 
 <br />
 
@@ -24,7 +22,7 @@ A collection of hooks for core primitives.
 
 <Card title="Hooks">
 
-- `useAugmentedRef` Allows using a forwarded ref as a value of useRef and allows adding properties to the ref.
+- `useComposedRefs` Composes multiple refs into a single ref callback.
 - `useControllableState` Allows defaulting to an uncontrolled state and allows controlling the state from the parent.
 - `useRelativePosition` Returns a style for an element relative to another element.
 
@@ -35,7 +33,7 @@ A collection of hooks for core primitives.
 <Tabs>
   <TabItem label="NPM">
 
-  Install the component via your command line.
+Install the component via your command line.
 
     ```bash
     npx expo install @rn-primitives/hooks
@@ -43,10 +41,10 @@ A collection of hooks for core primitives.
 
   </TabItem>
   <TabItem label="Manual">
-    ### useAugmentedRef
-    **Copy/paste the following code to  `~/components/primitives/hooks/useAugmentedRef.tsx`**
+    ### useComposedRefs
+    **Copy/paste the following code to  `~/components/primitives/hooks/use-compose-refs.ts`**
 
-    <Code code={importedUseAugmentedRefCode} lang="tsx" title="~/components/primitives/hooks/useAugmentedRef.tsx" />
+    <Code code={importedUseComposedRefsCode} lang="ts" title="~/components/primitives/hooks/use-compose-refs.ts" />
 
 
     ### useControllableState
@@ -76,149 +74,142 @@ A collection of hooks for core primitives.
 
 ## Usage
 
-### useAugmentedRef
+<Aside>`useAugmentedRef` is deprecated. Use `useComposedRefs` for new code.</Aside>
+
+### useComposedRefs
 
 ```tsx
-import { useAugmentedRef } from '@rn-primitives/hooks';
+import * as React from 'react';
+import { Pressable } from 'react-native';
+import { useComposedRefs } from '@rn-primitives/hooks';
 import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
 
-const Thing = React.forwardRef<PressableRef, SlottablePressableProps>(
-  (props, ref) => {
-    const augmentedRef = useAugmentedRef({ ref });
+type ThingProps = SlottablePressableProps & React.RefAttributes<PressableRef>;
 
-    React.useEffect(() => {
-      if (augmentedRef.current) {
-        // Do something with the augmented ref
-      }
-    }, []);
-    
-    return (
-        <Pressable
-          ref={augmentedRef}
-          {...props}
-        />
-    );
-  }
-);
+function Thing({ ref, ...props }: ThingProps) {
+  const localRef = React.useRef<PressableRef>(null);
+  const composedRef = useComposedRefs(ref, localRef);
+
+  React.useEffect(() => {
+    if (localRef.current) {
+      // Do something with the local ref
+    }
+  }, []);
+
+  return <Pressable ref={composedRef} {...props} />;
+}
 ```
 
 ### useControllableState
 
 ```tsx
+import * as React from 'react';
+import { Pressable } from 'react-native';
 import { useControllableState } from '@rn-primitives/hooks';
 import type { PressableRef, SlottablePressableProps } from '@rn-primitives/types';
 
-const Thing = React.forwardRef<PressableRef, SlottablePressableProps & { defaultOpen?: boolean, open?: boolean, onOpenChange?: (open: boolean) => void }>(
-  ({ defaultOpen, open: openProp, onOpenChange: onOpenChangeProp, onPress: onPressProp, ...props}, ref) => {
-      const [open = false, onOpenChange] = useControllableState({
-      prop: openProp,
-      defaultProp: defaultOpen,
-      onChange: onOpenChangeProp,
-    });
+type ThingProps = SlottablePressableProps &
+  React.RefAttributes<PressableRef> & {
+    defaultOpen?: boolean;
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
+  };
 
-    function onPress() {
-      onOpenChange(!open);
-      onPressProp?.();
-    }
-    
-    return (
-        <Pressable
-          ref={augmentedRef}
-          onPress={onPress}
-          {...props}
-        />
-    );
+function Thing({
+  defaultOpen,
+  open: openProp,
+  onOpenChange: onOpenChangeProp,
+  onPress: onPressProp,
+  ref,
+  ...props
+}: ThingProps) {
+  const [open = false, onOpenChange] = useControllableState({
+    prop: openProp,
+    defaultProp: defaultOpen,
+    onChange: onOpenChangeProp,
+  });
+
+  function onPress() {
+    onOpenChange(!open);
+    onPressProp?.();
   }
-);
+
+  return <Pressable ref={ref} onPress={onPress} {...props} />;
+}
 ```
 
 ### useRelativePosition
 
 ```tsx
+import * as React from 'react';
+import { View, type LayoutChangeEvent } from 'react-native';
 import { useRelativePosition } from '@rn-primitives/hooks';
-import type { PositionedContentProps, SlottablePressableProps, ViewRef } from '@rn-primitives/types';
+import type { PositionedContentProps, SlottableViewProps, ViewRef } from '@rn-primitives/types';
 
-const Content = React.forwardRef<ViewRef, SlottableViewProps & PositionedContentProps>(
-  (
-    {
-      align = 'center',
-      side = 'top',
-      sideOffset = 0,
-      alignOffset = 0,
-      avoidCollisions = true,
-      onLayout: onLayoutProp,
-      insets,
-      style,
-      disablePositioningStyle,
-      ...props
-    },
-    ref
-  ) => {
-    const {
-      contentLayout,
-      setContentLayout,
-      triggerPosition,
-    } = useRootContext();
+type ContentProps = SlottableViewProps & PositionedContentProps & React.RefAttributes<ViewRef>;
 
-    const positionStyle = useRelativePosition({
-      align,
-      avoidCollisions,
-      triggerPosition,
-      contentLayout,
-      alignOffset,
-      insets,
-      sideOffset,
-      side,
-      disablePositioningStyle,
-    });
+function Content({
+  align = 'center',
+  side = 'top',
+  sideOffset = 0,
+  alignOffset = 0,
+  avoidCollisions = true,
+  onLayout: onLayoutProp,
+  insets,
+  style,
+  disablePositioningStyle,
+  ref,
+  ...props
+}: ContentProps) {
+  const { contentLayout, setContentLayout, triggerPosition } = useRootContext();
 
-    function onLayout(event: LayoutChangeEvent) {
-      setContentLayout(event.nativeEvent.layout);
-      onLayoutProp?.(event);
-    }
+  const positionStyle = useRelativePosition({
+    align,
+    avoidCollisions,
+    triggerPosition,
+    contentLayout,
+    alignOffset,
+    insets,
+    sideOffset,
+    side,
+    disablePositioningStyle,
+  });
 
-    return (
-      <View
-        ref={ref}
-        style={[positionStyle, style]}
-        onLayout={onLayout}
-        {...props}
-      />
-    );
+  function onLayout(event: LayoutChangeEvent) {
+    setContentLayout(event.nativeEvent.layout);
+    onLayoutProp?.(event);
   }
-);
+
+  return <View ref={ref} style={[positionStyle, style]} onLayout={onLayout} {...props} />;
+}
 ```
 
 ## Parameters
 
-### useAugmentedRef
+### useComposedRefs
 
-By default, children of all Portal components will be rendered as its own children.
-
-| Prop |       Type        |                   Note                   |
-| :--: | :---------------: | :--------------------------------------: |
-| ref* |  React.Ref\<T> |   | forwardedRef
-| methods |  Record\<string, (...args: any[]) => any>|  Added methods to the forwardRef. Allows the parent component that passes the ref to call the added methods _(optional)_ |
-| deps |  Array\<any> |  Dependency array: a list of all reactive values referenced in the mothods _(optional)_ |
+|  Prop  |                Type                |                      Note                      |
+| :----: | :--------------------------------: | :--------------------------------------------: |
+| refs\* | Array\<React.Ref\<T> \| undefined> | Refs that should be composed into one callback |
 
 ### useControllableState
 
-|   Prop   |       Type        |                                         Note                                          |
-| :------: | :---------------: | :-----------------------------------------------------------------------------------: |
-|   prop  | T \| undefined            | _(optional)_  |
-| defaultProp | T \| undefined           |  _(optional)_            |
-| onChange | (state: T \| undefined) => void           |  _(optional)_            |
+|    Prop     |              Type               |     Note     |
+| :---------: | :-----------------------------: | :----------: |
+|    prop     |         T \| undefined          | _(optional)_ |
+| defaultProp |         T \| undefined          | _(optional)_ |
+|  onChange   | (state: T \| undefined) => void | _(optional)_ |
 
 ### useRelativePosition
 
-|   Prop   |       Type        |                                         Note                                          |
-| :------: | :---------------: | :-----------------------------------------------------------------------------------: |
-|   align*  |  'start' \| 'center' \| 'end'   | Horizontal alignment of content position relative to trigger |
-|   avoidCollisions*  |   boolean  | Prevent content from going offscreen |
-|   triggerPosition*  |  LayoutPosition \| null   | Layout position of the trigger |
-|   contentLayout*  |  LayoutRectangle \| null   | Layout Size of the content |
-|   alignOffset*  |   number  | Horizontal offset |
-|   insets*  |   LayoutRectangle  | When avoidCollisions is `true`, it prevents content from going over insets |
-|   sideOffset*  |   number  | Vertical offset |
-|   side*  |  'top' \| 'bottom';   | Side alignment of content position relative to trigger |
-|   disablePositioningStyle*  |   boolean  | Completely disables styling returned from hook |
+|           Prop            |             Type             |                                    Note                                    |
+| :-----------------------: | :--------------------------: | :------------------------------------------------------------------------: |
+|          align\*          | 'start' \| 'center' \| 'end' |        Horizontal alignment of content position relative to trigger        |
+|     avoidCollisions\*     |           boolean            |                    Prevent content from going offscreen                    |
+|     triggerPosition\*     |    LayoutPosition \| null    |                       Layout position of the trigger                       |
+|      contentLayout\*      |   LayoutRectangle \| null    |                         Layout Size of the content                         |
+|       alignOffset\*       |            number            |                             Horizontal offset                              |
+|         insets\*          |       LayoutRectangle        | When avoidCollisions is `true`, it prevents content from going over insets |
+|       sideOffset\*        |            number            |                              Vertical offset                               |
+|          side\*           |      'top' \| 'bottom';      |           Side alignment of content position relative to trigger           |
+| disablePositioningStyle\* |           boolean            |               Completely disables styling returned from hook               |

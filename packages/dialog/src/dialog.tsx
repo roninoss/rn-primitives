@@ -1,6 +1,6 @@
 import { useControllableState } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { BackHandler, GestureResponderEvent, Pressable, Text, View } from 'react-native';
 import type {
@@ -23,30 +23,36 @@ import type {
 } from './types';
 
 const DialogContext = React.createContext<(RootContext & { nativeID: string }) | null>(null);
+type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  ({ asChild, open: openProp, defaultOpen, onOpenChange: onOpenChangeProp, ...viewProps }, ref) => {
-    const nativeID = React.useId();
-    const [open = false, onOpenChange] = useControllableState({
-      prop: openProp,
-      defaultProp: defaultOpen,
-      onChange: onOpenChangeProp,
-    });
+const Root = ({
+  asChild,
+  open: openProp,
+  defaultOpen,
+  onOpenChange: onOpenChangeProp,
+  ref,
+  ...viewProps
+}: RootComponentProps) => {
+  const nativeID = React.useId();
+  const [open = false, onOpenChange] = useControllableState({
+    prop: openProp,
+    defaultProp: defaultOpen,
+    onChange: onOpenChangeProp,
+  });
 
-    const Component = asChild ? Slot.View : View;
-    return (
-      <DialogContext.Provider
-        value={{
-          open,
-          onOpenChange,
-          nativeID,
-        }}
-      >
-        <Component ref={ref} {...viewProps} />
-      </DialogContext.Provider>
-    );
-  }
-);
+  const Component = asChild ? Slot : View;
+  return (
+    <DialogContext.Provider
+      value={{
+        open,
+        onOpenChange,
+        nativeID,
+      }}
+    >
+      <Component ref={ref} {...viewProps} />
+    </DialogContext.Provider>
+  );
+};
 
 Root.displayName = 'RootNativeDialog';
 
@@ -57,31 +63,36 @@ function useRootContext() {
   }
   return context;
 }
+type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 
-const Trigger = React.forwardRef<TriggerRef, TriggerProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
-    const { open, onOpenChange } = useRootContext();
+const Trigger = ({
+  asChild,
+  onPress: onPressProp,
+  disabled = false,
+  ref,
+  ...props
+}: TriggerComponentProps) => {
+  const { open, onOpenChange } = useRootContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      if (disabled) return;
-      const newValue = !open;
-      onOpenChange(newValue);
-      onPressProp?.(ev);
-    }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <Component
-        ref={ref}
-        aria-disabled={disabled ?? undefined}
-        role='button'
-        onPress={onPress}
-        disabled={disabled ?? undefined}
-        {...props}
-      />
-    );
+  function onPress(ev: GestureResponderEvent) {
+    if (disabled) return;
+    const newValue = !open;
+    onOpenChange(newValue);
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <Component
+      ref={ref}
+      aria-disabled={disabled ?? undefined}
+      role='button'
+      onPress={onPress}
+      disabled={disabled ?? undefined}
+      {...props}
+    />
+  );
+};
 
 Trigger.displayName = 'TriggerNativeDialog';
 
@@ -103,107 +114,119 @@ function Portal({ forceMount, hostName, children }: PortalProps) {
     </RNPPortal>
   );
 }
+type OverlayComponentProps = OverlayProps & React.RefAttributes<OverlayRef>;
 
-const Overlay = React.forwardRef<OverlayRef, OverlayProps>(
-  ({ asChild, forceMount, closeOnPress = true, onPress: OnPressProp, ...props }, ref) => {
-    const { open, onOpenChange } = useRootContext();
+const Overlay = ({
+  asChild,
+  forceMount,
+  closeOnPress = true,
+  onPress: OnPressProp,
+  ref,
+  ...props
+}: OverlayComponentProps) => {
+  const { open, onOpenChange } = useRootContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      if (closeOnPress) {
-        onOpenChange(!open);
-      }
-      OnPressProp?.(ev);
+  function onPress(ev: GestureResponderEvent) {
+    if (closeOnPress) {
+      onOpenChange(!open);
     }
-
-    if (!forceMount) {
-      if (!open) {
-        return null;
-      }
-    }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return <Component ref={ref} onPress={onPress} {...props} />;
+    OnPressProp?.(ev);
   }
-);
+
+  if (!forceMount) {
+    if (!open) {
+      return null;
+    }
+  }
+
+  const Component = asChild ? Slot : Pressable;
+  return <Component ref={ref} onPress={onPress} {...props} />;
+};
 
 Overlay.displayName = 'OverlayNativeDialog';
+type ContentComponentProps = ContentProps & React.RefAttributes<ContentRef>;
 
-const Content = React.forwardRef<ContentRef, ContentProps>(
-  ({ asChild, forceMount, ...props }, ref) => {
-    const { open, nativeID, onOpenChange } = useRootContext();
+const Content = ({ asChild, forceMount, ref, ...props }: ContentComponentProps) => {
+  const { open, nativeID, onOpenChange } = useRootContext();
 
-    React.useEffect(() => {
-      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-        onOpenChange(false);
-        return true;
-      });
+  React.useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      onOpenChange(false);
+      return true;
+    });
 
-      return () => {
-        backHandler.remove();
-      };
-    }, []);
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
 
-    if (!forceMount) {
-      if (!open) {
-        return null;
-      }
+  if (!forceMount) {
+    if (!open) {
+      return null;
     }
-
-    const Component = asChild ? Slot.View : View;
-    return (
-      <Component
-        ref={ref}
-        role='dialog'
-        nativeID={nativeID}
-        aria-labelledby={`${nativeID}_label`}
-        aria-describedby={`${nativeID}_desc`}
-        aria-modal={true}
-        onStartShouldSetResponder={onStartShouldSetResponder}
-        {...props}
-      />
-    );
   }
-);
+
+  const Component = asChild ? Slot : View;
+  return (
+    <Component
+      ref={ref}
+      role='dialog'
+      nativeID={nativeID}
+      aria-labelledby={`${nativeID}_label`}
+      aria-describedby={`${nativeID}_desc`}
+      aria-modal={true}
+      onStartShouldSetResponder={onStartShouldSetResponder}
+      {...props}
+    />
+  );
+};
 
 Content.displayName = 'ContentNativeDialog';
+type CloseComponentProps = CloseProps & React.RefAttributes<CloseRef>;
 
-const Close = React.forwardRef<CloseRef, CloseProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
-    const { onOpenChange } = useRootContext();
+const Close = ({
+  asChild,
+  onPress: onPressProp,
+  disabled = false,
+  ref,
+  ...props
+}: CloseComponentProps) => {
+  const { onOpenChange } = useRootContext();
 
-    function onPress(ev: GestureResponderEvent) {
-      if (disabled) return;
-      onOpenChange(false);
-      onPressProp?.(ev);
-    }
-
-    const Component = asChild ? Slot.Pressable : Pressable;
-    return (
-      <Component
-        ref={ref}
-        aria-disabled={disabled ?? undefined}
-        role='button'
-        onPress={onPress}
-        disabled={disabled ?? undefined}
-        {...props}
-      />
-    );
+  function onPress(ev: GestureResponderEvent) {
+    if (disabled) return;
+    onOpenChange(false);
+    onPressProp?.(ev);
   }
-);
+
+  const Component = asChild ? Slot : Pressable;
+  return (
+    <Component
+      ref={ref}
+      aria-disabled={disabled ?? undefined}
+      role='button'
+      onPress={onPress}
+      disabled={disabled ?? undefined}
+      {...props}
+    />
+  );
+};
 
 Close.displayName = 'CloseNativeDialog';
+type TitleComponentProps = TitleProps & React.RefAttributes<TitleRef>;
 
-const Title = React.forwardRef<TitleRef, TitleProps>((props, ref) => {
+const Title = ({ ref, ...props }: TitleComponentProps) => {
   const { nativeID } = useRootContext();
   return <Text ref={ref} role='heading' nativeID={`${nativeID}_label`} {...props} />;
-});
+};
 
 Title.displayName = 'TitleNativeDialog';
+type DescriptionComponentProps = DescriptionProps & React.RefAttributes<DescriptionRef>;
 
-const Description = React.forwardRef<DescriptionRef, DescriptionProps>((props, ref) => {
+const Description = ({ ref, ...props }: DescriptionComponentProps) => {
   const { nativeID } = useRootContext();
   return <Text ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
-});
+};
 
 Description.displayName = 'DescriptionNativeDialog';
 

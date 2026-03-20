@@ -1,4 +1,4 @@
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { View } from 'react-native';
 import type {
@@ -13,31 +13,28 @@ import type {
 } from './types';
 
 const RootContext = React.createContext<RootProps | null>(null);
+type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
-const Root = React.forwardRef<RootRef, RootProps>(
-  (
-    {
-      asChild,
-      value,
-      disabled,
-      min,
-      max,
-      dir: _dir,
-      inverted: _inverted,
-      step: _step,
-      onValueChange: _onValueChange,
-      ...props
-    },
-    ref
-  ) => {
-    const Component = asChild ? Slot.View : View;
-    return (
-      <RootContext.Provider value={{ value, disabled, min, max }}>
-        <Component ref={ref} role='group' {...props} />
-      </RootContext.Provider>
-    );
-  }
-);
+const Root = ({
+  asChild,
+  value,
+  disabled,
+  min,
+  max,
+  dir: _dir,
+  inverted: _inverted,
+  step: _step,
+  onValueChange: _onValueChange,
+  ref,
+  ...props
+}: RootComponentProps) => {
+  const Component = asChild ? Slot : View;
+  return (
+    <RootContext.Provider value={{ value, disabled, min, max }}>
+      <Component ref={ref} role='group' {...props} />
+    </RootContext.Provider>
+  );
+};
 
 Root.displayName = 'RootNativeSlider';
 
@@ -48,11 +45,12 @@ function useSliderContext() {
   }
   return context;
 }
+type TrackComponentProps = TrackProps & React.RefAttributes<TrackRef>;
 
-const Track = React.forwardRef<TrackRef, TrackProps>(({ asChild, ...props }, ref) => {
+const Track = ({ asChild, ref, ...props }: TrackComponentProps) => {
   const { value, min, max, disabled } = useSliderContext();
 
-  const Component = asChild ? Slot.View : View;
+  const Component = asChild ? Slot : View;
   return (
     <Component
       ref={ref}
@@ -65,21 +63,23 @@ const Track = React.forwardRef<TrackRef, TrackProps>(({ asChild, ...props }, ref
       {...props}
     />
   );
-});
+};
 
 Track.displayName = 'TrackNativeSlider';
+type RangeComponentProps = RangeProps & React.RefAttributes<RangeRef>;
 
-const Range = React.forwardRef<RangeRef, RangeProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const Range = ({ asChild, ref, ...props }: RangeComponentProps) => {
+  const Component = asChild ? Slot : View;
   return <Component ref={ref} role='presentation' {...props} />;
-});
+};
 
 Range.displayName = 'RangeNativeSlider';
+type ThumbComponentProps = ThumbProps & React.RefAttributes<ThumbRef>;
 
-const Thumb = React.forwardRef<ThumbRef, ThumbProps>(({ asChild, ...props }, ref) => {
-  const Component = asChild ? Slot.View : View;
+const Thumb = ({ asChild, ref, ...props }: ThumbComponentProps) => {
+  const Component = asChild ? Slot : View;
   return <Component accessibilityRole='adjustable' ref={ref} {...props} />;
-});
+};
 
 Thumb.displayName = 'ThumbNativeSlider';
 

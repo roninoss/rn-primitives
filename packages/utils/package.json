@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/utils",
-  "version": "1.2.0",
+  "version": "1.4.0-beta.2",
   "description": "Primitive types",
   "license": "MIT",
   "main": "dist/index.js",
@@ -21,15 +21,18 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "clean": "rm -rf dist",
-    "pub:beta": "pnpm publish --no-git-checks --access public --tag beta",
-    "pub:next": "pnpm publish --no-git-checks --access public --tag next",
-    "pub:release": "pnpm publish --access public"
+    "pub:beta": "echo 'Skipping pub:beta: this package uses pub:beta:first to allow batch updates with the new npm auth system.'",
+    "pub:beta:first": "pnpm publish --no-git-checks --access public --tag beta",
+    "pub:next": "echo 'Skipping pub:next: this package uses pub:next:first to allow batch updates with the new npm auth system.'",
+    "pub:next:first": "pnpm publish --no-git-checks --access public --tag next",
+    "pub:release": "echo 'Skipping pub:release: this package uses pub:release:first to allow batch updates with the new npm auth system.'",
+    "pub:release:first": "pnpm publish --access public"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",
-    "@types/react": "~19.0.14",
-    "react": "19.0.0",
-    "react-native": "0.79.2",
+    "@types/react": "~19.2.2",
+    "react": "19.2.0",
+    "react-native": "0.83.2",
     "tsup": "^8.1.0"
   },
   "peerDependencies": {

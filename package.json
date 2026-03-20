@@ -6,6 +6,7 @@
     "dev:primitives": "turbo dev --filter=./packages/* --concurrency=33",
     "dev:expo-nativewind": "turbo dev --filter=./apps/expo-nativewind",
     "dev:nextjs-nativewind": "turbo dev --filter=./apps/nextjs-nativewind",
+    "dev:expo-stylesheet": "turbo dev --filter=./apps/expo-stylesheet",
     "dev:docs": "turbo dev --filter=./apps/docs",
     "version-bump": "npx changeset && npx changeset version",
     "lint": "turbo lint",
@@ -13,6 +14,7 @@
     "build": "turbo build --filter=./packages/*",
     "build:docs": "turbo build --filter=./apps/docs",
     "publish-all:primitives:next": "turbo pub:next --filter=./packages/* --concurrency=33",
+    "publish-all:primitives:beta": "turbo pub:beta --filter=./packages/* --concurrency=33",
     "publish-all:primitives": "turbo pub:release --filter=./packages/* --concurrency=33",
     "clean": "turbo clean && rm -rf .turbo node_modules"
   },

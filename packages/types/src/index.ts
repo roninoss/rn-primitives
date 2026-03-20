@@ -70,9 +70,7 @@ interface PositionedContentProps {
   /**
    * Platform: WEB ONLY
    */
-  onInteractOutside?: (
-    event: PointerDownOutsideEvent | FocusOutsideEvent
-  ) => void;
+  onInteractOutside?: (event: PointerDownOutsideEvent | FocusOutsideEvent) => void;
   /**
    * Platform: WEB ONLY
    */

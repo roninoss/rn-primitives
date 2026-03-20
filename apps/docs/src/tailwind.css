@@ -73,6 +73,10 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  table :is(th, td):not(:where(.not-content *)) {
+    border-bottom: 1px solid hsl(var(--border));
+  }
 }
 
 .expressive-code .copy button {
