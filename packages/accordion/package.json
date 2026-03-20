@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/accordion",
-  "version": "1.4.0",
+  "version": "1.4.0-beta.1",
   "description": "Primitive accordion",
   "license": "MIT",
   "main": "dist/index.js",

@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/slider",
-  "version": "1.4.0",
+  "version": "1.4.0-beta.1",
   "description": "Primitive slider",
   "license": "MIT",
   "main": "dist/index.js",
