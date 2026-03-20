@@ -2,6 +2,7 @@ import * as ContextMenu from '@radix-ui/react-context-menu';
 import {
   useComposedRefs,
   useControllableState,
+  useEffectEvent,
   useIsomorphicLayoutEffect,
 } from '@rn-primitives/hooks';
 import { Slot } from '@rn-primitives/slot';
@@ -87,10 +88,10 @@ type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 const Trigger = ({ asChild, disabled = false, ref, ...props }: TriggerComponentProps) => {
   const { open } = useRootContext();
   const triggerRef = React.useRef<TriggerRef>(null);
-  const warnOpen = React.useEffectEvent(() => {
+  const warnOpen = useEffectEvent(() => {
     console.warn('Warning: `open()` is only for Native platforms');
   });
-  const warnClose = React.useEffectEvent(() => {
+  const warnClose = useEffectEvent(() => {
     console.warn('Warning: `close()` is only for Native platforms');
   });
   const composedRef = useComposedRefs(

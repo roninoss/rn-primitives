@@ -1,6 +1,7 @@
 import {
   useComposedRefs,
   useControllableState,
+  useEffectEvent,
   useRelativePosition,
   type LayoutPosition,
 } from '@rn-primitives/hooks';
@@ -126,11 +127,11 @@ const Trigger = ({
     });
   }
 
-  const openTriggerEvent = React.useEffectEvent(() => {
+  const openTriggerEvent = useEffectEvent(() => {
     onOpenChange(true);
     measureTrigger();
   });
-  const closeTriggerEvent = React.useEffectEvent(() => {
+  const closeTriggerEvent = useEffectEvent(() => {
     setTriggerPosition(null);
     onOpenChange(false);
   });

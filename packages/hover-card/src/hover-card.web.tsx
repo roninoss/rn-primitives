@@ -1,5 +1,5 @@
 import * as HoverCard from '@radix-ui/react-hover-card';
-import { useComposedRefs } from '@rn-primitives/hooks';
+import { useComposedRefs, useEffectEvent } from '@rn-primitives/hooks';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, View } from 'react-native';
@@ -64,10 +64,10 @@ type TriggerComponentProps = TriggerProps & React.RefAttributes<TriggerRef>;
 
 const Trigger = ({ asChild, ref, ...props }: TriggerComponentProps) => {
   const { onOpenChange } = useRootContext();
-  const openTriggerEvent = React.useEffectEvent(() => {
+  const openTriggerEvent = useEffectEvent(() => {
     onOpenChange(true);
   });
-  const closeTriggerEvent = React.useEffectEvent(() => {
+  const closeTriggerEvent = useEffectEvent(() => {
     onOpenChange(false);
   });
   const composedRef = useComposedRefs(

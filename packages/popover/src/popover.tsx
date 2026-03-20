@@ -1,4 +1,9 @@
-import { useComposedRefs, useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
+import {
+  useComposedRefs,
+  useEffectEvent,
+  useRelativePosition,
+  type LayoutPosition,
+} from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
@@ -98,11 +103,11 @@ const Trigger = ({
     });
   }
 
-  const openTriggerEvent = React.useEffectEvent(() => {
+  const openTriggerEvent = useEffectEvent(() => {
     onOpenChange(true);
     measureTrigger();
   });
-  const closeTriggerEvent = React.useEffectEvent(() => {
+  const closeTriggerEvent = useEffectEvent(() => {
     setTriggerPosition(null);
     onOpenChange(false);
   });
