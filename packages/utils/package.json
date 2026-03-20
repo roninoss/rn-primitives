@@ -21,9 +21,12 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "clean": "rm -rf dist",
-    "pub:beta": "pnpm publish --no-git-checks --access public --tag beta",
-    "pub:next": "pnpm publish --no-git-checks --access public --tag next",
-    "pub:release": "pnpm publish --access public"
+    "pub:beta": "echo 'Skipping pub:beta: this package uses pub:beta:first to allow batch updates with the new npm auth system.'",
+    "pub:beta:first": "pnpm publish --no-git-checks --access public --tag beta",
+    "pub:next": "echo 'Skipping pub:next: this package uses pub:next:first to allow batch updates with the new npm auth system.'",
+    "pub:next:first": "pnpm publish --no-git-checks --access public --tag next",
+    "pub:release": "echo 'Skipping pub:release: this package uses pub:release:first to allow batch updates with the new npm auth system.'",
+    "pub:release:first": "pnpm publish --access public"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^1.0.1",
