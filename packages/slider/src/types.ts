@@ -14,11 +14,11 @@ type RootProps = SlottableViewProps & {
    */
   inverted?: boolean;
   /**
-   * Platform: WEB ONLY
+   * On native, used as the increment/decrement amount for screen reader adjustments.
    */
   step?: number;
   /**
-   * Platform: WEB ONLY
+   * On native, called when a screen reader performs an increment/decrement action.
    */
   onValueChange?: (value: number[]) => void;
 };

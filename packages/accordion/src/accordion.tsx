@@ -67,7 +67,6 @@ function useRootContext() {
 }
 
 type AccordionItemContext = ItemProps & {
-  nativeID: string;
   isExpanded: boolean;
 };
 
@@ -76,7 +75,6 @@ type ItemComponentProps = ItemProps & React.RefAttributes<ItemRef>;
 
 const Item = ({ asChild, value, disabled, ref, ...viewProps }: ItemComponentProps) => {
   const { value: rootValue } = useRootContext();
-  const nativeID = React.useId();
 
   const Component = asChild ? Slot : View;
   return (
@@ -84,7 +82,6 @@ const Item = ({ asChild, value, disabled, ref, ...viewProps }: ItemComponentProp
       value={{
         value,
         disabled,
-        nativeID,
         isExpanded: isItemExpanded(rootValue, value),
       }}
     >
@@ -139,7 +136,7 @@ const Trigger = ({
     value: rootValue,
     collapsible,
   } = useRootContext();
-  const { nativeID, disabled: itemDisabled, value, isExpanded } = useItemContext();
+  const { disabled: itemDisabled, value, isExpanded } = useItemContext();
 
   function onPress(ev: GestureResponderEvent) {
     if (rootDisabled || itemDisabled) return;
@@ -165,14 +162,14 @@ const Trigger = ({
   return (
     <Component
       ref={ref}
-      nativeID={nativeID}
-      aria-disabled={isDisabled}
       role='button'
-      onPress={onPress}
+      aria-disabled={isDisabled}
+      aria-expanded={isExpanded}
       accessibilityState={{
         expanded: isExpanded,
         disabled: isDisabled,
       }}
+      onPress={onPress}
       disabled={isDisabled}
       {...props}
     />
@@ -183,8 +180,7 @@ Trigger.displayName = 'TriggerNativeAccordion';
 type ContentComponentProps = ContentProps & React.RefAttributes<ContentRef>;
 
 const Content = ({ asChild, forceMount, ref, ...props }: ContentComponentProps) => {
-  const { type } = useRootContext();
-  const { nativeID, isExpanded } = useItemContext();
+  const { isExpanded } = useItemContext();
 
   if (!forceMount) {
     if (!isExpanded) {
@@ -197,8 +193,7 @@ const Content = ({ asChild, forceMount, ref, ...props }: ContentComponentProps) 
     <Component
       ref={ref}
       aria-hidden={!(forceMount || isExpanded)}
-      aria-labelledby={nativeID}
-      role={type === 'single' ? 'region' : 'summary'}
+      role='region'
       {...props}
     />
   );

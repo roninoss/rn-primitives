@@ -24,7 +24,7 @@ type HeaderComponentProps = HeaderProps & React.RefAttributes<HeaderRef>;
 
 const Header = ({ asChild, ref, ...props }: HeaderComponentProps) => {
   const Component = asChild ? Slot : View;
-  return <Component role='rowheader' ref={ref} {...props} />;
+  return <Component role='rowgroup' ref={ref} {...props} />;
 };
 Header.displayName = 'HeaderTable';
 

@@ -4,11 +4,7 @@ import * as React from 'react';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
 import type { IndicatorProps, IndicatorRef, RootProps, RootRef } from './types';
 
-interface RootContext extends RootProps {
-  nativeID?: string;
-}
-
-const CheckboxContext = React.createContext<RootContext | null>(null);
+const CheckboxContext = React.createContext<RootProps | null>(null);
 type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
 const Root = ({
@@ -16,7 +12,6 @@ const Root = ({
   disabled = false,
   checked,
   onCheckedChange,
-  nativeID,
   ref,
   ...props
 }: RootComponentProps) => {
@@ -26,7 +21,6 @@ const Root = ({
         disabled,
         checked,
         onCheckedChange,
-        nativeID,
       }}
     >
       <Trigger ref={ref} {...props} />
@@ -48,7 +42,7 @@ function useCheckboxContext() {
 type TriggerComponentProps = SlottablePressableProps & React.RefAttributes<PressableRef>;
 
 const Trigger = ({ asChild, onPress: onPressProp, ref, ...props }: TriggerComponentProps) => {
-  const { disabled, checked, onCheckedChange, nativeID } = useCheckboxContext();
+  const { disabled, checked, onCheckedChange } = useCheckboxContext();
 
   function onPress(ev: GestureResponderEvent) {
     if (disabled) return;
@@ -61,7 +55,6 @@ const Trigger = ({ asChild, onPress: onPressProp, ref, ...props }: TriggerCompon
   return (
     <Component
       ref={ref}
-      nativeID={nativeID}
       aria-disabled={disabled}
       role='checkbox'
       aria-checked={checked}

@@ -1,4 +1,5 @@
 import {
+  useAccessibilityFocus,
   useComposedRefs,
   useControllableState,
   useEffectEvent,
@@ -159,6 +160,7 @@ const Trigger = ({
       ref={composedRef}
       aria-disabled={disabled ?? undefined}
       role='button'
+      accessibilityState={{ disabled: disabled ?? false, expanded: open }}
       onPress={onPress}
       disabled={disabled ?? undefined}
       aria-expanded={open}
@@ -219,7 +221,7 @@ const Overlay = ({
   }
 
   const Component = asChild ? Slot : Pressable;
-  return <Component ref={ref} onPress={onPress} {...props} />;
+  return <Component ref={ref} accessible={false} onPress={onPress} {...props} />;
 };
 
 Overlay.displayName = 'OverlayNativeDropdownMenu';
@@ -243,12 +245,13 @@ const Content = ({
   const {
     open,
     onOpenChange,
-    nativeID,
     triggerPosition,
     setTriggerPosition,
     contentLayout,
     setContentLayout,
   } = useRootContext();
+  const accessibilityFocusRef = useAccessibilityFocus<ContentRef>(open);
+  const composedRef = useComposedRefs(ref, accessibilityFocusRef);
 
   React.useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -290,10 +293,15 @@ const Content = ({
   const Component = asChild ? Slot : Pressable;
   return (
     <Component
-      ref={ref}
+      ref={composedRef}
+      accessible={false}
       role='menu'
-      nativeID={nativeID}
       aria-modal={true}
+      onAccessibilityEscape={() => {
+        setTriggerPosition(null);
+        setContentLayout(null);
+        onOpenChange(false);
+      }}
       style={[positionStyle, style]}
       onLayout={onLayout}
       {...props}
@@ -331,7 +339,7 @@ const Item = ({
       role='menuitem'
       onPress={onPress}
       disabled={disabled}
-      aria-valuetext={textValue}
+      aria-label={textValue}
       aria-disabled={!!disabled}
       accessibilityState={{ disabled: !!disabled }}
       {...props}
@@ -378,7 +386,7 @@ const CheckboxItem = ({
   ref,
   ...props
 }: CheckboxItemComponentProps) => {
-  const { onOpenChange, setContentLayout, setTriggerPosition, nativeID } = useRootContext();
+  const { onOpenChange, setContentLayout, setTriggerPosition } = useRootContext();
 
   function onPress(ev: GestureResponderEvent) {
     onCheckedChange(!checked);
@@ -400,8 +408,8 @@ const CheckboxItem = ({
         onPress={onPress}
         disabled={disabled}
         aria-disabled={!!disabled}
-        aria-valuetext={textValue}
-        accessibilityState={{ disabled: !!disabled }}
+        aria-label={textValue}
+        accessibilityState={{ disabled: !!disabled, checked }}
         {...props}
       />
     </FormItemContext.Provider>
@@ -475,7 +483,7 @@ const RadioItem = ({
           disabled: disabled ?? false,
           checked: value === itemValue,
         }}
-        aria-valuetext={textValue}
+        aria-label={textValue}
         {...props}
       />
     </RadioItemContext.Provider>
@@ -516,7 +524,6 @@ const Separator = ({ asChild, decorative, ref, ...props }: SeparatorComponentPro
 Separator.displayName = 'SeparatorNativeDropdownMenu';
 
 const SubContext = React.createContext<{
-  nativeID: string;
   open: boolean;
   onOpenChange: (value: boolean) => void;
 } | null>(null);
@@ -530,7 +537,6 @@ const Sub = ({
   ref,
   ...props
 }: SubComponentProps) => {
-  const nativeID = React.useId();
   const [open = false, onOpenChange] = useControllableState({
     prop: openProp,
     defaultProp: defaultOpen,
@@ -541,7 +547,6 @@ const Sub = ({
   return (
     <SubContext.Provider
       value={{
-        nativeID,
         open,
         onOpenChange,
       }}
@@ -570,7 +575,7 @@ const SubTrigger = ({
   ref,
   ...props
 }: SubTriggerComponentProps) => {
-  const { nativeID, open, onOpenChange } = useSubContext();
+  const { open, onOpenChange } = useSubContext();
 
   function onPress(ev: GestureResponderEvent) {
     onOpenChange(!open);
@@ -581,11 +586,10 @@ const SubTrigger = ({
   return (
     <Component
       ref={ref}
-      aria-valuetext={textValue}
+      aria-label={textValue}
       role='menuitem'
       aria-expanded={open}
       accessibilityState={{ expanded: open, disabled: !!disabled }}
-      nativeID={nativeID}
       onPress={onPress}
       disabled={disabled}
       aria-disabled={!!disabled}
@@ -598,7 +602,9 @@ SubTrigger.displayName = 'SubTriggerNativeDropdownMenu';
 type SubContentComponentProps = SubContentProps & React.RefAttributes<SubContentRef>;
 
 const SubContent = ({ asChild = false, forceMount, ref, ...props }: SubContentComponentProps) => {
-  const { open, nativeID } = useSubContext();
+  const { open, onOpenChange } = useSubContext();
+  const accessibilityFocusRef = useAccessibilityFocus<SubContentRef>(open);
+  const composedRef = useComposedRefs(ref, accessibilityFocusRef);
 
   if (!forceMount) {
     if (!open) {
@@ -607,7 +613,15 @@ const SubContent = ({ asChild = false, forceMount, ref, ...props }: SubContentCo
   }
 
   const Component = asChild ? Slot : Pressable;
-  return <Component ref={ref} role='group' aria-labelledby={nativeID} {...props} />;
+  return (
+    <Component
+      ref={composedRef}
+      accessible={false}
+      role='menu'
+      onAccessibilityEscape={() => onOpenChange(false)}
+      {...props}
+    />
+  );
 };
 
 Content.displayName = 'ContentNativeDropdownMenu';

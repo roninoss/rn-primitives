@@ -26,10 +26,10 @@ const Root = ({
       ref={ref}
       aria-disabled={disabled}
       role='switch'
-      aria-selected={pressed}
+      aria-checked={pressed}
       onPress={onPress}
       accessibilityState={{
-        selected: pressed,
+        checked: pressed,
         disabled,
       }}
       disabled={disabled}

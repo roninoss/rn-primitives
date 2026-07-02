@@ -32,7 +32,7 @@ const Root = ({
         } as RootProps
       }
     >
-      <Component ref={ref} role='group' {...viewProps} />
+      <Component ref={ref} role={type === 'single' ? 'radiogroup' : 'group'} {...viewProps} />
     </ToggleGroupContext.Provider>
   );
 };
@@ -60,7 +60,6 @@ const Item = ({
   ref,
   ...props
 }: ItemComponentProps) => {
-  const id = React.useId();
   const { type, disabled, value, onValueChange } = useRootContext();
 
   function onPress(ev: GestureResponderEvent) {
@@ -74,10 +73,7 @@ const Item = ({
     onPressProp?.(ev);
   }
 
-  const isChecked =
-    type === 'single' ? ToggleGroupUtils.getIsSelected(value, itemValue) : undefined;
-  const isSelected =
-    type === 'multiple' ? ToggleGroupUtils.getIsSelected(value, itemValue) : undefined;
+  const isSelected = ToggleGroupUtils.getIsSelected(value, itemValue);
 
   const Component = asChild ? Slot : Pressable;
   return (
@@ -87,13 +83,11 @@ const Item = ({
         aria-disabled={disabled}
         role={type === 'single' ? 'radio' : 'checkbox'}
         onPress={onPress}
-        aria-checked={isChecked}
-        aria-selected={isSelected}
+        aria-checked={isSelected}
         disabled={(disabled || disabledProp) ?? false}
         accessibilityState={{
           disabled: (disabled || disabledProp) ?? false,
-          checked: isChecked,
-          selected: isSelected,
+          checked: isSelected,
         }}
         {...props}
       />

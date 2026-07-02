@@ -12,11 +12,7 @@ import type {
   TriggerRef,
 } from './types';
 
-interface RootContext extends RootProps {
-  nativeID: string;
-}
-
-const TabsContext = React.createContext<RootContext | null>(null);
+const TabsContext = React.createContext<RootProps | null>(null);
 type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
 const Root = ({
@@ -29,14 +25,12 @@ const Root = ({
   ref,
   ...viewProps
 }: RootComponentProps) => {
-  const nativeID = React.useId();
   const Component = asChild ? Slot : View;
   return (
     <TabsContext.Provider
       value={{
         value,
         onValueChange,
-        nativeID,
       }}
     >
       <Component ref={ref} {...viewProps} />
@@ -73,7 +67,7 @@ const Trigger = ({
   ref,
   ...props
 }: TriggerComponentProps) => {
-  const { onValueChange, value: rootValue, nativeID } = useRootContext();
+  const { onValueChange, value: rootValue } = useRootContext();
 
   function onPress(ev: GestureResponderEvent) {
     if (disabled) return;
@@ -86,7 +80,6 @@ const Trigger = ({
     <TriggerContext.Provider value={{ value: tabValue }}>
       <Component
         ref={ref}
-        nativeID={`${nativeID}-tab-${tabValue}`}
         aria-disabled={!!disabled}
         aria-selected={rootValue === tabValue}
         role='tab'
@@ -122,7 +115,7 @@ const Content = ({
   ref,
   ...props
 }: ContentComponentProps) => {
-  const { value: rootValue, nativeID } = useRootContext();
+  const { value: rootValue } = useRootContext();
 
   if (!forceMount) {
     if (rootValue !== tabValue) {
@@ -135,7 +128,6 @@ const Content = ({
     <Component
       ref={ref}
       aria-hidden={!(forceMount || rootValue === tabValue)}
-      aria-labelledby={`${nativeID}-tab-${tabValue}`}
       role='tabpanel'
       {...props}
     />

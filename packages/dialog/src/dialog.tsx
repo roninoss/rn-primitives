@@ -1,4 +1,8 @@
-import { useControllableState } from '@rn-primitives/hooks';
+import {
+  useAccessibilityFocus,
+  useComposedRefs,
+  useControllableState,
+} from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
@@ -86,7 +90,9 @@ const Trigger = ({
     <Component
       ref={ref}
       aria-disabled={disabled ?? undefined}
+      aria-expanded={open}
       role='button'
+      accessibilityState={{ disabled: disabled ?? false, expanded: open }}
       onPress={onPress}
       disabled={disabled ?? undefined}
       {...props}
@@ -140,14 +146,16 @@ const Overlay = ({
   }
 
   const Component = asChild ? Slot : Pressable;
-  return <Component ref={ref} onPress={onPress} {...props} />;
+  return <Component ref={ref} accessible={false} onPress={onPress} {...props} />;
 };
 
 Overlay.displayName = 'OverlayNativeDialog';
 type ContentComponentProps = ContentProps & React.RefAttributes<ContentRef>;
 
 const Content = ({ asChild, forceMount, ref, ...props }: ContentComponentProps) => {
-  const { open, nativeID, onOpenChange } = useRootContext();
+  const { open, onOpenChange } = useRootContext();
+  const accessibilityFocusRef = useAccessibilityFocus<ContentRef>(open);
+  const composedRef = useComposedRefs(ref, accessibilityFocusRef);
 
   React.useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -169,12 +177,10 @@ const Content = ({ asChild, forceMount, ref, ...props }: ContentComponentProps) 
   const Component = asChild ? Slot : View;
   return (
     <Component
-      ref={ref}
+      ref={composedRef}
       role='dialog'
-      nativeID={nativeID}
-      aria-labelledby={`${nativeID}_label`}
-      aria-describedby={`${nativeID}_desc`}
       aria-modal={true}
+      onAccessibilityEscape={() => onOpenChange(false)}
       onStartShouldSetResponder={onStartShouldSetResponder}
       {...props}
     />
@@ -216,16 +222,14 @@ Close.displayName = 'CloseNativeDialog';
 type TitleComponentProps = TitleProps & React.RefAttributes<TitleRef>;
 
 const Title = ({ ref, ...props }: TitleComponentProps) => {
-  const { nativeID } = useRootContext();
-  return <Text ref={ref} role='heading' nativeID={`${nativeID}_label`} {...props} />;
+  return <Text ref={ref} role='heading' {...props} />;
 };
 
 Title.displayName = 'TitleNativeDialog';
 type DescriptionComponentProps = DescriptionProps & React.RefAttributes<DescriptionRef>;
 
 const Description = ({ ref, ...props }: DescriptionComponentProps) => {
-  const { nativeID } = useRootContext();
-  return <Text ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
+  return <Text ref={ref} {...props} />;
 };
 
 Description.displayName = 'DescriptionNativeDialog';
