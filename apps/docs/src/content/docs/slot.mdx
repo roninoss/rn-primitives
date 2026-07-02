@@ -7,16 +7,14 @@ description: Merges its props onto its immediate child.
 {/* prettier-ignore-end */}
 
 import Code from '@/components/ManualCode.astro';
-import { LinkButton } from '@/components/react/LinkButton';
-import { Aside, Card, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Aside, TabItem, Tabs } from '@astrojs/starlight/components';
 import importedCode from '@/../node_modules/@rn-primitives/slot/src/slot.tsx?raw';
 
-Merges its props onto its immediate child. 
+Merges its props onto its immediate child.
 
 <Aside type="tip">
   Can be used to support your own `asChild` prop.
 </Aside>
-
 
 ## Installation
 
@@ -39,72 +37,62 @@ Merges its props onto its immediate child.
 
 ## Usage
 
-### View Slot
+`Slot` works with any component type. Give it a single element as its child and it renders that child with the `Slot`'s props merged onto it. This is the building block for an `asChild` prop:
 
 ```tsx
-import * as Slot from '@rn-primitives/slot';
+import { Slot } from '@rn-primitives/slot';
+import { Pressable, type PressableProps } from 'react-native';
 
-function CustomView({ asChild = true }) {
-  const Component = asChild ? Slot.View : View;
+function Button({ asChild, ...props }: PressableProps & { asChild?: boolean }) {
+  // When `asChild` is true, the child element receives the Button's props
+  const Component = asChild ? Slot : Pressable;
+  return <Component {...props} />;
+}
+
+function Example() {
   return (
-    <Component className="bg-red-500">
-      {/* The `className` is passed down to the `View` with `key="x"` when `asChild` is `true` */}
-      <View key="x" />
-    </Component>
+    <Button asChild onPress={() => console.log('pressed')}>
+      {/* The Link is rendered and receives the Button's `onPress` */}
+      <Link href="/docs" />
+    </Button>
   );
 }
 ```
 
-### Pressable Slot
+<Aside type="caution" title="Deprecated: Slot.View, Slot.Pressable, Slot.Text, and Slot.Image">
+  The per-component slots are deprecated. Replace them with the single `Slot` component — it
+  handles every component type.
 
-```tsx
-import * as Slot from '@rn-primitives/slot';
+  ```diff lang="tsx"
+  - import * as Slot from '@rn-primitives/slot';
+  + import { Slot } from '@rn-primitives/slot';
 
-function CustomPressable() {
-  return (
-    <Slot.Pressable onPress={() => { console.log("Pressed")}}>
-      {/* The `onPress` prop is passed down to the `Pressable` */}
+  - <Slot.Pressable onPress={handlePress}>
+  + <Slot onPress={handlePress}>
       <Pressable />
-    </Slot.Pressable>
-  );
-}
-```
+  - </Slot.Pressable>
+  + </Slot>
+  ```
+</Aside>
 
-### Text Slot
+### How props are merged
 
-```tsx
-import * as Slot from '@rn-primitives/slot';
+When a prop exists on both the `Slot` and its child, they are combined instead of one silently
+winning:
 
-function CustomText() {
-  return (
-    <Slot.Text className="text-blue-500">
-      {/* The `className` is passed down to the `View` */}
-      <Text />
-    </Slot.Text>
-  );
-}
-```
-
-### Image Slot
-
-```tsx
-import * as Slot from '@rn-primitives/slot';
-
-function CustomImage() {
-  return (
-    <Slot.Image source={{ uri: "https://avatars.githubusercontent.com/u/63797719?v=4" }}>
-        {/* The `source` is passed down to the `View` */}
-      <Image />
-    </Slot.Image>
-  );
-}
-```
+|      Prop      |                                Behavior                                 |
+| :------------: | :---------------------------------------------------------------------: |
+| Event handlers | Both run — the child's handler first, then the slot's (`onPress`, etc.) |
+| style          | Merged into a single style array; the child's style wins conflicts      |
+| className      | Joined together (slot's classes first, then the child's)                |
+| ref            | Composed — the slot's ref and the child's ref both receive the node     |
+| Everything else| The child's value takes precedence                                      |
 
 ## Props
 
-Inherits all props from its type of Slot. 
+`Slot` has no props of its own — it accepts the props of whatever component its child is and
+forwards them.
 
-- <LinkButton href="https://reactnative.dev/docs/view#props" target="_blank">Slot.View</LinkButton>
-- <LinkButton href="https://reactnative.dev/docs/pressable#props" target="_blank">Slot.Pressable</LinkButton>
-- <LinkButton href="https://reactnative.dev/docs/text#props" target="_blank">Slot.Text</LinkButton>
-- <LinkButton href="https://reactnative.dev/docs/image" target="_blank">Slot.Image</LinkButton>
+|    Prop    |        Type        |                              Note                               |
+| :--------: | :----------------: | :-------------------------------------------------------------: |
+| children\* | React.ReactElement | A single valid element. Fragments are flattened and each element inside receives the props. Plain text children are not supported. |

@@ -1,0 +1,833 @@
+/* ---------------------------------------------------------------------------
+   rn-primitives docs theme
+   Zinc neutrals + violet accent (a nod to the Radix heritage).
+   Dark is the default Starlight theme; light overrides below.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* Typography */
+  --sl-font: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --sl-font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Accent — violet */
+  --sl-color-accent-low: #2a2153;
+  --sl-color-accent: #7c66dc;
+  --sl-color-accent-high: #c9bdf9;
+
+  /* Grays — zinc-leaning */
+  --sl-color-white: #fafafa;
+  --sl-color-gray-1: #e9e9ec;
+  --sl-color-gray-2: #b6b6bf;
+  --sl-color-gray-3: #898992;
+  --sl-color-gray-4: #4e4e57;
+  --sl-color-gray-5: #27272c;
+  --sl-color-gray-6: #17171a;
+  --sl-color-black: #0c0c0e;
+
+  --sl-color-bg: var(--sl-color-black);
+  --sl-color-bg-nav: var(--sl-color-bg);
+  --sl-color-bg-sidebar: var(--sl-color-bg);
+  --sl-color-bg-inline-code: #1c1c21;
+  --sl-color-hairline-light: #232329;
+  --sl-color-hairline: #1e1e24;
+  --sl-color-hairline-shade: #141418;
+
+  --sl-color-text-accent: var(--sl-color-accent-high);
+
+  --sl-content-width: 46rem;
+  --sl-text-code: 0.8125rem;
+  --sl-text-code-sm: 0.75rem;
+
+  /* Heading sizes — set via Starlight's variables (not raw font-size on the
+     heading elements) so the anchor-link icon math uses the same size. */
+  --sl-text-h2: 1.375rem;
+  --sl-text-h3: 1.0625rem;
+  --sl-text-h4: 1rem;
+  --sl-text-h5: 0.9375rem;
+
+  --rnp-glow: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124, 102, 220, 0.15), transparent);
+  --rnp-card-bg: rgba(255, 255, 255, 0.02);
+  --rnp-card-bg-hover: rgba(255, 255, 255, 0.045);
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #ece8fd;
+  --sl-color-accent: #6550b9;
+  --sl-color-accent-high: #4c3d99;
+
+  --sl-color-white: #17171b;
+  --sl-color-gray-1: #26262b;
+  --sl-color-gray-2: #43434b;
+  --sl-color-gray-3: #6b6b76;
+  --sl-color-gray-4: #9c9ca6;
+  --sl-color-gray-5: #d9d9df;
+  --sl-color-gray-6: #f2f2f5;
+  --sl-color-gray-7: #f8f8fa;
+  --sl-color-black: #ffffff;
+
+  --sl-color-bg: var(--sl-color-black);
+  --sl-color-bg-nav: var(--sl-color-bg);
+  --sl-color-bg-sidebar: var(--sl-color-bg);
+  --sl-color-bg-inline-code: #f1f0f6;
+  --sl-color-hairline-light: #e7e7ec;
+  --sl-color-hairline: #e9e9ee;
+  --sl-color-hairline-shade: #f0f0f3;
+
+  --sl-color-text-accent: var(--sl-color-accent);
+
+  --rnp-glow: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(101, 80, 185, 0.09), transparent);
+  --rnp-card-bg: rgba(23, 23, 27, 0.015);
+  --rnp-card-bg-hover: rgba(23, 23, 27, 0.04);
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+::selection {
+  background: color-mix(in srgb, var(--sl-color-accent) 30%, transparent);
+}
+
+/* Thin, unobtrusive scrollbars for inner panes */
+.sidebar-pane ::-webkit-scrollbar,
+.right-sidebar ::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-pane ::-webkit-scrollbar-thumb,
+.right-sidebar ::-webkit-scrollbar-thumb {
+  background: var(--sl-color-gray-5);
+  border-radius: 9999px;
+}
+.sidebar-pane ::-webkit-scrollbar-track,
+.right-sidebar ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   Header
+--------------------------------------------------------------------------- */
+
+.header {
+  background-color: var(--sl-color-bg);
+}
+
+.site-title {
+  font-weight: 640;
+  font-size: var(--sl-text-lg);
+  letter-spacing: -0.02em;
+  color: var(--sl-color-white);
+  gap: 0.75rem;
+}
+
+.site-title img {
+  height: 1.25rem;
+  width: auto;
+}
+
+.social-icons a {
+  color: var(--sl-color-gray-3);
+  transition: color 0.15s ease;
+}
+.social-icons a:hover {
+  color: var(--sl-color-white);
+  opacity: 1;
+}
+
+/* Search button */
+site-search button[data-open-modal] {
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.625rem;
+  background-color: var(--rnp-card-bg);
+  color: var(--sl-color-gray-3);
+  font-size: var(--sl-text-sm);
+  padding-inline-start: 0.75rem;
+  padding-inline-end: 0.5rem;
+  height: 2.25rem;
+  gap: 0.5rem;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+site-search button[data-open-modal]:hover {
+  border-color: var(--sl-color-gray-4);
+  background-color: var(--rnp-card-bg-hover);
+  color: var(--sl-color-gray-2);
+}
+site-search button[data-open-modal] kbd {
+  background-color: var(--sl-color-gray-6);
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.375rem;
+  font-family: var(--sl-font-mono);
+  font-size: 0.6875rem;
+  color: var(--sl-color-gray-3);
+  padding-inline: 0.375rem;
+}
+
+/* Mobile menu button */
+starlight-menu-button button {
+  background-color: transparent;
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.5rem;
+  color: var(--sl-color-gray-2);
+  box-shadow: none;
+}
+starlight-menu-button[aria-expanded='true'] button {
+  background-color: var(--sl-color-gray-5);
+  color: var(--sl-color-white);
+}
+
+/* ---------------------------------------------------------------------------
+   Sidebar
+--------------------------------------------------------------------------- */
+
+.sidebar-pane {
+  border-inline-end: 1px solid var(--sl-color-hairline);
+  background-color: var(--sl-color-bg-sidebar);
+}
+
+.sidebar-content {
+  padding-block: 1.25rem;
+}
+
+.sidebar-content summary {
+  padding-inline-start: 0.5rem;
+}
+
+/* Group labels */
+.sidebar-content .group-label span.large {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sl-color-gray-3);
+}
+
+/* Links */
+.sidebar-content a {
+  border-radius: 0.5rem;
+  font-size: 0.84375rem;
+  font-weight: 450;
+  color: var(--sl-color-gray-2);
+  padding: 0.3125rem 0.625rem;
+  margin-block: 1px;
+  transition:
+    color 0.12s ease,
+    background-color 0.12s ease;
+}
+
+.sidebar-content a:hover {
+  color: var(--sl-color-white);
+  background-color: var(--rnp-card-bg-hover);
+}
+
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover {
+  background-color: color-mix(in srgb, var(--sl-color-accent) 14%, transparent);
+  color: var(--sl-color-text-accent);
+  font-weight: 550;
+}
+
+/* ---------------------------------------------------------------------------
+   Right sidebar — table of contents
+--------------------------------------------------------------------------- */
+
+.right-sidebar {
+  border-inline-start: 1px solid var(--sl-color-hairline);
+}
+
+starlight-toc h2 {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sl-color-gray-3);
+}
+
+starlight-toc a {
+  font-size: 0.8125rem;
+  color: var(--sl-color-gray-3);
+  transition: color 0.12s ease;
+}
+starlight-toc a:hover {
+  color: var(--sl-color-white);
+}
+starlight-toc a[aria-current='true'] {
+  color: var(--sl-color-text-accent);
+  font-weight: 500;
+  background-color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   Markdown content
+--------------------------------------------------------------------------- */
+
+.sl-markdown-content {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--sl-color-gray-2);
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--sl-color-white);
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.sl-markdown-content h1 {
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+  font-weight: 650;
+}
+
+.sl-markdown-content .sl-heading-wrapper.level-h2:not(:where(.not-content *)) {
+  margin-top: 3rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--sl-color-hairline);
+}
+
+.sl-markdown-content .sl-heading-wrapper.level-h3:not(:where(.not-content *)) {
+  margin-top: 2rem;
+}
+
+/* Page intro line under h1 */
+.content-panel h1 + p {
+  color: var(--sl-color-gray-3);
+}
+
+/* Heading anchor link — tune Starlight's own icon-size/gap variables so its
+   padding + negative-margin placement and vertical centering stay intact. */
+.sl-markdown-content .sl-heading-wrapper {
+  --sl-anchor-icon-size: 0.75em;
+  --sl-anchor-icon-gap: 0.375em;
+}
+
+.sl-markdown-content .sl-anchor-link {
+  color: var(--sl-color-gray-4);
+}
+
+.sl-markdown-content .sl-anchor-link:hover,
+.sl-markdown-content .sl-anchor-link:focus {
+  color: var(--sl-color-text-accent);
+}
+
+/* Links */
+.sl-markdown-content a:not(:where(.not-content *)) {
+  color: var(--sl-color-text-accent);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--sl-color-accent) 40%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.12s ease;
+}
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+  color: var(--sl-color-white);
+  text-decoration-color: var(--sl-color-accent);
+}
+
+/* Inline code */
+.sl-markdown-content code:not(:where(.not-content *, pre *)) {
+  background-color: var(--sl-color-bg-inline-code);
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.375rem;
+  font-size: 0.8125em;
+  padding: 0.125rem 0.375rem;
+  color: var(--sl-color-gray-1);
+}
+
+/* ---------------------------------------------------------------------------
+   React Native Reusables badge
+--------------------------------------------------------------------------- */
+
+a.rnp-reusables-badge {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.4375rem;
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.625rem;
+  background-color: var(--rnp-card-bg);
+  padding: 0.3125rem 0.75rem;
+  font-size: 0.78125rem;
+  font-weight: 450;
+  color: var(--sl-color-gray-3);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+/* Pull the badge up directly under the page title: the title panel's own
+   bottom padding (1.5rem) becomes the gap, matching the badge's bottom margin. */
+.content-panel:has(.sl-markdown-content > a.rnp-reusables-badge:first-child) {
+  padding-top: 0;
+}
+
+a.rnp-reusables-badge strong {
+  font-weight: 400;
+  color: var(--sl-color-gray-2);
+  transition: color 0.15s ease;
+}
+
+a.rnp-reusables-badge svg:first-child {
+  color: var(--sl-color-text-accent);
+}
+
+a.rnp-reusables-badge svg:last-child {
+  color: var(--sl-color-gray-4);
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+a.rnp-reusables-badge:hover {
+  border-color: color-mix(in srgb, var(--sl-color-accent) 50%, transparent);
+  background-color: var(--rnp-card-bg-hover);
+  color: var(--sl-color-gray-2);
+}
+
+a.rnp-reusables-badge:hover strong {
+  color: var(--sl-color-white);
+}
+
+a.rnp-reusables-badge:hover svg:last-child {
+  color: var(--sl-color-text-accent);
+  transform: translate(1px, -1px);
+}
+
+/* ---------------------------------------------------------------------------
+   Tables (prop tables)
+--------------------------------------------------------------------------- */
+
+.sl-markdown-content table:not(:where(.not-content *)) {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  font-size: 0.84375rem;
+  margin-block: 1.25rem;
+}
+
+.sl-markdown-content table :is(th, td):not(:where(.not-content *)) {
+  text-align: left !important;
+  padding: 0.625rem 1rem;
+  border: none;
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+}
+
+.sl-markdown-content thead th:not(:where(.not-content *)) {
+  background-color: color-mix(in srgb, var(--sl-color-gray-6) 70%, var(--sl-color-bg));
+  color: var(--sl-color-gray-3);
+  font-size: 0.75rem;
+  font-weight: 550;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sl-markdown-content tr:last-child td:not(:where(.not-content *)) {
+  border-bottom: none;
+}
+
+.sl-markdown-content tbody tr:nth-child(2n):not(:where(.not-content *)) {
+  background-color: transparent;
+}
+
+.sl-markdown-content tbody tr:hover:not(:where(.not-content *)) {
+  background-color: var(--rnp-card-bg);
+}
+
+/* Prop names read as code */
+.sl-markdown-content tbody td:first-child:not(:where(.not-content *)) {
+  font-family: var(--sl-font-mono);
+  font-size: 0.78125rem;
+  color: var(--sl-color-white);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.sl-markdown-content tbody td:nth-child(2):not(:where(.not-content *)) {
+  font-family: var(--sl-font-mono);
+  font-size: 0.78125rem;
+  color: var(--sl-color-text-accent);
+}
+
+.sl-markdown-content tbody td:nth-child(3):not(:where(.not-content *)) {
+  color: var(--sl-color-gray-3);
+}
+
+/* ---------------------------------------------------------------------------
+   Asides
+--------------------------------------------------------------------------- */
+
+.starlight-aside {
+  border: 1px solid;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  background-clip: padding-box;
+}
+
+.starlight-aside__title {
+  font-size: 0.84375rem;
+  font-weight: 600;
+}
+
+.starlight-aside__content {
+  font-size: 0.875rem;
+}
+
+.starlight-aside--note {
+  border-color: color-mix(in srgb, var(--sl-color-accent) 30%, transparent);
+  background-color: color-mix(in srgb, var(--sl-color-accent) 8%, transparent);
+  color: var(--sl-color-gray-2);
+}
+.starlight-aside--note .starlight-aside__title {
+  color: var(--sl-color-text-accent);
+}
+
+.starlight-aside--tip {
+  border-color: color-mix(in srgb, #34d399 25%, transparent);
+  background-color: color-mix(in srgb, #34d399 7%, transparent);
+  color: var(--sl-color-gray-2);
+}
+.starlight-aside--tip .starlight-aside__title {
+  color: #34d399;
+}
+:root[data-theme='light'] .starlight-aside--tip .starlight-aside__title {
+  color: #047857;
+}
+
+.starlight-aside--caution {
+  border-color: color-mix(in srgb, #fbbf24 25%, transparent);
+  background-color: color-mix(in srgb, #fbbf24 7%, transparent);
+  color: var(--sl-color-gray-2);
+}
+.starlight-aside--caution .starlight-aside__title {
+  color: #fbbf24;
+}
+:root[data-theme='light'] .starlight-aside--caution .starlight-aside__title {
+  color: #b45309;
+}
+
+.starlight-aside--danger {
+  border-color: color-mix(in srgb, #f87171 25%, transparent);
+  background-color: color-mix(in srgb, #f87171 7%, transparent);
+  color: var(--sl-color-gray-2);
+}
+.starlight-aside--danger .starlight-aside__title {
+  color: #f87171;
+}
+:root[data-theme='light'] .starlight-aside--danger .starlight-aside__title {
+  color: #b91c1c;
+}
+
+/* ---------------------------------------------------------------------------
+   Tabs — segmented control style
+--------------------------------------------------------------------------- */
+
+starlight-tabs .tablist-wrapper {
+  overflow-x: auto;
+}
+
+starlight-tabs [role='tablist'] {
+  display: inline-flex;
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.625rem;
+  background-color: color-mix(in srgb, var(--sl-color-gray-6) 60%, var(--sl-color-bg));
+  padding: 0.25rem;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+}
+
+starlight-tabs .tab {
+  margin-bottom: 0;
+}
+
+starlight-tabs .tab > [role='tab'] {
+  border: none;
+  border-radius: 0.4375rem;
+  padding: 0.3125rem 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--sl-color-gray-3);
+  transition:
+    color 0.12s ease,
+    background-color 0.12s ease;
+}
+
+starlight-tabs .tab > [role='tab']:hover {
+  color: var(--sl-color-white);
+}
+
+starlight-tabs .tab > [role='tab'][aria-selected='true'] {
+  background-color: var(--sl-color-bg);
+  color: var(--sl-color-white);
+  border: none;
+  font-weight: 550;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px var(--sl-color-hairline-light);
+}
+
+:root[data-theme='light'] starlight-tabs .tab > [role='tab'][aria-selected='true'] {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1px var(--sl-color-hairline-light);
+}
+
+/* ---------------------------------------------------------------------------
+   Code blocks (Expressive Code)
+--------------------------------------------------------------------------- */
+
+.expressive-code {
+  margin-block: 1.25rem;
+}
+
+.expressive-code .copy button {
+  opacity: 1 !important;
+}
+
+/* ---------------------------------------------------------------------------
+   Pagination (prev / next)
+--------------------------------------------------------------------------- */
+
+.pagination-links a {
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.75rem;
+  background-color: var(--rnp-card-bg);
+  box-shadow: none;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+.pagination-links a:hover {
+  border-color: color-mix(in srgb, var(--sl-color-accent) 45%, transparent);
+  background-color: var(--rnp-card-bg-hover);
+}
+.pagination-links a .link-title {
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  color: var(--sl-color-white);
+}
+
+/* ---------------------------------------------------------------------------
+   Search modal (Pagefind)
+--------------------------------------------------------------------------- */
+
+dialog[aria-label='Search'] {
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 1rem;
+  background-color: var(--sl-color-bg);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+}
+dialog[aria-label='Search']::backdrop {
+  background-color: color-mix(in srgb, var(--sl-color-black) 60%, transparent);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+/* ---------------------------------------------------------------------------
+   Landing page (splash)
+--------------------------------------------------------------------------- */
+
+[data-has-hero] {
+  --sl-content-width: 68rem;
+}
+
+/* The glow overlays the page from its very top edge (including the header)
+   so the fixed header doesn't slice it. It is purely decorative light, so it
+   paints above the header, ignores pointer events, and scrolls away with the
+   page. */
+[data-has-hero] .page {
+  position: relative;
+}
+
+[data-has-hero] .page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44rem;
+  background-image: var(--rnp-glow);
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: calc(var(--sl-z-index-navbar, 10) + 1);
+}
+
+[data-has-hero] .hero {
+  padding-block: 4rem 2rem;
+}
+
+[data-has-hero] .hero h1 {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  background: linear-gradient(
+    180deg,
+    var(--sl-color-white) 30%,
+    color-mix(in srgb, var(--sl-color-white) 55%, var(--sl-color-accent))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+[data-has-hero] .hero .tagline {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--sl-color-gray-3);
+  max-width: 40rem;
+}
+
+/* Hero action buttons */
+[data-has-hero] .hero .sl-link-button {
+  border-radius: 0.625rem;
+  font-size: 0.9375rem;
+  font-weight: 550;
+  padding: 0.625rem 1.25rem;
+  transition:
+    opacity 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+[data-has-hero] .hero .sl-link-button.primary {
+  background-color: var(--sl-color-white);
+  border-color: var(--sl-color-white);
+  color: var(--sl-color-black);
+}
+[data-has-hero] .hero .sl-link-button.primary:hover {
+  opacity: 0.85;
+}
+[data-has-hero] .hero .sl-link-button.secondary,
+[data-has-hero] .hero .sl-link-button.minimal {
+  border: 1px solid var(--sl-color-hairline-light);
+  background-color: var(--rnp-card-bg);
+  color: var(--sl-color-white);
+}
+[data-has-hero] .hero .sl-link-button.secondary:hover,
+[data-has-hero] .hero .sl-link-button.minimal:hover {
+  border-color: var(--sl-color-gray-4);
+  background-color: var(--rnp-card-bg-hover);
+}
+
+/* Landing sections */
+.rnp-section-title {
+  font-size: 0.75rem !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sl-color-gray-3) !important;
+  margin-top: 3.5rem !important;
+  border: none !important;
+  padding-top: 0 !important;
+}
+
+/* Feature grid */
+.rnp-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.875rem;
+  margin-top: 1.25rem;
+}
+
+.rnp-feature {
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.875rem;
+  background-color: var(--rnp-card-bg);
+  padding: 1.25rem;
+}
+
+.rnp-feature svg {
+  color: var(--sl-color-text-accent);
+  margin-bottom: 0.75rem;
+}
+
+.rnp-feature h3 {
+  font-size: 0.9375rem !important;
+  font-weight: 600;
+  margin: 0 0 0.375rem !important;
+  color: var(--sl-color-white);
+}
+
+.rnp-feature p {
+  font-size: 0.84375rem;
+  line-height: 1.6;
+  color: var(--sl-color-gray-3);
+  margin: 0;
+}
+
+/* Primitive card grid */
+.rnp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.rnp-card {
+  position: relative;
+  display: block;
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: 0.75rem;
+  background-color: var(--rnp-card-bg);
+  padding: 1rem 1.125rem;
+  text-decoration: none !important;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.rnp-card:hover {
+  border-color: color-mix(in srgb, var(--sl-color-accent) 50%, transparent);
+  background-color: var(--rnp-card-bg-hover);
+  transform: translateY(-1px);
+}
+
+.rnp-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--sl-color-white);
+  letter-spacing: -0.01em;
+}
+
+.rnp-card-title::after {
+  content: '→';
+  font-size: 0.8125rem;
+  color: var(--sl-color-gray-4);
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.rnp-card:hover .rnp-card-title::after {
+  color: var(--sl-color-text-accent);
+  transform: translateX(2px);
+}
+
+.rnp-card-desc {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.78125rem;
+  line-height: 1.55;
+  color: var(--sl-color-gray-3);
+}

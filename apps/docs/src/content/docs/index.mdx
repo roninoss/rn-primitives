@@ -1,138 +1,249 @@
 ---
-title: Introduction
-description: Elevating Component Development
+title: React Native Primitives
+description: Unstyled, accessible React Native components with a unified API for iOS, Android, and Web.
+template: splash
+hero:
+  title: Style-free building blocks for React Native
+  tagline: Unstyled, accessible primitives with a unified API across iOS, Android, and Web. Bring your own styles, we handle the behavior, accessibility, and platform differences.
+  actions:
+    - text: Browse primitives
+      link: '#core-primitives'
+      icon: right-arrow
+    - text: View on GitHub
+      link: https://github.com/roninoss/rn-primitives
+      icon: github
+      variant: minimal
 ---
-{/* prettier-ignore-start */}
-{/* prettier-ignore-end */}
 
-import { Card } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
-import { LinkButton } from '@/components/react/LinkButton';
+import PrimitiveGrid from '@/components/PrimitiveGrid.astro';
 
-
-## React Native Primitives
-
-Unstyled universal components with a focus on accessibility. They offer a unified API across iOS, Android, and web platforms.
-
-
-<Aside type="tip" title="Adaptable React Native Components">
-  Use via npm dependencies or copy-paste the source code directly into your project.
-</Aside>
-
- ### Core Primitives
-
- Elements of the user interface.
-
-    <div className="flex gap-2 items-center flex-wrap justify-center">
-    <LinkButton href="/accordion">
-      Accordion
-    </LinkButton>
-    <LinkButton href="/alert-dialog">
-      Alert-dialog
-    </LinkButton>
-    <LinkButton href="/aspect-ratio">
-      Aspect-ratio
-    </LinkButton>
-    <LinkButton href="/avatar">
-      Avatar
-    </LinkButton>
-    <LinkButton href="/checkbox">
-      Checkbox
-    </LinkButton>
-    <LinkButton href="/collapsible">
-      Collapsible
-    </LinkButton>
-    <LinkButton href="/context-menu">
-      Context-menu
-    </LinkButton>
-    <LinkButton href="/dialog">
-      Dialog
-    </LinkButton>
-    <LinkButton href="/dropdown-menu">
-      Dropdown-menu
-    </LinkButton>
-    <LinkButton href="/hover-card">
-      Hover-card
-    </LinkButton>
-    <LinkButton href="/label">
-      Label
-    </LinkButton>
-    <LinkButton href="/menubar">
-      Menubar
-    </LinkButton>
-    <LinkButton href="/navigation-menu">
-      Navigation-menu
-    </LinkButton>
-    <LinkButton href="/popover">
-      Popover
-    </LinkButton>
-    <LinkButton href="/portal">
-      Portal
-    </LinkButton>
-    <LinkButton href="/progress">
-      Progress
-    </LinkButton>
-    <LinkButton href="/radio-group">
-      Radio-group
-    </LinkButton>
-    <LinkButton href="/select">
-      Select
-    </LinkButton>
-    <LinkButton href="/separator">
-      Separator
-    </LinkButton>
-    <LinkButton href="/slider">
-      Slider
-    </LinkButton>
-    <LinkButton href="/switch">
-      Switch
-    </LinkButton>
-    <LinkButton href="/table">
-      Table
-    </LinkButton>
-    <LinkButton href="/tabs">
-      Tabs
-    </LinkButton>
-    <LinkButton href="/toast">
-      Toast
-    </LinkButton>
-    <LinkButton href="/toggle">
-      Toggle
-    </LinkButton>
-    <LinkButton href="/toggle-group">
-      Toggle-group
-    </LinkButton>
-    <LinkButton href="/toolbar">
-      Toolbar
-    </LinkButton>
-    <LinkButton href="/tooltip">
-      Tooltip
-    </LinkButton>
+<div className='rnp-features not-content'>
+  <div className='rnp-feature'>
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='20'
+      height='20'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <rect width='14' height='20' x='5' y='2' rx='2' ry='2' />
+      <path d='M12 18h.01' />
+    </svg>
+    <h3>Truly universal</h3>
+    <p>
+      One API across iOS, Android, and Web. Radix UI powers the web side; native implementations
+      power the rest.
+    </p>
   </div>
-
-### Shared Primitives
-
-  Tools and functionalities for a more efficient and extensible development process.
-
-  <div className="flex gap-2 items-center flex-wrap justify-center">
-    <LinkButton href="/hooks">
-      Hooks
-    </LinkButton>
-    <LinkButton href="/portal">
-      Portal
-    </LinkButton>
-    <LinkButton href="/slot">
-      Slot
-    </LinkButton>
-    <LinkButton href="/types">
-      Types
-    </LinkButton>
-    <LinkButton href="/utils">
-      Utils
-    </LinkButton>
+  <div className='rnp-feature'>
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='20'
+      height='20'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <circle cx='16' cy='4' r='1' />
+      <path d='m18 19 1-7-6 1' />
+      <path d='m5 8 3-3 5.5 3-2.36 3.5' />
+      <path d='M4.24 14.5a5 5 0 0 0 6.88 6' />
+      <path d='M13.76 17.5a5 5 0 0 0-6.88-6' />
+    </svg>
+    <h3>Accessible by default</h3>
+    <p>
+      Screen-reader support, focus management, and platform-correct semantics are built in, not
+      bolted on.
+    </p>
   </div>
+  <div className='rnp-feature'>
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='20'
+      height='20'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08' />
+      <path d='M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z' />
+    </svg>
+    <h3>Unstyled on purpose</h3>
+    <p>
+      No design system to fight. Every primitive ships zero styles, so your components look like
+      your app.
+    </p>
+  </div>
+  <div className='rnp-feature'>
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='20'
+      height='20'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='m7.5 4.27 9 5.15' />
+      <path d='M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z' />
+      <path d='m3.3 7 8.7 5 8.7-5' />
+      <path d='M12 22V12' />
+    </svg>
+    <h3>Install or copy-paste</h3>
+    <p>Use the npm packages, or copy the source straight into your project and own every line.</p>
+  </div>
+</div>
 
+<h2 id='core-primitives' className='rnp-section-title'>
+  Core primitives
+</h2>
 
+<PrimitiveGrid
+  items={[
+    {
+      name: 'Accordion',
+      href: '/accordion',
+      description: 'Vertically stacked sections that expand and collapse.',
+    },
+    {
+      name: 'Alert Dialog',
+      href: '/alert-dialog',
+      description: 'A modal that interrupts the user with important content.',
+    },
+    {
+      name: 'Aspect Ratio',
+      href: '/aspect-ratio',
+      description: 'Constrains content to a given width-to-height ratio.',
+    },
+    {
+      name: 'Avatar',
+      href: '/avatar',
+      description: 'An image with an automatic fallback while loading or on error.',
+    },
+    {
+      name: 'Checkbox',
+      href: '/checkbox',
+      description: 'A control that toggles between checked and unchecked.',
+    },
+    {
+      name: 'Collapsible',
+      href: '/collapsible',
+      description: 'A panel that expands and collapses its content.',
+    },
+    {
+      name: 'Context Menu',
+      href: '/context-menu',
+      description: 'A menu opened by long press or right click.',
+    },
+    { name: 'Dialog', href: '/dialog', description: 'A window overlaid on the primary content.' },
+    {
+      name: 'Dropdown Menu',
+      href: '/dropdown-menu',
+      description: 'A menu of actions opened from a trigger.',
+    },
+    {
+      name: 'Hover Card',
+      href: '/hover-card',
+      description: 'Preview content shown on hover for sighted users.',
+    },
+    {
+      name: 'Label',
+      href: '/label',
+      description: 'An accessible caption associated with a control.',
+    },
+    {
+      name: 'Menubar',
+      href: '/menubar',
+      description: 'A persistent bar of menus with nested submenus.',
+    },
+    {
+      name: 'Navigation Menu',
+      href: '/navigation-menu',
+      description: 'A collection of links for navigating your app.',
+    },
+    {
+      name: 'Popover',
+      href: '/popover',
+      description: 'Rich content rendered in a portal from a trigger.',
+    },
+    { name: 'Progress', href: '/progress', description: 'Displays completion progress of a task.' },
+    {
+      name: 'Radio Group',
+      href: '/radio-group',
+      description: 'A set of mutually exclusive checkable buttons.',
+    },
+    {
+      name: 'Select',
+      href: '/select',
+      description: 'A list of options for the user to pick from.',
+    },
+    {
+      name: 'Separator',
+      href: '/separator',
+      description: 'Visually or semantically separates content.',
+    },
+    { name: 'Slider', href: '/slider', description: 'Select a value from within a given range.' },
+    { name: 'Switch', href: '/switch', description: 'A control that toggles between on and off.' },
+    { name: 'Table', href: '/table', description: 'Semantic table components for tabular data.' },
+    {
+      name: 'Tabs',
+      href: '/tabs',
+      description: 'Layered sections of content shown one at a time.',
+    },
+    { name: 'Toast', href: '/toast', description: 'A brief message that shows up temporarily.' },
+    { name: 'Toggle', href: '/toggle', description: 'A two-state button that can be on or off.' },
+    {
+      name: 'Toggle Group',
+      href: '/toggle-group',
+      description: 'A group of two-state toggle buttons.',
+    },
+    {
+      name: 'Toolbar',
+      href: '/toolbar',
+      description: 'A container for grouping buttons and controls.',
+    },
+    {
+      name: 'Tooltip',
+      href: '/tooltip',
+      description: 'Contextual information shown on hover or focus.',
+    },
+  ]}
+/>
 
+<h2 id='shared-primitives' className='rnp-section-title'>
+  Shared primitives
+</h2>
 
-
+<PrimitiveGrid
+  items={[
+    { name: 'Hooks', href: '/hooks', description: 'Shared hooks used across the primitives.' },
+    {
+      name: 'Portal',
+      href: '/portal',
+      description: 'Render children into a different part of the tree.',
+    },
+    {
+      name: 'Slot',
+      href: '/slot',
+      description: 'Merge props onto an immediate child with asChild.',
+    },
+    { name: 'Types', href: '/types', description: 'Shared TypeScript types for all primitives.' },
+    {
+      name: 'Utils',
+      href: '/utils',
+      description: 'Shared utility functions used across packages.',
+    },
+  ]}
+/>
