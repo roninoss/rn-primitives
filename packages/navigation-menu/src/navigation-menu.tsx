@@ -2,6 +2,7 @@ import {
   useAccessibilityFocus,
   useComposedRefs,
   useRelativePosition,
+  useRestoreAccessibilityFocus,
   type LayoutPosition,
 } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
@@ -129,6 +130,7 @@ const Trigger = ({
   const { value, onValueChange, setTriggerPosition } = useRootContext();
   const { value: menuValue } = useItemContext();
   const composedRef = useComposedRefs(ref, triggerRef);
+  useRestoreAccessibilityFocus(value === menuValue, triggerRef);
 
   function onPress(ev: GestureResponderEvent) {
     if (disabled) return;

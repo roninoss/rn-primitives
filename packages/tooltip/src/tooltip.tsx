@@ -3,6 +3,7 @@ import {
   useComposedRefs,
   useEffectEvent,
   useRelativePosition,
+  useRestoreAccessibilityFocus,
   type LayoutPosition,
 } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
@@ -98,6 +99,7 @@ const Trigger = ({
 }: TriggerComponentProps) => {
   const { open, onOpenChange, setTriggerPosition } = useTooltipContext();
   const triggerRef = React.useRef<TriggerRef>(null);
+  useRestoreAccessibilityFocus(open, triggerRef);
 
   function measureTrigger() {
     triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {

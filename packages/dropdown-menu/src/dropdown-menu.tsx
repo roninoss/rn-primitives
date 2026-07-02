@@ -3,6 +3,7 @@ import {
   useComposedRefs,
   useControllableState,
   useEffectEvent,
+  useRestoreAccessibilityFocus,
   useRelativePosition,
   type LayoutPosition,
 } from '@rn-primitives/hooks';
@@ -121,6 +122,7 @@ const Trigger = ({
 }: TriggerComponentProps) => {
   const { open, onOpenChange, setTriggerPosition } = useRootContext();
   const triggerRef = React.useRef<TriggerRef>(null);
+  useRestoreAccessibilityFocus(open, triggerRef);
 
   function measureTrigger() {
     triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
@@ -576,6 +578,9 @@ const SubTrigger = ({
   ...props
 }: SubTriggerComponentProps) => {
   const { open, onOpenChange } = useSubContext();
+  const triggerRef = React.useRef<SubTriggerRef>(null);
+  const composedRef = useComposedRefs(ref, triggerRef);
+  useRestoreAccessibilityFocus(open, triggerRef);
 
   function onPress(ev: GestureResponderEvent) {
     onOpenChange(!open);
@@ -585,7 +590,7 @@ const SubTrigger = ({
   const Component = asChild ? Slot : Pressable;
   return (
     <Component
-      ref={ref}
+      ref={composedRef}
       aria-label={textValue}
       role='menuitem'
       aria-expanded={open}
