@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--dir", "apps/docs", "run", "dev", "--port", "4399"],
+      "port": 4399,
+      "autoPort": false
+    }
+  ]
+}

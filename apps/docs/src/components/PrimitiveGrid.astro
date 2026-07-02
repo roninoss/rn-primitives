@@ -1,0 +1,24 @@
+---
+interface Item {
+  name: string;
+  href: string;
+  description: string;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="rnp-grid not-content">
+  {
+    items.map((item) => (
+      <a class="rnp-card" href={item.href}>
+        <span class="rnp-card-title">{item.name}</span>
+        <span class="rnp-card-desc">{item.description}</span>
+      </a>
+    ))
+  }
+</div>

@@ -5,16 +5,39 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://rnprimitives.com',
   output: 'static',
   adapters: [],
   integrations: [
     starlight({
       favicon: '/favicon.png',
       title: 'rn-primitives',
-      description: 'Documentation for rn-primitives',
+      description:
+        'Unstyled, accessible React Native components with a unified API for iOS, Android, and Web.',
+      logo: {
+        dark: './src/assets/logo-dark.svg',
+        light: './src/assets/logo-light.svg',
+        alt: 'rn-primitives',
+      },
       components: {
         ThemeSelect: './src/components/ThemeSelect.astro',
         Head: './src/components/Head.astro',
+      },
+      expressiveCode: {
+        themes: ['github-dark-default', 'github-light-default'],
+        styleOverrides: {
+          borderRadius: '0.75rem',
+          borderColor: 'var(--sl-color-hairline-light)',
+          codeFontFamily: "'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace",
+          codeFontSize: '0.8125rem',
+          codeLineHeight: '1.7',
+          uiFontFamily: "'Inter Variable', ui-sans-serif, system-ui, sans-serif",
+          frames: {
+            frameBoxShadowCssValue: 'none',
+            editorActiveTabIndicatorTopColor: 'var(--sl-color-accent)',
+            editorActiveTabIndicatorHeight: '2px',
+          },
+        },
       },
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/roninoss/rn-primitives' },
@@ -163,7 +186,12 @@ export default defineConfig({
           ],
         },
       ],
-      customCss: ['./src/tailwind.css'],
+      customCss: [
+        '@fontsource-variable/inter',
+        '@fontsource-variable/jetbrains-mono',
+        './src/tailwind.css',
+        './src/styles/theme.css',
+      ],
     }),
     tailwind({
       applyBaseStyles: false,
