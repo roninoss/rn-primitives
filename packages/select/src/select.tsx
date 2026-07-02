@@ -1,4 +1,5 @@
 import {
+  useAccessibilityFocus,
   useComposedRefs,
   useControllableState,
   useEffectEvent,
@@ -165,6 +166,7 @@ const Trigger = ({
       ref={composedRef}
       aria-disabled={disabled ?? undefined}
       role='combobox'
+      accessibilityState={{ disabled: (disabled || disabledRoot) ?? false, expanded: open }}
       onPress={onPress}
       disabled={disabled ?? disabledRoot}
       aria-expanded={open}
@@ -238,7 +240,7 @@ const Overlay = ({
   }
 
   const Component = asChild ? Slot : Pressable;
-  return <Component ref={ref} onPress={onPress} {...props} />;
+  return <Component ref={ref} accessible={false} onPress={onPress} {...props} />;
 };
 
 Overlay.displayName = 'OverlayNativeSelect';
@@ -264,11 +266,12 @@ const Content = ({
     open,
     onOpenChange,
     contentLayout,
-    nativeID,
     triggerPosition,
     setContentLayout,
     setTriggerPosition,
   } = useRootContext();
+  const accessibilityFocusRef = useAccessibilityFocus<ContentRef>(open);
+  const composedRef = useComposedRefs(ref, accessibilityFocusRef);
 
   React.useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -310,10 +313,14 @@ const Content = ({
   const Component = asChild ? Slot : View;
   return (
     <Component
-      ref={ref}
+      ref={composedRef}
       role='list'
-      nativeID={nativeID}
       aria-modal={true}
+      onAccessibilityEscape={() => {
+        setTriggerPosition(null);
+        setContentLayout(null);
+        onOpenChange(false);
+      }}
       style={[positionStyle, style]}
       onLayout={onLayout}
       onStartShouldSetResponder={onStartShouldSetResponder}
@@ -361,12 +368,12 @@ const Item = ({
         role='option'
         onPress={onPress}
         disabled={disabled}
-        aria-checked={value?.value === itemValue}
-        aria-valuetext={label}
+        aria-selected={value?.value === itemValue}
+        aria-label={label}
         aria-disabled={!!disabled}
         accessibilityState={{
           disabled: !!disabled,
-          checked: value?.value === itemValue,
+          selected: value?.value === itemValue,
         }}
         {...props}
       />

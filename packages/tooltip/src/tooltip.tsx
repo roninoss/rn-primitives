@@ -1,4 +1,5 @@
 import {
+  useAccessibilityFocus,
   useComposedRefs,
   useEffectEvent,
   useRelativePosition,
@@ -135,7 +136,9 @@ const Trigger = ({
     <Component
       ref={composedRef}
       aria-disabled={disabled ?? undefined}
+      aria-expanded={open}
       role='button'
+      accessibilityState={{ disabled: disabled ?? false, expanded: open }}
       onPress={onPress}
       disabled={disabled ?? undefined}
       {...props}
@@ -195,7 +198,7 @@ const Overlay = ({
   }
 
   const Component = asChild ? Slot : Pressable;
-  return <Component ref={ref} onPress={onPress} {...props} />;
+  return <Component ref={ref} accessible={false} onPress={onPress} {...props} />;
 };
 
 Overlay.displayName = 'OverlayNativeTooltip';
@@ -219,12 +222,13 @@ const Content = ({
   const {
     open,
     onOpenChange,
-    nativeID,
     contentLayout,
     setContentLayout,
     setTriggerPosition,
     triggerPosition,
   } = useTooltipContext();
+  const accessibilityFocusRef = useAccessibilityFocus<ContentRef>(open);
+  const composedRef = useComposedRefs(ref, accessibilityFocusRef);
 
   React.useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -266,10 +270,13 @@ const Content = ({
   const Component = asChild ? Slot : View;
   return (
     <Component
-      ref={ref}
+      ref={composedRef}
       role='tooltip'
-      nativeID={nativeID}
-      aria-modal={true}
+      onAccessibilityEscape={() => {
+        setTriggerPosition(null);
+        setContentLayout(null);
+        onOpenChange(false);
+      }}
       style={[positionStyle, style]}
       onLayout={onLayout}
       onStartShouldSetResponder={onStartShouldSetResponder}

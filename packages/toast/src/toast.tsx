@@ -1,3 +1,4 @@
+import { useAccessibilityFocus, useComposedRefs } from '@rn-primitives/hooks';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
 import { Pressable, Text, View, type GestureResponderEvent } from 'react-native';
@@ -14,10 +15,7 @@ import type {
   TitleRef,
 } from './types';
 
-interface RootContext extends RootProps {
-  nativeID: string;
-}
-const ToastContext = React.createContext<RootContext | null>(null);
+const ToastContext = React.createContext<RootProps | null>(null);
 type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
 const Root = ({
@@ -28,7 +26,8 @@ const Root = ({
   ref,
   ...viewProps
 }: RootComponentProps) => {
-  const nativeID = React.useId();
+  const accessibilityFocusRef = useAccessibilityFocus<RootRef>(open && type === 'foreground');
+  const composedRef = useComposedRefs(ref, accessibilityFocusRef);
 
   if (!open) {
     return null;
@@ -41,12 +40,11 @@ const Root = ({
         open,
         onOpenChange,
         type,
-        nativeID,
       }}
     >
       <Component
-        ref={ref}
-        role='status'
+        ref={composedRef}
+        role={type === 'foreground' ? 'alert' : 'status'}
         aria-live={type === 'foreground' ? 'assertive' : 'polite'}
         {...viewProps}
       />
@@ -128,20 +126,16 @@ Action.displayName = 'ActionToast';
 type TitleComponentProps = TitleProps & React.RefAttributes<TitleRef>;
 
 const Title = ({ asChild, ref, ...props }: TitleComponentProps) => {
-  const { nativeID } = useToastContext();
-
   const Component = asChild ? Slot : Text;
-  return <Component ref={ref} role='heading' nativeID={`${nativeID}_label`} {...props} />;
+  return <Component ref={ref} role='heading' {...props} />;
 };
 
 Title.displayName = 'TitleToast';
 type DescriptionComponentProps = DescriptionProps & React.RefAttributes<DescriptionRef>;
 
 const Description = ({ asChild, ref, ...props }: DescriptionComponentProps) => {
-  const { nativeID } = useToastContext();
-
   const Component = asChild ? Slot : Text;
-  return <Component ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
+  return <Component ref={ref} {...props} />;
 };
 
 Description.displayName = 'DescriptionToast';

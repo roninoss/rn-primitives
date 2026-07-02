@@ -26,6 +26,7 @@ const Root = ({
     <Component
       role='progressbar'
       ref={ref}
+      accessible={true}
       aria-valuemax={max}
       aria-valuemin={0}
       aria-valuenow={value}

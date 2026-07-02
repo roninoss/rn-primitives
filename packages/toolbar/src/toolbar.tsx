@@ -56,7 +56,7 @@ const ToggleGroup = ({
         } as ToggleGroupProps
       }
     >
-      <Component ref={ref} role='group' {...viewProps} />
+      <Component ref={ref} role={type === 'single' ? 'radiogroup' : 'group'} {...viewProps} />
     </ToggleGroupContext.Provider>
   );
 };
@@ -95,10 +95,7 @@ const ToggleItem = ({
     onPressProp?.(ev);
   }
 
-  const isChecked =
-    type === 'single' ? ToggleGroupUtils.getIsSelected(value, itemValue) : undefined;
-  const isSelected =
-    type === 'multiple' ? ToggleGroupUtils.getIsSelected(value, itemValue) : undefined;
+  const isSelected = ToggleGroupUtils.getIsSelected(value, itemValue);
 
   const Component = asChild ? Slot : Pressable;
   return (
@@ -107,13 +104,11 @@ const ToggleItem = ({
       aria-disabled={disabled}
       role={type === 'single' ? 'radio' : 'checkbox'}
       onPress={onPress}
-      aria-checked={isChecked}
-      aria-selected={isSelected}
+      aria-checked={isSelected}
       disabled={(disabled || disabledProp) ?? false}
       accessibilityState={{
         disabled: (disabled || disabledProp) ?? false,
-        checked: isChecked,
-        selected: isSelected,
+        checked: isSelected,
       }}
       {...props}
     />

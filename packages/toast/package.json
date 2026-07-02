@@ -32,6 +32,7 @@
     "pub:release": "pnpm publish --access public"
   },
   "dependencies": {
+    "@rn-primitives/hooks": "workspace:*",
     "@rn-primitives/slot": "workspace:*",
     "@rn-primitives/types": "workspace:*"
   },

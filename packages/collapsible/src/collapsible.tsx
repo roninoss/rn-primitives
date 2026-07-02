@@ -12,7 +12,7 @@ import type {
   TriggerRef,
 } from './types';
 
-const CollapsibleContext = React.createContext<(RootContext & { nativeID: string }) | null>(null);
+const CollapsibleContext = React.createContext<RootContext | null>(null);
 type RootComponentProps = RootProps & React.RefAttributes<RootRef>;
 
 const Root = ({
@@ -24,7 +24,6 @@ const Root = ({
   ref,
   ...viewProps
 }: RootComponentProps) => {
-  const nativeID = React.useId();
   const [open = false, onOpenChange] = useControllableState({
     prop: openProp,
     defaultProp: defaultOpen,
@@ -38,7 +37,6 @@ const Root = ({
         disabled,
         open,
         onOpenChange,
-        nativeID,
       }}
     >
       <Component ref={ref} {...viewProps} />
@@ -66,7 +64,7 @@ const Trigger = ({
   ref,
   ...props
 }: TriggerComponentProps) => {
-  const { disabled, open, onOpenChange, nativeID } = useCollapsibleContext();
+  const { disabled, open, onOpenChange } = useCollapsibleContext();
 
   function onPress(ev: GestureResponderEvent) {
     if (disabled || disabledProp) return;
@@ -78,8 +76,8 @@ const Trigger = ({
   return (
     <Component
       ref={ref}
-      nativeID={nativeID}
       aria-disabled={(disabled || disabledProp) ?? undefined}
+      aria-expanded={open}
       role='button'
       onPress={onPress}
       accessibilityState={{
@@ -96,7 +94,7 @@ Trigger.displayName = 'TriggerNativeCollapsible';
 type ContentComponentProps = ContentProps & React.RefAttributes<ContentRef>;
 
 const Content = ({ asChild, forceMount, ref, ...props }: ContentComponentProps) => {
-  const { nativeID, open } = useCollapsibleContext();
+  const { open } = useCollapsibleContext();
 
   if (!forceMount) {
     if (!open) {
@@ -106,13 +104,7 @@ const Content = ({ asChild, forceMount, ref, ...props }: ContentComponentProps) 
 
   const Component = asChild ? Slot : View;
   return (
-    <Component
-      ref={ref}
-      aria-hidden={!(forceMount || open)}
-      aria-labelledby={nativeID}
-      role={'region'}
-      {...props}
-    />
+    <Component ref={ref} aria-hidden={!(forceMount || open)} role={'region'} {...props} />
   );
 };
 

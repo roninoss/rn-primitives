@@ -1,6 +1,6 @@
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, type AccessibilityActionEvent } from 'react-native';
 import type {
   RangeProps,
   RangeRef,
@@ -23,14 +23,14 @@ const Root = ({
   max,
   dir: _dir,
   inverted: _inverted,
-  step: _step,
-  onValueChange: _onValueChange,
+  step,
+  onValueChange,
   ref,
   ...props
 }: RootComponentProps) => {
   const Component = asChild ? Slot : View;
   return (
-    <RootContext.Provider value={{ value, disabled, min, max }}>
+    <RootContext.Provider value={{ value, disabled, min, max, step, onValueChange }}>
       <Component ref={ref} role='group' {...props} />
     </RootContext.Provider>
   );
@@ -45,21 +45,44 @@ function useSliderContext() {
   }
   return context;
 }
+
+const accessibilityActions = [{ name: 'increment' }, { name: 'decrement' }];
 type TrackComponentProps = TrackProps & React.RefAttributes<TrackRef>;
 
-const Track = ({ asChild, ref, ...props }: TrackComponentProps) => {
-  const { value, min, max, disabled } = useSliderContext();
+const Track = ({
+  asChild,
+  onAccessibilityAction: onAccessibilityActionProp,
+  ref,
+  ...props
+}: TrackComponentProps) => {
+  const { value, min, max, disabled, step, onValueChange } = useSliderContext();
+
+  function onAccessibilityAction(event: AccessibilityActionEvent) {
+    if (disabled) return;
+    const delta = step ?? 1;
+    if (event.nativeEvent.actionName === 'increment') {
+      onValueChange?.([Math.min(max ?? 100, value + delta)]);
+    }
+    if (event.nativeEvent.actionName === 'decrement') {
+      onValueChange?.([Math.max(min ?? 0, value - delta)]);
+    }
+    onAccessibilityActionProp?.(event);
+  }
 
   const Component = asChild ? Slot : View;
   return (
     <Component
       ref={ref}
+      accessible={true}
       aria-disabled={disabled}
       role='slider'
       aria-valuemin={min}
       aria-valuemax={max}
       aria-valuenow={value}
       accessibilityValue={{ max, min, now: value }}
+      accessibilityState={{ disabled: disabled ?? false }}
+      accessibilityActions={accessibilityActions}
+      onAccessibilityAction={onAccessibilityAction}
       {...props}
     />
   );
@@ -78,7 +101,7 @@ type ThumbComponentProps = ThumbProps & React.RefAttributes<ThumbRef>;
 
 const Thumb = ({ asChild, ref, ...props }: ThumbComponentProps) => {
   const Component = asChild ? Slot : View;
-  return <Component accessibilityRole='adjustable' ref={ref} {...props} />;
+  return <Component ref={ref} role='presentation' {...props} />;
 };
 
 Thumb.displayName = 'ThumbNativeSlider';

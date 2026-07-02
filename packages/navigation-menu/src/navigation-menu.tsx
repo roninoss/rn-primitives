@@ -1,4 +1,9 @@
-import { useComposedRefs, useRelativePosition, type LayoutPosition } from '@rn-primitives/hooks';
+import {
+  useAccessibilityFocus,
+  useComposedRefs,
+  useRelativePosition,
+  type LayoutPosition,
+} from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
@@ -79,26 +84,23 @@ type ListComponentProps = ListProps & React.RefAttributes<ListRef>;
 
 const List = ({ asChild, ref, ...viewProps }: ListComponentProps) => {
   const Component = asChild ? Slot : View;
-  return <Component ref={ref} role='menubar' {...viewProps} />;
+  return <Component ref={ref} role='list' {...viewProps} />;
 };
 
 List.displayName = 'ListNativeNavigationMenu';
 
-const ItemContext = React.createContext<(ItemProps & { nativeID: string }) | null>(null);
+const ItemContext = React.createContext<ItemProps | null>(null);
 type ItemComponentProps = ItemProps & React.RefAttributes<ItemRef>;
 
 const Item = ({ asChild, value, ref, ...viewProps }: ItemComponentProps) => {
-  const nativeID = React.useId();
-
   const Component = asChild ? Slot : View;
   return (
     <ItemContext.Provider
       value={{
         value,
-        nativeID,
       }}
     >
-      <Component ref={ref} role='menuitem' {...viewProps} />
+      <Component ref={ref} role='listitem' {...viewProps} />
     </ItemContext.Provider>
   );
 };
@@ -144,6 +146,7 @@ const Trigger = ({
       ref={composedRef}
       aria-disabled={disabled ?? undefined}
       role='button'
+      accessibilityState={{ disabled: disabled ?? false, expanded: value === menuValue }}
       onPress={onPress}
       disabled={disabled ?? undefined}
       aria-expanded={value === menuValue}
@@ -207,7 +210,9 @@ const Content = ({
     contentLayout,
     setContentLayout,
   } = useRootContext();
-  const { value: menuValue, nativeID } = useItemContext();
+  const { value: menuValue } = useItemContext();
+  const accessibilityFocusRef = useAccessibilityFocus<ContentRef>(value === menuValue);
+  const composedRef = useComposedRefs(ref, accessibilityFocusRef);
 
   React.useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -249,10 +254,13 @@ const Content = ({
   const Component = asChild ? Slot : View;
   return (
     <Component
-      ref={ref}
-      role='menu'
-      nativeID={nativeID}
-      aria-modal={true}
+      ref={composedRef}
+      role='group'
+      onAccessibilityEscape={() => {
+        setTriggerPosition(null);
+        setContentLayout(null);
+        onValueChange('');
+      }}
       style={[positionStyle, style]}
       onLayout={onLayout}
       onStartShouldSetResponder={onStartShouldSetResponder}
@@ -281,7 +289,7 @@ type IndicatorComponentProps = IndicatorProps & React.RefAttributes<IndicatorRef
 
 const Indicator = ({ asChild, ref, ...props }: IndicatorComponentProps) => {
   const Component = asChild ? Slot : View;
-  return <Component ref={ref} {...props} />;
+  return <Component ref={ref} role='presentation' aria-hidden={true} {...props} />;
 };
 
 Indicator.displayName = 'IndicatorNativeNavigationMenu';

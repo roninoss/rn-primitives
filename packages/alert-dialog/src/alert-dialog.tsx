@@ -1,4 +1,8 @@
-import { useControllableState } from '@rn-primitives/hooks';
+import {
+  useAccessibilityFocus,
+  useComposedRefs,
+  useControllableState,
+} from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import { Slot } from '@rn-primitives/slot';
 import * as React from 'react';
@@ -87,7 +91,9 @@ const Trigger = ({
     <Component
       ref={ref}
       aria-disabled={disabled ?? undefined}
+      aria-expanded={value}
       role='button'
+      accessibilityState={{ disabled: disabled ?? false, expanded: value }}
       onPress={onPress}
       disabled={disabled ?? undefined}
       {...props}
@@ -134,7 +140,9 @@ Overlay.displayName = 'OverlayNativeAlertDialog';
 type ContentComponentProps = ContentProps & React.RefAttributes<ContentRef>;
 
 const Content = ({ asChild, forceMount, ref, ...props }: ContentComponentProps) => {
-  const { open: value, nativeID, onOpenChange } = useRootContext();
+  const { open: value, onOpenChange } = useRootContext();
+  const accessibilityFocusRef = useAccessibilityFocus<ContentRef>(value);
+  const composedRef = useComposedRefs(ref, accessibilityFocusRef);
 
   React.useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -156,12 +164,10 @@ const Content = ({ asChild, forceMount, ref, ...props }: ContentComponentProps) 
   const Component = asChild ? Slot : View;
   return (
     <Component
-      ref={ref}
+      ref={composedRef}
       role='alertdialog'
-      nativeID={nativeID}
-      aria-labelledby={`${nativeID}_label`}
-      aria-describedby={`${nativeID}_desc`}
       aria-modal={true}
+      onAccessibilityEscape={() => onOpenChange(false)}
       {...props}
     />
   );
@@ -191,6 +197,7 @@ const Cancel = ({
       ref={ref}
       aria-disabled={disabled ?? undefined}
       role='button'
+      accessibilityState={{ disabled: disabled ?? false }}
       onPress={onPress}
       disabled={disabled ?? undefined}
       {...props}
@@ -222,6 +229,7 @@ const Action = ({
       ref={ref}
       aria-disabled={disabled ?? undefined}
       role='button'
+      accessibilityState={{ disabled: disabled ?? false }}
       onPress={onPress}
       disabled={disabled ?? undefined}
       {...props}
@@ -233,18 +241,16 @@ Action.displayName = 'ActionNativeAlertDialog';
 type TitleComponentProps = TitleProps & React.RefAttributes<TitleRef>;
 
 const Title = ({ asChild, ref, ...props }: TitleComponentProps) => {
-  const { nativeID } = useRootContext();
   const Component = asChild ? Slot : Text;
-  return <Component ref={ref} role='heading' nativeID={`${nativeID}_label`} {...props} />;
+  return <Component ref={ref} role='heading' {...props} />;
 };
 
 Title.displayName = 'TitleNativeAlertDialog';
 type DescriptionComponentProps = DescriptionProps & React.RefAttributes<DescriptionRef>;
 
 const Description = ({ asChild, ref, ...props }: DescriptionComponentProps) => {
-  const { nativeID } = useRootContext();
   const Component = asChild ? Slot : Text;
-  return <Component ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
+  return <Component ref={ref} {...props} />;
 };
 
 Description.displayName = 'DescriptionNativeAlertDialog';

@@ -1,4 +1,5 @@
 import {
+  useAccessibilityFocus,
   useComposedRefs,
   useEffectEvent,
   useRelativePosition,
@@ -137,7 +138,9 @@ const Trigger = ({
     <Component
       ref={composedRef}
       aria-disabled={disabled ?? undefined}
+      aria-expanded={open}
       role='button'
+      accessibilityState={{ disabled: disabled ?? false, expanded: open }}
       onPress={onPress}
       disabled={disabled ?? undefined}
       {...props}
@@ -197,7 +200,7 @@ const Overlay = ({
   }
 
   const Component = asChild ? Slot : Pressable;
-  return <Component ref={ref} onPress={onPress} {...props} />;
+  return <Component ref={ref} accessible={false} onPress={onPress} {...props} />;
 };
 
 Overlay.displayName = 'OverlayNativeHoverCard';
@@ -222,11 +225,12 @@ const Content = ({
     open,
     onOpenChange,
     contentLayout,
-    nativeID,
     setContentLayout,
     setTriggerPosition,
     triggerPosition,
   } = useRootContext();
+  const accessibilityFocusRef = useAccessibilityFocus<ContentRef>(open);
+  const composedContentRef = useComposedRefs(ref, accessibilityFocusRef);
 
   React.useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -268,10 +272,14 @@ const Content = ({
   const Component = asChild ? Slot : View;
   return (
     <Component
-      ref={ref}
+      ref={composedContentRef}
       role='dialog'
-      nativeID={nativeID}
       aria-modal={true}
+      onAccessibilityEscape={() => {
+        setTriggerPosition(null);
+        setContentLayout(null);
+        onOpenChange(false);
+      }}
       style={[positionStyle, style]}
       onLayout={onLayout}
       onStartShouldSetResponder={onStartShouldSetResponder}
