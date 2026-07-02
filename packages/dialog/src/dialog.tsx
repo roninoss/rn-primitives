@@ -2,6 +2,7 @@ import {
   useAccessibilityFocus,
   useComposedRefs,
   useControllableState,
+  useRestoreAccessibilityFocus,
 } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
 import { Slot } from '@rn-primitives/slot';
@@ -77,6 +78,9 @@ const Trigger = ({
   ...props
 }: TriggerComponentProps) => {
   const { open, onOpenChange } = useRootContext();
+  const triggerRef = React.useRef<TriggerRef>(null);
+  const composedRef = useComposedRefs(ref, triggerRef);
+  useRestoreAccessibilityFocus(open, triggerRef);
 
   function onPress(ev: GestureResponderEvent) {
     if (disabled) return;
@@ -88,7 +92,7 @@ const Trigger = ({
   const Component = asChild ? Slot : Pressable;
   return (
     <Component
-      ref={ref}
+      ref={composedRef}
       aria-disabled={disabled ?? undefined}
       aria-expanded={open}
       role='button'

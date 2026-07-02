@@ -3,6 +3,7 @@ import {
   useComposedRefs,
   useControllableState,
   useRelativePosition,
+  useRestoreAccessibilityFocus,
   type LayoutPosition,
 } from '@rn-primitives/hooks';
 import { Portal as RNPPortal } from '@rn-primitives/portal';
@@ -135,6 +136,7 @@ const Trigger = ({
   const composedRef = useComposedRefs(ref, triggerRef);
   const { value, onValueChange, setTriggerPosition } = useRootContext();
   const { value: menuValue } = useMenuContext();
+  useRestoreAccessibilityFocus(value === menuValue, triggerRef);
 
   function onPress(ev: GestureResponderEvent) {
     if (disabled) return;
@@ -578,6 +580,9 @@ const SubTrigger = ({
   ...props
 }: SubTriggerComponentProps) => {
   const { open, onOpenChange } = useSubContext();
+  const triggerRef = React.useRef<SubTriggerRef>(null);
+  const composedRef = useComposedRefs(ref, triggerRef);
+  useRestoreAccessibilityFocus(open, triggerRef);
 
   function onPress(ev: GestureResponderEvent) {
     onOpenChange(!open);
@@ -587,7 +592,7 @@ const SubTrigger = ({
   const Component = asChild ? Slot : Pressable;
   return (
     <Component
-      ref={ref}
+      ref={composedRef}
       aria-label={textValue}
       role='menuitem'
       aria-expanded={open}
