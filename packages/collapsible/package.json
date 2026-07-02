@@ -1,6 +1,6 @@
 {
   "name": "@rn-primitives/collapsible",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Primitive collapsible",
   "license": "MIT",
   "main": "dist/index.js",
