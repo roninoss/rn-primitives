@@ -33,7 +33,17 @@ const removePortal = (hostName: string, name: string) => {
 export function PortalHost({ name = DEFAULT_PORTAL_HOST }: { name?: string }) {
   const portalMap = usePortal((state) => state.map).get(name) ?? new Map<string, React.ReactNode>();
   if (portalMap.size === 0) return null;
-  return <>{Array.from(portalMap.values())}</>;
+  // Key each portal's subtree by its portal name. A keyless fragment makes React
+  // reconcile portals by array position, so removing one portal slides every later
+  // portal onto its predecessor's component instances: same-type nodes silently
+  // inherit the predecessor's state and diverging nodes are torn down and remounted.
+  return (
+    <>
+      {Array.from(portalMap.entries()).map(([portalName, children]) => (
+        <React.Fragment key={portalName}>{children}</React.Fragment>
+      ))}
+    </>
+  );
 }
 
 export function Portal({
