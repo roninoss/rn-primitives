@@ -1,10 +1,10 @@
 import * as SelectPrimitive from '@rn-primitives/select';
 import * as React from 'react';
-import { Platform, View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { Platform, View, StyleSheet, ViewStyle, StyleProp } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
-import { Check } from '~/lib/icons/Check';
-import { ChevronDown } from '~/lib/icons/ChevronDown';
-import { ChevronUp } from '~/lib/icons/ChevronUp';
+import { useTheme } from '@react-navigation/native';
+import { Check, ChevronDown, ChevronUp } from 'lucide-react-native';
+import { type ICustomTheme } from '~/lib/constants';
 
 type Option = SelectPrimitive.Option;
 
@@ -16,49 +16,39 @@ const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ style, children, ...props }, ref) => (
-  <SelectPrimitive.Trigger ref={ref} {...props}>
-    {({ pressed }) => (
-      <View
-        style={StyleSheet.flatten([
-          {
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            borderRadius: 8,
-            borderWidth: 1,
-            borderColor: 'rgb(229, 231, 235)',
-            backgroundColor: 'rgb(255, 255, 255)',
-            paddingHorizontal: 12,
-            paddingVertical: 8,
-            height: 40,
-            opacity: pressed || props.disabled ? 0.5 : 1,
-          },
-          style as StyleProp<ViewStyle>,
-        ])}
-      >
-        <>{children}</>
-        <ChevronDown size={16} aria-hidden={true} color='rgba(0,0,0,0.5)' />
-      </View>
-    )}
-  </SelectPrimitive.Trigger>
-));
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
+    style?: StyleProp<ViewStyle>;
+  }
+>(({ children, style, disabled, ...props }, ref) => {
+  const { colors } = useTheme();
+  const flattenStyle = StyleSheet.flatten([
+    styles.trigger,
+    { backgroundColor: colors.card, borderColor: colors.border },
+    disabled && { opacity: 0.5 },
+    style,
+  ]);
+
+  return (
+    <SelectPrimitive.Trigger ref={ref} style={flattenStyle} {...props}>
+      <>{children}</>
+      <ChevronDown size={16} aria-hidden={true} color={colors.text} style={{ opacity: 0.7 }} />
+    </SelectPrimitive.Trigger>
+  );
+});
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 /**
  * Platform: WEB ONLY
  */
-const SelectScrollUpButton = ({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>) => {
-  if (Platform.OS !== 'web') {
-    return null;
-  }
+const SelectScrollUpButton = (
+  props: React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>
+) => {
+  const { colors } = useTheme();
+  if (Platform.OS !== 'web') return null;
+
   return (
-    <SelectPrimitive.ScrollUpButton {...props}>
-      <ChevronUp size={14} color='black' />
+    <SelectPrimitive.ScrollUpButton style={styles.scrollButton} {...props}>
+      <ChevronUp size={14} color={colors.text} />
     </SelectPrimitive.ScrollUpButton>
   );
 };
@@ -66,67 +56,52 @@ const SelectScrollUpButton = ({
 /**
  * Platform: WEB ONLY
  */
-const SelectScrollDownButton = ({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>) => {
-  if (Platform.OS !== 'web') {
-    return null;
-  }
+const SelectScrollDownButton = (
+  props: React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>
+) => {
+  const { colors } = useTheme();
+  if (Platform.OS !== 'web') return null;
   return (
-    <SelectPrimitive.ScrollDownButton {...props}>
-      <ChevronDown size={14} color='black' />
+    <SelectPrimitive.ScrollDownButton style={styles.scrollButton} {...props}>
+      <ChevronDown size={14} color={colors.text} />
     </SelectPrimitive.ScrollDownButton>
   );
 };
 
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> & { portalHost?: string }
->(({ style, children, position = 'popper', portalHost, ...props }, ref) => {
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> & {
+    portalHost?: string;
+  }
+>(({ children, position = 'popper', portalHost, style, ...props }, ref) => {
+  // const { open } = SelectPrimitive.useRootContext();
+  const { colors } = useTheme();
+  const flattenOverlayStyles = StyleSheet.flatten([
+    StyleSheet.absoluteFillObject,
+    { backgroundColor: 'rgba(0,0,0,0.3)' },
+  ]);
+  const flattenContentStyles = StyleSheet.flatten([
+    styles.content,
+    {
+      backgroundColor: colors.card,
+      borderColor: colors.border,
+      shadowColor: colors.text,
+    },
+    style,
+  ]); // single style object
+
   return (
     <SelectPrimitive.Portal hostName={portalHost}>
-      <SelectPrimitive.Overlay
-        style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.2)',
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          left: 0,
-          bottom: 0,
-        }}
-      >
+      <SelectPrimitive.Overlay style={flattenOverlayStyles}>
         <Animated.View entering={FadeIn} exiting={FadeOut}>
           <SelectPrimitive.Content
             ref={ref}
-            style={StyleSheet.flatten([
-              {
-                position: 'relative',
-                zIndex: 50,
-                maxWidth: 96 * 4,
-                minWidth: 8 * 4,
-                borderRadius: 8,
-                borderWidth: 1,
-                borderColor: 'rgb(229, 231, 235)',
-                backgroundColor: 'rgb(255, 255, 255)',
-                paddingHorizontal: 4,
-                paddingVertical: 8,
-              },
-              style,
-            ])}
+            style={flattenContentStyles}
             position={position}
             {...props}
           >
             <SelectScrollUpButton />
-            <SelectPrimitive.Viewport
-              className={
-                position === 'popper'
-                  ? 'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]'
-                  : ''
-              }
-            >
-              {children}
-            </SelectPrimitive.Viewport>
+            <SelectPrimitive.Viewport style={styles.viewport}>{children}</SelectPrimitive.Viewport>
             <SelectScrollDownButton />
           </SelectPrimitive.Content>
         </Animated.View>
@@ -139,82 +114,128 @@ SelectContent.displayName = SelectPrimitive.Content.displayName;
 const SelectLabel = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Label>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
->(({ style, ...props }, ref) => (
-  <SelectPrimitive.Label
-    ref={ref}
-    style={StyleSheet.flatten([
-      {
-        paddingVertical: 6,
-        paddingBottom: 8,
-        paddingLeft: 36,
-        paddingRight: 8,
-        fontWeight: '600',
-      },
-      style,
-    ])}
-    {...props}
-  />
-));
+>(({ style, ...props }, ref) => {
+  const { colors } = useTheme();
+  const flattenStyle = StyleSheet.flatten([styles.label, { color: colors.text }, style]);
+
+  return <SelectPrimitive.Label ref={ref} style={flattenStyle} {...props} />;
+});
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ style, children, ...props }, ref) => (
-  <SelectPrimitive.Item
-    ref={ref}
-    style={StyleSheet.flatten([
-      {
-        position: 'relative',
-        flexDirection: 'row',
-        width: '100%',
-        alignItems: 'center',
-        borderRadius: 4,
-        paddingVertical: 8,
-        paddingLeft: 36,
-        paddingRight: 8,
-      },
-      style as StyleProp<ViewStyle>,
-    ])}
-    {...props}
-  >
-    <View
-      style={{
-        position: 'absolute',
-        left: 2.5 * 4,
-        paddingTop: 1,
-        width: 3.5 * 4,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & {
+    style?: StyleProp<ViewStyle>;
+  }
+>(({ children, disabled, style, ...props }, ref) => {
+  const { colors } = useTheme() as ICustomTheme;
+  const flattenItemTextStyle = StyleSheet.flatten([styles.itemText, { color: colors.text }]);
+  const webIndicatorStyle = StyleSheet.flatten([styles.item, disabled && { opacity: 0.5 }, style]);
+  const nativeIndicatorStyle = ({ pressed }: { pressed: boolean }) => [
+    styles.item,
+    disabled && { opacity: 0.5 },
+    pressed && { backgroundColor: colors.accent },
+    style,
+  ];
+
+  return (
+    <SelectPrimitive.Item
+      ref={ref}
+      style={Platform.OS === 'web' ? webIndicatorStyle : nativeIndicatorStyle}
+      {...props}
     >
-      <SelectPrimitive.ItemIndicator>
-        <Check size={16} strokeWidth={3} color='black' />
-      </SelectPrimitive.ItemIndicator>
-    </View>
-    <SelectPrimitive.ItemText />
-  </SelectPrimitive.Item>
-));
+      <View style={styles.itemIndicatorWrapper}>
+        <SelectPrimitive.ItemIndicator>
+          <Check size={16} strokeWidth={3} color={colors.text} />
+        </SelectPrimitive.ItemIndicator>
+      </View>
+      <SelectPrimitive.ItemText style={flattenItemTextStyle} />
+    </SelectPrimitive.Item>
+  );
+});
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
 const SelectSeparator = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Separator>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
->(({ style, ...props }, ref) => (
-  <SelectPrimitive.Separator
-    ref={ref}
-    style={StyleSheet.flatten([
-      {
-        marginHorizontal: -4,
-        marginVertical: 4,
-        backgroundColor: 'rgb(229, 231, 235)',
-      },
-      style,
-    ])}
-    {...props}
-  />
-));
+>(({ style, ...props }, ref) => {
+  const { colors } = useTheme() as ICustomTheme;
+
+  return (
+    <SelectPrimitive.Separator
+      ref={ref}
+      style={[styles.separator, { backgroundColor: colors.muted }, style]}
+      {...props}
+    />
+  );
+});
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
+
+const styles = StyleSheet.create({
+  trigger: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 44,
+    borderWidth: 1,
+    borderRadius: 6,
+    paddingHorizontal: 12,
+  },
+  scrollButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 4,
+  },
+  content: {
+    borderWidth: 1,
+    borderRadius: 6,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+    maxHeight: 300,
+    minWidth: 120,
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+  },
+  viewport: {
+    padding: 4,
+  },
+  label: {
+    paddingVertical: 6,
+    paddingBottom: 8,
+    paddingLeft: 40,
+    paddingRight: 8,
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  item: {
+    position: 'relative',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 8,
+    paddingLeft: 40,
+    paddingRight: 8,
+    borderRadius: 6,
+  },
+  itemIndicatorWrapper: {
+    position: 'absolute',
+    left: 14,
+    height: 14,
+    width: 14,
+    paddingTop: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  itemText: {
+    fontSize: Platform.OS === 'web' ? 14 : 16,
+    lineHeight: Platform.OS === 'web' ? 28 : 24,
+  },
+  separator: {
+    height: 1,
+    marginVertical: 8,
+  },
+});
 
 export {
   Select,
